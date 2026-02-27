@@ -30,7 +30,7 @@ export const resources: Resource[] = [
         "id": "res-1"
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-0",
         "title": "chem esa checklist",
         "subject": "Chemistry",
@@ -63,7 +63,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-3",
         "title": "chem u1 p1",
         "subject": "Chemistry",
@@ -74,7 +74,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-4",
         "title": "chem u1 p2",
         "subject": "Chemistry",
@@ -85,7 +85,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-5",
         "title": "chem u2 p1",
         "subject": "Chemistry",
@@ -96,7 +96,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-6",
         "title": "chem u2 p2",
         "subject": "Chemistry",
@@ -107,7 +107,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-7",
         "title": "chem u3",
         "subject": "Chemistry",
@@ -118,7 +118,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-8",
         "title": "chem u4 p1",
         "subject": "Chemistry",
@@ -129,7 +129,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-9",
         "title": "chem u4 p2",
         "subject": "Chemistry",
@@ -140,7 +140,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-10",
         "title": "chem u4 p3",
         "subject": "Chemistry",
@@ -151,7 +151,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-11",
         "title": "epd u1",
         "subject": "EPD",
@@ -162,7 +162,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-12",
         "title": "epd u3",
         "subject": "EPD",
@@ -173,7 +173,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-13",
         "title": "epd u4",
         "subject": "EPD",
@@ -239,7 +239,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-19",
         "title": "Physics U1 to U4 Notes",
         "subject": "Physics",
@@ -272,7 +272,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-22",
         "title": "Phy U1 Notes",
         "subject": "Physics",
@@ -283,7 +283,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-23",
         "title": "Mechanical U1 Notes",
         "subject": "Mechanical",
@@ -294,7 +294,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-24",
         "title": "Mechanical U2 Notes Part 1",
         "subject": "Mechanical",
@@ -305,7 +305,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-25",
         "title": "Mechanical U2 Notes Part 2",
         "subject": "Mechanical",
@@ -316,7 +316,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-26",
         "title": "Mechanical U3 Notes",
         "subject": "Mechanical",
@@ -327,7 +327,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-27",
         "title": "Mechanical U4 Notes",
         "subject": "Mechanical",
@@ -338,7 +338,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-28",
         "title": "Mechanical ESA Important List",
         "subject": "Mechanical",
@@ -349,7 +349,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-29",
         "title": "EEE U1 Notes",
         "subject": "Electrical",
@@ -360,7 +360,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-30",
         "title": "EEE U2 Notes",
         "subject": "Electrical",
@@ -371,7 +371,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-31",
         "title": "EEE U3 Notes",
         "subject": "Electrical",
@@ -382,7 +382,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-34",
         "title": "EEE U4 Notes",
         "subject": "Electrical",
@@ -393,7 +393,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-35",
         "title": "EEE Theory and Derivations",
         "subject": "Electrical",
@@ -415,7 +415,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-37",
         "title": "C Notes",
         "subject": "C",
@@ -427,7 +427,7 @@ export const resources: Resource[] = [
     },
 
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-39",
         "title": "M1 U1 Notes",
         "subject": "Mathematics 1",
@@ -438,7 +438,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-40",
         "title": "M1 U2 Notes",
         "subject": "Mathematics 1",
@@ -449,7 +449,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-41",
         "title": "M1 U3 Notes",
         "subject": "Mathematics 1",
@@ -460,7 +460,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-42",
         "title": "M1 U4 Notes",
         "subject": "Mathematics 1",
@@ -471,7 +471,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-43",
         "title": "M1 Self Learning",
         "subject": "Mathematics 1",
@@ -493,7 +493,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-46",
         "title": "M1 U1 & U2 Formulas",
         "subject": "Mathematics 1",
@@ -504,7 +504,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-47",
         "title": "M1 U3 & U4 Formulas",
         "subject": "Mathematics 1",
@@ -515,7 +515,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-48",
         "title": "Python U1 Notes",
         "subject": "Python",
@@ -526,7 +526,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-49",
         "title": "Python U2 Notes",
         "subject": "Python",
@@ -537,7 +537,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-50",
         "title": "Python U3 Notes",
         "subject": "Python",
@@ -548,7 +548,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-51",
         "title": "Python U4 Notes",
         "subject": "Python",
@@ -559,7 +559,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-52",
         "title": "Python OOPS Notes",
         "subject": "Python",
@@ -647,7 +647,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-60",
         "title": "C++ Notes (Made for fun, not curriculum)",
         "subject": "Other",
@@ -680,7 +680,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-63",
         "title": "LA U1 and U2 Formulas",
         "subject": "LA",
@@ -691,7 +691,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-64",
         "title": "LA U1 and U2 Classwork Problems",
         "subject": "LA",
@@ -702,7 +702,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-65",
         "title": "LA U3 and U4 Formulas",
         "subject": "LA",
@@ -724,7 +724,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-67",
         "title": "CADD Notes U1-4",
         "subject": "CADD",
@@ -746,7 +746,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-69",
         "title": "ACD U1 and U2 Notes",
         "subject": "ACD",
@@ -757,7 +757,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-70",
         "title": "ACD U3 Notes",
         "subject": "ACD",
@@ -768,7 +768,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-71",
         "title": "ACD U4 Notes",
         "subject": "ACD",
@@ -779,7 +779,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-72",
         "title": "NAS Notes U1 and U2",
         "subject": "NAS",
@@ -790,7 +790,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-73",
         "title": "NAS Notes U3",
         "subject": "NAS",
@@ -812,7 +812,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-75",
         "title": "SNS Notes U1",
         "subject": "S&S",
@@ -834,7 +834,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-77",
         "title": "MEE Notes U1 and U2",
         "subject": "MEE",
@@ -845,7 +845,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-78",
         "title": "MEE Notes U3",
         "subject": "MEE",
@@ -856,7 +856,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-79",
         "title": "MEE Notes U4",
         "subject": "MEE",
@@ -867,18 +867,18 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-80",
         "title": "CCN Interactive Practice Problems",
         "subject": "CNN",
         "year": "3",
         "department": "ECE",
-        "type": "Website",
+        "type": "Drive",
         "url": "https://docs.google.com/spreadsheets/d/1RtgOnQ59LrxhLY0xLFFq9tPBEf58jNgwGSVDOzcRGvg/edit?usp=sharing",
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-81",
         "title": "CCN Notes U1",
         "subject": "CNN",
@@ -889,7 +889,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-82",
         "title": "CCN Notes U2",
         "subject": "CNN",
@@ -900,7 +900,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-83",
         "title": "CCN Notes U3",
         "subject": "CNN",
@@ -911,7 +911,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-84",
         "title": "CCN Notes U4",
         "subject": "CNN",
@@ -922,7 +922,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-85",
         "title": "DSP Formulas and Derivations",
         "subject": "DSP",
@@ -933,7 +933,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-86",
         "title": "DSP Notes U1 and U2",
         "subject": "DSP",
@@ -944,7 +944,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-87",
         "title": "DSP Notes U3",
         "subject": "DSP",
@@ -955,7 +955,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-88",
         "title": "DSP Notes U4",
         "subject": "DSP",
@@ -966,7 +966,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-89",
         "title": "DSP Lab MATLAB Codes",
         "subject": "DSP",
@@ -977,7 +977,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-90",
         "title": "DSP Lab Code Composer Codes",
         "subject": "DSP",
@@ -988,7 +988,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-91",
         "title": "DVLSI U1 U2 Notes",
         "subject": "DVLSI",
@@ -999,7 +999,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-46",
         "title": "DVLSI U3 U4 Notes",
         "subject": "DVLSI",
@@ -1010,40 +1010,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
-        "id": "res-local-92",
-        "title": "NAS U1 and U2 Notes",
-        "subject": "NAS",
-        "year": "2",
-        "department": "ECE",
-        "type": "PDF",
-        "url": "/notes/nas/nas_u1_u2.pdf",
-        "tags": []
-    },
-    {
-        "isHiteshNotes": false,
-        "id": "res-local-93",
-        "title": "NAS U3 Notes",
-        "subject": "NAS",
-        "year": "2",
-        "department": "ECE",
-        "type": "PDF",
-        "url": "/notes/nas/nas_u3.pdf",
-        "tags": []
-    },
-    {
-        "isHiteshNotes": false,
-        "id": "res-local-94",
-        "title": "NAS U4 Notes",
-        "subject": "NAS",
-        "year": "2",
-        "department": "ECE",
-        "type": "PDF",
-        "url": "/notes/nas/nas_u4.pdf",
-        "tags": []
-    },
-    {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-95",
         "title": "CS U1 to U4 Notes",
         "subject": "CS",
@@ -1054,7 +1021,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-96",
         "title": "EMFT U1 Notes",
         "subject": "EMFT",
@@ -1065,7 +1032,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-97",
         "title": "EMFT U3 Notes",
         "subject": "EMFT",
@@ -1076,7 +1043,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-98",
         "title": "EMFT U4 Notes",
         "subject": "EMFT",
@@ -1109,7 +1076,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-101",
         "title": "COD Lab Codes",
         "subject": "COD",
@@ -1128,6 +1095,61 @@ export const resources: Resource[] = [
         "department": "ECE",
         "type": "GitHub",
         "url": "https://github.com/Mallikyesh/RISCV",
+        "tags": []
+    },
+    {
+        "isHiteshNotes": true,
+        "id": "res-local-103",
+        "title": "COD U1 U2 Notes",
+        "subject": "COD",
+        "year": "3",
+        "department": "ECE",
+        "type": "PDF",
+        "url": "/notes/cod/cod_u1_u2.pdf",
+        "tags": []
+    },
+    {
+        "isHiteshNotes": true,
+        "id": "res-local-104",
+        "title": "COD U3 Notes",
+        "subject": "COD",
+        "year": "3",
+        "department": "ECE",
+        "type": "PDF",
+        "url": "/notes/cod/cod_u3.pdf",
+        "tags": []
+    },
+    {
+        "isHiteshNotes": true,
+        "id": "res-local-105",
+        "title": "COD U4 Notes",
+        "subject": "COD",
+        "year": "3",
+        "department": "ECE",
+        "type": "PDF",
+        "url": "/notes/cod/cod_u4.pdf",
+        "tags": []
+    },
+    {
+        "isHiteshNotes": true,
+        "id": "res-local-106",
+        "title": "COD U1 and U2 Question Bank",
+        "subject": "COD",
+        "year": "3",
+        "department": "ECE",
+        "type": "PDF",
+        "url": "/notes/cod/cod_u1_u2_question_bank.pdf",
+        "tags": []
+    },
+    {
+        "isHiteshNotes": true,
+        "id": "res-local-107",
+        "title": "COD U3 and U4 Question Bank",
+        "subject": "COD",
+        "year": "3",
+        "department": "ECE",
+        "type": "PDF",
+        "url": "/notes/cod/cod_u3_u4_question_bank.pdf",
         "tags": []
     },
 ];
