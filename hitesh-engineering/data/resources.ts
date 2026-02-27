@@ -1152,6 +1152,39 @@ export const resources: Resource[] = [
         "url": "/notes/cod/cod_u3_u4_question_bank.pdf",
         "tags": []
     },
+    {
+        "isHiteshNotes": true,
+        "id": "res-local-108",
+        "title": "DC U1 Notes",
+        "subject": "DC",
+        "year": "3",
+        "department": "ECE",
+        "type": "PDF",
+        "url": "/notes/dc/dc_u1.pdf",
+        "tags": []
+    },
+    {
+        "isHiteshNotes": true,
+        "id": "res-local-109",
+        "title": "DC U2 Notes",
+        "subject": "DC",
+        "year": "3",
+        "department": "ECE",
+        "type": "PDF",
+        "url": "/notes/dc/dc_u2.pdf",
+        "tags": []
+    },
+    {
+        "isHiteshNotes": true,
+        "id": "res-local-110",
+        "title": "DC U3 and U4 Notes",
+        "subject": "DC",
+        "year": "3",
+        "department": "ECE",
+        "type": "PDF",
+        "url": "/notes/dc/dc_u3_u4.pdf",
+        "tags": []
+    },
 ];
 
 // Template
