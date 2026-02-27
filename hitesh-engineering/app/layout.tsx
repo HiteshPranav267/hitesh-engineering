@@ -19,10 +19,13 @@ export const metadata: Metadata = {
         title: "Hitesh Pranav Reddy | Portfolio",
         description:
             "Portfolio of Hitesh Pranav Reddy - Electronics & Communication Engineer specializing in VLSI, Hardware Security, and ML.",
-        url: 'https://hiteshpranav.com',
+        url: 'https://hitesh-pranav.vercel.app',
         siteName: 'Hitesh Pranav Reddy Portfolio',
         locale: 'en_US',
         type: 'website',
+    },
+    verification: {
+        google: 'jLd95OrsDzo_uik_gs_23P9WohEKStyvcoRGeDjLIG4',
     },
     twitter: {
         card: 'summary_large_image',

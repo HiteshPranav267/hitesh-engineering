@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: '/',
             disallow: '/private/',
         },
-        sitemap: 'https://hiteshpranav.com/sitemap.xml',
+        sitemap: 'https://hitesh-pranav.vercel.app/sitemap.xml',
     }
 }

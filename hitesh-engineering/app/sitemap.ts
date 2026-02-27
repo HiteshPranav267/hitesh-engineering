@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
     // Use your real domain here once hosted
-    const baseUrl = 'https://hiteshpranav.com'
+    const baseUrl = 'https://hitesh-pranav.vercel.app'
 
     return [
         {
