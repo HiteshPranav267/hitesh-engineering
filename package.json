@@ -1,4 +1,9 @@
 {
+  "name": "hitesh-engineering-root",
+  "version": "1.0.0",
+  "workspaces": [
+    "hitesh-engineering"
+  ],
   "scripts": {
     "dev": "npm run dev --prefix hitesh-engineering",
     "build": "npm run build --prefix hitesh-engineering",

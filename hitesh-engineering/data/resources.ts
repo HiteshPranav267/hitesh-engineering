@@ -14,40 +14,7 @@ export interface Resource {
     url: string;
     semester?: number;
     description?: string;
-    tags?: string[    {
-        "isHiteshNotes": true,
-        "id": "res-local-108",
-        "title": "DC Unit 1 Notes",
-        "subject": "Digital Communication",
-        "year": "3",
-        "department": "ECE",
-        "type": "PDF",
-        "url": "/notes/dc/dc_u1.pdf",
-        "tags": []
-    },
-    {
-        "isHiteshNotes": true,
-        "id": "res-local-109",
-        "title": "DC Unit 2 Notes",
-        "subject": "Digital Communication",
-        "year": "3",
-        "department": "ECE",
-        "type": "PDF",
-        "url": "/notes/dc/dc_u2.pdf",
-        "tags": []
-    },
-    {
-        "isHiteshNotes": true,
-        "id": "res-local-110",
-        "title": "DC Units 3 & 4 Notes",
-        "subject": "Digital Communication",
-        "year": "3",
-        "department": "ECE",
-        "type": "PDF",
-        "url": "/notes/dc/dc_u3_u4.pdf",
-        "tags": []
-    },
-];
+    tags?: string[];
 }
 
 export const resources: Resource[] = [
@@ -74,7 +41,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": true,
+        "isHiteshNotes": false,
         "id": "res-local-1",
         "title": "chem lab",
         "subject": "Chemistry",
@@ -85,7 +52,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": true,
+        "isHiteshNotes": false,
         "id": "res-local-2",
         "title": "chem practise notes",
         "subject": "Chemistry",
@@ -217,7 +184,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": true,
+        "isHiteshNotes": false,
         "id": "res-local-14",
         "title": "Mechanics Statics Course Information",
         "subject": "Mechanics - Statics",
@@ -240,6 +207,17 @@ export const resources: Resource[] = [
     },
     {
         "isHiteshNotes": true,
+        "id": "res-local-111",
+        "title": "Mechanics Statics Textbook",
+        "subject": "Mechanics - Statics",
+        "year": "1",
+        "department": "S&H",
+        "type": "PDF",
+        "url": "/notes/mechanics/Engineering_Mechanics_Statics_8_edition_Text_book.pdf",
+        "tags": []
+    },
+    {
+        "isHiteshNotes": false,
         "id": "res-local-16",
         "title": "Consitution QA",
         "subject": "Constitution",
@@ -250,7 +228,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": true,
+        "isHiteshNotes": false,
         "id": "res-local-17",
         "title": "QB Swami Vivekananda",
         "subject": "Constitution",
@@ -261,7 +239,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": true,
+        "isHiteshNotes": false,
         "id": "res-local-18",
         "title": "QB Mahatma Gandhi",
         "subject": "Constitution",
@@ -294,7 +272,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": true,
+        "isHiteshNotes": false,
         "id": "res-local-21",
         "title": "PESU Notes",
         "subject": "Physics",
@@ -437,7 +415,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": true,
+        "isHiteshNotes": false,
         "id": "res-local-36",
         "title": "EVS",
         "subject": "EVS",
@@ -515,7 +493,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": true,
+        "isHiteshNotes": false,
         "id": "res-local-44",
         "title": "M1 Special Functions Proofs",
         "subject": "Mathematics 1",
@@ -691,7 +669,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": true,
+        "isHiteshNotes": false,
         "id": "res-local-61",
         "title": "LA MATLAB Programs",
         "subject": "LA",
@@ -834,7 +812,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": true,
+        "isHiteshNotes": false,
         "id": "res-local-74",
         "title": "NAS Notes U4",
         "subject": "NAS",
@@ -856,7 +834,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": true,
+        "isHiteshNotes": false,
         "id": "res-local-76",
         "title": "SNS Notes U2 , U3 and U4",
         "subject": "S&S",
@@ -900,7 +878,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-80",
         "title": "CCN Interactive Practice Problems",
         "subject": "CNN",
@@ -1188,8 +1166,8 @@ export const resources: Resource[] = [
     {
         "isHiteshNotes": true,
         "id": "res-local-108",
-        "title": "DC Unit 1 Notes",
-        "subject": "Digital Communication",
+        "title": "DC U1 Notes",
+        "subject": "DC",
         "year": "3",
         "department": "ECE",
         "type": "PDF",
@@ -1199,8 +1177,8 @@ export const resources: Resource[] = [
     {
         "isHiteshNotes": true,
         "id": "res-local-109",
-        "title": "DC Unit 2 Notes",
-        "subject": "Digital Communication",
+        "title": "DC U2 Notes",
+        "subject": "DC",
         "year": "3",
         "department": "ECE",
         "type": "PDF",
@@ -1210,8 +1188,8 @@ export const resources: Resource[] = [
     {
         "isHiteshNotes": true,
         "id": "res-local-110",
-        "title": "DC Units 3 & 4 Notes",
-        "subject": "Digital Communication",
+        "title": "DC U3 and U4 Notes",
+        "subject": "DC",
         "year": "3",
         "department": "ECE",
         "type": "PDF",
