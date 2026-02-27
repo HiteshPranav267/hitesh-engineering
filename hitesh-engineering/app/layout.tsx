@@ -12,11 +12,26 @@ export const metadata: Metadata = {
     title: "Hitesh Pranav Reddy | Portfolio",
     description:
         "Electronics & Communication Engineer specializing in VLSI, Hardware Security, and Machine Learning.",
+    keywords: ["Hitesh Pranav Reddy", "Portfolio", "ECE Engineer", "Hardware Security", "VLSI Design", "Machine Learning", "Cyber Security"],
+    authors: [{ name: "Hitesh Pranav Reddy" }],
+    creator: "Hitesh Pranav Reddy",
     openGraph: {
         title: "Hitesh Pranav Reddy | Portfolio",
         description:
-            "Electronics & Communication Engineer | VLSI & Hardware Security | ML & Security",
-        type: "website",
+            "Portfolio of Hitesh Pranav Reddy - Electronics & Communication Engineer specializing in VLSI, Hardware Security, and ML.",
+        url: 'https://hiteshpranav.com',
+        siteName: 'Hitesh Pranav Reddy Portfolio',
+        locale: 'en_US',
+        type: 'website',
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: "Hitesh Pranav Reddy | Portfolio",
+        description: "Electronics & Communication Engineer | VLSI & Hardware Security | ML & Cyber Security",
+    },
+    robots: {
+        index: true,
+        follow: true,
     },
 };
 
