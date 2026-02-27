@@ -13,6 +13,7 @@ export default function NotesPage() {
     const [selectedYear, setSelectedYear] = useState<Year | 'All'>('All');
     const [selectedDept, setSelectedDept] = useState<Department | 'All'>('All');
     const [selectedType, setSelectedType] = useState<ResourceType | 'All'>('All');
+    const [showHiteshOnly, setShowHiteshOnly] = useState(false);
 
     const filteredResources = useMemo(() => {
         return resources.filter(res => {
@@ -21,10 +22,11 @@ export default function NotesPage() {
             const matchesYear = selectedYear === 'All' || res.year === selectedYear;
             const matchesDept = selectedDept === 'All' || res.department === selectedDept;
             const matchesType = selectedType === 'All' || res.type === selectedType;
+            const matchesHitesh = !showHiteshOnly || res.isHiteshNotes;
 
-            return matchesSearch && matchesYear && matchesDept && matchesType;
+            return matchesSearch && matchesYear && matchesDept && matchesType && matchesHitesh;
         });
-    }, [searchQuery, selectedYear, selectedDept, selectedType]);
+    }, [searchQuery, selectedYear, selectedDept, selectedType, showHiteshOnly]);
 
     const stats = useMemo(() => {
         return {
@@ -142,14 +144,42 @@ export default function NotesPage() {
                                         </div>
                                     </div>
 
+                                    {/* Hitesh's Notes Filter */}
+                                    <div>
+                                        <h3 className="text-xs font-semibold tracking-widest uppercase text-slate-500 mb-4">Hitesh's Collection</h3>
+                                        <button
+                                            onClick={() => setShowHiteshOnly(!showHiteshOnly)}
+                                            className={`w-full group relative flex items-center justify-between p-4 rounded-xl border transition-all duration-300 ${showHiteshOnly
+                                                ? "bg-electric-500/10 border-electric-500/30 text-electric-400"
+                                                : "bg-white/5 border-white/10 text-slate-400 hover:border-white/20 hover:text-white"
+                                                }`}
+                                        >
+                                            <div className="flex items-center gap-3">
+                                                <div className={`p-2 rounded-lg transition-colors ${showHiteshOnly ? "bg-electric-500 text-white shadow-[0_0_15px_rgba(59,130,246,0.4)]" : "bg-white/5"}`}>
+                                                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </div>
+                                                <span className="text-xs font-semibold uppercase tracking-wider">Hitesh's Notes</span>
+                                            </div>
+                                            <div className={`w-8 h-4 rounded-full relative transition-colors ${showHiteshOnly ? "bg-electric-500" : "bg-white/10"}`}>
+                                                <div className={`absolute top-1 w-2 h-2 rounded-full bg-white transition-all transform ${showHiteshOnly ? "left-5" : "left-1"}`} />
+                                            </div>
+                                        </button>
+                                        <p className="mt-2 text-[10px] text-slate-500 italic">
+                                            Hand-written notes and curated summaries by Hitesh.
+                                        </p>
+                                    </div>
+
                                     {/* Reset */}
-                                    {(searchQuery || selectedDept !== 'All' || selectedYear !== 'All' || selectedType !== 'All') && (
+                                    {(searchQuery || selectedDept !== 'All' || selectedYear !== 'All' || selectedType !== 'All' || showHiteshOnly) && (
                                         <button
                                             onClick={() => {
                                                 setSearchQuery("");
                                                 setSelectedDept('All');
                                                 setSelectedYear('All');
                                                 setSelectedType('All');
+                                                setShowHiteshOnly(false);
                                             }}
                                             className="text-xs text-electric-400 hover:text-electric-300 transition-colors flex items-center gap-1"
                                         >
@@ -217,6 +247,11 @@ export default function NotesPage() {
                                                             <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-white/5 text-slate-500 border border-white/5 uppercase">
                                                                 Y{res.year}
                                                             </span>
+                                                            {res.isHiteshNotes && (
+                                                                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-electric-500/10 text-electric-400 border border-electric-500/20 uppercase animate-pulse">
+                                                                    Hitesh
+                                                                </span>
+                                                            )}
                                                         </div>
                                                     </div>
 
