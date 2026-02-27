@@ -1,4 +1,9 @@
 {
+  "scripts": {
+    "dev": "npm run dev --prefix hitesh-engineering",
+    "build": "npm run build --prefix hitesh-engineering",
+    "start": "npm run start --prefix hitesh-engineering"
+  },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.19",
     "framer-motion": "^12.34.3",

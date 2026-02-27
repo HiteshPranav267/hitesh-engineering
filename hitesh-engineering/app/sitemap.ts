@@ -13,6 +13,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
         // Add other static routes here
         {
+            url: `${baseUrl}/projects`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.9,
+        },
+        {
             url: `${baseUrl}/notes`,
             lastModified: new Date(),
             changeFrequency: 'weekly',

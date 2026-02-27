@@ -1,17 +1,20 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 import type { Project } from "@/data/projects";
 
 export default function ProjectCard({ project }: { project: Project }) {
     return (
-        <Link href={`/projects/${project.slug}`}>
+        <a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+        >
             <motion.div
                 whileHover={{ scale: 1.03, y: -4 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-                className="group relative h-full bg-navy-800/50 border border-white/5 rounded-xl p-6 transition-all duration-300 hover:border-electric-500/30 hover:shadow-[0_0_40px_rgba(59,130,246,0.1)]"
+                className="group relative h-full bg-navy-800/50 border border-white/5 rounded-xl p-6 transition-all duration-300 hover:border-electric-500/30 hover:shadow-[0_0_40px_rgba(59,130,246,0.1)] cursor-pointer"
             >
                 <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-electric-500/0 to-violet-500/0 group-hover:from-electric-500/5 group-hover:to-violet-500/5 transition-all duration-500" />
 
@@ -36,6 +39,6 @@ export default function ProjectCard({ project }: { project: Project }) {
                     </div>
                 </div>
             </motion.div>
-        </Link>
+        </a>
     );
 }

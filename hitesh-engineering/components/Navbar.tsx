@@ -3,18 +3,22 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
 const navItems = [
-    { name: "About", href: "#about" },
-    { name: "Projects", href: "#projects" },
-    { name: "Resume", href: "#resume" },
+    { name: "About", href: "/#about" },
+    { name: "Projects", href: "/projects" },
+    { name: "Resume", href: "/#resume" },
     { name: "Notes", href: "/notes" },
-    { name: "Contact", href: "#contact" },
+    { name: "Contact", href: "/#contact" },
 ];
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
+
+    const pathname = usePathname();
+    const router = useRouter();
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -25,9 +29,19 @@ export default function Navbar() {
 
     const handleNavClick = (href: string) => {
         setMobileOpen(false);
-        if (!href.startsWith("#")) return;
-        const el = document.querySelector(href);
-        if (el) el.scrollIntoView({ behavior: "smooth" });
+
+        // If it's a section link and we're on the homepage
+        if (href.startsWith("/#") && pathname === "/") {
+            const id = href.substring(1);
+            const el = document.querySelector(id);
+            if (el) {
+                el.scrollIntoView({ behavior: "smooth" });
+                return;
+            }
+        }
+
+        // Otherwise navigate normally
+        router.push(href);
     };
 
     return (
@@ -37,8 +51,8 @@ export default function Navbar() {
                 animate={{ y: 0 }}
                 transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
                 className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-                        ? "bg-navy-900/80 backdrop-blur-xl border-b border-white/5"
-                        : "bg-transparent"
+                    ? "bg-navy-900/80 backdrop-blur-xl border-b border-white/5"
+                    : "bg-transparent"
                     }`}
             >
                 <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -50,25 +64,15 @@ export default function Navbar() {
                     </Link>
 
                     <div className="hidden md:flex items-center gap-8">
-                        {navItems.map((item) =>
-                            item.href.startsWith("#") ? (
-                                <button
-                                    key={item.name}
-                                    onClick={() => handleNavClick(item.href)}
-                                    className="text-slate-300 hover:text-white transition-colors text-sm tracking-wide"
-                                >
-                                    {item.name}
-                                </button>
-                            ) : (
-                                <Link
-                                    key={item.name}
-                                    href={item.href}
-                                    className="text-slate-300 hover:text-white transition-colors text-sm tracking-wide"
-                                >
-                                    {item.name}
-                                </Link>
-                            )
-                        )}
+                        {navItems.map((item) => (
+                            <button
+                                key={item.name}
+                                onClick={() => handleNavClick(item.href)}
+                                className="text-slate-300 hover:text-white transition-colors text-sm tracking-wide bg-transparent border-none cursor-pointer"
+                            >
+                                {item.name}
+                            </button>
+                        ))}
                     </div>
 
                     <button
@@ -104,35 +108,18 @@ export default function Navbar() {
                         className="fixed inset-0 z-40 bg-navy-900/95 backdrop-blur-xl pt-24 px-6 md:hidden"
                     >
                         <div className="flex flex-col gap-6">
-                            {navItems.map((item, i) =>
-                                item.href.startsWith("#") ? (
-                                    <motion.button
-                                        key={item.name}
-                                        initial={{ opacity: 0, x: -20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: i * 0.06 }}
-                                        onClick={() => handleNavClick(item.href)}
-                                        className="text-2xl text-slate-200 hover:text-white text-left"
-                                    >
-                                        {item.name}
-                                    </motion.button>
-                                ) : (
-                                    <motion.div
-                                        key={item.name}
-                                        initial={{ opacity: 0, x: -20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: i * 0.06 }}
-                                    >
-                                        <Link
-                                            href={item.href}
-                                            onClick={() => setMobileOpen(false)}
-                                            className="text-2xl text-slate-200 hover:text-white"
-                                        >
-                                            {item.name}
-                                        </Link>
-                                    </motion.div>
-                                )
-                            )}
+                            {navItems.map((item, i) => (
+                                <motion.button
+                                    key={item.name}
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: i * 0.06 }}
+                                    onClick={() => handleNavClick(item.href)}
+                                    className="text-2xl text-slate-200 hover:text-white text-left bg-transparent border-none cursor-pointer"
+                                >
+                                    {item.name}
+                                </motion.button>
+                            ))}
                         </div>
                     </motion.div>
                 )}
