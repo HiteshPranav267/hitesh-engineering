@@ -1196,6 +1196,39 @@ export const resources: Resource[] = [
         "url": "/notes/dc/dc_u3_u4.pdf",
         "tags": []
     },
+    {
+        "isHiteshNotes": true,
+        "id": "res-local-112",
+        "title": "TLWA U1 and U2 Notes",
+        "subject": "TLWA",
+        "year": "3",
+        "department": "ECE",
+        "type": "PDF",
+        "url": "/notes/tlwa/tlwa_u1_u2.pdf",
+        "tags": []
+    },
+    {
+        "isHiteshNotes": true,
+        "id": "res-local-113",
+        "title": "TLWA U3 and U4 Notes",
+        "subject": "TLWA",
+        "year": "3",
+        "department": "ECE",
+        "type": "PDF",
+        "url": "/notes/tlwa/tlwa_u3_u4.pdf",
+        "tags": []
+    },
+    {
+        "isHiteshNotes": true,
+        "id": "res-local-114",
+        "title": "MLA Lab Codes",
+        "subject": "MLA",
+        "year": "3",
+        "department": "ECE",
+        "type": "GitHub",
+        "url": "https://github.com/HiteshPranav267/machine-learning-lab-ue23ec352b",
+        "tags": []
+    },
 ];
 
 // Template
