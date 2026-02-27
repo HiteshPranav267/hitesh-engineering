@@ -1,57 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { track } from "@vercel/analytics";
 import SectionHeading from "./SectionHeading";
 import ScrollReveal from "./ScrollReveal";
-
-const education = [
-    {
-        degree: "B.Tech — Electronics & Communication Engineering",
-        institution: "PES University, Bengaluru",
-        period: "2023 – 2027",
-        details: "CGPA: 8.49",
-    },
-    {
-        degree: "High School Secondary Education",
-        institution: "Sri Chaitanya College of Education",
-        period: "2011 – 2023",
-        details: "Completed my schooling with 83.2% in Class 10 and 91.4% in Class 12 (Science), where I discovered my passion for electronics, problem-solving, and technology through academics and extracurricular involvement.Percentage: 95%",
-    },
-];
-
-const experience = [
-    {
-        role: "Student Head",
-        company: "Joy of Engineering Lab (JoEL), PES University",
-        period: "August2024 – Present",
-        bullets: [
-            "Contributed to the backend planning and technical coordination of HackeZee 2025, JoEL's flagship hardware hackathon.",
-            "Assisted in event logistics, participant support, and mentoring, ensuring a smooth experience for all attendees for multiple events",
-            "Mentored 6+ teams on IoT based projects, guiding them through design, implementation, and debugging processes.",
-        ],
-    },
-    {
-        role: "Technical Lead",
-        company: "Center for Information Security, Forensics and Cyber Resilience (C-ISFCR)",
-        period: "June 2025 – July 2025",
-        bullets: [
-            "Collaborated with a team to develop a modular cybersecurity framework for automotive networks.",
-            "Designed and implemented a full-stack intrusion detection system (IDS) using machine learning models.",
-            "Integrated a real-time Python-based firewall with an ensemble of models to enhance vehicular safety.",
-            "Created a Tkinter-based GUI for controlled CAN message injection and post-attack analytics visualization.",
-        ],
-    },
-];
-
-const skills: { category: string; items: string[] }[] = [
-    { category: "Languages", items: ["Python", "C / C++", "Verilog / VHDL"] },
-    { category: "Hardware", items: ["FPGA", "Arduino/RPi"] },
-    { category: "ML & Security", items: ["Scikit-learn", "PyTorch", "IDS / Anomaly Detection", "CAN Bus Security"] },
-    { category: "Tools", items: ["Git", "Vivado", "Linux"] },
-];
+import { resumeData } from "@/data/resume";
+import Link from "next/link";
 
 export default function Resume() {
+    const { education, experience, skills } = resumeData;
+
     return (
         <section id="resume" className="py-24 md:py-32">
             <div className="max-w-5xl mx-auto px-6">
@@ -60,21 +17,33 @@ export default function Resume() {
                     subtitle="Education, experience, and the skills I bring to the table."
                 />
 
-                {/* Download button */}
-                <ScrollReveal className="flex justify-center mb-16">
+                {/* Download buttons */}
+                <ScrollReveal className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
                     <motion.a
-                        href="/resume.pdf"
+                        href="/Resume_Duggireddy_Hitesh_Pranav_Reddy.pdf"
                         download
-                        onClick={() => track('resume_download')}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.97 }}
-                        className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-lg bg-gradient-to-r from-electric-500 to-violet-500 text-white font-medium shadow-lg hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300"
+                        className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-lg bg-navy-800/50 border border-white/10 text-white font-medium hover:bg-white/5 transition-all duration-300"
                     >
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <svg className="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M12 12v6m0 0l-3-3m3 3l3-3M12 3v9" />
                         </svg>
-                        Download Full CV
+                        Static PDF (Original)
                     </motion.a>
+
+                    <Link href="/resume-live?print=true" target="_blank">
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.97 }}
+                            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-lg bg-gradient-to-r from-electric-500 to-violet-500 text-white font-medium shadow-lg hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300"
+                        >
+                            <svg className="w-4 h-4 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                            Generate Live Resume (PDF)
+                        </motion.button>
+                    </Link>
                 </ScrollReveal>
 
                 <div className="grid md:grid-cols-2 gap-12">
@@ -160,3 +129,4 @@ export default function Resume() {
         </section>
     );
 }
+

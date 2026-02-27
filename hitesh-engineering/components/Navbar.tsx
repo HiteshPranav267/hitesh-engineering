@@ -58,9 +58,13 @@ export default function Navbar() {
                 <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
                     <Link
                         href="/"
-                        className="text-xl font-bold bg-gradient-to-r from-electric-400 to-violet-400 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
+                        className="flex items-center hover:opacity-80 transition-opacity"
                     >
-                        HPR
+                        <img
+                            src="/logo.png"
+                            alt="Logo"
+                            className="h-10 w-auto"
+                        />
                     </Link>
 
                     <div className="hidden md:flex items-center gap-8">

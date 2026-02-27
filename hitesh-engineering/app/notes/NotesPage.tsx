@@ -3,7 +3,6 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { track } from "@vercel/analytics";
 import { resources, Resource, Year, Department, ResourceType } from "@/data/resources";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -195,11 +194,6 @@ export default function NotesPage() {
                                                     href={res.url}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    onClick={() => track('resource_click', {
-                                                        resource_id: res.id,
-                                                        resource_title: res.title,
-                                                        resource_type: res.type
-                                                    })}
                                                     className="group flex flex-col h-full bg-navy-800/40 border border-white/5 rounded-xl p-5 hover:border-electric-500/20 hover:bg-navy-800/60 transition-all duration-300"
                                                 >
                                                     <div className="flex items-start justify-between mb-3">

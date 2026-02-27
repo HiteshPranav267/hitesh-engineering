@@ -24,11 +24,4 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- Site Analytics Page -->
-  <url>
-    <loc>https://hitesh-pranav.vercel.app/analytics</loc>
-    <lastmod>2026-02-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
 </urlset>

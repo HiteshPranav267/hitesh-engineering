@@ -1,0 +1,108 @@
+//Impulse response
+#include <stdio.h>
+float x[5] = {1,0,0,0,0};
+float y[5] = {0,0,0,0,0};
+void main(){
+	int i,j;
+	printf("\n To calculate impulse response");
+	for (i = 0; i<5; i++){
+		if(i==0)
+			y[i] = x[i]*0.1311;
+		if(i==1)
+			y[i] = x[i]*0.1311 + 0.2622*x[i-1] + 0.7488*y[i-1];
+		if(i>=2)
+			y[i] = x[i]*0.1311 + 0.2622*x[i-1] + 0.7488*y[i-1]-0.2722*y[i-2];
+		}
+	for (j=0; j<5; j++)
+		printf("\n %f",y[j]);
+}
+			
+
+//DFT
+#include <stdio.h>
+#include <math.h>
+float x[4] = {0,1,2,3};
+float Yreal[4],Yimag[4];
+float theta;
+int n,k,N=4, xlen = 4;
+void main(){
+	for (k = 0; k<N; k++){
+		Yreal[k] = 0;
+		Yimag[k] = 0;
+		for (n = 0; n<xlen; n++){
+			theta = -2*3.141592*k*n/N;
+			Yreal[k] = Yreal[k] + x[n]*cos(theta);
+			Yimag[k] = Yimag[k] + x[n]*sin(theta);
+			printf("%0.2f + j%0.2f\n", Yreal[k], Yimag[k]);}}
+
+//IDFT
+#include <stdio.h>
+#include <math.h>
+float x[4];
+float xreal[4]={6,-2,-2,-2},ximag[4]={0,2,0,-2};
+float theta;
+int n,k,N=4;
+void main(){
+	for (n = 0; n<N; n++){
+		x[n] = 0;
+		for (k = 0; k<N; k++){
+			theta = 2*3.141592*k*n/N;
+			x[n] = x[n] + xreal[k]*cos(theta) - ximag[k]*sin(theta);
+			}
+			x(n) = x[n]/N;
+			}
+			for(n=0; n<N; n++){
+			printf("x[%d] = %.2f\n",n,x[n]);}}
+
+//Linear convolution
+#include <stdio.h>
+int x[20] = h[20] = y[20] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+int l1,l2,N,i,n,k;
+void main(){
+	printf("Enter length of x: ");
+	scanf("%d", &l1);
+	printf("Enter x[20]: \n");
+	for (i = 0; i<l1; i++){scanf("%d",&x[i]);}
+	printf("Enter length of h: ");
+	scanf("%d", &l2);
+	printf("Enter h[20]: \n");
+	for (i = 0; i<l2; i++){scanf("%d",&h[i]);}
+	N = l1 + l2 - 1;
+	for (n = 0; n<N; n++){
+		y[n] = 0;
+		for(k = 0; k<l1; k++){
+			if((n-k) >= 0 && (n-k) < l2){
+				y[n] += x[k]*h[n-k];
+				}
+			}
+		}
+	printf("Convolution result y[n] =\n");
+	for (n = 0; n<N ;n++){printf("%d\n",y[n]);}
+}
+
+//Circular convolution
+#include <stdio.h>
+int x[20] = h[20] = y[20] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+int m,N,sum,i,n,k;
+void main(){
+	printf("Enter N: ");
+	scanf("%d", &N);
+	printf("Enter x[20]: \n");
+	for (i = 0; i<N i++){scanf("%d",&x[i]);}
+	printf("Enter h[20]: \n");
+	for (i = 0; i<N i++){scanf("%d",&h[i]);}
+	printf("Circular convolution: \n");
+	for (m= 0; m<N; m++){
+		sum = 0;
+		for(k = 0; k<N ; k++){
+			if((m-k)>=0)
+				n = m-k;
+			else
+				n = m-k+N;
+			sum+=x[k]*h[n];
+		}
+		y[m] = sum;
+		printf("\ny[%d] = %d",m,y[m]);
+	}
+}
+			

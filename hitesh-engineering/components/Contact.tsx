@@ -2,7 +2,6 @@
 
 import type { JSX } from "react";
 import { motion } from "framer-motion";
-import { track } from "@vercel/analytics";
 import { socialLinks } from "@/data/social";
 import SectionHeading from "./SectionHeading";
 import ScrollReveal from "./ScrollReveal";
@@ -61,7 +60,6 @@ export default function Contact() {
                                 href={link.url}
                                 target={link.icon !== "email" ? "_blank" : undefined}
                                 rel={link.icon !== "email" ? "noopener noreferrer" : undefined}
-                                onClick={() => track('contact_click', { platform: link.name })}
                                 aria-label={link.label}
                                 whileHover={{ scale: 1.1, y: -4 }}
                                 whileTap={{ scale: 0.95 }}
