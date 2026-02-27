@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { track } from "@vercel/analytics";
 import SectionHeading from "./SectionHeading";
 import ScrollReveal from "./ScrollReveal";
 
@@ -44,10 +45,10 @@ const experience = [
 ];
 
 const skills: { category: string; items: string[] }[] = [
-    { category: "Languages", items: ["Python", "C / C++", "TypeScript", "Verilog / VHDL"] },
-    { category: "Hardware", items: ["FPGA", "ARM Cortex-M", "PCB Design", "JTAG / SWD"] },
+    { category: "Languages", items: ["Python", "C / C++", "Verilog / VHDL"] },
+    { category: "Hardware", items: ["FPGA", "Arduino/RPi"] },
     { category: "ML & Security", items: ["Scikit-learn", "PyTorch", "IDS / Anomaly Detection", "CAN Bus Security"] },
-    { category: "Tools", items: ["Git", "Vivado", "KiCad", "Linux", "Docker"] },
+    { category: "Tools", items: ["Git", "Vivado", "Linux"] },
 ];
 
 export default function Resume() {
@@ -64,6 +65,7 @@ export default function Resume() {
                     <motion.a
                         href="/resume.pdf"
                         download
+                        onClick={() => track('resume_download')}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.97 }}
                         className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-lg bg-gradient-to-r from-electric-500 to-violet-500 text-white font-medium shadow-lg hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300"
