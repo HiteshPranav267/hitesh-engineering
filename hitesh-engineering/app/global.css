@@ -1,0 +1,92 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+    /* Navy palette */
+    --color-navy-900: #0B0F1A;
+    --color-navy-800: #0F1629;
+    --color-navy-700: #131B36;
+    --color-navy-600: #1A2342;
+
+    /* Electric blue palette */
+    --color-electric-400: #60A5FA;
+    --color-electric-500: #3B82F6;
+    --color-electric-600: #2563EB;
+    --color-electric-700: #1D4ED8;
+
+    /* Violet palette */
+    --color-violet-400: #A78BFA;
+    --color-violet-500: #7C3AED;
+    --color-violet-600: #6D28D9;
+    --color-violet-700: #5B21B6;
+
+    /* Fonts */
+    --font-family-sans: var(--font-inter), system-ui, sans-serif;
+    --font-family-mono: var(--font-jetbrains), monospace;
+
+    /* Blob animation */
+    --animate-blob: blob 7s infinite;
+
+    @keyframes blob {
+        0% {
+            transform: translate(0px, 0px) scale(1);
+        }
+
+        33% {
+            transform: translate(30px, -50px) scale(1.1);
+        }
+
+        66% {
+            transform: translate(-20px, 20px) scale(0.9);
+        }
+
+        100% {
+            transform: translate(0px, 0px) scale(1);
+        }
+    }
+}
+
+/* ── Base ───────────────────────────────────────────────── */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--color-navy-900);
+    color: #e2e8f0;
+    font-family: var(--font-family-sans);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ── Custom scrollbar ───────────────────────────────────── */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-navy-900);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #334155;
+}
+
+/* ── Text selection ─────────────────────────────────────── */
+::selection {
+    background-color: rgba(59, 130, 246, 0.3);
+    color: #fff;
+}
+
+/* ── Animation delay utilities ──────────────────────────── */
+.animation-delay-2000 {
+    animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+    animation-delay: 4s;
+}
