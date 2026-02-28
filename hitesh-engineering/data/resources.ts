@@ -1229,6 +1229,50 @@ export const resources: Resource[] = [
         "url": "https://github.com/HiteshPranav267/machine-learning-lab-ue23ec352b",
         "tags": []
     },
+    {
+        "isHiteshNotes": false,
+        "id": "res-local-115",
+        "title": "Aayan Sem 4 Resources CSE",
+        "subject": "CSE",
+        "year": "2",
+        "department": "CSE",
+        "type": "Drive",
+        "url": "https://drive.google.com/drive/folders/1paTX0pz8F2wYJwWLPOwaYRGIj1fuhLuL?usp=drive_link",
+        "tags": []
+    },
+    {
+        "isHiteshNotes": false,
+        "id": "res-local-116",
+        "title": "Aayan Sem 5 Resources CSE",
+        "subject": "CSE",
+        "year": "2",
+        "department": "CSE",
+        "type": "Drive",
+        "url": "https://drive.google.com/drive/folders/19MyRmohEJNcp71G-YBnbgMJiK0Qbhqhl?usp=drive_link",
+        "tags": []
+    },
+    {
+        "isHiteshNotes": false,
+        "id": "res-local-117",
+        "title": "Aayan Sem 6 Resources CSE",
+        "subject": "CSE",
+        "year": "2",
+        "department": "CSE",
+        "type": "Drive",
+        "url": "https://drive.google.com/drive/folders/1cD8ZFFKPrujctt8fGV93PaB68HX-3RLJ?usp=drive_link",
+        "tags": []
+    },
+    {
+        "isHiteshNotes": false,
+        "id": "res-local-118",
+        "title": "HPC U1 Dakshin Notes",
+        "subject": "HPC",
+        "year": "3",
+        "department": "ECE",
+        "type": "PDF",
+        "url": "/notes/hpc/hpc_u1_dakshin.pdf",
+        "tags": []
+    },
 ];
 
 // Template
