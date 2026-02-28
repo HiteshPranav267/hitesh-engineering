@@ -51,4 +51,20 @@ export const projects: Project[] = [
         featured: true,
         link: "https://joy-of-engineering.vercel.app",
     },
+    {
+        slug: "life-os",
+        title: "Life OS – Official Website",
+        description:
+            "Designed and developed the official website for Life OS to get back control over your life.",
+        tags: ["Next.js",
+            "TypeScript",
+            "Tailwind CSS",
+            "Web Development",
+            "UI/UX",
+            "Deployment"],
+        details: "A minimalist utility to capture thoughts, track finances, build habits, and plan your days. Private. Synced. Yours.",
+        image: "/projects/life-os.jpg",
+        featured: true,
+        link: "https://life-track-os.vercel.app",
+    },
 ];
