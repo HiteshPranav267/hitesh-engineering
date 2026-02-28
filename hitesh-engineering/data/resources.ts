@@ -896,7 +896,7 @@ export const resources: Resource[] = [
         "year": "3",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/cnn/cnn_u1.pdf",
+        "url": "/notes/ccn/ccn_u1.pdf",
         "tags": []
     },
     {
@@ -907,7 +907,7 @@ export const resources: Resource[] = [
         "year": "3",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/cnn/cnn_u2.pdf",
+        "url": "/notes/ccn/ccn_u2.pdf",
         "tags": []
     },
     {
@@ -918,7 +918,7 @@ export const resources: Resource[] = [
         "year": "3",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/cnn/cnn_u3.pdf",
+        "url": "/notes/ccn/cnn_u3.pdf",
         "tags": []
     },
     {
@@ -929,7 +929,7 @@ export const resources: Resource[] = [
         "year": "3",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/cnn/cnn_u4.pdf",
+        "url": "/notes/ccn/ccn_u4.pdf",
         "tags": []
     },
     {
