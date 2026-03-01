@@ -1284,6 +1284,17 @@ export const resources: Resource[] = [
         "url": "/notes/tlwa/tlwa_u1_u2_num.pdf",
         "tags": []
     },
+    {
+        "isHiteshNotes": true,
+        "id": "res-local-120",
+        "title": "TLWA U1 U2 Formulas and Derivations",
+        "subject": "TLWA",
+        "year": "3",
+        "department": "ECE",
+        "type": "PDF",
+        "url": "/notes/tlwa/tlwa_u1_u2_formulas.pdf",
+        "tags": []
+    },
 ];
 
 // Template
