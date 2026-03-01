@@ -6,43 +6,30 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
 
-// --- Mock Data ---
+// --- Data (zeroed out — tracking starts fresh March 1, 2026) ---
 
 const trafficData = {
-    totalVisitors: "1,284",
-    uniqueVisitors: "842",
-    sessions: "1,560",
-    pageViews: "4,291",
-    avgDuration: "2m 14s",
-    bounceRate: "32.4%",
+    totalVisitors: "0",
+    uniqueVisitors: "0",
+    sessions: "0",
+    pageViews: "0",
+    avgDuration: "--",
+    bounceRate: "--",
 };
 
 const acquisitionSources = [
-    { label: "Direct", value: 35, color: "bg-electric-500" },
-    { label: "Google Search", value: 28, color: "bg-violet-500" },
-    { label: "LinkedIn", value: 20, color: "bg-blue-600" },
-    { label: "GitHub", value: 12, color: "bg-slate-300" },
-    { label: "Other", value: 5, color: "bg-slate-600" },
-];
-
-const topPages = [
-    { path: "/", views: "1,842", trend: "+12%" },
-    { path: "/notes", views: "1,254", trend: "+24%" },
-    { path: "/projects", views: "892", trend: "+8%" },
-    { path: "/resume", views: "303", trend: "+15%" },
-];
-
-const deviceStats = [
-    { label: "Desktop", value: 68, icon: "💻" },
-    { label: "Mobile", value: 28, icon: "📱" },
-    { label: "Tablet", value: 4, icon: "📟" },
+    { label: "Direct", value: 0, color: "bg-electric-500" },
+    { label: "Search", value: 0, color: "bg-violet-500" },
+    { label: "Social", value: 0, color: "bg-blue-600" },
+    { label: "Referral", value: 0, color: "bg-slate-300" },
+    { label: "Other", value: 0, color: "bg-slate-600" },
 ];
 
 const performanceMetrics = [
-    { name: "LCP", value: "1.2s", status: "Good", color: "text-emerald-400" },
-    { name: "FID", value: "15ms", status: "Good", color: "text-emerald-400" },
-    { name: "CLS", value: "0.02", status: "Good", color: "text-emerald-400" },
-    { name: "TTFB", value: "120ms", status: "Excellent", color: "text-emerald-400" },
+    { name: "LCP", value: "--", status: "Measuring...", color: "text-slate-400" },
+    { name: "FID", value: "--", status: "Measuring...", color: "text-slate-400" },
+    { name: "CLS", value: "--", status: "Measuring...", color: "text-slate-400" },
+    { name: "TTFB", value: "--", status: "Measuring...", color: "text-slate-400" },
 ];
 
 // --- Sub-Components ---
@@ -145,20 +132,26 @@ export default function AnalyticsPage() {
                                 </p>
                             </div>
                             <div className="hidden md:block text-right">
-                                <div className="text-sm font-medium text-slate-500 mb-1">Last 30 Days</div>
-                                <div className="text-xs text-slate-600">Feb 1 - Feb 27, 2026</div>
+                                <div className="text-sm font-medium text-electric-400 mb-1 flex items-center gap-2 justify-end">
+                                    <span className="relative flex h-2 w-2">
+                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-electric-400 opacity-75"></span>
+                                        <span className="relative inline-flex rounded-full h-2 w-2 bg-electric-500"></span>
+                                    </span>
+                                    Tracking Active
+                                </div>
+                                <div className="text-xs text-slate-500">Started: March 1, 2026</div>
                             </div>
                         </div>
                     </ScrollReveal>
 
-                    {/* 1. Traffic Analytics Overview */}
+                    {/* Traffic Analytics Overview */}
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
-                        <MetricCard title="Total Visitors" value={trafficData.totalVisitors} subtext="+18%" />
-                        <MetricCard title="Unique" value={trafficData.uniqueVisitors} subtext="+5%" delay={0.05} />
-                        <MetricCard title="Sessions" value={trafficData.sessions} subtext="+12%" delay={0.1} />
-                        <MetricCard title="Page Views" value={trafficData.pageViews} subtext="+22%" delay={0.15} />
-                        <MetricCard title="Avg. Time" value={trafficData.avgDuration} subtext="-2%" delay={0.2} />
-                        <MetricCard title="Bounce Rate" value={trafficData.bounceRate} subtext="-5%" delay={0.25} />
+                        <MetricCard title="Total Visitors" value={trafficData.totalVisitors} subtext="Initializing..." />
+                        <MetricCard title="Unique" value={trafficData.uniqueVisitors} subtext="Initializing..." delay={0.05} />
+                        <MetricCard title="Sessions" value={trafficData.sessions} subtext="Initializing..." delay={0.1} />
+                        <MetricCard title="Page Views" value={trafficData.pageViews} subtext="Initializing..." delay={0.15} />
+                        <MetricCard title="Avg. Time" value={trafficData.avgDuration} subtext="--" delay={0.2} />
+                        <MetricCard title="Bounce Rate" value={trafficData.bounceRate} subtext="--" delay={0.25} />
                     </div>
 
                     <div className="grid lg:grid-cols-2 gap-8 mb-12">
@@ -204,19 +197,8 @@ export default function AnalyticsPage() {
                                     </svg>
                                     Most Visited Pages
                                 </h3>
-                                <div className="space-y-1">
-                                    {topPages.map((page, i) => (
-                                        <div key={page.path} className="flex items-center justify-between p-4 rounded-xl hover:bg-white/5 transition-colors group">
-                                            <div className="flex items-center gap-4">
-                                                <span className="text-slate-600 font-mono text-xs w-4">0{i + 1}</span>
-                                                <span className="text-slate-300 font-mono text-sm group-hover:text-electric-400 transition-colors">{page.path}</span>
-                                            </div>
-                                            <div className="flex items-center gap-6">
-                                                <span className="text-white font-semibold text-sm">{page.views}</span>
-                                                <span className="text-emerald-400 text-[10px] font-bold w-8">{page.trend}</span>
-                                            </div>
-                                        </div>
-                                    ))}
+                                <div className="space-y-4 py-8 text-center border border-dashed border-white/5 rounded-xl">
+                                    <p className="text-slate-500 text-sm">Waiting for first visits...</p>
                                 </div>
 
                                 <div className="mt-8 pt-8 border-t border-white/5">
@@ -263,15 +245,15 @@ export default function AnalyticsPage() {
                                 </div>
                                 <div className="flex gap-10">
                                     <div className="text-center">
-                                        <div className="text-2xl font-bold text-white">4.2K</div>
+                                        <div className="text-2xl font-bold text-white">0</div>
                                         <div className="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Impressions</div>
                                     </div>
                                     <div className="text-center">
-                                        <div className="text-2xl font-bold text-white">152</div>
+                                        <div className="text-2xl font-bold text-white">0</div>
                                         <div className="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Clicks</div>
                                     </div>
                                     <div className="text-center">
-                                        <div className="text-2xl font-bold text-white">3.6%</div>
+                                        <div className="text-2xl font-bold text-white">0%</div>
                                         <div className="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Avg. CTR</div>
                                     </div>
                                 </div>
@@ -288,7 +270,7 @@ export default function AnalyticsPage() {
                                 </div>
                                 <div className="bg-navy-900/40 p-4 rounded-xl border border-white/5 flex items-center justify-center">
                                     <div className="text-center">
-                                        <div className="text-emerald-400 text-3xl font-bold underline decoration-emerald-500/30 underline-offset-8">#12</div>
+                                        <div className="text-slate-500 text-3xl font-bold underline decoration-white/10 underline-offset-8">--</div>
                                         <div className="text-[10px] text-slate-500 uppercase font-bold tracking-widest mt-4">Average Ranking Position</div>
                                     </div>
                                 </div>
@@ -318,15 +300,15 @@ export default function AnalyticsPage() {
                                         </div>
                                     ))}
                                 </div>
-                                <div className="mt-8 flex items-center justify-between bg-emerald-500/5 border border-emerald-500/10 p-4 rounded-xl">
+                                <div className="mt-8 flex items-center justify-between bg-white/5 border border-white/5 p-4 rounded-xl">
                                     <div className="flex items-center gap-3">
-                                        <div className="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold">98</div>
+                                        <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-slate-400 font-bold">--</div>
                                         <div>
                                             <div className="text-sm font-bold text-white">Lighthouse Performance</div>
-                                            <div className="text-[10px] text-slate-400">Desktop Average Score</div>
+                                            <div className="text-[10px] text-slate-400">Benchmarking in progress...</div>
                                         </div>
                                     </div>
-                                    <svg className="w-5 h-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                    <svg className="w-5 h-5 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                                 </div>
                             </div>
                         </ScrollReveal>
@@ -342,23 +324,23 @@ export default function AnalyticsPage() {
                                 </h3>
                                 <div className="space-y-4">
                                     {[
-                                        { label: "Note Downloads", count: 242, icon: "📥" },
-                                        { label: "Resume Views", count: 85, icon: "📄" },
-                                        { label: "Contact Clicks", count: 12, icon: "✉️" },
-                                        { label: "External Links", count: 156, icon: "🔗" },
+                                        { label: "Note Downloads", icon: "📥" },
+                                        { label: "Resume Views", icon: "📄" },
+                                        { label: "Contact Clicks", icon: "✉️" },
+                                        { label: "External Links", icon: "🔗" },
                                     ].map(goal => (
-                                        <div key={goal.label} className="flex items-center justify-between p-3 rounded-lg bg-white/5 border border-white/5">
+                                        <div key={goal.label} className="flex items-center justify-between p-3 rounded-lg bg-white/5 border border-white/5 opacity-50">
                                             <div className="flex items-center gap-3">
                                                 <span className="text-base">{goal.icon}</span>
                                                 <span className="text-slate-300 text-sm">{goal.label}</span>
                                             </div>
-                                            <span className="text-white font-bold">{goal.count}</span>
+                                            <span className="text-white font-bold">0</span>
                                         </div>
                                     ))}
                                 </div>
-                                <div className="mt-8 text-center p-4 rounded-xl bg-violet-500/10 border border-violet-500/20">
-                                    <div className="text-[10px] text-violet-400 font-bold uppercase tracking-widest mb-1">Total Conversions</div>
-                                    <div className="text-3xl font-bold text-white">495</div>
+                                <div className="mt-8 text-center p-4 rounded-xl bg-white/5 border border-white/5">
+                                    <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-1">Total Conversions</div>
+                                    <div className="text-3xl font-bold text-white">0</div>
                                 </div>
                             </div>
                         </ScrollReveal>
@@ -368,28 +350,25 @@ export default function AnalyticsPage() {
                     <ScrollReveal delay={0.2} className="mt-16 text-center max-w-2xl mx-auto">
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/5 text-[10px] text-slate-500 font-medium uppercase tracking-widest">
                             <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                            Data sourced via Vercel Analytics & Google Search Console
+                            Data sourced via Vercel Analytics &amp; Google Search Console
                         </div>
 
                         <div className="mt-8 p-6 rounded-2xl bg-navy-800/40 border border-white/5 text-left">
                             <h4 className="text-white font-bold text-sm mb-3">How this dashboard works</h4>
                             <p className="text-slate-400 text-xs leading-relaxed mb-4">
-                                1. **Live Stats**: The technical performance and device info are **actual live data** pulled from your currently active browser session.
+                                1. <strong>Live Stats</strong>: The device info section is <strong>actual live data</strong> pulled from your currently active browser session.
                             </p>
                             <p className="text-slate-400 text-xs leading-relaxed mb-4">
-                                2. **Global Totals**: To show your site's global total visitors publicly on this page, you would need to set up a **Next.js Server Action** that fetches data from the Vercel REST API using a private `VERCEL_TOKEN`.
+                                2. <strong>Global Totals</strong>: To show your site&apos;s global total visitors publicly on this page, you would need to set up a <strong>Next.js Server Action</strong> that fetches data from the Vercel REST API using a private VERCEL_TOKEN.
                             </p>
-                            <div className="bg-navy-900 p-3 rounded-lg border border-white/5 font-mono text-[10px] text-slate-500">
-                                // Example API Call (Secure Server-Side Only)<br />
-                                const res = await fetch(`https://api.vercel.com/v1/analytics/stats...`, &#123;<br />
-                                &nbsp;&nbsp;headers: &#123; Authorization: `Bearer $&#123;VERCEL_TOKEN&#125;` &#125;<br />
-                                &#125;);
-                            </div>
+                            <p className="text-slate-400 text-xs leading-relaxed">
+                                3. <strong>Vercel Dashboard</strong>: For real-time analytics, visit your project&apos;s Analytics tab in the Vercel Dashboard.
+                            </p>
                         </div>
 
                         <p className="text-slate-600 text-xs mt-8 leading-relaxed">
                             Privacy first: No personally identifiable information (PII) is collected. All data shown is aggregated and anonymized.
-                            Charts are updated every 24 hours. For real-time monitoring, visit the internal Vercel dashboard.
+                            For real-time monitoring, visit the internal Vercel dashboard.
                         </p>
                     </ScrollReveal>
 
