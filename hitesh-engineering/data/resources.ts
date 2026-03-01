@@ -1273,6 +1273,17 @@ export const resources: Resource[] = [
         "url": "/notes/hpc/hpc_u1_dakshin.pdf",
         "tags": []
     },
+    {
+        "isHiteshNotes": true,
+        "id": "res-local-119",
+        "title": "TLWA U1 U2 Numericals",
+        "subject": "TLWA",
+        "year": "3",
+        "department": "ECE",
+        "type": "PDF",
+        "url": "/notes/tlwa/tlwa_u1_u2_num.pdf",
+        "tags": []
+    },
 ];
 
 // Template
