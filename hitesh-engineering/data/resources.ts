@@ -1309,12 +1309,23 @@ export const resources: Resource[] = [
     {
         "isHiteshNotes": true,
         "id": "res-local-122",
-        "title": "MLA U1 U2 Notes",
+        "title": "MLA U1 Notes",
         "subject": "MLA",
         "year": "3",
         "department": "ECE",
         "type": "Website",
-        "url": "/notes/mla/mla_u1_u2_notes.html",
+        "url": "/notes/mla/mla_u1_notes.html",
+        "tags": []
+    },
+        {
+        "isHiteshNotes": true,
+        "id": "res-local-123",
+        "title": "MLA U2 Notes",
+        "subject": "MLA",
+        "year": "3",
+        "department": "ECE",
+        "type": "Website",
+        "url": "/notes/mla/mla_u2_notes.html",
         "tags": []
     },
 ];

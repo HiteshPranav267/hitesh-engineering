@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Machine Learning — Study Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Lora:ital,wght@0,400;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161e;
+    --surface2: #1a1e2a;
+    --border: #252a38;
+    --accent: #f0c040;
+    --accent2: #4fc3f7;
+    --accent3: #a78bfa;
+    --accent4: #34d399;
+    --danger: #f87171;
+    --text: #e8eaf0;
+    --muted: #7a8099;
+    --formula-bg: #0a0c12;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lora', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.85;
+    min-height: 100vh;
+  }
+
+  /* ── SIDEBAR NAV ── */
+  #sidebar {
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
+    width: 240px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    z-index: 100;
+    padding: 24px 0 40px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  #sidebar h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 0 20px 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 12px;
+  }
+  #sidebar a {
+    display: block;
+    padding: 7px 20px;
+    font-family: 'Syne', sans-serif;
+    font-size: 12.5px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s, background 0.2s;
+    border-left: 3px solid transparent;
+  }
+  #sidebar a:hover, #sidebar a.active {
+    color: var(--accent);
+    background: rgba(240,192,64,0.06);
+    border-left-color: var(--accent);
+  }
+  #sidebar a span.num {
+    display: inline-block;
+    min-width: 36px;
+    color: var(--accent3);
+    font-size: 11px;
+    opacity: 0.8;
+  }
+
+  /* ── MAIN CONTENT ── */
+  #main {
+    margin-left: 240px;
+    max-width: 900px;
+    padding: 60px 48px 120px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    margin-bottom: 64px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+  .hero h1 em { color: var(--accent); font-style: normal; }
+  .hero p {
+    margin-top: 20px;
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 560px;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    margin-bottom: 80px;
+    scroll-margin-top: 32px;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    background: rgba(240,192,64,0.1);
+    border: 1px solid rgba(240,192,64,0.3);
+    padding: 3px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .section h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--accent2);
+    margin: 36px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  h3::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 18px;
+    background: var(--accent2);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent4);
+    margin: 24px 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  p { margin-bottom: 14px; }
+
+  /* ── CALLOUT BOXES ── */
+  .callout {
+    border-left: 4px solid var(--accent);
+    background: rgba(240,192,64,0.06);
+    padding: 16px 20px;
+    margin: 24px 0;
+    border-radius: 0 8px 8px 0;
+  }
+  .callout.blue {
+    border-color: var(--accent2);
+    background: rgba(79,195,247,0.06);
+  }
+  .callout.purple {
+    border-color: var(--accent3);
+    background: rgba(167,139,250,0.06);
+  }
+  .callout.green {
+    border-color: var(--accent4);
+    background: rgba(52,211,153,0.06);
+  }
+  .callout.red {
+    border-color: var(--danger);
+    background: rgba(248,113,113,0.06);
+  }
+  .callout-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 8px;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .callout.blue .callout-title { color: var(--accent2); }
+  .callout.purple .callout-title { color: var(--accent3); }
+  .callout.green .callout-title { color: var(--accent4); }
+  .callout.red .callout-title { color: var(--danger); }
+
+  /* ── FORMULA BOX ── */
+  .formula {
+    background: var(--formula-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 14.5px;
+    color: var(--accent3);
+    overflow-x: auto;
+    line-height: 1.7;
+  }
+  .formula .comment {
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* ── KEY TERM ── */
+  .kterm {
+    background: rgba(167,139,250,0.12);
+    color: var(--accent3);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.88em;
+  }
+
+  /* ── TABLE ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+  }
+  th {
+    background: var(--surface2);
+    padding: 10px 14px;
+    text-align: left;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border-bottom: 2px solid var(--border);
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* ── BULLET LIST ── */
+  ul, ol {
+    padding-left: 20px;
+    margin-bottom: 14px;
+  }
+  li { margin-bottom: 6px; }
+  li::marker { color: var(--accent); }
+
+  /* ── MCQ SECTION ── */
+  .mcq-header {
+    text-align: center;
+    padding: 48px 0 32px;
+    border-top: 2px solid var(--accent);
+    margin-top: 80px;
+  }
+  .mcq-header h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 34px;
+    font-weight: 800;
+    color: var(--accent);
+  }
+  .mcq-header p { color: var(--muted); margin-top: 8px; }
+
+  .mcq-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin-bottom: 16px;
+    transition: border-color 0.2s;
+  }
+  .mcq-item:hover { border-color: var(--accent3); }
+  .mcq-q {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    color: #fff;
+    margin-bottom: 14px;
+  }
+  .mcq-q .qnum {
+    color: var(--accent);
+    margin-right: 8px;
+    font-size: 13px;
+  }
+  .mcq-options { list-style: none; padding: 0; }
+  .mcq-options li {
+    padding: 8px 14px;
+    margin-bottom: 6px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .mcq-options li:hover { border-color: var(--accent2); background: rgba(79,195,247,0.05); }
+  .mcq-options li.correct { border-color: var(--accent4); background: rgba(52,211,153,0.1); color: var(--accent4); }
+  .mcq-options li.wrong { border-color: var(--danger); background: rgba(248,113,113,0.08); color: var(--danger); }
+  .mcq-options li.reveal-correct { border-color: var(--accent4); background: rgba(52,211,153,0.1); color: var(--accent4); }
+  .mcq-explain {
+    display: none;
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: var(--surface2);
+    border-radius: 6px;
+    font-size: 13.5px;
+    color: var(--muted);
+    border-left: 3px solid var(--accent4);
+  }
+  .mcq-explain.show { display: block; }
+
+  /* ── SAMPLE Q SECTION ── */
+  .sq-section {
+    margin-top: 80px;
+    padding-top: 48px;
+    border-top: 2px solid var(--accent3);
+  }
+  .sq-section h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--accent3);
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .sq-section .sub { text-align: center; color: var(--muted); font-size: 14px; margin-bottom: 36px; }
+  .sq-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+  }
+  .sq-item .sq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent3);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+  .sq-item .sq-q {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .sq-item .sq-hint {
+    font-size: 13px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+    margin-top: 12px;
+  }
+  .sq-ans-btn {
+    background: none;
+    border: 1px solid var(--accent3);
+    color: var(--accent3);
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: all 0.15s;
+  }
+  .sq-ans-btn:hover { background: rgba(167,139,250,0.1); }
+  .sq-answer {
+    display: none;
+    margin-top: 14px;
+    padding: 16px;
+    background: var(--surface2);
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.8;
+    border-left: 3px solid var(--accent3);
+  }
+  .sq-answer.show { display: block; }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  /* divider */
+  .divider { height: 1px; background: var(--border); margin: 40px 0; }
+
+  /* highlight */
+  mark { background: rgba(240,192,64,0.2); color: var(--accent); padding: 0 4px; border-radius: 3px; }
+
+  @media (max-width: 860px) {
+    #sidebar { display: none; }
+    #main { margin-left: 0; padding: 32px 20px 80px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <h2>ML Study Notes</h2>
+  <a href="#s1-1"><span class="num">1.1</span> What is ML?</a>
+  <a href="#s1-2"><span class="num">1.2</span> ML Applications</a>
+  <a href="#s20-1"><span class="num">20.1</span> Intro to Experiments</a>
+  <a href="#s20-2"><span class="num">20.2</span> Factors & Strategy</a>
+  <a href="#s20-3"><span class="num">20.3</span> Response Surface</a>
+  <a href="#s20-4"><span class="num">20.4</span> Randomization etc.</a>
+  <a href="#s20-5"><span class="num">20.5</span> Guidelines</a>
+  <a href="#s20-6"><span class="num">20.6</span> Cross-Validation</a>
+  <a href="#s20-7"><span class="num">20.7</span> Classifier Metrics</a>
+  <a href="#s20-8"><span class="num">20.8</span> Interval Estimation</a>
+  <a href="#s20-9"><span class="num">20.9</span> Hypothesis Testing</a>
+  <a href="#mcq"><span class="num">🎯</span> MCQ Practice</a>
+  <a href="#sq"><span class="num">📝</span> 4M Questions</a>
+</nav>
+
+<!-- MAIN -->
+<main id="main">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="tag">Unit 1 &amp; Chapter 20 — Complete Notes</div>
+    <h1>Machine <em>Learning</em><br>Study Notes</h1>
+    <p>Detailed, line-by-line coverage of every concept, formula, and nuance — built for university exams. Includes 30 MCQs and 4-mark sample questions.</p>
+  </div>
+
+  <!-- ══════════════════════════════ SECTION 1.1 ══════════════════════════════ -->
+  <div class="section" id="s1-1">
+    <div class="section-header">
+      <span class="section-num">1.1</span>
+      <h2>What Is Machine Learning?</h2>
+    </div>
+
+    <h3>The Algorithm Paradigm — and Its Limits</h3>
+    <p>At the core of traditional computer programming lies the <span class="kterm">algorithm</span> — a precise, finite sequence of instructions that transforms a given input into a desired output. Since computers were first built, programmers have been able to devise algorithms for an enormous range of tasks, making computers indispensable in professional and social life.</p>
+
+    <div class="callout red">
+      <div class="callout-title">⚠ The Fundamental Problem</div>
+      For <strong>some tasks</strong>, despite decades of research, no algorithm exists. These are often tasks humans perform effortlessly and <em>unconsciously</em> — such as recognising a face, navigating a crowded room, playing chess, driving a car, or holding a conversation in a foreign language. Because we do these things without being aware of how, we cannot write down the procedure.
+    </div>
+
+    <h3>The Machine Learning Approach</h3>
+    <p>Machine learning's key insight is: instead of writing the algorithm explicitly, we <em>learn it from data</em>. The approach is:</p>
+    <ol>
+      <li>Start with a very <strong>general model</strong> that has many free <span class="kterm">parameters</span>. Depending on parameter settings, this model can perform all sorts of tasks.</li>
+      <li><strong>Learning</strong> = adjusting parameter values so that the model best matches the observed training data.</li>
+      <li>After training, the model with its particular parameter setting becomes <em>specialised</em> to the task underlying the data — it effectively becomes the algorithm for that task.</li>
+    </ol>
+
+    <div class="callout">
+      <div class="callout-title">✦ Core Definition</div>
+      <strong>Machine learning</strong> is programming computers to <em>optimise a performance criterion</em> using example data or past experience. A model is defined up to some parameters, and learning is the execution of a computer program to optimise those parameters using training data.
+    </div>
+
+    <h3>Why Now? The Data Explosion</h3>
+    <p>Today we have many problems for which we lack algorithms but possess vast amounts of data. Digital technology has made data generation automatic and ubiquitous — every product purchase, movie rental, web visit, social media post, and physical commute generates data. We are simultaneously generators <em>and</em> consumers of data: we want products and services personalised to us, which requires learning our needs and predicting our interests.</p>
+
+    <h4>The Supermarket Example</h4>
+    <p>Consider a supermarket chain selling thousands of goods to millions of customers, recording each transaction (date, customer ID, items, quantities, total spend). The chain wants to learn rules of customer behaviour — predicting which customer will likely buy which product — to maximise sales and profit. Similarly, each customer wants to find products matching their needs.</p>
+    <p>Customer behaviour is not completely random (people buy beer with chips, ice cream in summer, hot chocolate in winter), but the complete process is too complex to specify. We believe we can construct a <strong>good and useful approximation</strong> that captures certain <span class="kterm">patterns or regularities</span>, which can then be used for future predictions — assuming the near future resembles the past.</p>
+
+    <h3>Data Mining</h3>
+    <p>The application of machine learning methods to large databases is called <span class="kterm">data mining</span>. The analogy: just as raw earth is mined to extract precious material, a large volume of data is processed to construct a simple model with valuable predictive accuracy.</p>
+    <p><strong>Application domains:</strong> Retail, Finance (credit scoring, fraud detection, stock market), Manufacturing (optimisation, control, troubleshooting), Medicine (diagnosis), Telecommunications (network optimisation), Science (physics, astronomy, biology data analysis), and the World Wide Web (search, relevance).</p>
+
+    <h3>ML as Part of Artificial Intelligence</h3>
+    <p>Machine learning is not just a database problem — it is also a part of AI. For a system to be genuinely intelligent, it must be able to <em>learn and adapt</em> to environmental changes. Without learning, the system designer must foresee and hard-code solutions for every possible situation — an impossible task in complex, changing environments.</p>
+
+    <h3>Pattern Recognition Example — Face Recognition</h3>
+    <p>Humans recognise faces effortlessly but cannot explain how. A face is not a random collection of pixels; it has structure (symmetry, eyes, nose, mouth in specific positions). Each person's face is a distinct pattern of these features. A learning program analyses sample face images, <em>captures the pattern specific to that person</em>, and then recognises by checking for this pattern in a new image. This is an instance of <span class="kterm">pattern recognition</span>.</p>
+
+    <h3>The Role of Statistics and Computer Science</h3>
+    <p>ML uses <strong>statistics</strong> to build mathematical models because the core task is making inferences from a sample. <strong>Computer science</strong> plays two roles:</p>
+    <ul>
+      <li><strong>Training:</strong> efficient algorithms to solve the optimisation problem, and to store/process massive data.</li>
+      <li><strong>Inference:</strong> once a model is learned, its representation and algorithmic solution for inference must be efficient.</li>
+    </ul>
+    <p>In some applications, the <em>space and time complexity</em> of the learning/inference algorithm may be as important as predictive accuracy.</p>
+
+    <h3>Predictive vs Descriptive Models</h3>
+    <p>A model may be:</p>
+    <ul>
+      <li><strong>Predictive</strong> — to make predictions about unseen future data.</li>
+      <li><strong>Descriptive</strong> — to gain knowledge and understanding from data.</li>
+      <li><strong>Both</strong> simultaneously.</li>
+    </ul>
+  </div>
+
+  <!-- ══════════════════════════════ SECTION 1.2 ══════════════════════════════ -->
+  <div class="section" id="s1-2">
+    <div class="section-header">
+      <span class="section-num">1.2</span>
+      <h2>Examples of Machine Learning Applications</h2>
+    </div>
+
+    <h3>1.2.1 — Association Rules</h3>
+    <p>In retail (e.g., a supermarket chain), <span class="kterm">basket analysis</span> finds associations between products purchased by customers:</p>
+    <div class="callout blue">
+      <div class="callout-title">Rule Form</div>
+      "If people who buy X typically also buy Y, then a customer who buys X but not Y is a potential Y customer."
+    </div>
+    <p>Formally, we are interested in learning a <strong>conditional probability</strong>:</p>
+    <div class="formula">P(Y | X)  — probability of buying Y given X was purchased<br><br>
+Example: P(chips | beer) = 0.7<br>
+<span class="comment">→ 70% of beer buyers also buy chips.</span></div>
+    <p>We can refine this further by conditioning on customer demographics D (gender, age, marital status):</p>
+    <div class="formula">P(Y | X, D)  — personalised conditional probability</div>
+    <p>This framework extends beyond supermarkets — booksellers recommend books, streaming services recommend movies, and web platforms recommend links, all using the same conditional probability machinery.</p>
+
+    <h3>1.2.2 — Classification</h3>
+    <p><span class="kterm">Credit scoring</span> is a canonical classification example. A bank must assess the risk that a loan applicant will default. Given customer attributes (income, savings, collaterals, profession, age, past financial history), the bank classifies applicants as <em>low-risk</em> or <em>high-risk</em>.</p>
+    <p>The bank trains on historical data (past loans + whether they were repaid) to infer a general rule. A learned discriminant might look like:</p>
+    <div class="formula">IF income > θ₁ AND savings > θ₂ THEN low-risk ELSE high-risk</div>
+    <p>This is a <span class="kterm">discriminant function</span> — it separates examples of different classes. Geometrically (Figure 1.1 in text), it draws a boundary in the income–savings space.</p>
+
+    <div class="callout green">
+      <div class="callout-title">Probabilistic Output</div>
+      Instead of a hard 0/1 decision, we may want <strong>P(Y | X)</strong>. E.g., if P(high-risk | x) = 0.8, the customer has 80% probability of being high-risk. The bank then decides based on possible gain vs. loss.
+    </div>
+
+    <h4>Other Classification Applications</h4>
+    <ul>
+      <li><strong>Optical Character Recognition (OCR):</strong> Input = image of character; classes = characters. Especially hard for handwriting (zip codes, cheques) because the same character has many visual forms.</li>
+      <li><strong>Face Recognition:</strong> Input = face image; classes = identities. Harder than OCR — more classes, larger inputs, 3D object with pose/lighting variation, possible occlusion (glasses, beard).</li>
+      <li><strong>Medical Diagnosis:</strong> Inputs = patient info (age, gender, history, symptoms); classes = illnesses. Missing inputs are common (tests not yet done). Wrong decisions can have serious consequences, so the classifier may <em>reject</em> and defer to a human expert.</li>
+      <li><strong>Speech Recognition:</strong> Input = acoustic signal; classes = words. Temporal input (sequence of phonemes). Acoustic information alone is insufficient — a language model encoding syntactic and semantic rules is critical.</li>
+    </ul>
+
+    <h4>Natural Language Processing Applications</h4>
+    <ul>
+      <li><strong>Spam Filtering</strong> — ongoing adversarial game between spammers and filters.</li>
+      <li><strong>Document Summarisation</strong></li>
+      <li><strong>Trend Extraction</strong> from blogs and social media</li>
+      <li><strong>Sentiment Prediction</strong> — is a customer happy or unhappy with a product?</li>
+      <li><strong>Machine Translation</strong> — providing large example pairs of texts in two languages and learning the mapping automatically. Current translation systems are built this way.</li>
+    </ul>
+
+    <h4>Biometrics</h4>
+    <p><span class="kterm">Biometrics</span> = recognition/authentication using physiological (face, fingerprint, iris, palm) and/or behavioural (signature dynamics, voice, gait, keystroke) characteristics. Multiple uncorrelated inputs make forgery harder and the system more accurate. ML is used both in individual recognisers and in combining decisions from multiple modalities.</p>
+
+    <h4>Knowledge Extraction and Outlier Detection</h4>
+    <ul>
+      <li><strong>Knowledge extraction:</strong> A learned rule is a simple model explaining the data. E.g., knowing the discriminant separating low-risk from high-risk customers gives knowledge about the properties of low-risk customers, enabling targeted advertising.</li>
+      <li><strong>Compression:</strong> Fitting a rule to data gives an explanation simpler than the raw data.</li>
+      <li><strong>Outlier / Novelty Detection:</strong> Finding instances that do not obey the general rule. Typical instances share characteristics; those that don't are atypical — may indicate fraud or a novel valid case.</li>
+    </ul>
+
+    <h3>1.2.3 — Regression</h3>
+    <p>In <span class="kterm">regression</span>, the output Y is a real-valued number (not a class label). Example: predicting used car price from attributes (brand, year, engine capacity, mileage, etc.).</p>
+
+    <div class="formula">
+Model:  y = g(x | θ)  <span class="comment">— general form</span><br><br>
+Linear:  y = wx + w₀  <span class="comment">— w and w₀ are parameters optimised for best fit</span><br><br>
+Quadratic:  y = w₂x² + w₁x + w₀  <span class="comment">— when linear is too restrictive</span>
+    </div>
+
+    <p>The ML program optimises parameters θ to minimise <span class="kterm">approximation error</span> — making estimates as close as possible to correct values in the training set. Any nonlinear function can be used.</p>
+
+    <p><strong>Other Regression Examples:</strong></p>
+    <ul>
+      <li><strong>Robot/Autonomous Car Navigation:</strong> Output = steering angle at each time step. Inputs from sensors (camera, GPS). Training data collected by monitoring a human driver.</li>
+      <li><strong>Ranking:</strong> Learning a <em>ranking function</em> rather than an absolute value — e.g., ordering movies by predicted user enjoyment based on genre, actors, and past viewing history.</li>
+    </ul>
+
+    <div class="callout purple">
+      <div class="callout-title">Classification vs Regression</div>
+      Both are <strong>supervised learning</strong> problems (input X, output Y, output values provided by supervisor). The difference: Y is a number in regression, and a class code (e.g., 0/1) in classification. The function g(·) is called the <em>regression function</em> in regression and the <em>discriminant function</em> in classification.
+    </div>
+
+    <h3>1.2.4 — Unsupervised Learning</h3>
+    <p>In <span class="kterm">unsupervised learning</span>, there is no supervisor providing output labels — only input data. The goal is to find <em>regularities</em> in the input space. Certain patterns occur more often than others; we want to discover what generally happens and what doesn't. In statistics, this is called <span class="kterm">density estimation</span>.</p>
+
+    <h4>Clustering</h4>
+    <p>One method for density estimation is <span class="kterm">clustering</span> — finding natural groupings of input. In <strong>customer segmentation</strong>, customers similar in their attributes are allocated to the same group, providing the company with natural groupings. Once groups are found, the company can devise strategies specific to different groups (<span class="kterm">customer relationship management</span>). Outliers in clustering may indicate a niche market.</p>
+
+    <h4>Document Clustering</h4>
+    <p>Group similar documents (news articles into politics, sports, fashion, arts, etc.). Documents are typically represented as <span class="kterm">bag of words</span>: a predefined lexicon of N words, each document as an N-dimensional binary vector (1 if word i appears, 0 otherwise). Suffixes removed to avoid duplicates; stop words ("of", "and") excluded. Documents are grouped based on shared words.</p>
+
+    <h3>1.2.5 — Reinforcement Learning</h3>
+    <p>In some applications, the output is a <em>sequence of actions</em>. No single action matters independently — what matters is the <span class="kterm">policy</span> (the sequence of correct actions to reach the goal). An action is good only if it is part of a good policy.</p>
+
+    <div class="callout">
+      <div class="callout-title">✦ Key Concept</div>
+      <strong>Reinforcement learning</strong> algorithms learn from past good action sequences to generate good policies. The algorithm assesses the goodness of policies and improves over time.
+    </div>
+
+    <p><strong>Game Playing:</strong> Chess has few rules but is very complex (large branching factor, long games). A single move is not inherently good or bad — it depends on context. Learning to play games well is hoped to generalise to applications with evident economic utility.</p>
+    <p><strong>Robot Navigation:</strong> A robot searches for a goal location by trying sequences of moves. After multiple trial runs, it learns the correct action sequence from initial to goal state, as quickly as possible while avoiding obstacles.</p>
+    <p><strong>Challenges in RL:</strong></p>
+    <ul>
+      <li><strong>Partial observability:</strong> Unreliable and partial sensory information (e.g., a camera-equipped robot doesn't know its exact room location, only that there is a wall to its left).</li>
+      <li><strong>Multi-agent settings:</strong> Multiple agents must interact and cooperate (e.g., a team of robots playing soccer).</li>
+    </ul>
+  </div>
+
+  <!-- ══════════════════════════════ SECTION 20.1 ══════════════════════════════ -->
+  <div class="section" id="s20-1">
+    <div class="section-header">
+      <span class="section-num">20.1</span>
+      <h2>Introduction to ML Experiments</h2>
+    </div>
+
+    <p>Given multiple applicable learning algorithms for a problem, we face two key questions:</p>
+    <ol>
+      <li>How do we <strong>assess the expected error</strong> of a learning algorithm on a problem? (e.g., can we say with confidence that the error rate will be less than 2%?)</li>
+      <li>Given two learning algorithms, how do we say <strong>which one has less error</strong> for a given application? (e.g., MLP with 4 vs 8 hidden units; what is the best k in k-NN?)</li>
+    </ol>
+
+    <div class="callout red">
+      <div class="callout-title">⚠ Cannot Use Training Error</div>
+      Training set error is <em>always</em> smaller than test set error — by definition, the model has seen training data. Also, a more complex model (more parameters) will almost always produce fewer training errors than a simpler one. Therefore, training errors cannot be used to assess or compare algorithms.
+    </div>
+
+    <h3>Need for a Validation Set</h3>
+    <p>We need a <span class="kterm">validation set</span> separate from the training set. Even a single run over a validation set may not be sufficient, for two reasons:</p>
+    <ul>
+      <li><strong>Small/noisy sets:</strong> Training and validation sets may contain exceptional instances (noise, outliers) that mislead us.</li>
+      <li><strong>Algorithm randomness:</strong> Methods like backpropagation converge to the nearest local minimum, so starting from different initial weights gives different final classifiers with different validation error rates.</li>
+    </ul>
+    <p>We therefore want <em>several runs</em> to average over sources of randomness. Using the same algorithm multiple times, we generate multiple learners, test them on multiple validation sets, and record a sample of validation errors. We base evaluation on the <strong>distribution</strong> of these validation errors.</p>
+
+    <h3>Important Conditions</h3>
+    <ol>
+      <li>Conclusions are <strong>conditioned on the dataset</strong> — we are comparing algorithms on a specific application, not in a domain-independent way. As stated by the <span class="kterm">No Free Lunch Theorem</span> (Wolpert 1995): there is no universally best learning algorithm. For any algorithm, there is a dataset where it excels and another where it fails.</li>
+      <li>The division into training/validation pairs is only for testing. Once decisions are made, train the final learner on <em>all</em> labeled data.</li>
+      <li>Validation sets used for testing (e.g., algorithm selection) effectively become part of the data used. A separate <strong>test set</strong> — never seen during training or validation — must be kept for final error reporting. Typically: leave 1/3 as test set, use 2/3 for cross-validation.</li>
+      <li>Comparison criteria beyond error rate: risk (loss functions), training time/space complexity, testing time/space complexity, interpretability (knowledge extraction), and programmability.</li>
+    </ol>
+
+    <div class="formula">
+Role of each set:<br>
+• Training set   → optimise model parameters<br>
+• Validation set → optimise hyperparameters / model structure<br>
+• Test set       → report final error (used only once, at the very end)<br><br>
+Example (MLP):<br>
+• Training  → optimise weights<br>
+• Validation → decide # hidden units, learning rate, stopping point<br>
+• Test       → report final error of chosen architecture
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════ SECTION 20.2 ══════════════════════════════ -->
+  <div class="section" id="s20-2">
+    <div class="section-header">
+      <span class="section-num">20.2</span>
+      <h2>Factors, Response, and Strategy of Experimentation</h2>
+    </div>
+
+    <p>As in other branches of science and engineering, in ML we do experiments to get information about the process under scrutiny — a learner that, having been trained on a dataset, generates an output for a given input.</p>
+
+    <h3>Key Terminology</h3>
+    <ul>
+      <li><strong>Experiment:</strong> A test or series of tests where we manipulate factors and observe changes in the response.</li>
+      <li><span class="kterm">Factors:</span> Variables we vary — can be the algorithm, training set, input features, hyperparameters, etc.</li>
+      <li><span class="kterm">Response:</span> The measured output — e.g., classification accuracy on a test set.</li>
+    </ul>
+
+    <p>Goals of experimentation: identify the most important factors, screen unimportant ones, or find the configuration that optimises the response.</p>
+
+    <h3>Controllable vs Uncontrollable Factors</h3>
+    <table>
+      <tr><th>Type</th><th>Definition</th><th>Examples</th></tr>
+      <tr><td><strong>Controllable</strong></td><td>Factors we have control over</td><td>Learning algorithm, hyperparameters (hidden units, k, C), dataset used, input representation</td></tr>
+      <tr><td><strong>Uncontrollable</strong></td><td>Factors adding undesired variability</td><td>Data noise, particular training subset (in resampling), randomness in optimisation (initial weights in gradient descent)</td></tr>
+    </table>
+
+    <h3>Strategies of Experimentation (Figure 20.2)</h3>
+
+    <h4>Strategy A: Best Guess</h4>
+    <p>Start at a configuration believed to be good. Test response, fiddle with one (or very few) factors at a time until reaching a "good enough" state. <strong>Drawback:</strong> no systematic approach; no guarantee of finding the best configuration.</p>
+
+    <h4>Strategy B: One Factor at a Time (OFAT)</h4>
+    <p>Set a baseline for all factors, then try different levels for <em>one</em> factor while keeping all others at baseline. <strong>Major disadvantage:</strong> assumes no interaction between factors, which is usually false. For example, in a PCA + k-NN cascade, each choice for dimensionality d defines a different input space where a different k may be optimal.</p>
+
+    <h4>Strategy C: Factorial Design (Grid Search)</h4>
+    <p>The <span class="kterm">correct approach</span>: vary all factors together. All combinations of factor levels are tested.</p>
+    <div class="formula">
+OFAT time complexity:   O(L · F)  <span class="comment">— L levels, F factors</span><br>
+Factorial time complexity: O(L^F)  <span class="comment">— exponentially more runs, but captures interactions</span>
+    </div>
+    <p>This "colloquially called grid search" is necessary when factors interact — which is most of the time.</p>
+  </div>
+
+  <!-- ══════════════════════════════ SECTION 20.3 ══════════════════════════════ -->
+  <div class="section" id="s20-3">
+    <div class="section-header">
+      <span class="section-num">20.3</span>
+      <h2>Response Surface Design</h2>
+    </div>
+
+    <p>A full factorial design with many factors and levels is expensive. Two alternatives exist:</p>
+    <ul>
+      <li><strong>Fractional factorial design:</strong> Run only a subset of all combinations.</li>
+      <li><strong>Response surface design:</strong> Use knowledge from previous runs to estimate which configurations are likely to have high response.</li>
+    </ul>
+
+    <h3>The Quadratic Assumption</h3>
+    <p>If we can assume the response is quadratic (with a single maximum), we don't need to try all levels. Instead:</p>
+    <ol>
+      <li>Start with some initial runs.</li>
+      <li>Fit a quadratic function to the results.</li>
+      <li>Find the maximum of the fitted quadratic analytically.</li>
+      <li>Take that as the next estimate, run an experiment there.</li>
+      <li>Add new data to the sample, refit, repeat — until convergence.</li>
+    </ol>
+
+    <h3>General Response Surface Model</h3>
+    <div class="formula">
+r = g(f₁, f₂, …, f_F | φ)<br><br>
+where:<br>
+  r       = response variable<br>
+  fᵢ      = factor i (i = 1, …, F)<br>
+  φ       = parameters of the fitted model<br>
+  g(·)    = typically a quadratic regression function<br><br>
+Uncontrollable factors are modelled as noise.
+    </div>
+    <p>After a small number of runs around some baseline (defined by a <span class="kterm">design matrix</span>), enough data exists to fit g(·). We analytically find where g is maximised, run an experiment there, add the data, refit, and iterate until convergence.</p>
+
+    <div class="callout red">
+      <div class="callout-title">⚠ Limitation</div>
+      This approach works only if the response can indeed be written as a quadratic function of the factors with a <em>single maximum</em>. If the response surface is multimodal or highly non-convex, this method may converge to a local rather than global optimum.
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════ SECTION 20.4 ══════════════════════════════ -->
+  <div class="section" id="s20-4">
+    <div class="section-header">
+      <span class="section-num">20.4</span>
+      <h2>Randomization, Replication, and Blocking</h2>
+    </div>
+
+    <p>These are the <strong>three basic principles of experimental design</strong>.</p>
+
+    <h3>1. Randomization</h3>
+    <p>The order in which experimental runs are carried out should be <em>randomly determined</em> so that results are independent. In physical experiments, machines need warm-up time, so random ordering prevents time from biasing results.</p>
+    <div class="callout green">
+      <div class="callout-title">ML Note</div>
+      Ordering is generally not a problem in software/ML experiments. However, randomisation is still important in <em>which subsets</em> of data are used for training vs validation.
+    </div>
+
+    <h3>2. Replication</h3>
+    <p>For the same configuration of controllable factors, the experiment should be run <em>multiple times</em> to average over the effect of uncontrollable factors. In ML, this is done by running the same algorithm on multiple resampled versions of the same dataset — which is <span class="kterm">cross-validation</span>.</p>
+    <p>How the response varies across replications gives an estimate of <strong>experimental error</strong> (effect of uncontrollable factors), which is needed to determine how large a difference must be to be statistically significant.</p>
+
+    <h3>3. Blocking</h3>
+    <p><span class="kterm">Blocking</span> reduces or eliminates variability due to <em>nuisance factors</em> — factors that influence the response but are not of interest.</p>
+    <div class="callout purple">
+      <div class="callout-title">ML Context</div>
+      When comparing two learning algorithms using resampling, both algorithms must use the <em>same resampled subsets</em>. Otherwise, accuracy differences could be due to different training data, not the algorithms themselves. Making them use identical training sets is blocking. In statistics for two populations, this is called <strong>pairing</strong> and is used in <em>paired testing</em>.
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════ SECTION 20.5 ══════════════════════════════ -->
+  <div class="section" id="s20-5">
+    <div class="section-header">
+      <span class="section-num">20.5</span>
+      <h2>Guidelines for Machine Learning Experiments</h2>
+    </div>
+
+    <p>These guidelines apply regardless of task type (classification, regression, unsupervised, reinforcement learning). The difference is only in the sampling distribution of the collected response data.</p>
+
+    <h3>A. Aim of the Study</h3>
+    <p>State the problem clearly and define objectives:</p>
+    <ul>
+      <li>Assess expected error of a learning algorithm (e.g., is error < acceptable level?).</li>
+      <li>Determine which of two algorithms has less generalisation error.</li>
+      <li>Choose the best among more than two algorithms, or order them by error.</li>
+      <li>Compare algorithms across multiple datasets.</li>
+    </ul>
+
+    <h3>B. Selection of the Response Variable</h3>
+    <p>Decide the quality measure:</p>
+    <ul>
+      <li><strong>Misclassification error</strong> for classification.</li>
+      <li><strong>Mean square error (MSE)</strong> for regression.</li>
+      <li><strong>Risk</strong> — generalisation of 0/1 loss using an arbitrary loss function.</li>
+      <li><strong>Precision and Recall</strong> for information retrieval.</li>
+      <li>In cost-sensitive settings: system complexity, not just output.</li>
+    </ul>
+
+    <h3>C. Choice of Factors and Levels</h3>
+    <p>Factors depend on the aim: hyperparameters if optimising a fixed algorithm; the algorithm itself if comparing algorithms; datasets if doing multi-dataset comparison.</p>
+    <p><strong>Key advice on levels:</strong> Normalise factor levels. For k-NN, try k = 1, 3, 5, … For Parzen window bandwidth h, don't use absolute values — instead, express h as multiples of a data-derived statistic (e.g., average distance to nearest neighbour), since absolute values depend on input scale.</p>
+
+    <h3>D. Choice of Experimental Design</h3>
+    <ul>
+      <li>Use <strong>factorial design</strong> unless sure that factors don't interact (they usually do).</li>
+      <li>Replication number depends on dataset size; keep small for large datasets. Too few replicates make distribution comparison difficult; Gaussianity assumptions may not hold for parametric tests.</li>
+      <li>Leave some data as the test set before any experimentation; use the rest for training/validation via resampling.</li>
+      <li>Avoid toy/synthetic data. Use datasets from real-world conditions. Low-dimensional didactic examples can provide intuition but algorithm behaviour in high-dimensional spaces may differ completely.</li>
+    </ul>
+
+    <h3>E. Performing the Experiment</h3>
+    <ul>
+      <li>Do trial runs at a few random settings before the full factorial experiment to check all is as expected.</li>
+      <li>Save intermediate results (or RNG seeds) so parts can be rerun. All results should be <strong>reproducible</strong>.</li>
+      <li>Be aware of <em>software aging</em> effects in long experiments.</li>
+      <li>Be unbiased: investigate your own algorithm and competitors equally diligently. In large-scale studies, consider having different people for testing and development.</li>
+      <li>Use reliable, well-tested code libraries rather than writing custom implementations. Follow good software engineering practices: documentation, version control.</li>
+    </ul>
+
+    <h3>F. Statistical Analysis of the Data</h3>
+    <p>Frame questions as <span class="kterm">hypothesis tests</span>. E.g., "Is A more accurate than B?" becomes "Can we say the average error of learners trained by A is significantly lower than those trained by B?"</p>
+    <p>Use visual analysis: histograms of error distributions, whisker-and-box plots, range plots.</p>
+
+    <h3>G. Conclusions and Recommendations</h3>
+    <ul>
+      <li>Most statistical studies are <em>iterative</em>. Invest no more than 25% of resources in the first experiment — first runs are for investigation only.</li>
+      <li>Statistical testing tells us how much the sample <em>concurs</em> with the hypothesis — not that the hypothesis is definitively true or false.</li>
+      <li>When expectations are not met, investigate why. A deficiency in your favourite algorithm is a hint for improvement.</li>
+      <li>Do not move to the next step before completely analysing the current data. Test every idea before acting on it.</li>
+    </ul>
+  </div>
+
+  <!-- ══════════════════════════════ SECTION 20.6 ══════════════════════════════ -->
+  <div class="section" id="s20-6">
+    <div class="section-header">
+      <span class="section-num">20.6</span>
+      <h2>Cross-Validation and Resampling Methods</h2>
+    </div>
+
+    <p>For replication, we need multiple training/validation pairs from dataset X (after setting aside a test set). Ideally, divide X into K parts, divide each into training and validation halves — but datasets are never large enough for this. So we use <span class="kterm">cross-validation</span>: repeated use of the same data, split differently each time.</p>
+
+    <div class="callout red">
+      <div class="callout-title">⚠ Dependency Issue</div>
+      Cross-validation makes error percentages <em>dependent</em> because different sets share data. This is a known limitation we must account for in statistical testing.
+    </div>
+
+    <p>Goals when generating K training/validation pairs:</p>
+    <ul>
+      <li>Keep training and validation sets as <em>large</em> as possible (robust error estimates).</li>
+      <li>Keep <em>overlap</em> between different sets as small as possible.</li>
+      <li><span class="kterm">Stratification:</span> Ensure classes are represented in their correct proportions in each sample. If a class has 20% examples overall, each sample should also have ~20%.</li>
+    </ul>
+
+    <h3>20.6.1 — K-Fold Cross-Validation</h3>
+    <p>Dataset X is divided randomly into K equal parts X₁, X₂, …, Xₖ. Each pair is formed by holding out one part as the validation set and combining the remaining K−1 as the training set:</p>
+    <div class="formula">
+V₁ = X₁,   T₁ = X₂ ∪ X₃ ∪ … ∪ Xₖ<br>
+V₂ = X₂,   T₂ = X₁ ∪ X₃ ∪ … ∪ Xₖ<br>
+  ⋮<br>
+Vₖ = Xₖ,   Tₖ = X₁ ∪ X₂ ∪ … ∪ Xₖ₋₁
+    </div>
+
+    <h4>Problems with K-Fold</h4>
+    <ul>
+      <li>To keep training sets large, validation sets become small.</li>
+      <li>Any two training sets share K−2 parts (significant overlap).</li>
+    </ul>
+
+    <h4>Choosing K</h4>
+    <ul>
+      <li>Typical values: K = 10 or K = 30.</li>
+      <li>As K increases: larger training sets → more robust estimators, but smaller validation sets and higher computational cost.</li>
+      <li>As N (dataset size) increases, K can be smaller. If N is small, K should be large.</li>
+    </ul>
+
+    <h4>Leave-One-Out (LOO)</h4>
+    <p>Extreme case of K-fold: each validation set contains exactly one instance, training uses the remaining N−1. This gives N pairs. Typically used in medical diagnosis where labeled data is scarce. <strong>Does not permit stratification.</strong></p>
+
+    <div class="callout green">
+      <div class="callout-title">Modern Practice</div>
+      With cheaper computation, <strong>multiple runs of K-fold</strong> cross-validation (e.g., 10 × 10-fold) are now feasible, and averaging over averages gives more reliable error estimates (Bouckaert 2003).
+    </div>
+
+    <h3>20.6.2 — 5 × 2 Cross-Validation (Dietterich 1998)</h3>
+    <p>Uses training and validation sets of <em>equal size</em>. Procedure:</p>
+    <ol>
+      <li>Divide X randomly into two halves X₁⁽¹⁾ and X₁⁽²⁾. First pair: T₁ = X₁⁽¹⁾, V₁ = X₁⁽²⁾. Second pair (swap): T₂ = X₁⁽²⁾, V₂ = X₁⁽¹⁾. This is <strong>fold 1</strong>.</li>
+      <li>Shuffle X randomly, divide into X₂⁽¹⁾ and X₂⁽²⁾, swap to get fold 2's two pairs.</li>
+      <li>Repeat for 5 folds total → 10 training/validation pairs.</li>
+    </ol>
+
+    <div class="formula">
+T₁ = X₁⁽¹⁾,  V₁ = X₁⁽²⁾<br>
+T₂ = X₁⁽²⁾,  V₂ = X₁⁽¹⁾<br>
+T₃ = X₂⁽¹⁾,  V₃ = X₂⁽²⁾<br>
+T₄ = X₂⁽²⁾,  V₄ = X₂⁽¹⁾<br>
+   ⋮<br>
+T₉ = X₅⁽¹⁾,  V₉ = X₅⁽²⁾<br>
+T₁₀= X₅⁽²⁾,  V₁₀= X₅⁽¹⁾
+    </div>
+
+    <p>Why 5 folds (not more)? After 5 folds, sets share too many instances — validation error rates become too dependent and add no new information. With fewer than 5 folds, not enough data to fit a distribution and test hypotheses. 5 folds (10 pairs) is the sweet spot.</p>
+
+    <h3>20.6.3 — Bootstrapping</h3>
+    <p>An alternative to cross-validation: <span class="kterm">bootstrap</span> generates new samples by drawing N instances from the original dataset of size N <em>with replacement</em>. The original dataset is used as the validation set.</p>
+
+    <div class="formula">
+P(instance NOT picked in one draw)     = 1 − 1/N<br>
+P(instance NOT picked in N draws)      = (1 − 1/N)^N ≈ e⁻¹ ≈ 0.368<br><br>
+⟹ Training data contains ~63.2% of instances<br>
+⟹ ~36.8% of data is never seen in training<br>
+⟹ Error estimate is pessimistic
+    </div>
+
+    <p>Solution to pessimism: replication — repeat many times and average. Bootstrap samples overlap more than cross-validation samples, making estimates more dependent; but bootstrapping is considered the <strong>best resampling method for very small datasets</strong>.</p>
+  </div>
+
+  <!-- ══════════════════════════════ SECTION 20.7 ══════════════════════════════ -->
+  <div class="section" id="s20-7">
+    <div class="section-header">
+      <span class="section-num">20.7</span>
+      <h2>Measuring Classifier Performance</h2>
+    </div>
+
+    <h3>The Confusion Matrix (Two-Class Case)</h3>
+    <p>For a binary classifier (positive/negative), there are four possible prediction outcomes:</p>
+    <table>
+      <tr><th></th><th>Predicted Positive</th><th>Predicted Negative</th><th>Total</th></tr>
+      <tr><td><strong>True Positive</strong></td><td>tp (true positive)</td><td>fn (false negative)</td><td>p</td></tr>
+      <tr><td><strong>True Negative</strong></td><td>fp (false positive)</td><td>tn (true negative)</td><td>n</td></tr>
+      <tr><td><strong>Total</strong></td><td>p′</td><td>n′</td><td>N</td></tr>
+    </table>
+
+    <h3>Performance Measures Table</h3>
+    <table>
+      <tr><th>Measure</th><th>Formula</th><th>Meaning</th></tr>
+      <tr><td>Error</td><td>(fp + fn) / N</td><td>Total misclassification rate</td></tr>
+      <tr><td>Accuracy</td><td>(tp + tn) / N = 1 − error</td><td>Total correct classification rate</td></tr>
+      <tr><td>tp-rate (hit rate, recall, sensitivity)</td><td>tp / p</td><td>Proportion of positives correctly identified</td></tr>
+      <tr><td>fp-rate (false alarm rate)</td><td>fp / n</td><td>Proportion of negatives wrongly accepted</td></tr>
+      <tr><td>Precision</td><td>tp / p′</td><td>Proportion of predicted positives that are correct</td></tr>
+      <tr><td>Recall</td><td>tp / p = tp-rate</td><td>Same as tp-rate</td></tr>
+      <tr><td>Sensitivity</td><td>tp / p = tp-rate</td><td>Same as tp-rate</td></tr>
+      <tr><td>Specificity</td><td>tn / n = 1 − fp-rate</td><td>Proportion of negatives correctly identified</td></tr>
+    </table>
+
+    <div class="callout">
+      <div class="callout-title">✦ Authentication Example</div>
+      Voice login system: <em>false positive</em> = impostor wrongly logged in (much worse). <em>False negative</em> = valid user refused. The two error types are not equally bad. This is why we need separate tp-rate and fp-rate measures.
+    </div>
+
+    <h3>The ROC Curve</h3>
+    <p>A classifier returning probability P̂(C₁|x) classifies as positive if P̂(C₁|x) > θ. Different values of θ trade off tp-rate against fp-rate:</p>
+    <ul>
+      <li>θ close to 1: rarely classify as positive → few false positives, but also few true positives.</li>
+      <li>Decrease θ to increase true positives, but risk more false positives.</li>
+    </ul>
+    <p>Plotting (fp-rate, tp-rate) pairs for different θ values gives the <span class="kterm">Receiver Operating Characteristics (ROC) curve</span>.</p>
+
+    <div class="callout blue">
+      <div class="callout-title">ROC Key Facts</div>
+      <ul>
+        <li>Ideal classifier: tp-rate = 1, fp-rate = 0 → upper-left corner of ROC space.</li>
+        <li>Diagonal: making as many true decisions as false ones — worst possible classifier. Any classifier below the diagonal can be improved by flipping its decision.</li>
+        <li>Different θ values correspond to different loss matrices.</li>
+        <li>If one curve is entirely above another, that classifier is strictly better.</li>
+        <li>If curves intersect, classifiers are better under different loss conditions.</li>
+        <li><span class="kterm">AUC (Area Under Curve)</span>: single summary of ROC performance. Ideal AUC = 1. Compare AUC values across classifiers for general performance averaged over loss conditions.</li>
+      </ul>
+    </div>
+
+    <h3>Precision–Recall in Information Retrieval</h3>
+    <p>A database query retrieves a subset of records. Relevant records exist; retrieved records may or may not be relevant:</p>
+    <ul>
+      <li><strong>Precision:</strong> retrieved ∩ relevant / total retrieved. (Precision = 1 → all retrieved records are relevant, but some relevant records may be missed.)</li>
+      <li><strong>Recall:</strong> retrieved ∩ relevant / total relevant. (Recall = 1 → all relevant records are retrieved, but some irrelevant ones may also be retrieved.)</li>
+    </ul>
+    <p>For different threshold values, one can draw a <strong>precision vs. recall curve</strong> analogous to the ROC curve.</p>
+
+    <h3>Sensitivity and Specificity</h3>
+    <ul>
+      <li><strong>Sensitivity</strong> = tp-rate = recall = tp/p.</li>
+      <li><strong>Specificity</strong> = tn/n = 1 − fp-rate. How well we detect negatives.</li>
+      <li>A <strong>sensitivity vs. specificity curve</strong> can also be drawn using different thresholds.</li>
+    </ul>
+
+    <h3>Multi-Class Confusion Matrix</h3>
+    <p>For K > 2 classes with 0/1 error: a K×K matrix where entry (i, j) = number of instances from class Cᵢ assigned to Cⱼ. Ideally all off-diagonal entries are 0. The confusion matrix reveals <em>which pairs of classes are most often confused</em>. Alternatively, define K separate two-class problems, each separating one class from the other K−1.</p>
+  </div>
+
+  <!-- ══════════════════════════════ SECTION 20.8 ══════════════════════════════ -->
+  <div class="section" id="s20-8">
+    <div class="section-header">
+      <span class="section-num">20.8</span>
+      <h2>Interval Estimation</h2>
+    </div>
+
+    <p>A <span class="kterm">point estimator</span> (e.g., maximum likelihood estimator) specifies a single value for a parameter θ. An <span class="kterm">interval estimator</span> specifies an interval within which θ lies with a certain <em>degree of confidence</em>.</p>
+
+    <h3>Known Variance Case — Z-Distribution</h3>
+    <p>Given sample X = {xᵗ}ᵗ₌₁ᴺ from N(μ, σ²) with known σ², the sample mean m = Σxᵗ/N is normally distributed: m ~ N(μ, σ²/N).</p>
+
+    <p>Define the standard normal statistic:</p>
+    <div class="formula">
+Z = √N · (m − μ) / σ  ~  N(0, 1)                    …(20.1)
+    </div>
+
+    <p>Since 95% of the standard normal lies in (−1.96, 1.96):</p>
+    <div class="formula">
+P{ −1.96 &lt; √N·(m−μ)/σ &lt; 1.96 } = 0.95<br><br>
+⟹ P{ m − 1.96σ/√N &lt; μ &lt; m + 1.96σ/√N } = 0.95<br><br>
+<span class="comment">95% two-sided confidence interval for μ: (m − 1.96σ/√N,  m + 1.96σ/√N)</span>
+    </div>
+
+    <h3>General Two-Sided Confidence Interval</h3>
+    <p>Define zα such that P{Z > zα} = α. By symmetry of Z around 0: z₁₋α/₂ = −zα/₂. General formula:</p>
+    <div class="formula">
+P{ −zα/₂ &lt; Z &lt; zα/₂ } = 1 − α                        …(general)<br><br>
+⟹  100(1−α)% two-sided CI:  ( m − zα/₂·σ/√N,  m + zα/₂·σ/√N )   …(20.2)<br><br>
+Examples:<br>
+  95% CI: α = 0.05, zα/₂ = 1.96<br>
+  99% CI: α = 0.01, zα/₂ = 2.58   <span class="comment">← wider interval for more confidence</span><br>
+  Interval shrinks as N increases.
+    </div>
+
+    <h3>One-Sided Confidence Interval</h3>
+    <div class="formula">
+Since P{Z &lt; 1.64} = 0.95:<br>
+P{ m − 1.64σ/√N &lt; μ } = 0.95<br><br>
+(m − 1.64σ/√N, ∞)  is the 95% one-sided upper CI for μ (defines lower bound)<br><br>
+General 100(1−α)% one-sided CI:   P{ m − zα·σ/√N &lt; μ } = 1−α         …(20.3)
+    </div>
+
+    <h3>Unknown Variance Case — t-Distribution</h3>
+    <p>When σ² is unknown, plug in the <span class="kterm">sample variance</span>:</p>
+    <div class="formula">
+S² = Σₜ (xᵗ − m)² / (N − 1)<br><br>
+When xᵗ ~ N(μ, σ²),  (N−1)S²/σ² ~ χ²(N−1),  m and S² are independent.<br><br>
+Therefore:  √N(m − μ)/S  ~ t_{N−1}                           …(20.4)<br><br>
+100(1−α)% two-sided CI:<br>
+P{ m − tα/₂,N₋₁ · S/√N  &lt; μ &lt; m + tα/₂,N₋₁ · S/√N } = 1−α
+    </div>
+
+    <div class="callout purple">
+      <div class="callout-title">t vs Z</div>
+      The t-distribution has <strong>longer tails</strong> (larger spread) than the standard normal. Therefore the t-based confidence interval is <em>wider</em> — reflecting additional uncertainty from estimating an unknown variance. As N → ∞, t_{N−1} → N(0,1).
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════ SECTION 20.9 ══════════════════════════════ -->
+  <div class="section" id="s20-9">
+    <div class="section-header">
+      <span class="section-num">20.9</span>
+      <h2>Hypothesis Testing</h2>
+    </div>
+
+    <p>Instead of estimating parameters, we test <em>specific hypotheses</em> about them. We define a statistic that follows a certain distribution if the hypothesis is correct. If the statistic calculated from our sample has very low probability under this distribution, we <strong>reject</strong> the hypothesis; otherwise we <strong>fail to reject</strong> it.</p>
+
+    <div class="callout red">
+      <div class="callout-title">⚠ Important Nuance</div>
+      We never say a hypothesis is "true" or "false" — only that the sample appears consistent (or inconsistent) with it to a given degree of confidence.
+    </div>
+
+    <h3>Null and Alternative Hypotheses</h3>
+    <div class="formula">
+H₀ : μ = μ₀    (null hypothesis — what we test against)<br>
+H₁ : μ ≠ μ₀    (alternative hypothesis — two-sided)<br><br>
+OR one-sided:<br>
+H₀ : μ ≤ μ₀    vs    H₁ : μ > μ₀
+    </div>
+
+    <p>The sample mean m is the point estimate of μ. We reject H₀ if m is too far from μ₀.</p>
+
+    <h3>Two-Sided Z-Test (Known Variance)</h3>
+    <div class="formula">
+Fail to reject H₀ at significance level α if:<br>
+  √N(m − μ₀)/σ  ∈  (−zα/₂,  zα/₂)                             …(20.5)<br><br>
+Equivalently: μ₀ lies within the 100(1−α)% confidence interval.
+    </div>
+
+    <h3>Type I and Type II Errors</h3>
+    <table>
+      <tr><th>Decision / Truth</th><th>Fail to Reject H₀</th><th>Reject H₀</th></tr>
+      <tr><td><strong>H₀ is True</strong></td><td>Correct ✓</td><td><mark>Type I Error (α)</mark></td></tr>
+      <tr><td><strong>H₀ is False</strong></td><td><mark>Type II Error (β)</mark></td><td>Correct (Power) ✓</td></tr>
+    </table>
+
+    <ul>
+      <li><span class="kterm">Type I error (α):</span> Reject H₀ when it is correct. α is set before the test (typical values: 0.1, 0.05, 0.01) and defines the tolerated false rejection rate.</li>
+      <li><span class="kterm">Type II error (β(μ)):</span> Fail to reject H₀ when the true mean μ ≠ μ₀.</li>
+      <li><span class="kterm">Power function: 1 − β(μ)</span> = probability of correctly rejecting H₀ when the true mean is μ.</li>
+    </ul>
+
+    <div class="formula">
+β(μ) = Pμ{ −zα/₂ ≤ (m − μ₀)/(σ/√N) ≤ zα/₂ }                …(20.6)<br><br>
+Type II error increases as μ approaches μ₀ (harder to detect small differences).<br>
+Use power analysis to determine required sample size N to detect a difference<br>
+δ = |μ − μ₀| with sufficient power.
+    </div>
+
+    <h3>One-Sided Test</h3>
+    <div class="formula">
+H₀: μ ≤ μ₀   vs   H₁: μ > μ₀<br><br>
+Fail to reject if:<br>
+  √N(m − μ₀)/σ  ∈  (−∞, zα)                                    …(20.7)
+    </div>
+    <p>Key rule: put the <em>claim you want to support</em> in H₁ — if the test rejects, it supports your claim.</p>
+
+    <h3>Two-Sided t-Test (Unknown Variance)</h3>
+    <div class="formula">
+Fail to reject H₀: μ = μ₀  at level α if:<br>
+  √N(m − μ₀)/S  ∈  (−tα/₂,N₋₁,  tα/₂,N₋₁)                    …(20.9)
+    </div>
+    <p>This is the <span class="kterm">two-sided t-test</span>. A one-sided t-test is defined analogously by using a one-sided critical region.</p>
+
+    <h3>Application to ML Experiment Error Rates</h3>
+    <p>Section 20.10 (not fully in excerpts) extends this framework to testing classification error rates using the <strong>binomial distribution</strong> (since each prediction is a Bernoulli trial — correct or incorrect). The same methodology applies for squared error in regression, log likelihoods in unsupervised learning, and expected reward in RL — provided the appropriate parametric form for the sampling distribution can be written. <em>Nonparametric tests</em> are used when no suitable parametric form exists.</p>
+  </div>
+
+  <!-- ══════════════════════════════ MCQ SECTION ══════════════════════════════ -->
+  <div id="mcq" class="mcq-header">
+    <h2>🎯 MCQ Practice — 30 Questions</h2>
+    <p>Click an option to check your answer. University-level difficulty.</p>
+  </div>
+
+  <div id="mcq-container"></div>
+
+  <!-- ══════════════════════════════ SAMPLE Q SECTION ══════════════════════════════ -->
+  <div id="sq" class="sq-section">
+    <h2>📝 Sample Questions — 4 Marks</h2>
+    <div class="sub">University exam style · Click "Show Answer" to reveal a model answer</div>
+    <div id="sq-container"></div>
+  </div>
+
+</main>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+//  MCQ DATA
+// ═══════════════════════════════════════════════════════════
+const mcqs = [
+  {
+    q: "According to the No Free Lunch Theorem (Wolpert 1995), which statement is most accurate?",
+    opts: [
+      "A. Decision trees always outperform neural networks on structured data.",
+      "B. For any learning algorithm, there exists a dataset where it performs well and another where it performs poorly.",
+      "C. Cross-validation always produces unbiased error estimates.",
+      "D. A model with more parameters always generalises better."
+    ],
+    ans: 1,
+    exp: "The No Free Lunch Theorem states there is no universally best algorithm. Any algorithm is best on some datasets and worst on others. Performance depends on how well the algorithm's inductive bias matches the data's properties."
+  },
+  {
+    q: "In K-fold cross-validation, what happens as K increases from 5 to N (leave-one-out)?",
+    opts: [
+      "A. Validation sets get larger and overlap between training sets decreases.",
+      "B. Training sets get larger and more robust estimators are obtained, but computational cost increases.",
+      "C. Both training and validation sets get smaller.",
+      "D. Stratification is automatically guaranteed."
+    ],
+    ans: 1,
+    exp: "As K increases, each training set uses a larger fraction (K−1)/K of the data → more robust estimators. But validation sets shrink to 1/K of the data, and we must train the classifier K times. Leave-one-out does NOT permit stratification."
+  },
+  {
+    q: "In bootstrapping, approximately what percentage of the original data appears in a bootstrap training sample?",
+    opts: ["A. 50%", "B. 73.2%", "C. 63.2%", "D. 36.8%"],
+    ans: 2,
+    exp: "P(not picked after N draws) = (1−1/N)^N ≈ e⁻¹ ≈ 0.368. So about 36.8% of instances never appear in training; the training set contains approximately 63.2% of original instances."
+  },
+  {
+    q: "Why can training set error NOT be used to compare two learning algorithms?",
+    opts: [
+      "A. Training error is always zero for sufficiently complex models.",
+      "B. A more complex model will almost always have lower training error, regardless of generalisation ability.",
+      "C. Training error requires a separate test set to compute.",
+      "D. Training error violates the assumption of Gaussianity."
+    ],
+    ans: 1,
+    exp: "Over the training set, a more complex model (more parameters) will almost always produce fewer errors than a simpler one. This is overfitting — the training error does not reflect generalisation performance."
+  },
+  {
+    q: "Which of the following correctly describes the relationship between sensitivity and specificity?",
+    opts: [
+      "A. Sensitivity = 1 − specificity",
+      "B. Specificity = 1 − tp-rate",
+      "C. Sensitivity = tp/p and specificity = tn/n = 1 − fp-rate",
+      "D. Sensitivity = tn/n and specificity = tp/p"
+    ],
+    ans: 2,
+    exp: "Sensitivity = tp/p = tp-rate = recall. Specificity = tn/n = 1 − fp-rate. They are not complements of each other."
+  },
+  {
+    q: "In a 5×2 cross-validation, why is doing MORE than 5 folds discouraged?",
+    opts: [
+      "A. It increases computational cost beyond what is feasible.",
+      "B. After 5 folds, sets share too many instances and validation error rates become too dependent to add new information.",
+      "C. More folds lead to larger validation sets that introduce stratification errors.",
+      "D. The ROC curve becomes non-monotonic with more than 5 folds."
+    ],
+    ans: 1,
+    exp: "Dietterich (1998) showed that after 5 folds, the sets overlap so heavily that the computed statistics (validation errors) become too dependent and effectively stop providing new information."
+  },
+  {
+    q: "What does the AUC (Area Under the ROC Curve) represent?",
+    opts: [
+      "A. The classifier's accuracy at the optimal threshold θ.",
+      "B. A single summary of classifier performance averaged over different loss conditions/thresholds.",
+      "C. The probability that the classifier makes a Type I error.",
+      "D. The precision at maximum recall."
+    ],
+    ans: 1,
+    exp: "AUC summarises the ROC curve into a single number, averaging performance across all possible thresholds (loss conditions). An ideal classifier has AUC = 1. It allows comparing classifiers without fixing a specific loss matrix."
+  },
+  {
+    q: "In hypothesis testing, a Type II error occurs when:",
+    opts: [
+      "A. H₀ is rejected when it is true.",
+      "B. H₀ is not rejected when it is false.",
+      "C. The test statistic falls inside the critical region.",
+      "D. The significance level α is set too high."
+    ],
+    ans: 1,
+    exp: "Type II error = failing to reject H₀ when H₀ is actually false (i.e., missing a real effect). Type I error = rejecting H₀ when it is true. The power of a test = 1 − P(Type II error)."
+  },
+  {
+    q: "Why does the t-distribution produce wider confidence intervals than the standard normal Z-distribution?",
+    opts: [
+      "A. Because it has fewer degrees of freedom.",
+      "B. Because the population variance is known in the t-case.",
+      "C. Because additional uncertainty exists from estimating the unknown variance.",
+      "D. Because the t-distribution has a smaller spread than Z."
+    ],
+    ans: 2,
+    exp: "When σ² is unknown, we estimate it with S². This estimation introduces additional uncertainty, reflected in the t-distribution having longer tails than Z. As N → ∞, t_{N−1} → N(0,1) and intervals converge."
+  },
+  {
+    q: "In the response surface design method, under what condition does the iterative fitting approach work well?",
+    opts: [
+      "A. When all factors are categorical.",
+      "B. When the response can be written as a quadratic function of factors with a single maximum.",
+      "C. When the number of uncontrollable factors exceeds the number of controllable factors.",
+      "D. When using leave-one-out cross-validation for fitting."
+    ],
+    ans: 1,
+    exp: "The response surface method fits a (typically quadratic) model to factor settings. It works well only when the response surface has a single maximum — otherwise, the method may converge to a local optimum."
+  },
+  {
+    q: "What is the primary disadvantage of the 'one factor at a time' (OFAT) experimentation strategy?",
+    opts: [
+      "A. It requires too many experimental runs compared to factorial design.",
+      "B. It cannot handle continuous-valued factors.",
+      "C. It assumes no interaction between factors, which is often violated.",
+      "D. It produces biased estimates of the main effects."
+    ],
+    ans: 2,
+    exp: "OFAT assumes factors don't interact. In practice they often do — e.g., optimal k in k-NN depends on the chosen dimensionality d in PCA. Factorial design addresses this by varying all factors together."
+  },
+  {
+    q: "In the context of data mining, which analogy correctly describes the process?",
+    opts: [
+      "A. A database is processed to produce another, larger database.",
+      "B. A large volume of data is processed to construct a simple model with valuable predictive accuracy.",
+      "C. Raw data is cleaned and stored in a data warehouse without transformation.",
+      "D. Algorithms are extracted from data for manual verification."
+    ],
+    ans: 1,
+    exp: "Just as mining earth produces a small amount of precious material, data mining processes a large volume of data to construct a simple but valuable model — typically with high predictive accuracy."
+  },
+  {
+    q: "Stratification in cross-validation ensures that:",
+    opts: [
+      "A. Training and validation sets are always of equal size.",
+      "B. Classes are represented in approximately the correct proportions in every sample.",
+      "C. The bootstrap samples overlap minimally.",
+      "D. Factor levels are randomly assigned to each fold."
+    ],
+    ans: 1,
+    exp: "Stratification preserves class prior probabilities in each sample. If a class has 20% examples overall, each train/validation split should also have ~20% — preventing distortion of class distributions."
+  },
+  {
+    q: "What does precision = 1 imply in an information retrieval system?",
+    opts: [
+      "A. All relevant records have been retrieved.",
+      "B. All retrieved records are relevant, but some relevant records may still be missed.",
+      "C. The system made no false positives or false negatives.",
+      "D. Recall is also equal to 1."
+    ],
+    ans: 1,
+    exp: "Precision = tp/p′ = (correctly retrieved) / (total retrieved). Precision = 1 means every retrieved record is relevant. However, relevant records not retrieved (false negatives) may still exist — recall is not necessarily 1."
+  },
+  {
+    q: "In supervised learning, what distinguishes regression from classification?",
+    opts: [
+      "A. Regression uses unlabeled data; classification uses labeled data.",
+      "B. In regression, the output Y is a real-valued number; in classification, Y is a class code.",
+      "C. Regression requires more training data than classification.",
+      "D. Classification cannot be expressed as a conditional probability P(Y|X)."
+    ],
+    ans: 1,
+    exp: "Both are supervised learning — input X and output Y with correct values provided. The distinction is in Y: real-valued in regression (car price, steering angle), discrete class code in classification (low/high-risk, character identity)."
+  },
+  {
+    q: "Which of the following is NOT a controllable factor in a machine learning experiment?",
+    opts: [
+      "A. The learning algorithm used.",
+      "B. Hyperparameters such as C in SVMs.",
+      "C. Noise in the training data.",
+      "D. The input representation (feature encoding)."
+    ],
+    ans: 2,
+    exp: "Noise in the data is an uncontrollable factor — we do not control it; it adds undesired variability. The algorithm, hyperparameters, dataset used, and input representation are all controllable factors."
+  },
+  {
+    q: "Why should no more than 25% of available resources be invested in the first experiment of a study?",
+    opts: [
+      "A. Early experiments are always discarded due to software errors.",
+      "B. Most statistical/ML studies are iterative; initial runs are for exploration and ideas are cheap unless tested.",
+      "C. The first 25% of data must be reserved as a test set.",
+      "D. Statistical power is too low with only 25% of resources."
+    ],
+    ans: 1,
+    exp: "Montgomery (2005): First runs are for investigation only. ML studies are iterative — conclusions from early runs guide subsequent experiments. Starting with excessive commitment wastes resources if the initial direction is wrong."
+  },
+  {
+    q: "In association rule learning, what does P(chips|beer) = 0.7 indicate?",
+    opts: [
+      "A. 70% of all customers buy chips.",
+      "B. 70% of customers who buy beer also buy chips.",
+      "C. Beer and chips are bought together in 70% of all transactions.",
+      "D. P(beer|chips) = 0.7 by symmetry of conditional probability."
+    ],
+    ans: 1,
+    exp: "P(Y|X) is a conditional probability. P(chips|beer) = 0.7 means that among customers who buy beer, 70% also buy chips. This is NOT the same as P(beer|chips) — conditional probabilities are not generally symmetric."
+  },
+  {
+    q: "In the t-distribution based confidence interval, what happens to the interval width as the sample size N increases?",
+    opts: [
+      "A. Width increases because degrees of freedom increase.",
+      "B. Width decreases because S/√N decreases and t_{N-1} → Z.",
+      "C. Width remains constant since variance is estimated from data.",
+      "D. Width oscillates depending on sample variance."
+    ],
+    ans: 1,
+    exp: "As N increases: (1) S/√N → 0, shrinking the interval. (2) t_{N−1} → N(0,1), so the critical value approaches the Z critical value. Both effects together make the interval narrower and more precise."
+  },
+  {
+    q: "What is the role of 'blocking' in a machine learning comparative study?",
+    opts: [
+      "A. Preventing overfitting by regularising model parameters.",
+      "B. Ensuring compared algorithms use identical training subsets so that differences in accuracy reflect the algorithm, not the data.",
+      "C. Blocking irrelevant features from the training process.",
+      "D. Preventing the test set from being used during validation."
+    ],
+    ans: 1,
+    exp: "Blocking isolates the effect of factors of interest (algorithm differences) from nuisance factors (different training subsets). By using the same resampled subsets for all algorithms, performance differences can be attributed to the algorithm alone."
+  },
+  {
+    q: "A classifier's ROC curve lies entirely below the diagonal. What should be done?",
+    opts: [
+      "A. Lower the decision threshold θ.",
+      "B. Increase the regularisation parameter.",
+      "C. Flip the classifier's decisions — predicting the opposite class improves performance.",
+      "D. Use a larger training set."
+    ],
+    ans: 2,
+    exp: "Any classifier below the diagonal can be improved by flipping its decisions. A classifier below the diagonal performs worse than random guessing, so inverting its outputs places the curve above the diagonal."
+  },
+  {
+    q: "In the context of document clustering, what is 'bag of words' representation?",
+    opts: [
+      "A. A recurrent neural network that processes word sequences.",
+      "B. A vector where each dimension indicates presence/absence of a word from a predefined lexicon.",
+      "C. A sorted list of the most frequent words in a document.",
+      "D. A probabilistic model of word co-occurrences."
+    ],
+    ans: 1,
+    exp: "Bag of words: define a lexicon of N words; each document is an N-dimensional binary vector where element i = 1 if word i appears. Suffixes removed (normalisation), stop words excluded. Order of words is ignored."
+  },
+  {
+    q: "What distinguishes unsupervised learning from supervised learning?",
+    opts: [
+      "A. Unsupervised learning uses larger datasets.",
+      "B. In unsupervised learning, there is no supervisor providing output labels — only input data; the goal is to find regularities.",
+      "C. Unsupervised learning cannot be used for density estimation.",
+      "D. Supervised learning always requires a test set; unsupervised learning does not."
+    ],
+    ans: 1,
+    exp: "Supervised learning: input X, output Y with correct values from a supervisor. Unsupervised learning: only input data, no labels. Goal = density estimation, clustering, finding regularities. Clustering is one method for density estimation."
+  },
+  {
+    q: "Which of the following correctly states the 95% one-sided upper confidence interval for μ (known σ)?",
+    opts: [
+      "A. (m − 1.96σ/√N, m + 1.96σ/√N)",
+      "B. (m − 1.64σ/√N, ∞)",
+      "C. (−∞, m + 1.64σ/√N)",
+      "D. (m − 2.58σ/√N, ∞)"
+    ],
+    ans: 1,
+    exp: "For a 95% one-sided upper CI (lower bound): since P{Z < 1.64} = 0.95, we get P{m − 1.64σ/√N < μ} = 0.95. The interval (m − 1.64σ/√N, ∞) defines a lower bound for μ."
+  },
+  {
+    q: "In reinforcement learning, why is a single action not considered inherently good or bad?",
+    opts: [
+      "A. Because actions are randomly selected.",
+      "B. Because the goodness of an action depends on whether it is part of a good policy — a sequence of correct actions to reach the goal.",
+      "C. Because reinforcement learning uses unsupervised data.",
+      "D. Because the reward function is unknown in reinforcement learning."
+    ],
+    ans: 1,
+    exp: "In RL, what matters is the policy — the sequence of actions leading to the goal. A single move in chess may look neutral or even bad in isolation but be part of an excellent strategy. Evaluating individual actions requires considering the full policy context."
+  },
+  {
+    q: "What does the power function 1−β(μ) represent in hypothesis testing?",
+    opts: [
+      "A. The probability of rejecting H₀ when H₀ is true.",
+      "B. The probability of correctly rejecting H₀ when the true mean is μ.",
+      "C. The size of the confidence interval.",
+      "D. The probability that μ lies within the null hypothesis region."
+    ],
+    ans: 1,
+    exp: "Power = 1 − β(μ) = probability of rejecting H₀ when μ is the true value (H₀ is false). It measures the test's ability to detect a real difference. β(μ) is Type II error probability. Power increases as |μ − μ₀| increases."
+  },
+  {
+    q: "When should the test set be used in a machine learning experimental pipeline?",
+    opts: [
+      "A. During hyperparameter tuning to select the best model.",
+      "B. Only at the very end, once both parameters and hyperparameters have been optimised, to report the final expected error.",
+      "C. Interchangeably with the validation set throughout experimentation.",
+      "D. Before training to establish a performance baseline."
+    ],
+    ans: 1,
+    exp: "The test set must be completely held out until the final step. Using it during model selection contaminates the estimate — the validation set becomes the de facto test set. The true test set must be used only once to report final expected error."
+  },
+  {
+    q: "A credit scoring model learns: IF income > θ₁ AND savings > θ₂ THEN low-risk. What type of function is this called?",
+    opts: [
+      "A. Regression function",
+      "B. Density estimator",
+      "C. Discriminant function",
+      "D. Ranking function"
+    ],
+    ans: 2,
+    exp: "A discriminant function separates examples of different classes. Here it separates low-risk from high-risk customers in income–savings space. It is not a regression function (which predicts a real value) nor a density estimator."
+  },
+  {
+    q: "In the two-sided t-test (unknown variance), we fail to reject H₀: μ = μ₀ if:",
+    opts: [
+      "A. √N(m−μ₀)/S ∈ (−tα/2,N−1, tα/2,N−1)",
+      "B. √N(m−μ₀)/σ ∈ (−zα/2, zα/2)",
+      "C. m − μ₀ > tα/2,N−1",
+      "D. S² < σ²"
+    ],
+    ans: 0,
+    exp: "Equation 20.9: for unknown variance, the test statistic is √N(m−μ₀)/S ~ t_{N−1}. We fail to reject H₀ if this statistic falls within (−tα/2,N−1, tα/2,N−1). If it falls outside, we reject."
+  },
+  {
+    q: "Which metric would be MOST appropriate when false negatives are far more costly than false positives (e.g., cancer screening)?",
+    opts: [
+      "A. Precision",
+      "B. Specificity",
+      "C. Recall (tp-rate / Sensitivity)",
+      "D. AUC"
+    ],
+    ans: 2,
+    exp: "In cancer screening, missing a cancer (false negative) is far worse than a false alarm (false positive). Recall = tp/p = proportion of actual cancer cases correctly identified. Maximising recall minimises false negatives. Precision focuses on not producing false positives — the opposite priority."
+  }
+];
+
+// ═══════════════════════════════════════════════════════════
+//  SAMPLE QUESTIONS DATA
+// ═══════════════════════════════════════════════════════════
+const sqs = [
+  {
+    num: "Q1",
+    topic: "Section 1.1",
+    q: "Define Machine Learning. Explain why traditional algorithmic approaches fail for tasks like face recognition and speech recognition, and how machine learning addresses this gap.",
+    hint: "Cover: definition, algorithm limitations, ML approach (parameters + training), role of statistics and computer science.",
+    ans: `<strong>Definition:</strong> Machine Learning is programming computers to optimise a performance criterion using example data or past experience. A model is defined up to parameters; learning is the execution of a program to optimise those parameters using training data or past experience. The model may be predictive, descriptive, or both.<br><br>
+<strong>Why traditional algorithms fail:</strong> Tasks like face recognition and speech recognition require expertise we perform unconsciously — we cannot articulate the rules because we don't know them. We recognise a face despite variations in pose, lighting, hairstyle, yet cannot write a program encoding these rules because we lack a formal, explicit procedure.<br><br>
+<strong>ML approach:</strong> Start with a general model y = g(x|θ) with many parameters θ. Learning adjusts θ so the model best matches training data, effectively specialising the general template to the specific task. The model then becomes the algorithm for that task.<br><br>
+<strong>Role of statistics:</strong> Core task is making inferences from a sample — statistics provides the mathematical framework.<br>
+<strong>Role of CS:</strong> (1) Efficient algorithms for training (optimisation); (2) Efficient representation and inference algorithms after learning.`
+  },
+  {
+    num: "Q2",
+    topic: "Section 1.2",
+    q: "Distinguish between supervised, unsupervised, and reinforcement learning. Give one concrete application of each and explain why each application suits that learning paradigm.",
+    hint: "Cover: definitions of all three, concrete examples, why each application fits the paradigm.",
+    ans: `<strong>Supervised Learning:</strong> An input X and output Y are provided; a supervisor supplies correct Y values. The goal is to learn the mapping X→Y. Two types: <em>Classification</em> (Y = class label) and <em>Regression</em> (Y = real value).<br>
+Application: <em>Credit Scoring</em> — inputs are customer attributes (income, savings), output is low/high-risk. Historical data provides labeled examples (loan repaid or defaulted). Supervised because each training instance has a known outcome label.<br><br>
+<strong>Unsupervised Learning:</strong> Only input data available; no supervisor provides labels. Goal is density estimation — finding regularities, clusters, or structure in input space.<br>
+Application: <em>Customer Segmentation</em> — group customers with similar purchasing behaviour without predefined categories. No labels exist; the algorithm discovers natural groupings that the company can then exploit for targeted marketing.<br><br>
+<strong>Reinforcement Learning:</strong> The output is a sequence of actions. No single action is inherently good/bad; what matters is the policy (sequence of actions to reach a goal). The agent learns from the outcomes of policies.<br>
+Application: <em>Robot Navigation</em> — a robot learns to navigate from start to goal without hitting obstacles. No single move is labeled correct; the robot learns through trial runs which action sequences successfully reach the goal.`
+  },
+  {
+    num: "Q3",
+    topic: "Section 20.4",
+    q: "Explain the three basic principles of experimental design — Randomization, Replication, and Blocking — with specific reference to machine learning experiments.",
+    hint: "Define each, explain why it is needed, and give a specific ML context for each.",
+    ans: `<strong>1. Randomization:</strong> The order in which experimental runs are conducted should be randomly determined, ensuring results are statistically independent. In physical experiments, machines need warm-up time, so random ordering prevents time-based bias. In ML software experiments, ordering is less of a concern, but randomisation in which data subsets are drawn for training/validation remains essential to ensure independence.<br><br>
+<strong>2. Replication:</strong> For the same configuration of controllable factors, run the experiment multiple times to average over uncontrollable factor effects (noise, training subset, random initial weights). In ML, this is achieved through cross-validation — running the same algorithm on multiple resampled dataset versions. The variance across replications estimates experimental error, determining what difference is large enough to be statistically significant.<br><br>
+<strong>3. Blocking:</strong> Reduces/eliminates variability due to nuisance factors. In ML comparative studies, when comparing Algorithm A vs Algorithm B, both must use the <em>same resampled training subsets</em>. If different subsets were used, accuracy differences could reflect data variation rather than algorithmic differences. Using identical subsets (blocking) isolates the algorithmic effect — this is equivalent to paired testing in statistics.`
+  },
+  {
+    num: "Q4",
+    topic: "Section 20.6",
+    q: "Compare K-Fold Cross-Validation, 5×2 Cross-Validation, and Bootstrapping as resampling methods. Discuss their advantages, limitations, and appropriate use cases.",
+    hint: "Cover overlap, bias/variance of estimates, computational cost, stratification, and when to use each.",
+    ans: `<strong>K-Fold Cross-Validation:</strong> Dataset split into K equal parts; each part used once as validation, remaining K−1 as training. Any two training sets share K−2 parts. As K increases: larger training sets (better estimators), smaller validation sets, higher cost. Extreme case (Leave-One-Out) maximises training size but: (a) N classifier trainings required, (b) validation sets are single instances (high variance), (c) stratification impossible. Best for moderate-sized datasets.<br><br>
+<strong>5×2 Cross-Validation (Dietterich 1998):</strong> Training and validation sets of equal size. Dataset split into two halves, roles swapped = 2 pairs per fold; 5 folds = 10 pairs. Rationale: after 5 folds, sets overlap so much that error rates become too statistically dependent (no new information). Fewer than 5 folds gives insufficient data to test hypotheses. Particularly useful for hypothesis testing because the statistics from 5 folds are approximately independent enough for valid inference.<br><br>
+<strong>Bootstrapping:</strong> Sample N instances with replacement from dataset of N. Training data ≈ 63.2% of original (each instance appears ~0.632×). Error estimate is pessimistic. Bootstrap samples overlap more than CV samples — estimates are more dependent. Best method for very small datasets where maximum data usage is critical. Replication (many bootstrap runs) addresses pessimism bias.`
+  },
+  {
+    num: "Q5",
+    topic: "Section 20.7",
+    q: "Define the ROC curve and AUC. Explain how varying the decision threshold θ traces the ROC curve, and what it means for a classifier's ROC curve to lie below the diagonal.",
+    hint: "Cover: ROC construction, threshold effect, diagonal meaning, AUC interpretation, comparing classifiers via ROC.",
+    ans: `<strong>ROC Curve:</strong> A classifier outputting P̂(C₁|x) classifies as positive if P̂(C₁|x) > θ. For each θ, compute (fp-rate, tp-rate). Connecting these points traces the Receiver Operating Characteristics curve.<br><br>
+<strong>Effect of θ:</strong> High θ → rarely classify positive → low fp-rate but also low tp-rate (upper-left region). Decrease θ → more positives classified → tp-rate rises, but fp-rate also rises. Different θ values correspond to different loss matrices (trade-offs between miss rates and false alarms).<br><br>
+<strong>Ideal classifier:</strong> tp-rate = 1, fp-rate = 0 → upper-left corner. Perfect ROC goes straight up then right.<br><br>
+<strong>Diagonal:</strong> Represents random guessing — equal true and false decisions. Any classifier below the diagonal performs worse than chance and can be improved by flipping all its decisions (inverting predictions moves the curve above the diagonal).<br><br>
+<strong>AUC:</strong> Area Under the ROC Curve — single scalar summarising performance averaged across all loss conditions. Ideal AUC = 1. If one classifier's ROC curve lies entirely above another's, it is strictly better. If curves intersect, each is better under different loss conditions. AUC enables a single-number comparison.`
+  },
+  {
+    num: "Q6",
+    topic: "Section 20.8 & 20.9",
+    q: "Derive the 100(1−α)% two-sided confidence interval for a population mean μ when the population variance σ² is unknown. State clearly when the t-distribution must be used instead of Z, and explain why it produces a wider interval.",
+    hint: "Cover: sample variance, chi-square, t-statistic derivation, interval formula, comparison with Z.",
+    ans: `<strong>Setup:</strong> Sample {xᵗ}ᵗ₌₁ᴺ from N(μ, σ²). Sample mean m = Σxᵗ/N. When σ² is unknown, we estimate it with the sample variance: S² = Σ(xᵗ−m)²/(N−1).<br><br>
+<strong>Key distributional facts:</strong><br>
+(1) (N−1)S²/σ² ~ χ²(N−1)<br>
+(2) m and S² are independent (when data is normal).<br>
+(3) Therefore √N(m−μ)/S ~ t_{N−1} (t-distribution with N−1 degrees of freedom).<br><br>
+<strong>Confidence interval:</strong> For any α ∈ (0, 1/2):<br>
+P{ −tα/2,N−1 &lt; √N(m−μ)/S &lt; tα/2,N−1 } = 1−α<br>
+⟹ P{ m − tα/2,N−1·S/√N &lt; μ &lt; m + tα/2,N−1·S/√N } = 1−α<br><br>
+This is the 100(1−α)% two-sided CI using the t-distribution.<br><br>
+<strong>Why wider than Z-interval:</strong> The t-distribution has longer tails (larger spread) than N(0,1), reflecting the additional uncertainty from estimating σ². Using S instead of σ introduces a second layer of randomness. The critical values tα/2,N−1 > zα/2 for any finite N, making the t-interval wider. As N→∞, t_{N−1} → N(0,1) and the intervals coincide.`
+  },
+  {
+    num: "Q7",
+    topic: "Sections 20.5 & 20.2",
+    q: "Outline the key guidelines for designing and conducting a machine learning experiment (steps A through G). Emphasise the role of the test set and explain why toy/synthetic datasets are discouraged.",
+    hint: "Cover all 7 steps A–G, test set role, and synthetic data limitation.",
+    ans: `<strong>A. Aim:</strong> Clearly state objectives — assess one algorithm's error, compare two algorithms, rank multiple algorithms, possibly across multiple datasets.<br><br>
+<strong>B. Response Variable:</strong> Choose quality measure: misclassification error, MSE, risk (arbitrary loss), precision/recall, or complexity-aware measures.<br><br>
+<strong>C. Factors & Levels:</strong> Factors depend on aim (hyperparameters, algorithms, datasets). Normalise levels (e.g., express Parzen bandwidth as multiples of data-scale statistic, not raw values).<br><br>
+<strong>D. Experimental Design:</strong> Use factorial design (grid search) to capture factor interactions. Size replication count appropriately; too few replicates prevent Gaussianity assumptions needed for parametric tests. <em>Reserve a test set before any experimentation — typically 1/3 of data.</em><br><br>
+<strong>E. Execution:</strong> Trial runs first; save seeds/intermediate results for reproducibility; be unbiased (investigate competitor algorithms equally); use reliable library code; document thoroughly.<br><br>
+<strong>F. Analysis:</strong> Frame as hypothesis tests; use visual tools (box plots, histograms); report statistical significance.<br><br>
+<strong>G. Conclusions:</strong> Invest ≤25% resources in first experiment; iterate; never skip statistical testing; investigate unexpected failures.<br><br>
+<strong>Test set role:</strong> Used only once at the very end. Validation sets used for model selection become "used" data. The test set must be unseen during all training and validation to give an unbiased estimate of true generalisation error.<br><br>
+<strong>Against synthetic data:</strong> Real-world datasets have characteristics (high dimensionality, noise, correlations, class imbalance) absent from synthetic toy examples. Algorithm behaviour in high-dimensional real spaces may be completely different from low-dimensional toy examples, making results non-generalisable.`
+  }
+];
+
+// ═══════════════════════════════════════════════════════════
+//  RENDER MCQs
+// ═══════════════════════════════════════════════════════════
+const mcqContainer = document.getElementById('mcq-container');
+mcqs.forEach((mcq, idx) => {
+  const div = document.createElement('div');
+  div.className = 'mcq-item';
+  div.innerHTML = `
+    <div class="mcq-q"><span class="qnum">Q${idx+1}.</span> ${mcq.q}</div>
+    <ul class="mcq-options">
+      ${mcq.opts.map((o, i) => `<li data-idx="${i}" data-correct="${mcq.ans}" data-qidx="${idx}">${o}</li>`).join('')}
+    </ul>
+    <div class="mcq-explain" id="exp-${idx}">💡 ${mcq.exp}</div>
+  `;
+  mcqContainer.appendChild(div);
+});
+
+mcqContainer.addEventListener('click', (e) => {
+  const li = e.target.closest('li[data-idx]');
+  if (!li) return;
+  const parent = li.closest('.mcq-options');
+  if (parent.querySelector('.correct, .wrong')) return; // already answered
+  const chosen = parseInt(li.dataset.idx);
+  const correct = parseInt(li.dataset.correct);
+  const qidx = li.dataset.qidx;
+  parent.querySelectorAll('li').forEach((item, i) => {
+    if (i === correct) item.classList.add('correct');
+    else if (i === chosen && chosen !== correct) item.classList.add('wrong');
+  });
+  document.getElementById(`exp-${qidx}`).classList.add('show');
+});
+
+// ═══════════════════════════════════════════════════════════
+//  RENDER SAMPLE QUESTIONS
+// ═══════════════════════════════════════════════════════════
+const sqContainer = document.getElementById('sq-container');
+sqs.forEach((sq, idx) => {
+  const div = document.createElement('div');
+  div.className = 'sq-item';
+  div.innerHTML = `
+    <div class="sq-num">${sq.num} · ${sq.topic} · 4 Marks</div>
+    <div class="sq-q">${sq.q}</div>
+    <div class="sq-hint">💡 Key points to cover: ${sq.hint}</div>
+    <button class="sq-ans-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer'">Show Answer</button>
+    <div class="sq-answer">${sq.ans}</div>
+  `;
+  sqContainer.appendChild(div);
+});
+
+// ═══════════════════════════════════════════════════════════
+//  SIDEBAR ACTIVE STATE
+// ═══════════════════════════════════════════════════════════
+const sections = document.querySelectorAll('.section, .mcq-header, .sq-section');
+const navLinks = document.querySelectorAll('#sidebar a');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
