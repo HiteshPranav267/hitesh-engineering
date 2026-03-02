@@ -1307,7 +1307,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": false,
+        "isHiteshNotes": true,
         "id": "res-local-121",
         "title": "MLA U1 U2 Notes",
         "subject": "MLA",
