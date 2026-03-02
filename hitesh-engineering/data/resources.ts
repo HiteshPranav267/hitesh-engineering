@@ -1308,7 +1308,7 @@ export const resources: Resource[] = [
     },
     {
         "isHiteshNotes": true,
-        "id": "res-local-121",
+        "id": "res-local-122",
         "title": "MLA U1 U2 Notes",
         "subject": "MLA",
         "year": "3",
