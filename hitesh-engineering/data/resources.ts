@@ -1328,6 +1328,7 @@ export const resources: Resource[] = [
         "url": "/notes/mla/mla_u2_notes.html",
         "tags": []
     },
+    
 ];
 
 // Template
