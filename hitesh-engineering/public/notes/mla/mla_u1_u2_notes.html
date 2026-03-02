@@ -1,0 +1,2567 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning & Applications - Complete Notes (Unit 1 & 2)</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <style>
+        :root {
+            --cyan: #00bcd4;
+            --cyan-dim: rgba(0, 188, 212, 0.15);
+            --cyan-border: rgba(0, 188, 212, 0.25);
+            --magenta: #e040fb;
+            --magenta-dim: rgba(224, 64, 251, 0.12);
+            --green: #00e676;
+            --green-dim: rgba(0, 230, 118, 0.12);
+            --amber: #ffc107;
+            --amber-dim: rgba(255, 193, 7, 0.12);
+            --red: #ff5252;
+            --red-dim: rgba(255, 82, 82, 0.10);
+            --blue: #448aff;
+            --blue-dim: rgba(68, 138, 255, 0.12);
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-card: #1c2128;
+            --bg-elevated: #21262d;
+            --text-primary: #e6edf3;
+            --text-secondary: #8b949e;
+            --text-tertiary: #6e7681;
+            --border: #30363d;
+            --border-accent: rgba(0, 188, 212, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.75;
+            font-size: 16px;
+        }
+
+        /* Subtle background grid */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 188, 212, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 188, 212, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 290px;
+            height: 100vh;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            padding: 20px 14px;
+            overflow-y: auto;
+            z-index: 100;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) transparent;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+
+        .sidebar-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--cyan);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-accent);
+            letter-spacing: 0.5px;
+        }
+
+        .nav-unit {
+            margin-bottom: 16px;
+        }
+
+        .nav-unit-title {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            padding-left: 10px;
+        }
+
+        .nav-link {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 5px 10px;
+            margin: 1px 0;
+            border-radius: 5px;
+            font-size: 0.82rem;
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+            background: rgba(0, 188, 212, 0.06);
+            border-left-color: var(--cyan);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 290px;
+            padding: 40px 50px;
+            max-width: 1000px;
+        }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            padding: 50px 0 40px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .page-header h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .page-header h1 span {
+            color: var(--cyan);
+        }
+
+        .page-header .subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .page-header .meta {
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+        }
+
+        /* Unit Headers */
+        .unit-header {
+            margin: 50px 0 30px;
+            padding: 25px 30px;
+            background: linear-gradient(135deg, var(--bg-card), var(--bg-elevated));
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--cyan);
+            border-radius: 8px;
+        }
+
+        .unit-header h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--cyan);
+        }
+
+        .unit-header p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        /* Section Headers */
+        h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 40px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--cyan);
+            margin: 25px 0 10px;
+        }
+
+        h5 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--magenta);
+            margin: 18px 0 8px;
+        }
+
+        p {
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        /* Cards */
+        .concept-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin: 16px 0;
+        }
+
+        .concept-card.cyan {
+            border-left: 3px solid var(--cyan);
+        }
+
+        .concept-card.magenta {
+            border-left: 3px solid var(--magenta);
+        }
+
+        .concept-card.green {
+            border-left: 3px solid var(--green);
+        }
+
+        .concept-card.amber {
+            border-left: 3px solid var(--amber);
+        }
+
+        .concept-card.red {
+            border-left: 3px solid var(--red);
+        }
+
+        .concept-card.blue {
+            border-left: 3px solid var(--blue);
+        }
+
+        .concept-card h5 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        /* Definition box */
+        .definition {
+            background: var(--cyan-dim);
+            border: 1px solid var(--cyan-border);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 14px 0;
+        }
+
+        .definition .label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--cyan);
+            margin-bottom: 6px;
+        }
+
+        /* Formula box */
+        .formula-box {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 18px 22px;
+            margin: 14px 0;
+            text-align: center;
+        }
+
+        .formula-box .label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--magenta);
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        /* Example box */
+        .example-box {
+            background: var(--green-dim);
+            border: 1px solid rgba(0, 230, 118, 0.2);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 14px 0;
+        }
+
+        .example-box .label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--green);
+            margin-bottom: 6px;
+        }
+
+        /* Note/Warning */
+        .note-box {
+            background: var(--amber-dim);
+            border: 1px solid rgba(255, 193, 7, 0.2);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 14px 0;
+        }
+
+        .note-box .label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--amber);
+            margin-bottom: 6px;
+        }
+
+        /* Numerical box */
+        .numerical-box {
+            background: var(--blue-dim);
+            border: 1px solid rgba(68, 138, 255, 0.2);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 14px 0;
+        }
+
+        .numerical-box .label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--blue);
+            margin-bottom: 6px;
+        }
+
+        /* Lists */
+        ul,
+        ol {
+            margin: 10px 0 14px 20px;
+            color: var(--text-primary);
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: var(--bg-elevated);
+            color: var(--cyan);
+            font-weight: 600;
+            padding: 10px 14px;
+            text-align: left;
+            border: 1px solid var(--border);
+        }
+
+        td {
+            padding: 9px 14px;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        tr:nth-child(even) {
+            background: rgba(22, 27, 34, 0.5);
+        }
+
+        /* Code */
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg-elevated);
+            color: var(--green);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.88em;
+        }
+
+        pre {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 14px 0;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--green);
+            line-height: 1.6;
+        }
+
+        /* SVG Diagrams */
+        .diagram-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 16px 0;
+            text-align: center;
+        }
+
+        .diagram-container .caption {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        svg text {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Comparison grid */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin: 14px 0;
+        }
+
+        .comparison-grid>div {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 18px;
+        }
+
+        /* Key Points */
+        .key-point {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 8px 0;
+        }
+
+        .key-point .marker {
+            min-width: 6px;
+            height: 6px;
+            margin-top: 9px;
+            border-radius: 50%;
+            background: var(--cyan);
+        }
+
+        strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        em {
+            color: var(--text-secondary);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* MathJax overrides */
+        mjx-container {
+            color: var(--text-primary) !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="sidebar-title">ML &amp; Applications</div>
+
+        <div class="nav-unit">
+            <div class="nav-unit-title">Unit 1 &mdash; Foundations</div>
+            <a class="nav-link" href="#u1-intro">Introduction to ML</a>
+            <a class="nav-link" href="#u1-types">Types of Machine Learning</a>
+            <a class="nav-link" href="#u1-datasets">Train / Validate / Test Sets</a>
+            <a class="nav-link" href="#u1-class-examples">Learning a Class from Examples</a>
+            <a class="nav-link" href="#u1-version-space">Version Space &amp; Margin</a>
+            <a class="nav-link" href="#u1-vc">VC Dimension</a>
+            <a class="nav-link" href="#u1-pac">PAC Learning</a>
+            <a class="nav-link" href="#u1-noise">Noise &amp; Occam's Razor</a>
+            <a class="nav-link" href="#u1-multiclass">Learning Multiple Classes</a>
+            <a class="nav-link" href="#u1-regression-intro">Regression (Introduction)</a>
+            <a class="nav-link" href="#u1-generalization">Model Selection &amp; Generalization</a>
+            <a class="nav-link" href="#u1-dimensions">Dimensions of Supervised ML</a>
+            <a class="nav-link" href="#u1-confusion">Confusion Matrix &amp; Metrics</a>
+            <a class="nav-link" href="#u1-roc">ROC Curve &amp; AUC</a>
+            <a class="nav-link" href="#u1-precision-recall">Precision, Recall &amp; F1</a>
+        </div>
+
+        <div class="nav-unit">
+            <div class="nav-unit-title">Unit 2 &mdash; Parametric Methods</div>
+            <a class="nav-link" href="#u2-parametric">Parametric vs Non-parametric</a>
+            <a class="nav-link" href="#u2-regression">Regression (Detailed)</a>
+            <a class="nav-link" href="#u2-polynomial">Polynomial Regression</a>
+            <a class="nav-link" href="#u2-bias-variance">Bias / Variance Dilemma</a>
+            <a class="nav-link" href="#u2-model-selection">Model Selection Procedures</a>
+            <a class="nav-link" href="#u2-parametric-class">Parametric Classification</a>
+            <a class="nav-link" href="#u2-multivariate">Multivariate Data</a>
+            <a class="nav-link" href="#u2-mvn">Multivariate Normal Distribution</a>
+            <a class="nav-link" href="#u2-mv-class">Multivariate Classification</a>
+            <a class="nav-link" href="#u2-tuning">Tuning Complexity (RDA)</a>
+            <a class="nav-link" href="#u2-discrete">Discrete Features</a>
+            <a class="nav-link" href="#u2-mv-regression">Multivariate Regression</a>
+            <a class="nav-link" href="#u2-gradient">Gradient Descent</a>
+            <a class="nav-link" href="#u2-logistic">Logistic Discrimination</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>Machine Learning &amp; <span>Applications</span></h1>
+            <div class="subtitle">Comprehensive Notes &mdash; Unit 1 &amp; Unit 2</div>
+            <div class="meta">
+                UE23EC352B &bull; Textbook: Introduction to Machine Learning, Ethem Alpaydin, 4th Ed., MIT Press, 2020
+            </div>
+        </div>
+
+        <!-- ==================== UNIT 1 ==================== -->
+        <div class="unit-header" id="unit1">
+            <h2>Unit 1: Foundations of Machine Learning</h2>
+            <p>Introduction, Classification, Regression, Learning from Examples, VC Dimension, PAC Learning, Model
+                Evaluation</p>
+        </div>
+
+        <!-- 1.1 Introduction -->
+        <h3 id="u1-intro">1.1 Introduction to Machine Learning</h3>
+
+        <div class="definition">
+            <div class="label">Definition</div>
+            <strong>Machine Learning</strong> is the science of getting computers to learn and improve from experience
+            without being explicitly programmed. It provides a new capability of computers to mimic human
+            decision-making.
+        </div>
+
+        <h4>Why Machine Learning?</h4>
+        <ul>
+            <li><strong>Abundant data</strong> &mdash; massive datasets available from the web, sensors, IoT</li>
+            <li><strong>Mature models &amp; algorithms</strong> &mdash; well-studied theoretical foundations</li>
+            <li><strong>Fast &amp; cheap computing</strong> &mdash; GPUs, cloud platforms enable large-scale training
+            </li>
+            <li><strong>Hard-to-program tasks</strong> &mdash; face recognition, speech recognition, medical image
+                analysis cannot easily be written as rule-based programs</li>
+        </ul>
+
+        <p>Instead of hand-writing a program, we collect lots of examples that specify the correct output for a given
+            input. A machine learning algorithm takes these examples and produces a program (model) that generalizes to
+            new unseen cases.</p>
+
+        <div class="example-box">
+            <div class="label">Classic Example &mdash; Handwritten Digit Recognition</div>
+            <p>Input: 28&times;28 pixel image = 784-dimensional vector $\mathbf{x}$</p>
+            <p>Training set: $\mathbf{x}_1, \mathbf{x}_2, \ldots, \mathbf{x}_N$ with labels $t \in \{0, 1, \ldots, 9\}$
+            </p>
+            <p>Goal: learn a function that accepts any new image $\mathbf{x}$ and predicts the digit (0-9). The model
+                must <strong>generalize</strong> to unseen handwritten inputs.</p>
+        </div>
+
+        <h4>Key Applications of ML</h4>
+        <table>
+            <tr>
+                <th>Domain</th>
+                <th>Application</th>
+            </tr>
+            <tr>
+                <td>Pattern Recognition</td>
+                <td>Facial identity/expression, handwritten/spoken words, medical images</td>
+            </tr>
+            <tr>
+                <td>Anomaly Detection</td>
+                <td>Unusual credit card transactions, sensor readings in nuclear plants</td>
+            </tr>
+            <tr>
+                <td>Prediction</td>
+                <td>Stock prices, weather, currency exchange rates</td>
+            </tr>
+            <tr>
+                <td>Web Applications</td>
+                <td>Spam filtering, fraud detection, recommendation systems</td>
+            </tr>
+            <tr>
+                <td>Generation</td>
+                <td>Image generation, motion sequences, text generation</td>
+            </tr>
+            <tr>
+                <td>Information Retrieval</td>
+                <td>Finding documents/images with similar content</td>
+            </tr>
+        </table>
+
+        <!-- 1.2 Types of ML -->
+        <h3 id="u1-types">1.2 Types of Machine Learning</h3>
+
+        <div class="comparison-grid">
+            <div style="border-left: 3px solid var(--cyan);">
+                <h5 style="color: var(--cyan);">Supervised Learning</h5>
+                <p>Learn to predict output given an input vector. Training data consists of input-output pairs $(x, y)$.
+                </p>
+                <ul>
+                    <li><strong>Classification:</strong> output is a discrete class label</li>
+                    <li><strong>Regression:</strong> output is a continuous numeric value</li>
+                </ul>
+            </div>
+            <div style="border-left: 3px solid var(--magenta);">
+                <h5 style="color: var(--magenta);">Unsupervised Learning</h5>
+                <p>No labels given. Create an internal representation of the input (e.g., clusters, features).</p>
+                <ul>
+                    <li><strong>Clustering:</strong> group similar data points (K-Means)</li>
+                    <li><strong>Dimensionality Reduction:</strong> PCA, Autoencoders</li>
+                </ul>
+            </div>
+            <div style="border-left: 3px solid var(--green);">
+                <h5 style="color: var(--green);">Reinforcement Learning</h5>
+                <p>Learn actions to maximize cumulative reward through trial and error. Payoff is often delayed.</p>
+            </div>
+            <div style="border-left: 3px solid var(--amber);">
+                <h5 style="color: var(--amber);">Classification vs Regression</h5>
+                <p><strong>Classification:</strong> disease diagnosis (K classes), spam/not-spam (2 classes)</p>
+                <p><strong>Regression:</strong> house price, sales forecasting, age estimation</p>
+            </div>
+        </div>
+
+        <!-- Visualization: Supervised vs Unsupervised -->
+        <div class="diagram-container">
+            <svg width="640" height="240" viewBox="0 0 640 240">
+                <!-- Supervised -->
+                <rect x="10" y="10" width="300" height="220" rx="8" fill="#1c2128" stroke="#30363d" />
+                <text x="160" y="35" fill="#00bcd4" font-size="13" font-weight="600" text-anchor="middle">Supervised
+                    Learning</text>
+                <!-- Class 1 points -->
+                <circle cx="60" cy="80" r="5" fill="#00e676" opacity="0.8" />
+                <circle cx="85" cy="100" r="5" fill="#00e676" opacity="0.8" />
+                <circle cx="70" cy="120" r="5" fill="#00e676" opacity="0.8" />
+                <circle cx="95" cy="90" r="5" fill="#00e676" opacity="0.8" />
+                <circle cx="55" cy="105" r="5" fill="#00e676" opacity="0.8" />
+                <!-- Class 2 points -->
+                <circle cx="200" cy="140" r="5" fill="#e040fb" opacity="0.8" />
+                <circle cx="220" cy="160" r="5" fill="#e040fb" opacity="0.8" />
+                <circle cx="230" cy="130" r="5" fill="#e040fb" opacity="0.8" />
+                <circle cx="250" cy="150" r="5" fill="#e040fb" opacity="0.8" />
+                <circle cx="210" cy="175" r="5" fill="#e040fb" opacity="0.8" />
+                <!-- Decision boundary -->
+                <line x1="140" y1="60" x2="170" y2="200" stroke="#ffc107" stroke-width="2" stroke-dasharray="5,3" />
+                <text x="160" y="215" fill="#8b949e" font-size="10" text-anchor="middle">Decision Boundary</text>
+                <text x="75" y="155" fill="#00e676" font-size="10" text-anchor="middle">Class 1</text>
+                <text x="225" y="200" fill="#e040fb" font-size="10" text-anchor="middle">Class 2</text>
+
+                <!-- Unsupervised -->
+                <rect x="330" y="10" width="300" height="220" rx="8" fill="#1c2128" stroke="#30363d" />
+                <text x="480" y="35" fill="#e040fb" font-size="13" font-weight="600" text-anchor="middle">Unsupervised
+                    Learning</text>
+                <!-- Cluster 1 -->
+                <circle cx="390" cy="90" r="5" fill="#448aff" opacity="0.8" />
+                <circle cx="410" cy="80" r="5" fill="#448aff" opacity="0.8" />
+                <circle cx="400" cy="105" r="5" fill="#448aff" opacity="0.8" />
+                <circle cx="380" cy="100" r="5" fill="#448aff" opacity="0.8" />
+                <ellipse cx="395" cy="95" rx="35" ry="25" fill="none" stroke="#448aff" stroke-width="1"
+                    stroke-dasharray="4,3" opacity="0.5" />
+                <!-- Cluster 2 -->
+                <circle cx="530" cy="150" r="5" fill="#ff5252" opacity="0.8" />
+                <circle cx="550" cy="160" r="5" fill="#ff5252" opacity="0.8" />
+                <circle cx="560" cy="140" r="5" fill="#ff5252" opacity="0.8" />
+                <circle cx="540" cy="170" r="5" fill="#ff5252" opacity="0.8" />
+                <ellipse cx="545" cy="155" rx="35" ry="25" fill="none" stroke="#ff5252" stroke-width="1"
+                    stroke-dasharray="4,3" opacity="0.5" />
+                <!-- Cluster 3 -->
+                <circle cx="470" cy="185" r="5" fill="#00e676" opacity="0.8" />
+                <circle cx="485" cy="195" r="5" fill="#00e676" opacity="0.8" />
+                <circle cx="460" cy="200" r="5" fill="#00e676" opacity="0.8" />
+                <ellipse cx="472" cy="193" rx="28" ry="18" fill="none" stroke="#00e676" stroke-width="1"
+                    stroke-dasharray="4,3" opacity="0.5" />
+                <text x="480" y="215" fill="#8b949e" font-size="10" text-anchor="middle">Clusters discovered
+                    automatically</text>
+            </svg>
+            <div class="caption">Left: Supervised learning with labeled classes and a decision boundary. Right:
+                Unsupervised learning discovers clusters without labels.</div>
+        </div>
+
+        <!-- 1.3 Train/Validate/Test -->
+        <h3 id="u1-datasets">1.3 Training, Validation &amp; Test Sets</h3>
+
+        <p>In supervised ML, we split data into three distinct portions to ensure the model learns, is tuned correctly,
+            and is evaluated fairly.</p>
+
+        <div class="concept-card cyan">
+            <h5 style="color: var(--cyan);">Training Set (60&ndash;70%)</h5>
+            <p>Used to <strong>teach</strong> the model. The model fits its parameters (e.g., weights in regression,
+                tree splits) by minimizing errors on this set using an optimization algorithm.</p>
+        </div>
+
+        <div class="concept-card magenta">
+            <h5 style="color: var(--magenta);">Validation Set (15&ndash;20%)</h5>
+            <p>Used to <strong>tune hyperparameters</strong> and select the best model. Adjust learning rate, number of
+                layers, $k$ in k-NN, etc. Prevents overfitting to training data. Supports early stopping decisions.</p>
+        </div>
+
+        <div class="concept-card green">
+            <h5 style="color: var(--green);">Test Set (10&ndash;15%)</h5>
+            <p>Used <strong>only once, at the end</strong> for final unbiased evaluation. No learning or tuning is done
+                on test data. Gives a realistic measure of how the model performs on truly unseen data.</p>
+        </div>
+
+        <div class="note-box">
+            <div class="label">Important</div>
+            <p>Never use the same dataset for both training and validation/testing. Using the same data leads to
+                <strong>biased, overly optimistic results</strong> because the model memorizes the answers rather than
+                learning generalizable patterns.
+            </p>
+            <p>Over the validation set, a single run is not enough because: (1) Training and validation sets may be
+                small and contain noise/outliers, (2) The learning method may depend on random factors (e.g., initial
+                weights in MLP). Run many times and average for robustness.</p>
+        </div>
+
+        <!-- Diagram: Train/Val/Test Split -->
+        <div class="diagram-container">
+            <svg width="580" height="100" viewBox="0 0 580 100">
+                <rect x="10" y="30" width="350" height="40" rx="5" fill="#00bcd4" opacity="0.3" stroke="#00bcd4"
+                    stroke-width="1" />
+                <text x="185" y="55" fill="#00bcd4" font-size="13" font-weight="600" text-anchor="middle">Training Set
+                    (70%)</text>
+                <rect x="365" y="30" width="100" height="40" rx="5" fill="#e040fb" opacity="0.3" stroke="#e040fb"
+                    stroke-width="1" />
+                <text x="415" y="55" fill="#e040fb" font-size="12" font-weight="600" text-anchor="middle">Val
+                    (15%)</text>
+                <rect x="470" y="30" width="100" height="40" rx="5" fill="#00e676" opacity="0.3" stroke="#00e676"
+                    stroke-width="1" />
+                <text x="520" y="55" fill="#00e676" font-size="12" font-weight="600" text-anchor="middle">Test
+                    (15%)</text>
+                <text x="290" y="90" fill="#8b949e" font-size="11" text-anchor="middle">Complete Dataset</text>
+            </svg>
+        </div>
+
+        <div class="example-box">
+            <div class="label">Example &mdash; Student Pass/Fail Prediction</div>
+            <p><strong>Task:</strong> Predict whether a student will Pass (1) or Fail (0) based on hours studied.</p>
+            <p><strong>Training:</strong> model learns that low study hours &rarr; Fail, higher hours &rarr; Pass.
+                Decision boundary learned &asymp; 4.5 hours.</p>
+            <p><strong>Validation:</strong> test different thresholds (4 or 5 hours), choose the one with better
+                accuracy.</p>
+            <p><strong>Test:</strong> evaluate on held-out data. Test accuracy = 100% confirms the model generalizes
+                well.</p>
+        </div>
+
+        <pre>from sklearn.datasets import make_blobs
+from sklearn.model_selection import train_test_split
+
+X, y = make_blobs(n_samples=1000)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)
+print(X_train.shape, X_test.shape)   # (670, 2) (330, 2)</pre>
+
+        <!-- 1.4 Learning a Class from Examples -->
+        <h3 id="u1-class-examples">1.4 Learning a Class from Examples</h3>
+
+        <p>Consider learning to classify <strong>family cars</strong>. Each car is represented by two features:
+            <strong>Price</strong> ($x_1$) and <strong>Engine Power</strong> ($x_2$).
+        </p>
+
+        <div class="concept-card cyan">
+            <h5 style="color: var(--cyan);">Problem Setup</h5>
+            <ul>
+                <li>Each car is a vector $\mathbf{x} = \begin{pmatrix} x_1 \\ x_2 \end{pmatrix}$ where $x_1 =
+                    \text{Price}$, $x_2 = \text{Engine Power}$</li>
+                <li>Label: $r = 1$ if $\mathbf{x}$ is a positive example (family car), $r = 0$ if negative</li>
+                <li>Training set: $X = \{(\mathbf{x}^t, r^t)\}_{t=1}^{N}$</li>
+                <li>The actual class $C$ defines a region in feature space where the car is a family car</li>
+            </ul>
+        </div>
+
+        <h4>Hypothesis Class</h4>
+        <p>We assume the hypothesis class $H$ consists of <strong>axis-aligned rectangles</strong> defined by four
+            parameters:</p>
+        <ul>
+            <li>$p_1$ = lower limit of price, $p_2$ = upper limit of price</li>
+            <li>$e_1$ = lower limit of engine power, $e_2$ = upper limit of engine power</li>
+        </ul>
+
+        <div class="formula-box">
+            <div class="label">Hypothesis</div>
+            $$h(\mathbf{x}) = \begin{cases} 1 & \text{if } p_1 \leq \text{Price} \leq p_2 \text{ AND } e_1 \leq
+            \text{Engine Power} \leq e_2 \\ 0 & \text{otherwise} \end{cases}$$
+        </div>
+
+        <!-- Diagram: Family Car Classification -->
+        <div class="diagram-container">
+            <svg width="480" height="340" viewBox="0 0 480 340">
+                <!-- Axes -->
+                <line x1="60" y1="280" x2="440" y2="280" stroke="#6e7681" stroke-width="1" />
+                <line x1="60" y1="280" x2="60" y2="30" stroke="#6e7681" stroke-width="1" />
+                <text x="250" y="315" fill="#8b949e" font-size="12" text-anchor="middle">Price (lakhs)</text>
+                <text x="20" y="155" fill="#8b949e" font-size="12" text-anchor="middle"
+                    transform="rotate(-90, 20, 155)">Engine Power (hp)</text>
+
+                <!-- Actual class C (blue dashed) -->
+                <rect x="100" y="80" width="280" height="160" rx="2" fill="none" stroke="#448aff" stroke-width="2"
+                    stroke-dasharray="6,3" />
+                <text x="106" y="72" fill="#448aff" font-size="11">C (Actual Class)</text>
+
+                <!-- Most General G (outer rectangle) -->
+                <rect x="80" y="55" width="330" height="200" rx="2" fill="none" stroke="#ffc107" stroke-width="1.5"
+                    stroke-dasharray="4,4" />
+                <text x="86" y="48" fill="#ffc107" font-size="10">G (Most General)</text>
+
+                <!-- Most Specific S (inner rectangle) -->
+                <rect x="160" y="110" width="140" height="80" rx="2" fill="rgba(0, 230, 118, 0.08)" stroke="#00e676"
+                    stroke-width="1.5" />
+                <text x="166" y="103" fill="#00e676" font-size="10">S (Most Specific)</text>
+
+                <!-- Positive examples -->
+                <circle cx="180" cy="140" r="5" fill="#00e676" />
+                <circle cx="220" cy="160" r="5" fill="#00e676" />
+                <circle cx="260" cy="130" r="5" fill="#00e676" />
+                <circle cx="200" cy="170" r="5" fill="#00e676" />
+                <circle cx="280" cy="150" r="5" fill="#00e676" />
+
+                <!-- Negative examples -->
+                <circle cx="100" cy="260" r="5" fill="#ff5252" />
+                <circle cx="380" cy="60" r="5" fill="#ff5252" />
+                <circle cx="420" cy="200" r="5" fill="#ff5252" />
+                <circle cx="90" cy="70" r="5" fill="#ff5252" />
+                <circle cx="350" cy="260" r="5" fill="#ff5252" />
+
+                <!-- Legend -->
+                <circle cx="70" cy="310" r="4" fill="#00e676" />
+                <text x="80" y="314" fill="#8b949e" font-size="10">Positive (+)</text>
+                <circle cx="160" cy="310" r="4" fill="#ff5252" />
+                <text x="170" y="314" fill="#8b949e" font-size="10">Negative (-)</text>
+
+                <!-- Axis ticks -->
+                <text x="100" y="295" fill="#6e7681" font-size="9" text-anchor="middle">4</text>
+                <text x="180" y="295" fill="#6e7681" font-size="9" text-anchor="middle">8</text>
+                <text x="260" y="295" fill="#6e7681" font-size="9" text-anchor="middle">10</text>
+                <text x="380" y="295" fill="#6e7681" font-size="9" text-anchor="middle">14</text>
+                <text x="50" y="243" fill="#6e7681" font-size="9" text-anchor="middle">2</text>
+                <text x="50" y="193" fill="#6e7681" font-size="9" text-anchor="middle">4</text>
+                <text x="50" y="143" fill="#6e7681" font-size="9" text-anchor="middle">6</text>
+                <text x="50" y="83" fill="#6e7681" font-size="9" text-anchor="middle">8</text>
+            </svg>
+            <div class="caption">Family car classification: S is the tightest rectangle around positive examples, G is
+                the widest rectangle excluding negatives. The version space lies between S and G.</div>
+        </div>
+
+        <h4>Empirical Error</h4>
+        <p>Since the true class $C(\mathbf{x})$ is unknown, we evaluate the <strong>empirical error</strong> &mdash; the
+            proportion of training instances where the hypothesis disagrees with the label:</p>
+
+        <div class="formula-box">
+            <div class="label">Empirical Error</div>
+            $$E(h|X) = \sum_{t=1}^{N} \mathbf{1}(h(\mathbf{x}^t) \neq r^t)$$
+            <p style="text-align:left; margin-top:8px; font-size:0.88rem; color: var(--text-secondary);">where
+                $\mathbf{1}(\cdot)$ is the indicator function: returns 1 if condition is true, 0 otherwise. We seek $h$
+                such that $E = 0$.</p>
+        </div>
+
+        <!-- 1.5 Version Space -->
+        <h3 id="u1-version-space">1.5 Version Space, Doubt &amp; Margin</h3>
+
+        <div class="concept-card cyan">
+            <h5 style="color: var(--cyan);">Most Specific (S) &amp; Most General (G) Hypotheses</h5>
+            <p><strong>S</strong> = tightest rectangle that includes all positive examples<br>
+                <strong>G</strong> = widest rectangle that excludes all negative examples<br>
+                Any $h \in H$ between S and G has zero error on training data &mdash; it is <strong>consistent</strong>
+                with the training set. This set of consistent hypotheses forms the <strong>Version Space</strong>.
+            </p>
+        </div>
+
+        <div class="example-box">
+            <div class="label">Example</div>
+            <p>S: $8 \leq \text{price} \leq 10$ AND $4 \leq \text{engine power} \leq 6$</p>
+            <p>G: $4 \leq \text{price} \leq 14$ AND $2 \leq \text{engine power} \leq 8$</p>
+            <p>C (actual): $4 \leq \text{price} \leq 13$ AND $2.5 \leq \text{engine power} \leq 7.5$</p>
+        </div>
+
+        <h4>False Positive &amp; False Negative</h4>
+        <p>If $h$ and $C$ are different:</p>
+        <ul>
+            <li><strong>False Negative (FN):</strong> $C = 1$ but $h = 0$ (point is in C but outside h). Example:
+                Price=12.75 lakhs, Engine Power=4</li>
+            <li><strong>False Positive (FP):</strong> $C = 0$ but $h = 1$ (point is outside C but inside h). Example:
+                Price=10 lakhs, Engine Power=7.9</li>
+        </ul>
+
+        <h4>Doubt &amp; Rejection</h4>
+        <p>When an instance falls between S and G, we have a case of <strong>doubt</strong> &mdash; there isn't enough
+            data to classify it. The system <strong>rejects</strong> such instances and defers the decision to a human
+            expert.</p>
+
+        <h4>Margin</h4>
+        <p>We choose the hypothesis with the <strong>largest margin</strong> for best separation. Margin instances are
+            those that define the boundary; other instances can be removed without affecting $h$.</p>
+
+        <h4>Candidate Elimination Algorithm</h4>
+        <p>The <strong>Candidate Elimination</strong> algorithm incrementally updates the S-Set and G-Set as it sees
+            training instances one by one. If the training set is large enough, there is a unique S and G.</p>
+
+        <!-- 1.6 VC Dimension -->
+        <h3 id="u1-vc">1.6 Vapnik-Chervonenkis (VC) Dimension</h3>
+
+        <div class="definition">
+            <div class="label">Definition</div>
+            <p>The <strong>VC Dimension</strong> of a hypothesis class $H$ is the maximum number of data points that can
+                be <strong>shattered</strong> by $H$. We write $\text{VC}(H)$.</p>
+            <p><strong>Shattering:</strong> A set of $n$ points is shattered by $H$ if for <em>all</em> $2^n$ possible
+                labelings (positive/negative), there exists some $h \in H$ that correctly separates them.</p>
+        </div>
+
+        <div class="concept-card cyan">
+            <h5 style="color: var(--cyan);">Why VC Dimension Matters</h5>
+            <ul>
+                <li>Measures <strong>model complexity/capacity</strong></li>
+                <li>Helps understand <strong>overfitting vs. generalization</strong></li>
+                <li>Provides theoretical guarantees on learning</li>
+                <li>Higher VC dimension &rArr; more training data required to generalize</li>
+            </ul>
+        </div>
+
+        <h4>VC Dimension Examples</h4>
+
+        <table>
+            <tr>
+                <th>Hypothesis Class</th>
+                <th>VC Dimension</th>
+                <th>Reasoning</th>
+            </tr>
+            <tr>
+                <td>Threshold on a line: $h(x) = 1 \text{ if } x \geq c$</td>
+                <td>1</td>
+                <td>Can shatter 1 point; fails for 2 points in some configurations</td>
+            </tr>
+            <tr>
+                <td>Linear classifier in 2D (line)</td>
+                <td>3</td>
+                <td>3 non-collinear points: all $2^3 = 8$ labelings achievable. 4 points: XOR labeling impossible</td>
+            </tr>
+            <tr>
+                <td>Linear classifier in $d$ dimensions</td>
+                <td>$d + 1$</td>
+                <td>A hyperplane in $d$-D can shatter $d+1$ points</td>
+            </tr>
+            <tr>
+                <td>Axis-aligned rectangle in 2D</td>
+                <td>4</td>
+                <td>Can shatter 4 corner-like points with rectangles</td>
+            </tr>
+        </table>
+
+        <!-- Diagram: VC Dimension -->
+        <div class="diagram-container">
+            <svg width="560" height="200" viewBox="0 0 560 200">
+                <!-- 3 points shattered by line -->
+                <rect x="10" y="10" width="250" height="180" rx="6" fill="#1c2128" stroke="#30363d" />
+                <text x="135" y="32" fill="#00bcd4" font-size="12" font-weight="600" text-anchor="middle">VC(line in 2D)
+                    = 3</text>
+
+                <circle cx="80" cy="80" r="6" fill="#00e676" />
+                <circle cx="180" cy="80" r="6" fill="#00e676" />
+                <circle cx="130" cy="150" r="6" fill="#ff5252" />
+                <line x1="50" y1="120" x2="220" y2="100" stroke="#ffc107" stroke-width="1.5" stroke-dasharray="4,3" />
+                <text x="135" y="175" fill="#8b949e" font-size="10" text-anchor="middle">3 points: all 8 labelings
+                    separable</text>
+
+                <!-- 4 points NOT shattered (XOR) -->
+                <rect x="290" y="10" width="260" height="180" rx="6" fill="#1c2128" stroke="#30363d" />
+                <text x="420" y="32" fill="#ff5252" font-size="12" font-weight="600" text-anchor="middle">4 points: XOR
+                    not separable</text>
+
+                <circle cx="350" cy="80" r="6" fill="#00e676" />
+                <circle cx="490" cy="80" r="6" fill="#ff5252" />
+                <circle cx="350" cy="150" r="6" fill="#ff5252" />
+                <circle cx="490" cy="150" r="6" fill="#00e676" />
+                <text x="420" y="175" fill="#8b949e" font-size="10" text-anchor="middle">No single line can separate
+                    this labeling</text>
+            </svg>
+            <div class="caption">Left: A linear classifier in 2D can shatter 3 non-collinear points. Right: 4 points in
+                XOR configuration cannot be separated by any line, so VC dim = 3 (not 4).</div>
+        </div>
+
+        <div class="note-box">
+            <div class="label">Key Insight</div>
+            <p><strong>Low VC dimension</strong> &rarr; simple model &rarr; may underfit<br>
+                <strong>High VC dimension</strong> &rarr; complex model &rarr; risk of overfitting<br>
+                Generalization error depends on: training error, VC dimension, and number of training samples.
+            </p>
+        </div>
+
+        <!-- 1.7 PAC Learning -->
+        <h3 id="u1-pac">1.7 Probably Approximately Correct (PAC) Learning</h3>
+
+        <div class="definition">
+            <div class="label">Definition</div>
+            <p><strong>PAC Learning</strong> is a theoretical framework that defines when a learning algorithm can be
+                considered successful. A concept class is PAC-learnable if there exists an algorithm producing a
+                hypothesis that is <strong>approximately correct</strong> (error $\leq \varepsilon$) with <strong>high
+                    probability</strong> ($\geq 1 - \delta$) using a finite number of samples.</p>
+        </div>
+
+        <h4>Formal Statement</h4>
+        <p>We want to find the number of examples $N$ such that with probability $(1 - \delta)$, the hypothesis $h$ has
+            error at most $\varepsilon$:</p>
+
+        <div class="formula-box">
+            <div class="label">PAC Condition</div>
+            $$P(C \Delta h \leq \varepsilon) \geq 1 - \delta$$
+            <p style="text-align:left; margin-top:8px; font-size:0.88rem; color: var(--text-secondary);">where $C \Delta
+                h$ = region of difference between actual class C and hypothesis h.</p>
+        </div>
+
+        <h4>Derivation for Rectangle Hypothesis</h4>
+        <p>Using $h = S$ (tightest rectangle), the error region between C and S is the sum of four rectangular strips.
+        </p>
+        <ol>
+            <li>Probability each positive example falls in one strip = $\varepsilon/4$</li>
+            <li>Probability each draw misses one strip = $(1 - \varepsilon/4)$</li>
+            <li>Probability $N$ independent draws all miss one strip = $(1 - \varepsilon/4)^N$</li>
+            <li>Probability misses at least one of four strips $\leq 4(1 - \varepsilon/4)^N \leq 4 e^{-N\varepsilon/4}$
+            </li>
+        </ol>
+
+        <p>Setting $4 e^{-N\varepsilon/4} \leq \delta$ and solving:</p>
+
+        <div class="formula-box">
+            <div class="label">Sample Complexity</div>
+            $$N \geq \frac{4}{\varepsilon} \ln \frac{4}{\delta}$$
+        </div>
+
+        <div class="numerical-box">
+            <div class="label">Numerical Example</div>
+            <p><strong>Given:</strong> $\varepsilon = 0.05$ (5% error allowed), $\delta = 0.01$ (99% confidence)</p>
+            <p><strong>Calculate:</strong></p>
+            <p>$$N \geq \frac{4}{0.05} \ln \frac{4}{0.01} = 80 \times \ln(400) = 80 \times 5.991 = 479.3$$</p>
+            <p><strong>Result:</strong> We need at least $N = 480$ training examples. With 99% probability, the learned
+                model's error will be $\leq$ 5% on unseen data.</p>
+        </div>
+
+        <div class="note-box">
+            <div class="label">Key Properties</div>
+            <p>&bull; As $\delta$ decreases (higher confidence), $N$ increases &mdash; more data needed for greater
+                certainty</p>
+            <p>&bull; As $\varepsilon$ decreases (tighter accuracy), $N$ increases &mdash; more data needed for better
+                precision</p>
+            <p>&bull; With VC dimension $d$: $m = O\left(\frac{1}{\varepsilon}\left(d \log \frac{1}{\varepsilon} + \log
+                \frac{1}{\delta}\right)\right)$</p>
+        </div>
+
+        <!-- 1.8 Noise -->
+        <h3 id="u1-noise">1.8 Noise &amp; Occam's Razor</h3>
+
+        <div class="definition">
+            <div class="label">Definition</div>
+            <p><strong>Noise</strong> is an unwanted anomaly in the data. Due to noise, the class may be difficult to
+                learn and zero error may be impossible with a simple hypothesis class.</p>
+        </div>
+
+        <h4>Sources of Noise</h4>
+        <ol>
+            <li><strong>Input imprecision:</strong> Recording errors in input attributes shift data points in input
+                space</li>
+            <li><strong>Teacher's noise:</strong> Errors in labeling &mdash; positive examples mislabeled as negative
+                (and vice versa)</li>
+            <li><strong>Hidden variables:</strong> Unobserved attributes that affect the label are modeled as random
+                noise</li>
+        </ol>
+
+        <h4>Dealing with Noise</h4>
+        <p>When there is noise, there isn't a clean boundary between classes. A complex hypothesis with many parameters
+            could perfectly separate noisy data, but this is undesirable.</p>
+
+        <div class="concept-card amber">
+            <h5 style="color: var(--amber);">Occam's Razor</h5>
+            <p>Given comparable empirical error, a <strong>simple model generalizes better</strong> than a complex one.
+                A rectangle (4 parameters) is preferred over an arbitrary closed form (many control points) because:</p>
+            <ol>
+                <li>Simple to use &mdash; easy to check if a point is inside/outside</li>
+                <li>Simple to train &mdash; fewer parameters, less variance</li>
+                <li>Simple to explain &mdash; defines intervals on attributes</li>
+                <li>Better generalization in the presence of noise</li>
+            </ol>
+        </div>
+
+        <!-- 1.9 Multiple Classes -->
+        <h3 id="u1-multiclass">1.9 Learning Multiple Classes</h3>
+
+        <p>With $K$ classes $C_1, C_2, \ldots, C_K$ (e.g., Family Car, Luxury Car, Sports Car), the training set is $X =
+            \{(\mathbf{x}^t, \mathbf{r}^t)\}_{t=1}^{N}$ where $\mathbf{r}$ has $K$ dimensions:</p>
+
+        <div class="formula-box">
+            <div class="label">One-Hot Encoding</div>
+            $$r_i^t = \begin{cases} 1 & \text{if } \mathbf{x}^t \in C_i \\ 0 & \text{if } \mathbf{x}^t \in C_j, \, j
+            \neq i \end{cases}$$
+        </div>
+
+        <p>We learn $K$ hypotheses $h_1, h_2, \ldots, h_K$ where each $h_i$ separates class $C_i$ from all other
+            classes. The total empirical error:</p>
+
+        <div class="formula-box">
+            <div class="label">Total Error (K classes)</div>
+            $$E(\{h_i\}_{i=1}^{K} | X) = \sum_{t=1}^{N} \sum_{i=1}^{K} \mathbf{1}(h_i(\mathbf{x}^t) \neq r_i^t)$$
+        </div>
+
+        <p>For a given $\mathbf{x}$, ideally only one $h_i(\mathbf{x}) = 1$ and we choose that class. If two or more
+            $h_i = 1$, we have ambiguity. If no $h_i = 1$, we have <strong>doubt</strong> and the classifier rejects.
+        </p>
+
+        <!-- 1.10 Regression Intro -->
+        <h3 id="u1-regression-intro">1.10 Regression (Introduction)</h3>
+
+        <div class="definition">
+            <div class="label">Definition</div>
+            <p><strong>Regression</strong> predicts a continuous numeric output as a function of input variables. Unlike
+                classification (Boolean output), regression output can be any real number.</p>
+        </div>
+
+        <div class="example-box">
+            <div class="label">Example &mdash; Sales Prediction</div>
+            <table>
+                <tr>
+                    <th>Year</th>
+                    <th>Advertisement ($)</th>
+                    <th>Sales ($)</th>
+                </tr>
+                <tr>
+                    <td>2021</td>
+                    <td>90</td>
+                    <td>1000</td>
+                </tr>
+                <tr>
+                    <td>2022</td>
+                    <td>100</td>
+                    <td>1050</td>
+                </tr>
+                <tr>
+                    <td>2023</td>
+                    <td>150</td>
+                    <td>1800</td>
+                </tr>
+                <tr>
+                    <td>2024</td>
+                    <td>100</td>
+                    <td>1200</td>
+                </tr>
+                <tr>
+                    <td>2025</td>
+                    <td>130</td>
+                    <td>1380</td>
+                </tr>
+                <tr>
+                    <td>2026</td>
+                    <td>200</td>
+                    <td>?</td>
+                </tr>
+            </table>
+            <p><strong>Univariate linear model:</strong> Sales $= w_0 + w_1 \times$ Advertisement</p>
+            <p><strong>Quadratic model:</strong> Sales $= w_0 + w_1 \times$ Ad $+ w_2 \times$ Ad$^2$</p>
+            <p>Training = finding the parameter values ($w_0, w_1, \ldots$) that best fit the data.</p>
+        </div>
+
+        <h4>Univariate vs. Multivariate</h4>
+        <p>If sales depends on <strong>one</strong> variable (advertisement) &rarr; <strong>univariate</strong>. If
+            sales depends on advertisement, fuel price, and interest rate &rarr; <strong>multivariate</strong>:</p>
+        <p>$$\text{Sales} = w_0 + w_1 \cdot \text{Ad} + w_2 \cdot \text{Interest Rate} + w_3 \cdot \text{Fuel Price}$$
+        </p>
+
+        <div class="note-box">
+            <div class="label">Key Point</div>
+            <p>As we choose higher-order models or work with more features, we need <strong>larger datasets</strong> to
+                reliably determine the parameters. The model order and the dataset size are critical factors in ML.</p>
+        </div>
+
+        <!-- 1.11 Generalization -->
+        <h3 id="u1-generalization">1.11 Model Selection &amp; Generalization</h3>
+
+        <div class="definition">
+            <div class="label">Definition</div>
+            <p><strong>Generalization</strong> is a model's ability to perform accurately on new, unseen data. Good
+                generalization = low error on both training and new data. Poor generalization =
+                <strong>overfitting</strong> (too complex) or <strong>underfitting</strong> (too simple).
+            </p>
+        </div>
+
+        <h4>Ill-Posed Problem &amp; Inductive Bias</h4>
+        <p>For a Boolean function with $d$ inputs: there are $2^d$ possible input combinations and $2^{2^d}$ possible
+            functions. Each training example eliminates half the hypotheses. With $N &lt; 2^d$ examples, $2^{2^d - N}$
+            functions remain &mdash; this is <strong>ill-posed</strong> (data alone isn't sufficient for a unique
+            solution).</p>
+
+        <div class="concept-card magenta">
+            <h5 style="color: var(--magenta);">Inductive Bias</h5>
+            <p>The set of assumptions we make to have learning possible is called <strong>inductive bias</strong>.
+                Examples:</p>
+            <ul>
+                <li>Assuming the class boundary is a rectangle &rarr; one inductive bias</li>
+                <li>Choosing the rectangle with largest margin &rarr; another bias</li>
+                <li>Assuming a linear function in regression &rarr; linear bias</li>
+            </ul>
+            <p><strong>Model selection</strong> = choosing the right inductive bias (choosing between possible $H$).</p>
+        </div>
+
+        <h4>Underfitting vs. Overfitting</h4>
+
+        <div class="comparison-grid">
+            <div style="border-left: 3px solid var(--blue);">
+                <h5 style="color: var(--blue);">Underfitting (High Bias)</h5>
+                <p>$H$ is less complex than the true function. E.g., fitting a line to cubic data. Training error is
+                    high. The model fails to capture essential patterns.</p>
+            </div>
+            <div style="border-left: 3px solid var(--red);">
+                <h5 style="color: var(--red);">Overfitting (High Variance)</h5>
+                <p>$H$ is more complex than needed. E.g., fitting a degree-6 polynomial to noisy cubic data. Training
+                    error is near zero, but test error is high. The model memorizes noise.</p>
+            </div>
+        </div>
+
+        <!-- Diagram: Underfitting/Overfitting -->
+        <div class="diagram-container">
+            <svg width="600" height="220" viewBox="0 0 600 220">
+                <!-- Underfitting -->
+                <rect x="10" y="10" width="180" height="200" rx="6" fill="#1c2128" stroke="#30363d" />
+                <text x="100" y="30" fill="#448aff" font-size="11" font-weight="600"
+                    text-anchor="middle">Underfitting</text>
+                <!-- Data points (cubic-ish) -->
+                <circle cx="40" cy="160" r="3" fill="#8b949e" />
+                <circle cx="60" cy="140" r="3" fill="#8b949e" />
+                <circle cx="80" cy="110" r="3" fill="#8b949e" />
+                <circle cx="100" cy="80" r="3" fill="#8b949e" />
+                <circle cx="120" cy="70" r="3" fill="#8b949e" />
+                <circle cx="140" cy="60" r="3" fill="#8b949e" />
+                <circle cx="160" cy="55" r="3" fill="#8b949e" />
+                <!-- Straight line (bad fit) -->
+                <line x1="30" y1="170" x2="170" y2="50" stroke="#448aff" stroke-width="2" />
+                <text x="100" y="195" fill="#8b949e" font-size="10" text-anchor="middle">High bias, low variance</text>
+
+                <!-- Good fit -->
+                <rect x="210" y="10" width="180" height="200" rx="6" fill="#1c2128" stroke="#30363d" />
+                <text x="300" y="30" fill="#00e676" font-size="11" font-weight="600" text-anchor="middle">Good
+                    Fit</text>
+                <circle cx="240" cy="160" r="3" fill="#8b949e" />
+                <circle cx="260" cy="140" r="3" fill="#8b949e" />
+                <circle cx="280" cy="110" r="3" fill="#8b949e" />
+                <circle cx="300" cy="80" r="3" fill="#8b949e" />
+                <circle cx="320" cy="70" r="3" fill="#8b949e" />
+                <circle cx="340" cy="60" r="3" fill="#8b949e" />
+                <circle cx="360" cy="55" r="3" fill="#8b949e" />
+                <!-- Good curve -->
+                <path d="M 230 168 Q 270 130, 300 85 Q 330 55, 370 50" fill="none" stroke="#00e676" stroke-width="2" />
+                <text x="300" y="195" fill="#8b949e" font-size="10" text-anchor="middle">Balanced bias-variance</text>
+
+                <!-- Overfitting -->
+                <rect x="410" y="10" width="180" height="200" rx="6" fill="#1c2128" stroke="#30363d" />
+                <text x="500" y="30" fill="#ff5252" font-size="11" font-weight="600"
+                    text-anchor="middle">Overfitting</text>
+                <circle cx="440" cy="160" r="3" fill="#8b949e" />
+                <circle cx="460" cy="140" r="3" fill="#8b949e" />
+                <circle cx="480" cy="110" r="3" fill="#8b949e" />
+                <circle cx="500" cy="80" r="3" fill="#8b949e" />
+                <circle cx="520" cy="70" r="3" fill="#8b949e" />
+                <circle cx="540" cy="60" r="3" fill="#8b949e" />
+                <circle cx="560" cy="55" r="3" fill="#8b949e" />
+                <!-- Wiggly curve (overfitting) -->
+                <path
+                    d="M 433 165 Q 445 150, 440 160 Q 455 125, 460 140 Q 470 95, 480 110 Q 490 65, 500 80 Q 510 55, 520 70 Q 530 45, 540 60 Q 555 40, 565 55"
+                    fill="none" stroke="#ff5252" stroke-width="2" />
+                <text x="500" y="195" fill="#8b949e" font-size="10" text-anchor="middle">Low bias, high variance</text>
+            </svg>
+            <div class="caption">Three polynomial fits to the same data: underfitting (linear), good fit (appropriate
+                degree), overfitting (too high degree).</div>
+        </div>
+
+        <h4>Triple Trade-Off</h4>
+        <p>The three factors in tension:</p>
+        <ol>
+            <li><strong>Complexity of hypothesis class</strong> (capacity of $H$)</li>
+            <li><strong>Amount of training data</strong> ($N$)</li>
+            <li><strong>Generalization error</strong> on new examples</li>
+        </ol>
+
+        <!-- 1.12 Dimensions of Supervised ML -->
+        <h3 id="u1-dimensions">1.12 Dimensions of a Supervised ML Algorithm</h3>
+
+        <p>Given training set $X = \{(\mathbf{x}^t, r^t)\}_{t=1}^{N}$, to build a useful approximation to $r^t$ using
+            model $g(\mathbf{x}^t | \theta)$, we need three decisions:</p>
+
+        <div class="concept-card cyan">
+            <h5 style="color: var(--cyan);">1. Model $g(\mathbf{x}|\theta)$</h5>
+            <p>$g(\cdot)$ defines the hypothesis class $H$. A particular value of $\theta$ instantiates one hypothesis
+                $h \in H$.</p>
+            <ul>
+                <li>Rectangle classifier: four coordinates are $\theta$</li>
+                <li>Linear regression: slope $m$ and intercept $c$ are $\theta$</li>
+            </ul>
+            <p>The model (inductive bias) is fixed by the designer. The hypothesis is tuned by the learning algorithm
+                using training data sampled from $p(\mathbf{x}, r)$.</p>
+        </div>
+
+        <div class="concept-card magenta">
+            <h5 style="color: var(--magenta);">2. Loss Function $L(\cdot)$</h5>
+            <p>Computes the difference between desired output $r^t$ and approximation $g(\mathbf{x}^t|\theta)$:</p>
+            <p>$$E(\theta|X) = \sum_{t=1}^{N} L(r^t, g(\mathbf{x}^t|\theta))$$</p>
+            <ul>
+                <li><strong>Classification:</strong> $L$ checks equality (0/1 loss)</li>
+                <li><strong>Regression:</strong> $L$ uses squared difference: $L = (r^t - g(\mathbf{x}^t|\theta))^2$
+                </li>
+            </ul>
+        </div>
+
+        <div class="concept-card green">
+            <h5 style="color: var(--green);">3. Optimization Procedure</h5>
+            <p>Find $\theta^* = \arg\min_\theta E(\theta|X)$</p>
+            <p>In polynomial regression we can solve analytically. In complex models, we use iterative methods (e.g.,
+                gradient descent). Key question: does it have a single minimum (global) or multiple minima (local)?</p>
+        </div>
+
+        <div class="note-box">
+            <div class="label">Requirements for Success</div>
+            <ol>
+                <li>$H$ must be large enough to include the unknown function (sufficient capacity)</li>
+                <li>Enough training data to pinpoint the correct hypothesis</li>
+                <li>A good optimization method to find the correct hypothesis</li>
+            </ol>
+        </div>
+
+        <!-- 1.13 Confusion Matrix -->
+        <h3 id="u1-confusion">1.13 Confusion Matrix &amp; Performance Metrics</h3>
+
+        <h4>Confusion Matrix</h4>
+        <table>
+            <tr>
+                <th></th>
+                <th>Predicted Positive</th>
+                <th>Predicted Negative</th>
+            </tr>
+            <tr>
+                <td><strong>Actual Positive</strong></td>
+                <td style="color:#00e676;">True Positive (TP)</td>
+                <td style="color:#ff5252;">False Negative (FN) &mdash; Type 2 error</td>
+            </tr>
+            <tr>
+                <td><strong>Actual Negative</strong></td>
+                <td style="color:#ff5252;">False Positive (FP) &mdash; Type 1 error</td>
+                <td style="color:#00e676;">True Negative (TN)</td>
+            </tr>
+        </table>
+
+        <div class="numerical-box">
+            <div class="label">Numerical Example</div>
+            <p>Dataset: 1000 data points. Confusion matrix:</p>
+            <table>
+                <tr>
+                    <th></th>
+                    <th>Predicted +</th>
+                    <th>Predicted &minus;</th>
+                </tr>
+                <tr>
+                    <td><strong>Actual +</strong></td>
+                    <td>TP = 560</td>
+                    <td>FN = 50</td>
+                </tr>
+                <tr>
+                    <td><strong>Actual &minus;</strong></td>
+                    <td>FP = 60</td>
+                    <td>TN = 330</td>
+                </tr>
+            </table>
+            <p style="margin-top:10px;"><strong>Accuracy</strong> = $\frac{TP + TN}{TP + TN + FP + FN} = \frac{560 +
+                330}{1000} = \frac{890}{1000} = 0.89 = 89\%$</p>
+            <p><strong>Precision (PPV)</strong> = $\frac{TP}{TP + FP} = \frac{560}{560 + 60} = \frac{560}{620} = 0.903 =
+                90.3\%$</p>
+            <p><strong>Recall (Sensitivity/TPR)</strong> = $\frac{TP}{TP + FN} = \frac{560}{560 + 50} = \frac{560}{610}
+                = 0.918 = 91.8\%$</p>
+            <p><strong>Specificity (TNR)</strong> = $\frac{TN}{TN + FP} = \frac{330}{330 + 60} = \frac{330}{390} = 0.846
+                = 84.6\%$</p>
+            <p><strong>F1-Score</strong> = $\frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} +
+                \text{Recall}} = \frac{2 \times 0.903 \times 0.918}{0.903 + 0.918} = \frac{1.658}{1.821} = 0.910 =
+                91.0\%$</p>
+            <p><strong>FPR</strong> = $1 - \text{Specificity} = 1 - 0.846 = 0.154 = 15.4\%$</p>
+            <p><strong>FNR</strong> = $1 - \text{Recall} = 1 - 0.918 = 0.082 = 8.2\%$</p>
+        </div>
+
+        <h4>Summary of All Metrics</h4>
+        <table>
+            <tr>
+                <th>Metric</th>
+                <th>Formula</th>
+                <th>Interpretation</th>
+            </tr>
+            <tr>
+                <td>Accuracy</td>
+                <td>$\frac{TP + TN}{TP+TN+FP+FN}$</td>
+                <td>Overall correctness</td>
+            </tr>
+            <tr>
+                <td>Precision (PPV)</td>
+                <td>$\frac{TP}{TP + FP}$</td>
+                <td>Of predicted positives, how many correct?</td>
+            </tr>
+            <tr>
+                <td>Recall (Sensitivity/TPR)</td>
+                <td>$\frac{TP}{TP + FN}$</td>
+                <td>Of actual positives, how many detected?</td>
+            </tr>
+            <tr>
+                <td>Specificity (TNR)</td>
+                <td>$\frac{TN}{TN + FP}$</td>
+                <td>Of actual negatives, how many detected?</td>
+            </tr>
+            <tr>
+                <td>F1-Score</td>
+                <td>$\frac{2 \cdot P \cdot R}{P + R}$</td>
+                <td>Harmonic mean of precision &amp; recall</td>
+            </tr>
+            <tr>
+                <td>False Positive Rate (FPR)</td>
+                <td>$\frac{FP}{FP + TN} = 1 - \text{Specificity}$</td>
+                <td>Proportion of negatives wrongly classified</td>
+            </tr>
+            <tr>
+                <td>Jaccard Similarity Index</td>
+                <td>$\frac{TP}{TP + FN + FP}$</td>
+                <td>Intersection over union of predicted &amp; actual</td>
+            </tr>
+        </table>
+
+        <!-- 1.14 ROC -->
+        <h3 id="u1-roc">1.14 ROC Curve &amp; AUC</h3>
+
+        <p>By varying the decision threshold $\theta$, we get different (TPR, FPR) pairs. Plotting these creates the
+            <strong>Receiver Operating Characteristic (ROC)</strong> curve.
+        </p>
+
+        <div class="diagram-container">
+            <svg width="400" height="380" viewBox="0 0 400 380">
+                <!-- Axes -->
+                <line x1="60" y1="320" x2="360" y2="320" stroke="#6e7681" stroke-width="1" />
+                <line x1="60" y1="320" x2="60" y2="20" stroke="#6e7681" stroke-width="1" />
+                <text x="210" y="360" fill="#8b949e" font-size="12" text-anchor="middle">False Positive Rate
+                    (FPR)</text>
+                <text x="18" y="170" fill="#8b949e" font-size="12" text-anchor="middle"
+                    transform="rotate(-90, 18, 170)">True Positive Rate (TPR)</text>
+
+                <!-- Diagonal (random) -->
+                <line x1="60" y1="320" x2="360" y2="20" stroke="#6e7681" stroke-width="1" stroke-dasharray="5,5" />
+                <text x="260" y="135" fill="#6e7681" font-size="10" transform="rotate(-45, 260, 135)">Random
+                    classifier</text>
+
+                <!-- Good ROC curve -->
+                <path d="M 60 320 Q 65 120, 100 80 Q 140 50, 200 40 Q 280 30, 360 20" fill="none" stroke="#00bcd4"
+                    stroke-width="2.5" />
+                <text x="135" y="60" fill="#00bcd4" font-size="11" font-weight="500">Good Classifier</text>
+
+                <!-- Fair ROC curve -->
+                <path d="M 60 320 Q 100 200, 160 150 Q 220 100, 300 50 L 360 20" fill="none" stroke="#ffc107"
+                    stroke-width="2" stroke-dasharray="6,3" />
+                <text x="230" y="100" fill="#ffc107" font-size="11">Fair Classifier</text>
+
+                <!-- Ideal point -->
+                <circle cx="60" cy="20" r="5" fill="#00e676" />
+                <text x="80" y="18" fill="#00e676" font-size="10">Ideal (0, 1)</text>
+
+                <!-- Axis labels -->
+                <text x="60" y="340" fill="#6e7681" font-size="10" text-anchor="middle">0</text>
+                <text x="210" y="340" fill="#6e7681" font-size="10" text-anchor="middle">0.5</text>
+                <text x="360" y="340" fill="#6e7681" font-size="10" text-anchor="middle">1.0</text>
+                <text x="50" y="325" fill="#6e7681" font-size="10" text-anchor="middle">0</text>
+                <text x="50" y="172" fill="#6e7681" font-size="10" text-anchor="middle">0.5</text>
+                <text x="50" y="25" fill="#6e7681" font-size="10" text-anchor="middle">1.0</text>
+
+                <!-- AUC shading -->
+                <path d="M 60 320 Q 65 120, 100 80 Q 140 50, 200 40 Q 280 30, 360 20 L 360 320 Z"
+                    fill="rgba(0, 188, 212, 0.08)" />
+            </svg>
+            <div class="caption">ROC Curve: The closer to the upper-left corner (0, 1), the better. AUC (Area Under
+                Curve) summarizes performance as a single number (perfect = 1.0, random = 0.5).</div>
+        </div>
+
+        <div class="concept-card cyan">
+            <h5>Key ROC Interpretations</h5>
+            <ul>
+                <li>A classifier with TPR = 1 and FPR = 0 is perfect &rarr; upper-left corner</li>
+                <li>One classifier is better if its ROC curve is <strong>above</strong> the other</li>
+                <li>If two curves intersect, each is better under different loss conditions</li>
+                <li><strong>AUC</strong> reduces the curve to a single number for easy comparison</li>
+            </ul>
+        </div>
+
+        <!-- 1.15 Precision & Recall -->
+        <h3 id="u1-precision-recall">1.15 Precision &amp; Recall (Information Retrieval View)</h3>
+
+        <p>In information retrieval: query a database and retrieve records.</p>
+
+        <div class="comparison-grid">
+            <div style="border-left: 3px solid var(--cyan);">
+                <h5 style="color: var(--cyan);">Precision</h5>
+                <p>$$\text{Precision} = \frac{\text{Retrieved} \cap \text{Relevant}}{\text{Retrieved}} = \frac{TP}{TP +
+                    FP}$$</p>
+                <p>If precision = 1, all retrieved records are relevant, but some relevant records may be missed.</p>
+            </div>
+            <div style="border-left: 3px solid var(--green);">
+                <h5 style="color: var(--green);">Recall</h5>
+                <p>$$\text{Recall} = \frac{\text{Retrieved} \cap \text{Relevant}}{\text{Relevant}} = \frac{TP}{TP +
+                    FN}$$</p>
+                <p>If recall = 1, all relevant records are retrieved, but irrelevant records may also be retrieved.</p>
+            </div>
+        </div>
+
+        <p><strong>Sensitivity</strong> = TPR = Recall. <strong>Specificity</strong> = how well we detect negatives =
+            $TN / (TN + FP)$.</p>
+
+        <!-- ==================== UNIT 2 ==================== -->
+        <div class="unit-header" id="unit2">
+            <h2>Unit 2: Supervised Learning &mdash; Parametric Methods</h2>
+            <p>Parametric Classification, Regression, Bias-Variance, Model Selection, Multivariate Methods, Gradient
+                Descent, Logistic Discrimination</p>
+        </div>
+
+        <!-- 2.1 Parametric vs Non-parametric -->
+        <h3 id="u2-parametric">2.1 Parametric vs. Non-Parametric Methods</h3>
+
+        <div class="comparison-grid">
+            <div style="border-left: 3px solid var(--cyan);">
+                <h5 style="color: var(--cyan);">Parametric Methods</h5>
+                <p>Assume a <strong>fixed form</strong> for the model and summarize data using a finite set of
+                    parameters. Once learned, the model doesn't need the original dataset.</p>
+                <ul>
+                    <li>Assume known distribution (e.g., Gaussian)</li>
+                    <li>Parameters: mean $\mu$, standard deviation $\sigma$</li>
+                    <li>Central Limit Theorem applicable</li>
+                    <li>Examples: Linear regression, Logistic regression, Gaussian Naive Bayes</li>
+                </ul>
+            </div>
+            <div style="border-left: 3px solid var(--magenta);">
+                <h5 style="color: var(--magenta);">Non-Parametric Methods</h5>
+                <p>Make <strong>no assumptions</strong> about the form of the distribution. No fixed set of parameters
+                    &mdash; also called <strong>distribution-free methods</strong>.</p>
+                <ul>
+                    <li>No distributional assumptions needed</li>
+                    <li>Lower complexity, easy to apply</li>
+                    <li>Examples: k-NN, Kernel Density Estimation, decision trees</li>
+                    <li>Spearman correlation, Sign test, U-test</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 2.2 Regression Detailed -->
+        <h3 id="u2-regression">2.2 Regression (Detailed Treatment)</h3>
+
+        <p>Given i.i.d. samples, output variables are functions of the input (independent variables):</p>
+
+        <div class="formula-box">
+            <div class="label">Regression Model</div>
+            $$r^t = f(\mathbf{x}^t) + \epsilon$$
+            <p style="text-align:left; margin-top:8px; font-size:0.88rem; color: var(--text-secondary);">$f(\mathbf{x})$
+                = unknown function, $\epsilon \sim \mathcal{N}(0, \sigma^2)$ = Gaussian noise with zero mean and
+                constant variance.</p>
+        </div>
+
+        <p>We approximate $f$ by our estimator $g(\mathbf{x}|\theta)$. The empirical error on training set $X$:</p>
+
+        <div class="formula-box">
+            <div class="label">Mean Squared Error</div>
+            $$E(g|X) = \frac{1}{N} \sum_{t=1}^{N} [r^t - g(\mathbf{x}^t)]^2$$
+        </div>
+
+        <h4>Maximum Likelihood &amp; Least Squares</h4>
+        <p>Given Gaussian noise, the joint probability density is $p(\mathbf{x}, r)$. The log-likelihood is:</p>
+        <p>$$\ell = \sum_{t=1}^{N} \log p(r^t | \mathbf{x}^t, \theta) + \sum_{t=1}^{N} \log p(\mathbf{x}^t)$$</p>
+        <p>The second term is independent of $\theta$. Since the likelihood contains exponents, instead of maximizing
+            $\ell$, we define $E = -\log \ell$ and <strong>minimize</strong> it. This gives us the <strong>Least Squares
+                Estimates</strong>.</p>
+
+        <h4>Linear Regression</h4>
+        <p>The simplest model: $g(\mathbf{x}) = w_1 x + w_0$</p>
+
+        <div class="formula-box">
+            <div class="label">Normal Equations (Linear)</div>
+            <p>Minimize $E = \sum_t (r^t - w_1 x^t - w_0)^2$ by taking partial derivatives and setting to zero:</p>
+            $$w_1 = \frac{N \sum_t x^t r^t - \sum_t x^t \sum_t r^t}{N \sum_t (x^t)^2 - (\sum_t x^t)^2}$$
+            $$w_0 = \bar{r} - w_1 \bar{x}$$
+            <p style="text-align:left; font-size:0.88rem; color: var(--text-secondary);">where $\bar{x}$ = mean of
+                inputs, $\bar{r}$ = mean of outputs.</p>
+        </div>
+
+        <div class="numerical-box">
+            <div class="label">Numerical &mdash; Simple Linear Regression</div>
+            <p><strong>Data:</strong> $(1, 2), (2, 4), (3, 5), (4, 4), (5, 5)$</p>
+            <p>$N = 5$, $\sum x = 15$, $\sum r = 20$, $\sum xr = 67$, $\sum x^2 = 55$</p>
+            <p>$$w_1 = \frac{5(67) - 15(20)}{5(55) - 15^2} = \frac{335 - 300}{275 - 225} = \frac{35}{50} = 0.7$$</p>
+            <p>$$w_0 = \frac{20}{5} - 0.7 \times \frac{15}{5} = 4 - 2.1 = 1.9$$</p>
+            <p><strong>Model:</strong> $g(x) = 0.7x + 1.9$</p>
+            <p><strong>Predict $x = 6$:</strong> $g(6) = 0.7(6) + 1.9 = 6.1$</p>
+        </div>
+
+        <!-- 2.3 Polynomial Regression -->
+        <h3 id="u2-polynomial">2.3 Polynomial Regression</h3>
+
+        <p>If the linear model is too simple, we use a polynomial of order $k$:</p>
+
+        <div class="formula-box">
+            <div class="label">Polynomial Model</div>
+            $$g(x) = w_k x^k + w_{k-1} x^{k-1} + \cdots + w_1 x + w_0$$
+        </div>
+
+        <p>In vector form, define:</p>
+        <p>$$\mathbf{D} = \begin{pmatrix} 1 & x^1 & (x^1)^2 & \cdots & (x^1)^k \\ 1 & x^2 & (x^2)^2 & \cdots & (x^2)^k
+            \\ \vdots & & & & \vdots \\ 1 & x^N & (x^N)^2 & \cdots & (x^N)^k \end{pmatrix}, \quad \mathbf{w} =
+            \begin{pmatrix} w_0 \\ w_1 \\ \vdots \\ w_k \end{pmatrix}, \quad \mathbf{r} = \begin{pmatrix} r^1 \\ r^2 \\
+            \vdots \\ r^N \end{pmatrix}$$</p>
+
+        <div class="formula-box">
+            <div class="label">Closed-Form Solution</div>
+            $$\mathbf{w} = (\mathbf{D}^T \mathbf{D})^{-1} \mathbf{D}^T \mathbf{r}$$
+        </div>
+
+        <h4>Goodness of Fit</h4>
+
+        <div class="formula-box">
+            <div class="label">Relative Squared Error &amp; R&sup2;</div>
+            $$E_{RSE} = \frac{\sum_t (r^t - g^t)^2}{\sum_t (r^t - \bar{r})^2}$$
+            $$R^2 = 1 - E_{RSE}$$
+            <p style="text-align:left; font-size:0.88rem; color: var(--text-secondary);">If $E_{RSE} = 1$: prediction is
+                as good as predicting the average. If $E_{RSE} = 0$: perfect fit. For regression to be useful, $R^2$
+                should be close to 1.</p>
+        </div>
+
+        <!-- 2.4 Bias/Variance Dilemma -->
+        <h3 id="u2-bias-variance">2.4 Bias / Variance Dilemma</h3>
+
+        <p>Consider samples drawn from joint density $X = \{(\mathbf{x}^t, r^t)\}$. The expected squared error at
+            $\mathbf{x}$ can be decomposed:</p>
+
+        <div class="formula-box">
+            <div class="label">Bias-Variance Decomposition</div>
+            $$\text{Expected Error} = \underbrace{\sigma^2}_{\text{Noise (irreducible)}} +
+            \underbrace{(\mathbb{E}[g(\mathbf{x})] - f(\mathbf{x}))^2}_{\text{Bias}^2} +
+            \underbrace{\mathbb{E}[(g(\mathbf{x}) - \mathbb{E}[g(\mathbf{x})])^2]}_{\text{Variance}}$$
+        </div>
+
+        <div class="concept-card cyan">
+            <h5 style="color: var(--cyan);">Three Components</h5>
+            <ol>
+                <li><strong>Noise ($\sigma^2$):</strong> irreducible error from data noise; independent of the estimator
+                </li>
+                <li><strong>Bias:</strong> measures how much $g(\mathbf{x})$ deviates from the true function
+                    $f(\mathbf{x})$ on average across datasets. High bias = wrong assumptions =
+                    <strong>underfitting</strong>
+                </li>
+                <li><strong>Variance:</strong> measures how much $g(\mathbf{x})$ fluctuates around its expected value
+                    across different training sets. High variance = too sensitive to data = <strong>overfitting</strong>
+                </li>
+            </ol>
+        </div>
+
+        <!-- Bias-Variance Tradeoff Diagram -->
+        <div class="diagram-container">
+            <svg width="480" height="300" viewBox="0 0 480 300">
+                <!-- Axes -->
+                <line x1="60" y1="260" x2="440" y2="260" stroke="#6e7681" stroke-width="1" />
+                <line x1="60" y1="260" x2="60" y2="20" stroke="#6e7681" stroke-width="1" />
+                <text x="250" y="290" fill="#8b949e" font-size="12" text-anchor="middle">Model Complexity &rarr;</text>
+                <text x="18" y="140" fill="#8b949e" font-size="12" text-anchor="middle"
+                    transform="rotate(-90, 18, 140)">Error</text>
+
+                <!-- Bias curve (decreasing) -->
+                <path d="M 80 60 Q 150 80, 200 130 Q 260 180, 400 230" fill="none" stroke="#448aff" stroke-width="2" />
+                <text x="390" y="222" fill="#448aff" font-size="11">Bias&sup2;</text>
+
+                <!-- Variance curve (increasing) -->
+                <path d="M 80 240 Q 150 230, 200 200 Q 260 160, 400 50" fill="none" stroke="#ff5252" stroke-width="2" />
+                <text x="390" y="42" fill="#ff5252" font-size="11">Variance</text>
+
+                <!-- Total error (U-shaped) -->
+                <path d="M 80 100 Q 150 80, 210 75 Q 260 80, 320 110 Q 370 140, 400 180" fill="none" stroke="#00e676"
+                    stroke-width="2.5" />
+                <text x="390" y="172" fill="#00e676" font-size="11">Total Error</text>
+
+                <!-- Optimal point -->
+                <line x1="210" y1="75" x2="210" y2="260" stroke="#ffc107" stroke-width="1" stroke-dasharray="4,3" />
+                <circle cx="210" cy="75" r="5" fill="#ffc107" />
+                <text x="210" y="275" fill="#ffc107" font-size="10" text-anchor="middle">Optimal</text>
+
+                <!-- Underfitting / Overfitting regions -->
+                <text x="130" y="40" fill="#448aff" font-size="10" text-anchor="middle">Underfitting</text>
+                <text x="340" y="40" fill="#ff5252" font-size="10" text-anchor="middle">Overfitting</text>
+            </svg>
+            <div class="caption">Bias-Variance Trade-off: As model complexity increases, bias decreases but variance
+                increases. The optimal model minimizes total error.</div>
+        </div>
+
+        <div class="note-box">
+            <div class="label">The Dilemma</div>
+            <p><strong>To decrease bias</strong> &rarr; make model more flexible &rarr; risk of high variance</p>
+            <p><strong>To keep variance low</strong> &rarr; use a simpler model &rarr; risk of high bias</p>
+            <p>The optimal model has the best trade-off. If variance is large but bias is low, averaging many
+                high-variance models can reduce error (ensemble methods).</p>
+        </div>
+
+        <div class="numerical-box">
+            <div class="label">Example &mdash; Polynomial Fit Comparison</div>
+            <p>True function: $f(x) = 2\sin(1.5x)$ with noise $\mathcal{N}(0, 1)$. Five samples of 20 instances each:
+            </p>
+            <table>
+                <tr>
+                    <th>Polynomial Order</th>
+                    <th>Bias</th>
+                    <th>Variance</th>
+                    <th>Assessment</th>
+                </tr>
+                <tr>
+                    <td>1 (linear)</td>
+                    <td>High</td>
+                    <td>Low</td>
+                    <td>Underfitting &mdash; can't capture the sine curve</td>
+                </tr>
+                <tr>
+                    <td>3 (cubic)</td>
+                    <td>Low</td>
+                    <td>Moderate</td>
+                    <td>Good fit &mdash; close to the true function</td>
+                </tr>
+                <tr>
+                    <td>5 (quintic)</td>
+                    <td>Very Low</td>
+                    <td>Very High</td>
+                    <td>Overfitting &mdash; small data changes cause large changes in the fit</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- 2.5 Model Selection Procedures -->
+        <h3 id="u2-model-selection">2.5 Model Selection Procedures</h3>
+
+        <h4>1. Cross-Validation</h4>
+        <p>Divide data into training set and validation set. Train models of different complexities on training data,
+            evaluate on validation set. As complexity increases, training error monotonically decreases, but validation
+            error follows a U-shape. The <strong>elbow</strong> corresponds to the optimal complexity.</p>
+
+        <!-- Cross-validation diagram -->
+        <div class="diagram-container">
+            <svg width="420" height="260" viewBox="0 0 420 260">
+                <line x1="60" y1="220" x2="380" y2="220" stroke="#6e7681" stroke-width="1" />
+                <line x1="60" y1="220" x2="60" y2="20" stroke="#6e7681" stroke-width="1" />
+                <text x="220" y="250" fill="#8b949e" font-size="11" text-anchor="middle">Model Complexity</text>
+                <text x="20" y="120" fill="#8b949e" font-size="11" text-anchor="middle"
+                    transform="rotate(-90, 20, 120)">Error</text>
+
+                <!-- Training error (monotonically decreasing) -->
+                <path d="M 80 80 Q 150 60, 220 45 Q 300 35, 360 30" fill="none" stroke="#00bcd4" stroke-width="2" />
+                <text x="370" y="25" fill="#00bcd4" font-size="10">Training Error</text>
+
+                <!-- Validation error (U-shaped) -->
+                <path d="M 80 120 Q 140 80, 200 65 Q 240 62, 260 70 Q 310 100, 360 160" fill="none" stroke="#e040fb"
+                    stroke-width="2" />
+                <text x="370" y="155" fill="#e040fb" font-size="10">Validation Error</text>
+
+                <!-- Optimal -->
+                <line x1="230" y1="60" x2="230" y2="220" stroke="#ffc107" stroke-width="1" stroke-dasharray="4,3" />
+                <text x="230" y="235" fill="#ffc107" font-size="10" text-anchor="middle">Optimal</text>
+            </svg>
+            <div class="caption">Cross-validation: training error always decreases, but validation error has a minimum
+                at the optimal complexity level.</div>
+        </div>
+
+        <h4>2. Regularization</h4>
+        <p>Add a penalty term for complex models:</p>
+        <div class="formula-box">
+            <div class="label">Augmented Error</div>
+            $$E_{aug} = E_{data} + \lambda \|\mathbf{w}\|^2$$
+            <p style="text-align:left; font-size:0.88rem; color: var(--text-secondary);">The second term penalizes large
+                parameter values (complex models). $\lambda$ controls the trade-off. If $\lambda$ too large &rarr; too
+                simple (bias risk). $\lambda$ is optimized via cross-validation.</p>
+        </div>
+
+        <h4>3. Akaike's Information Criterion (AIC) &amp; Bayesian Information Criterion (BIC)</h4>
+        <p>Estimate the optimism (gap between training and test error) and add it to training error. No validation
+            needed.</p>
+        <ul>
+            <li>Optimism increases linearly with $d$ (number of inputs)</li>
+            <li>Decreases with $N$ (training set size)</li>
+            <li>Increases with $\sigma^2$ (noise variance)</li>
+            <li>For nonlinear models, replace $d$ with effective number of parameters</li>
+        </ul>
+
+        <h4>4. Structural Risk Minimization (SRM)</h4>
+        <p>Use a set of models ordered by increasing complexity (e.g., polynomials of increasing order, decreasing
+            $\lambda$). Model selection finds the model simplest in order and best in empirical error.</p>
+
+        <h4>5. Minimum Description Length (MDL)</h4>
+        <p>Based on <strong>Kolmogorov complexity</strong>: the shortest description of the data. If data is simple
+            (e.g., sequence of 0s), it has short description. Among all fitting models, choose the simplest one that
+            gives the shortest description. Trade-off between model simplicity and data description.</p>
+
+        <h4>6. Bayesian Model Selection</h4>
+        <div class="formula-box">
+            $$p(\text{model}|\text{data}) \propto p(\text{data}|\text{model}) \cdot p(\text{model})$$
+            <p style="text-align:left; font-size:0.88rem; color: var(--text-secondary);">Taking logarithm: log
+                likelihood (training error) + log prior (penalty term). With prior $p(\mathbf{w}) \sim \mathcal{N}(0,
+                1/\lambda)$, minimizing corresponds to regularization. When giving higher probability to simpler models
+                (Occam's razor), Bayesian approach, regularization, SRM, and MDL are equivalent.</p>
+        </div>
+
+        <div class="note-box">
+            <div class="label">Key Comparison</div>
+            <p><strong>Cross-validation</strong> makes no prior assumptions and is best with large validation data. The
+                other methods are more useful when the data sample is small.</p>
+        </div>
+
+        <!-- 2.6 Parametric Classification -->
+        <h3 id="u2-parametric-class">2.6 Parametric Classification</h3>
+
+        <p>We use Bayes' rule to classify. The posterior probability of class $C_i$ given input $\mathbf{x}$:</p>
+
+        <div class="formula-box">
+            <div class="label">Bayes' Rule for Classification</div>
+            $$P(C_i|\mathbf{x}) = \frac{p(\mathbf{x}|C_i)P(C_i)}{p(\mathbf{x})}$$
+        </div>
+
+        <p>The discriminant function is: $g_i(\mathbf{x}) = \log p(\mathbf{x}|C_i) + \log P(C_i)$</p>
+        <p>We assign $\mathbf{x}$ to class $C_i$ if $g_i(\mathbf{x}) = \max_j g_j(\mathbf{x})$.</p>
+
+        <h4>Assuming Gaussian Class-Conditional Densities</h4>
+        <p>If $p(\mathbf{x}|C_i) \sim \mathcal{N}(\mu_i, \sigma_i^2)$, then:</p>
+        <div class="formula-box">
+            $$g_i(x) = -\frac{(x - \mu_i)^2}{2\sigma_i^2} - \frac{1}{2}\log \sigma_i^2 + \log P(C_i)$$
+        </div>
+
+        <h5>MLE for Parameters</h5>
+        <p>$$\hat{\mu}_i = \frac{\sum_{t: \mathbf{x}^t \in C_i} x^t}{|C_i|}, \quad \hat{\sigma}_i^2 = \frac{\sum_{t:
+            \mathbf{x}^t \in C_i} (x^t - \hat{\mu}_i)^2}{|C_i|}, \quad \hat{P}(C_i) = \frac{|C_i|}{N}$$</p>
+
+        <h4>Case 1: Equal Variances ($\sigma_1^2 = \sigma_2^2 = \sigma^2$)</h4>
+        <p>The discriminant simplifies. The constant term $-\frac{1}{2\sigma^2}$ and $\log \sigma^2$ cancel. If priors
+            are equal, the sample $x$ is assigned to the class with the <strong>nearest mean</strong>. With two classes,
+            the threshold is at $x_0 = \frac{\mu_1 + \mu_2}{2}$. <strong>One intersection point</strong> between the
+            posteriors.</p>
+
+        <h4>Case 2: Unequal Variances</h4>
+        <p>The discriminant function becomes quadratic in $x$. The posteriors intersect at <strong>two points</strong>,
+            creating two thresholds. Between them, one class dominates; outside, the other class dominates.</p>
+
+        <!-- Diagram: Equal vs Unequal Variance -->
+        <div class="diagram-container">
+            <svg width="560" height="200" viewBox="0 0 560 200">
+                <!-- Equal variance -->
+                <rect x="10" y="5" width="260" height="190" rx="6" fill="#1c2128" stroke="#30363d" />
+                <text x="140" y="22" fill="#00bcd4" font-size="11" font-weight="600" text-anchor="middle">Equal
+                    Variances: 1 threshold</text>
+                <!-- Class 1 Gaussian -->
+                <path d="M 30 170 Q 60 170, 80 140 Q 100 80, 110 60 Q 120 80, 140 140 Q 155 170, 180 170" fill="none"
+                    stroke="#00e676" stroke-width="2" />
+                <text x="110" y="52" fill="#00e676" font-size="10" text-anchor="middle">C₁</text>
+                <!-- Class 2 Gaussian -->
+                <path d="M 100 170 Q 130 170, 150 140 Q 170 80, 180 60 Q 190 80, 210 140 Q 225 170, 250 170" fill="none"
+                    stroke="#e040fb" stroke-width="2" />
+                <text x="180" y="52" fill="#e040fb" font-size="10" text-anchor="middle">C₂</text>
+                <!-- Threshold -->
+                <line x1="145" y1="40" x2="145" y2="175" stroke="#ffc107" stroke-width="1.5" stroke-dasharray="4,3" />
+                <text x="145" y="188" fill="#ffc107" font-size="9" text-anchor="middle">x₀ = (μ₁+μ₂)/2</text>
+
+                <!-- Unequal variance -->
+                <rect x="290" y="5" width="260" height="190" rx="6" fill="#1c2128" stroke="#30363d" />
+                <text x="420" y="22" fill="#ff5252" font-size="11" font-weight="600" text-anchor="middle">Unequal
+                    Variances: 2 thresholds</text>
+                <!-- Class 1 (narrow) -->
+                <path d="M 340 170 Q 360 170, 370 130 Q 380 60, 385 40 Q 390 60, 400 130 Q 410 170, 430 170" fill="none"
+                    stroke="#00e676" stroke-width="2" />
+                <text x="385" y="32" fill="#00e676" font-size="10" text-anchor="middle">C₁ (small σ)</text>
+                <!-- Class 2 (wide) -->
+                <path d="M 310 170 Q 340 160, 370 140 Q 420 100, 450 80 Q 470 100, 490 120 Q 520 150, 540 170"
+                    fill="none" stroke="#e040fb" stroke-width="2" />
+                <text x="480" y="72" fill="#e040fb" font-size="10" text-anchor="middle">C₂ (large σ)</text>
+                <!-- Two thresholds -->
+                <line x1="365" y1="40" x2="365" y2="175" stroke="#ffc107" stroke-width="1.5" stroke-dasharray="4,3" />
+                <line x1="470" y1="40" x2="470" y2="175" stroke="#ffc107" stroke-width="1.5" stroke-dasharray="4,3" />
+                <text x="418" y="188" fill="#ffc107" font-size="9" text-anchor="middle">two thresholds</text>
+            </svg>
+            <div class="caption">Left: Equal variance Gaussians intersect at one point. Right: Unequal variance creates
+                two intersection points (two thresholds).</div>
+        </div>
+
+        <div class="numerical-box">
+            <div class="label">Numerical &mdash; Parametric Classification (Equal Variance)</div>
+            <p><strong>Given:</strong> Two classes with equal priors $P(C_1) = P(C_2) = 0.5$ and equal variances
+                $\sigma^2 = 4$.</p>
+            <p>$\mu_1 = 3$, $\mu_2 = 7$</p>
+            <p><strong>Threshold:</strong> $x_0 = \frac{\mu_1 + \mu_2}{2} = \frac{3 + 7}{2} = 5$</p>
+            <p><strong>Decision:</strong> If $x < 5 \Rightarrow C_1$, if $x> 5 \Rightarrow C_2$</p>
+            <p>For $x = 4$: classify as $C_1$ (since $4 < 5$). &check;</p>
+                    <p>For $x = 6$: classify as $C_2$ (since $6 > 5$). &check;</p>
+        </div>
+
+        <!-- 2.7 Multivariate Data -->
+        <h3 id="u2-multivariate">2.7 Multivariate Data &amp; Parameter Estimation</h3>
+
+        <p>With multiple inputs, data is represented as an $N \times d$ matrix $\mathbf{X}$ where $d$ columns =
+            features/attributes and $N$ rows = observations/instances.</p>
+
+        <div class="formula-box">
+            <div class="label">Mean Vector &amp; Covariance Matrix</div>
+            $$\boldsymbol{\mu} = \begin{pmatrix} \mu_1 \\ \mu_2 \\ \vdots \\ \mu_d \end{pmatrix}, \quad
+            \boldsymbol{\Sigma} = \begin{pmatrix} \sigma_{11} & \sigma_{12} & \cdots & \sigma_{1d} \\ \sigma_{21} &
+            \sigma_{22} & \cdots & \sigma_{2d} \\ \vdots & & \ddots & \vdots \\ \sigma_{d1} & \sigma_{d2} & \cdots &
+            \sigma_{dd} \end{pmatrix}$$
+            <p style="text-align:left; font-size:0.88rem;">Diagonal elements = variances $\sigma_i^2$. Off-diagonal =
+                covariances $\sigma_{ij} = \sigma_{ji}$. Matrix is symmetric. With $d$ variables: $d$ variances and
+                $d(d-1)/2$ covariances.</p>
+        </div>
+
+        <p>The <strong>correlation</strong> between $X_i$ and $X_j$ is: $\rho_{ij} = \frac{\sigma_{ij}}{\sigma_i
+            \sigma_j}$, normalized between $-1$ and $+1$.</p>
+
+        <h5>Sample Estimates (MLE)</h5>
+        <p>$$\mathbf{m} = \frac{1}{N}\sum_{t=1}^{N} \mathbf{x}^t, \quad \mathbf{S} = \frac{1}{N}\sum_{t=1}^{N}
+            (\mathbf{x}^t - \mathbf{m})(\mathbf{x}^t - \mathbf{m})^T$$</p>
+
+        <p>In matrix notation: $\mathbf{S} = \frac{1}{N}\mathbf{X}^T\mathbf{X} - \mathbf{m}\mathbf{m}^T$</p>
+
+        <h4>Estimation of Missing Values (Imputation)</h4>
+        <div class="concept-card amber">
+            <h5 style="color: var(--amber);">Imputation Methods</h5>
+            <ul>
+                <li><strong>Mean imputation:</strong> For numeric variables, substitute the mean of available data for
+                    that variable</li>
+                <li><strong>Mode imputation:</strong> For discrete variables, fill with the most likely (most frequent)
+                    value</li>
+                <li><strong>Regression imputation:</strong> Predict the missing value from other variables whose values
+                    are known. If many variables are missing, start with means as initial estimates and iterate until
+                    values stabilize. If variables aren't highly correlated, regression imputation &asymp; mean
+                    imputation.</li>
+            </ul>
+        </div>
+
+        <!-- 2.8 MVN -->
+        <h3 id="u2-mvn">2.8 Multivariate Normal Distribution</h3>
+
+        <div class="formula-box">
+            <div class="label">Multivariate Normal (d dimensions)</div>
+            $$p(\mathbf{x}) = \frac{1}{(2\pi)^{d/2} |\boldsymbol{\Sigma}|^{1/2}} \exp\left(-\frac{1}{2}(\mathbf{x} -
+            \boldsymbol{\mu})^T \boldsymbol{\Sigma}^{-1} (\mathbf{x} - \boldsymbol{\mu})\right)$$
+            <p style="text-align:left; font-size:0.88rem;">$\mathbf{x} \sim \mathcal{N}_d(\boldsymbol{\mu},
+                \boldsymbol{\Sigma})$. $\boldsymbol{\Sigma}$ must be symmetric positive definite (multivariate analog of
+                $\text{Var}(X) > 0$). If singular, $|\boldsymbol{\Sigma}| = 0$ and the density is degenerate.</p>
+        </div>
+
+        <h4>Bivariate Case ($d = 2$)</h4>
+        <p>$$\boldsymbol{\mu} = \begin{pmatrix} \mu_1 \\ \mu_2 \end{pmatrix}, \quad \boldsymbol{\Sigma} =
+            \begin{pmatrix} \sigma_1^2 & \rho\sigma_1\sigma_2 \\ \rho\sigma_1\sigma_2 & \sigma_2^2 \end{pmatrix}$$</p>
+
+        <p>The <strong>isoprobability contours</strong> are ellipses centered at $\boldsymbol{\mu}$:</p>
+        <ul>
+            <li><strong>Independent variables</strong> ($\rho = 0$): axes parallel to input axes; circle if $\sigma_1 =
+                \sigma_2$, ellipse if different</li>
+            <li><strong>Positive correlation</strong> ($\rho > 0$): major axis tilted positively</li>
+            <li><strong>Negative correlation</strong> ($\rho < 0$): major axis tilted negatively</li>
+        </ul>
+
+        <!-- Bivariate contour diagram -->
+        <div class="diagram-container">
+            <svg width="540" height="180" viewBox="0 0 540 180">
+                <!-- Independent equal -->
+                <rect x="5" y="5" width="170" height="170" rx="6" fill="#1c2128" stroke="#30363d" />
+                <text x="90" y="22" fill="#8b949e" font-size="10" text-anchor="middle">ρ = 0, σ₁ = σ₂</text>
+                <circle cx="90" cy="95" r="35" fill="none" stroke="#00bcd4" stroke-width="1.5" />
+                <circle cx="90" cy="95" r="20" fill="none" stroke="#00bcd4" stroke-width="1" opacity="0.5" />
+
+                <!-- Independent unequal -->
+                <rect x="185" y="5" width="170" height="170" rx="6" fill="#1c2128" stroke="#30363d" />
+                <text x="270" y="22" fill="#8b949e" font-size="10" text-anchor="middle">ρ = 0, σ₁ ≠ σ₂</text>
+                <ellipse cx="270" cy="95" rx="45" ry="25" fill="none" stroke="#e040fb" stroke-width="1.5" />
+                <ellipse cx="270" cy="95" rx="30" ry="15" fill="none" stroke="#e040fb" stroke-width="1" opacity="0.5" />
+
+                <!-- Positive correlation -->
+                <rect x="365" y="5" width="170" height="170" rx="6" fill="#1c2128" stroke="#30363d" />
+                <text x="450" y="22" fill="#8b949e" font-size="10" text-anchor="middle">ρ > 0</text>
+                <ellipse cx="450" cy="95" rx="45" ry="20" fill="none" stroke="#00e676" stroke-width="1.5"
+                    transform="rotate(-30, 450, 95)" />
+                <ellipse cx="450" cy="95" rx="30" ry="12" fill="none" stroke="#00e676" stroke-width="1" opacity="0.5"
+                    transform="rotate(-30, 450, 95)" />
+            </svg>
+            <div class="caption">Isoprobability contours of bivariate normal: circle (equal, independent), axis-aligned
+                ellipse (unequal, independent), tilted ellipse (correlated).</div>
+        </div>
+
+        <h4>Special Case: Independent Components</h4>
+        <p>If all components of $\mathbf{x}$ are independent, $\boldsymbol{\Sigma}$ is diagonal and the joint density is
+            the product of individual univariate densities: $p(\mathbf{x}) = \prod_{j=1}^{d} p(x_j)$.</p>
+
+        <h4>Linear Projection</h4>
+        <p>If $\mathbf{W}$ is a $d \times k$ matrix with rank $k < d$ and $\mathbf{z}=\mathbf{W}^T\mathbf{x}$, then
+                $\mathbf{z}$ follows a $k$-variate normal: $\mathbf{z} \sim \mathcal{N}_k(\mathbf{W}^T\boldsymbol{\mu},
+                \mathbf{W}^T\boldsymbol{\Sigma}\mathbf{W})$. Projecting a $d$-dimensional normal to $k$ dimensions
+                preserves normality.</p>
+
+                <!-- 2.9 Multivariate Classification -->
+                <h3 id="u2-mv-class">2.9 Multivariate Classification</h3>
+
+                <p>With multivariate data, class-conditional densities are multivariate Gaussians: $p(\mathbf{x}|C_i)
+                    \sim \mathcal{N}_d(\boldsymbol{\mu}_i, \boldsymbol{\Sigma}_i)$.</p>
+
+                <div class="formula-box">
+                    <div class="label">Quadratic Discriminant Function</div>
+                    $$g_i(\mathbf{x}) = -\frac{1}{2}(\mathbf{x} -
+                    \boldsymbol{\mu}_i)^T\boldsymbol{\Sigma}_i^{-1}(\mathbf{x} - \boldsymbol{\mu}_i) -
+                    \frac{1}{2}\log|\boldsymbol{\Sigma}_i| + \log P(C_i)$$
+                </div>
+
+                <p>Parameters to estimate: $K \cdot d$ for means, $K \cdot d(d+1)/2$ for covariance matrices.</p>
+
+                <h4>Common Covariance ($\boldsymbol{\Sigma}_i = \boldsymbol{\Sigma}$ for all $i$) &rarr; Linear
+                    Discriminant</h4>
+                <p>When all classes share the same covariance matrix, the quadratic terms cancel, and we get
+                    <strong>linear discriminant boundaries</strong>:
+                </p>
+                <div class="formula-box">
+                    $$g_i(\mathbf{x}) = -\frac{1}{2}(\mathbf{x} -
+                    \boldsymbol{\mu}_i)^T\boldsymbol{\Sigma}^{-1}(\mathbf{x} - \boldsymbol{\mu}_i) + \log P(C_i)$$
+                </div>
+                <p>If priors are equal, the optimal rule is to assign input to the class whose <strong>Mahalanobis
+                        distance</strong> is smallest.</p>
+
+                <div class="definition">
+                    <div class="label">Mahalanobis Distance</div>
+                    $$d_M(\mathbf{x}, \boldsymbol{\mu}_i) = \sqrt{(\mathbf{x} - \boldsymbol{\mu}_i)^T
+                    \boldsymbol{\Sigma}^{-1} (\mathbf{x} - \boldsymbol{\mu}_i)}$$
+                    <p>Accounts for correlations and different scales of features, unlike Euclidean distance.</p>
+                </div>
+
+                <h4>Naive Bayes Classifier</h4>
+                <p>Assumes all off-diagonals of $\boldsymbol{\Sigma}$ are zero (independent features). Then
+                    $\boldsymbol{\Sigma}$ and $\boldsymbol{\Sigma}^{-1}$ are diagonal:</p>
+                <p>$$g_i(\mathbf{x}) = -\sum_{j=1}^{d} \frac{(x_j - \mu_{ij})^2}{2\sigma_{ij}^2} -
+                    \sum_{j=1}^{d}\frac{1}{2}\log\sigma_{ij}^2 + \log P(C_i)$$</p>
+
+                <h4>Nearest Mean Classifier</h4>
+                <p>If we further assume all variances are equal ($\sigma_i^2 = \sigma^2$ for all $i, j$), Mahalanobis
+                    distance reduces to <strong>Euclidean distance</strong>. With equal priors, classify $\mathbf{x}$ to
+                    the class with nearest mean. Only $Kd + 1$ parameters needed.</p>
+
+                <div class="concept-card cyan">
+                    <h5 style="color: var(--cyan);">Simplification Hierarchy</h5>
+                    <table>
+                        <tr>
+                            <th>Assumption</th>
+                            <th>Classifier</th>
+                            <th>Boundary</th>
+                        </tr>
+                        <tr>
+                            <td>Different $\boldsymbol{\Sigma}_i$ per class</td>
+                            <td>Quadratic Discriminant</td>
+                            <td>Quadratic surfaces</td>
+                        </tr>
+                        <tr>
+                            <td>Shared $\boldsymbol{\Sigma}$, equal priors</td>
+                            <td>Linear Discriminant (Mahalanobis)</td>
+                            <td>Hyperplanes</td>
+                        </tr>
+                        <tr>
+                            <td>Diagonal $\boldsymbol{\Sigma}$ (independent features)</td>
+                            <td>Naive Bayes</td>
+                            <td>Axis-aligned</td>
+                        </tr>
+                        <tr>
+                            <td>$\boldsymbol{\Sigma} = \sigma^2 \mathbf{I}$, equal priors</td>
+                            <td>Nearest Mean (Euclidean)</td>
+                            <td>Voronoi boundaries</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- 2.10 Tuning Complexity (RDA) -->
+                <h3 id="u2-tuning">2.10 Tuning Complexity: Regularized Discriminant Analysis (RDA)</h3>
+
+                <p>There is a trade-off between the simplicity of a model and its generality. Making simplifying
+                    assumptions about $\boldsymbol{\Sigma}$ reduces parameters but introduces bias.</p>
+
+                <div class="formula-box">
+                    <div class="label">RDA &mdash; Interpolated Covariance</div>
+                    $$\boldsymbol{\Sigma}_i^{(\alpha,\beta)} = (1 - \alpha)\left[(1-\beta)\boldsymbol{\Sigma}_i +
+                    \beta\boldsymbol{\Sigma}\right] + \alpha\sigma^2\mathbf{I}$$
+                </div>
+
+                <table>
+                    <tr>
+                        <th>$\alpha$</th>
+                        <th>$\beta$</th>
+                        <th>Classifier</th>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>Quadratic Discriminant (separate covariances)</td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>Linear Discriminant (shared covariance)</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>Nearest Mean Classifier ($\sigma^2\mathbf{I}$)</td>
+                    </tr>
+                </table>
+
+                <p>In between these extremes, we get a variety of classifiers where $\alpha, \beta$ are optimized by
+                    <strong>cross-validation</strong>.
+                </p>
+
+                <!-- 2.11 Discrete Features -->
+                <h3 id="u2-discrete">2.11 Discrete Features</h3>
+
+                <p>Some applications have discrete attributes (e.g., color $\in$ {red, green, blue}, pixel $\in$ {0,
+                    1}).</p>
+
+                <div class="formula-box">
+                    <div class="label">Discrete Feature Classification</div>
+                    <p>For binary features with independence (Naive Bayes):</p>
+                    $$g_i(\mathbf{x}) = \sum_{j=1}^{d} \left[x_j \log \frac{p_{ij}}{1 - p_{ij}} + \log(1 -
+                    p_{ij})\right] + \log P(C_i)$$
+                    <p style="text-align:left; font-size:0.88rem;">where $p_{ij} = P(x_j = 1 | C_i)$ is estimated from
+                        training data. This gives a <strong>linear</strong> discriminant.</p>
+                </div>
+
+                <h4>Application: Document Categorization</h4>
+                <p>In the <strong>bag-of-words</strong> representation, choose $d$ words a priori. $\hat{p}_{ij}$
+                    estimates the probability that word $j$ occurs in document type $i$.</p>
+
+                <p>For <strong>multinomial features</strong> $x_j \in \{v_1, v_2, \ldots, v_n\}$:</p>
+                <p>$$p_{ijk} = P(x_j = v_k | C_i)$$</p>
+                <p>If all attributes are independent: $g_i(\mathbf{x}) = \sum_j \log p_{ijk(j)} + \log P(C_i)$ where
+                    $k(j)$ is the value of attribute $j$.</p>
+
+                <!-- 2.12 Multivariate Regression -->
+                <h3 id="u2-mv-regression">2.12 Multivariate Regression</h3>
+
+                <p>The numeric output $r$ is a weighted sum of several input variables:</p>
+
+                <div class="formula-box">
+                    <div class="label">Multiple Linear Regression</div>
+                    $$r = w_0 + \sum_{j=1}^{d} w_j x_j + \epsilon = \mathbf{w}^T\mathbf{x} + \epsilon$$
+                    <p style="text-align:left; font-size:0.88rem;">where $\mathbf{x} = (1, x_1, x_2, \ldots, x_d)^T$
+                        includes the bias term and $\epsilon \sim \mathcal{N}(0, \sigma^2)$.</p>
+                </div>
+
+                <p>Minimize MSE: $E = \sum_t (r^t - \mathbf{w}^T\mathbf{x}^t)^2$. Taking derivatives w.r.t. $w_j$ and
+                    setting to zero gives the <strong>normal equations</strong>:</p>
+
+                <div class="formula-box">
+                    <div class="label">Normal Equations (Matrix Form)</div>
+                    $$\mathbf{D}^T\mathbf{D}\mathbf{w} = \mathbf{D}^T\mathbf{r} \implies \mathbf{w} =
+                    (\mathbf{D}^T\mathbf{D})^{-1}\mathbf{D}^T\mathbf{r}$$
+                </div>
+
+                <div class="concept-card green">
+                    <h5 style="color: var(--green);">Knowledge Extraction from Linear Models</h5>
+                    <ul>
+                        <li>Look at <strong>signs</strong> of $w_j$: positive or negative effect on output</li>
+                        <li>If all $x_j$ are in the same range, <strong>absolute values</strong> $|w_j|$ indicate
+                            feature importance</li>
+                        <li>Features with $w_j \approx 0$ can be removed (feature selection)</li>
+                    </ul>
+                </div>
+
+                <div class="numerical-box">
+                    <div class="label">Numerical &mdash; Multivariate Regression</div>
+                    <p><strong>Data:</strong></p>
+                    <table>
+                        <tr>
+                            <th>$x_1$</th>
+                            <th>$x_2$</th>
+                            <th>$y$</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>6.1</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>1</td>
+                            <td>7.8</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>1</td>
+                            <td>10.1</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>9.05</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>10.8</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>2</td>
+                            <td>12.87</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>3</td>
+                            <td>13</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>13.5</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>3</td>
+                            <td>16.01</td>
+                        </tr>
+                    </table>
+                    <p><strong>Model:</strong> $y = w_0 + w_1 x_1 + w_2 x_2$</p>
+                    <p>Using the normal equations $\mathbf{w} = (\mathbf{D}^T\mathbf{D})^{-1}\mathbf{D}^T\mathbf{r}$
+                        with the design matrix $\mathbf{D}$ having columns $[1, x_1, x_2]$, we solve to find $w_0, w_1,
+                        w_2$.</p>
+                    <p><strong>Prediction for $x_1 = 4.2, x_2 = 1.9$:</strong> Plug into the learned equation.</p>
+                </div>
+
+                <!-- 2.13 Gradient Descent -->
+                <h3 id="u2-gradient">2.13 Gradient Descent</h3>
+
+                <p>In many cases, there is no analytical solution for the optimal parameters, and we resort to iterative
+                    optimization. The most common is <strong>gradient descent</strong>.</p>
+
+                <div class="definition">
+                    <div class="label">Definition</div>
+                    <p>When $E(\mathbf{w})$ is a differentiable function of a vector of variables, the <strong>gradient
+                            vector</strong> is composed of partial derivatives:</p>
+                    $$\nabla E = \left(\frac{\partial E}{\partial w_1}, \frac{\partial E}{\partial w_2}, \ldots,
+                    \frac{\partial E}{\partial w_d}\right)^T$$
+                </div>
+
+                <div class="formula-box">
+                    <div class="label">Gradient Descent Update Rule</div>
+                    $$\Delta w_i = -\eta \frac{\partial E}{\partial w_i}$$
+                    <p style="text-align:left; font-size:0.88rem;">$\eta$ = learning rate (step size). We start from
+                        random $\mathbf{w}$ and update in the <strong>opposite direction</strong> of the gradient. When
+                        gradient = 0, we've found a minimum.</p>
+                </div>
+
+                <!-- Gradient Descent Diagram -->
+                <div class="diagram-container">
+                    <svg width="420" height="260" viewBox="0 0 420 260">
+                        <!-- Error surface -->
+                        <path d="M 30 200 Q 80 160, 130 100 Q 170 60, 210 50 Q 250 60, 290 100 Q 330 160, 380 200"
+                            fill="none" stroke="#30363d" stroke-width="2" />
+                        <text x="210" y="240" fill="#8b949e" font-size="12" text-anchor="middle">w (parameter
+                            space)</text>
+                        <text x="15" y="120" fill="#8b949e" font-size="12" text-anchor="middle"
+                            transform="rotate(-90, 15, 120)">E(w)</text>
+
+                        <!-- Gradient descent steps -->
+                        <circle cx="90" cy="135" r="5" fill="#ff5252" />
+                        <text x="90" y="125" fill="#ff5252" font-size="10" text-anchor="middle">Start</text>
+                        <line x1="90" y1="135" x2="140" y2="95" stroke="#ffc107" stroke-width="1.5"
+                            marker-end="url(#arrowhead)" />
+                        <circle cx="140" cy="95" r="4" fill="#ffc107" />
+                        <line x1="140" y1="95" x2="175" y2="68" stroke="#ffc107" stroke-width="1.5"
+                            marker-end="url(#arrowhead)" />
+                        <circle cx="175" cy="68" r="4" fill="#ffc107" />
+                        <line x1="175" y1="68" x2="200" y2="53" stroke="#ffc107" stroke-width="1.5"
+                            marker-end="url(#arrowhead)" />
+                        <circle cx="210" cy="50" r="5" fill="#00e676" />
+                        <text x="210" y="38" fill="#00e676" font-size="10" text-anchor="middle">Minimum</text>
+
+                        <!-- Arrow marker -->
+                        <defs>
+                            <marker id="arrowhead" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto">
+                                <polygon points="0 0, 6 2, 0 4" fill="#ffc107" />
+                            </marker>
+                        </defs>
+                    </svg>
+                    <div class="caption">Gradient descent follows the steepest downhill direction iteratively until
+                        reaching a minimum.</div>
+                </div>
+
+                <div class="note-box">
+                    <div class="label">Key Considerations</div>
+                    <ul>
+                        <li><strong>Learning rate $\eta$:</strong> Too small &rarr; slow convergence. Too large &rarr;
+                            oscillation or divergence.</li>
+                        <li>Finds the <strong>nearest minimum</strong> &mdash; may be a local minimum, no guarantee of
+                            global minimum (unless the function is convex)</li>
+                        <li><strong>Gradient ascent</strong> maximizes a function (goes in direction of gradient)</li>
+                        <li>More advanced: second-order methods, conjugate gradient (faster, more memory). Costly
+                            methods: simulated annealing, genetic algorithms (more thorough search).</li>
+                    </ul>
+                </div>
+
+                <!-- 2.14 Logistic Discrimination -->
+                <h3 id="u2-logistic">2.14 Logistic Discrimination</h3>
+
+                <h4>Two Classes</h4>
+                <p>Instead of estimating class-conditional densities separately, we directly model the posterior
+                    probability using the <strong>log likelihood ratio</strong>:</p>
+
+                <p>Assume the log likelihood ratio is linear:</p>
+                <div class="formula-box">
+                    <div class="label">Logistic Model</div>
+                    $$\log \frac{P(C_1|\mathbf{x})}{P(C_2|\mathbf{x})} = \mathbf{w}^T \mathbf{x} + w_0$$
+                </div>
+
+                <p>Rearranging using Bayes' rule, we get the <strong>sigmoid (logistic) function</strong>:</p>
+                <div class="formula-box">
+                    <div class="label">Sigmoid Function</div>
+                    $$P(C_1|\mathbf{x}) = \sigma(\mathbf{w}^T\mathbf{x} + w_0) = \frac{1}{1 +
+                    \exp(-(\mathbf{w}^T\mathbf{x} + w_0))}$$
+                </div>
+
+                <!-- Sigmoid curve -->
+                <div class="diagram-container">
+                    <svg width="420" height="240" viewBox="0 0 420 240">
+                        <line x1="50" y1="200" x2="380" y2="200" stroke="#6e7681" stroke-width="1" />
+                        <line x1="210" y1="210" x2="210" y2="20" stroke="#6e7681" stroke-width="1" />
+                        <text x="210" y="230" fill="#8b949e" font-size="11" text-anchor="middle">z = w'x + w₀</text>
+                        <text x="30" y="35" fill="#8b949e" font-size="11">σ(z)</text>
+
+                        <!-- Sigmoid curve -->
+                        <path
+                            d="M 50 195 Q 80 194, 100 192 Q 130 188, 150 178 Q 170 160, 190 130 Q 210 95, 230 65 Q 250 45, 270 35 Q 300 28, 380 25"
+                            fill="none" stroke="#00bcd4" stroke-width="2.5" />
+
+                        <!-- Reference lines -->
+                        <line x1="50" y1="25" x2="380" y2="25" stroke="#6e7681" stroke-width="0.5"
+                            stroke-dasharray="4,4" />
+                        <text x="395" y="28" fill="#8b949e" font-size="10">1</text>
+                        <line x1="50" y1="110" x2="380" y2="110" stroke="#ffc107" stroke-width="0.5"
+                            stroke-dasharray="4,4" />
+                        <text x="395" y="113" fill="#ffc107" font-size="10">0.5</text>
+                        <text x="395" y="203" fill="#8b949e" font-size="10">0</text>
+
+                        <!-- Decision threshold -->
+                        <circle cx="210" cy="110" r="4" fill="#ffc107" />
+                        <text x="210" y="225" fill="#ffc107" font-size="10" text-anchor="middle">threshold</text>
+                    </svg>
+                    <div class="caption">The sigmoid function σ(z) maps any real number to (0, 1). Decision: choose C₁
+                        if σ(z) > 0.5 (i.e., z > 0).</div>
+                </div>
+
+                <h4>Training</h4>
+                <p>Given a sample of two classes, the sample likelihood is:</p>
+                <div class="formula-box">
+                    $$E = -\log \ell = -\sum_{t=1}^{N} \left[r^t \log y^t + (1 - r^t)\log(1 - y^t)\right]$$
+                    <p style="text-align:left; font-size:0.88rem;">This is the <strong>cross-entropy loss</strong>. We
+                        minimize $E$ using gradient descent. There is no closed-form solution.</p>
+                </div>
+
+                <div class="note-box">
+                    <div class="label">Practical Tips</div>
+                    <ul>
+                        <li><strong>Z-normalization</strong> before training: for each input $j$, compute mean $m_j$ and
+                            std $s_j$, normalize: $\tilde{x}_j = (x_j - m_j)/s_j$. Same $m_j, s_j$ from training set
+                            used for test data.</li>
+                        <li>After training, during testing: choose $C_1$ if $y > 0.5$, else $C_2$</li>
+                        <li><strong>Early stopping</strong> (stopping before zero training error) is a form of
+                            regularization &mdash; weights stay close to zero.</li>
+                    </ul>
+                </div>
+
+                <h4>Multiple Classes ($K > 2$): Softmax</h4>
+                <p>For $K$ classes, we generalize using the <strong>softmax function</strong>:</p>
+                <div class="formula-box">
+                    <div class="label">Softmax Function</div>
+                    $$y_i = P(C_i|\mathbf{x}) =
+                    \frac{\exp(\mathbf{w}_i^T\mathbf{x})}{\sum_{k=1}^{K}\exp(\mathbf{w}_k^T\mathbf{x})}$$
+                </div>
+
+                <div class="concept-card cyan">
+                    <h5 style="color: var(--cyan);">Softmax Properties</h5>
+                    <ul>
+                        <li>If the weighted sum for one class is sufficiently larger &rarr; after exponentiation and
+                            normalization, its $y_i \approx 1$ and others $\approx 0$</li>
+                        <li>Works like a <strong>differentiable maximum</strong> (hence "softmax")</li>
+                        <li>Guarantees $\sum_i y_i = 1$ and $0 \leq y_i \leq 1$ (valid probability distribution)</li>
+                    </ul>
+                </div>
+
+                <div class="numerical-box">
+                    <div class="label">Numerical &mdash; Softmax Example</div>
+                    <p><strong>Given:</strong> 3 classes with scores $z_1 = 2.0$, $z_2 = 1.0$, $z_3 = 0.1$</p>
+                    <p>$e^{z_1} = e^{2.0} = 7.389$, $e^{z_2} = e^{1.0} = 2.718$, $e^{z_3} = e^{0.1} = 1.105$</p>
+                    <p>$\text{Sum} = 7.389 + 2.718 + 1.105 = 11.212$</p>
+                    <p>$$y_1 = \frac{7.389}{11.212} = 0.659, \quad y_2 = \frac{2.718}{11.212} = 0.242, \quad y_3 =
+                        \frac{1.105}{11.212} = 0.099$$</p>
+                    <p><strong>Decision:</strong> Classify as $C_1$ (highest probability 65.9%). Sum: $0.659 + 0.242 +
+                        0.099 = 1.0$ &check;</p>
+                </div>
+
+                <!-- Summary Section -->
+                <div class="unit-header" style="margin-top:60px; border-left-color: var(--green);">
+                    <h2 style="color: var(--green);">Quick Reference: Key Formulas</h2>
+                </div>
+
+                <table>
+                    <tr>
+                        <th>Topic</th>
+                        <th>Formula</th>
+                    </tr>
+                    <tr>
+                        <td>Empirical Error</td>
+                        <td>$E(h|X) = \sum_t \mathbf{1}(h(\mathbf{x}^t) \neq r^t)$</td>
+                    </tr>
+                    <tr>
+                        <td>PAC Sample Size</td>
+                        <td>$N \geq \frac{4}{\varepsilon}\ln\frac{4}{\delta}$</td>
+                    </tr>
+                    <tr>
+                        <td>Linear Regression</td>
+                        <td>$\mathbf{w} = (\mathbf{D}^T\mathbf{D})^{-1}\mathbf{D}^T\mathbf{r}$</td>
+                    </tr>
+                    <tr>
+                        <td>Bias-Variance</td>
+                        <td>$\text{Error} = \sigma^2 + \text{Bias}^2 + \text{Variance}$</td>
+                    </tr>
+                    <tr>
+                        <td>Regularization</td>
+                        <td>$E_{aug} = E_{data} + \lambda\|\mathbf{w}\|^2$</td>
+                    </tr>
+                    <tr>
+                        <td>Bayes' Rule</td>
+                        <td>$P(C_i|\mathbf{x}) = \frac{p(\mathbf{x}|C_i)P(C_i)}{p(\mathbf{x})}$</td>
+                    </tr>
+                    <tr>
+                        <td>Mahalanobis Distance</td>
+                        <td>$d_M =
+                            \sqrt{(\mathbf{x}-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})}$
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Gradient Descent</td>
+                        <td>$\Delta w_i = -\eta\frac{\partial E}{\partial w_i}$</td>
+                    </tr>
+                    <tr>
+                        <td>Sigmoid</td>
+                        <td>$\sigma(z) = \frac{1}{1 + e^{-z}}$</td>
+                    </tr>
+                    <tr>
+                        <td>Softmax</td>
+                        <td>$y_i = \frac{e^{z_i}}{\sum_k e^{z_k}}$</td>
+                    </tr>
+                    <tr>
+                        <td>Accuracy</td>
+                        <td>$\frac{TP+TN}{TP+TN+FP+FN}$</td>
+                    </tr>
+                    <tr>
+                        <td>F1-Score</td>
+                        <td>$\frac{2 \cdot P \cdot R}{P + R}$</td>
+                    </tr>
+                    <tr>
+                        <td>$R^2$</td>
+                        <td>$1 - \frac{\sum(r-g)^2}{\sum(r-\bar{r})^2}$</td>
+                    </tr>
+                </table>
+
+                <div
+                    style="text-align:center; margin-top:60px; padding:30px 0; border-top:1px solid var(--border); color:var(--text-tertiary); font-size:0.85rem;">
+                    Machine Learning &amp; Applications &mdash; UE23EC352B &mdash; Complete Notes (Unit 1 &amp; 2)<br>
+                    Reference: Introduction to Machine Learning, Ethem Alpaydin, 4th Ed., MIT Press, 2020<br><br>
+                    <span style="color: var(--cyan); font-size: 0.9rem;">&mdash; Hitesh Pranav</span>
+                </div>
+
+    </main>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Highlight active nav link on scroll
+        const sections = document.querySelectorAll('h3[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.style.color = '';
+                link.style.borderLeftColor = 'transparent';
+                if (link.getAttribute('href') === '#' + current) {
+                    link.style.color = '#e6edf3';
+                    link.style.borderLeftColor = '#00bcd4';
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

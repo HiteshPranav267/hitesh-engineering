@@ -1295,6 +1295,28 @@ export const resources: Resource[] = [
         "url": "/notes/tlwa/tlwa_u1_u2_formulas.pdf",
         "tags": []
     },
+    {
+        "isHiteshNotes": false,
+        "id": "res-local-121",
+        "title": "MLA U1 U2 Numericals",
+        "subject": "MLA",
+        "year": "3",
+        "department": "ECE",
+        "type": "PDF",
+        "url": "/notes/mla/mla_u1_u2_num.pdf",
+        "tags": []
+    },
+    {
+        "isHiteshNotes": false,
+        "id": "res-local-121",
+        "title": "MLA U1 U2 Notes",
+        "subject": "MLA",
+        "year": "3",
+        "department": "ECE",
+        "type": "Website",
+        "url": "/notes/mla/mla_u1_u2_notes.html",
+        "tags": []
+    },
 ];
 
 // Template
