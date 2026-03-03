@@ -1006,7 +1006,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/dvlsi/dvlsi_u1_u2.pdf",
+        "url": "/notes/vlsi/dvlsi_u1_u2.pdf",
         "tags": []
     },
     {
@@ -1017,7 +1017,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/dvlsi/dvlsi_u3_u4.pdf",
+        "url": "/notes/vlsi/dvlsi_u3_u4.pdf",
         "tags": []
     },
     {
