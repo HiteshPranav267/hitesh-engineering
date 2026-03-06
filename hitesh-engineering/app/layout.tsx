@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
 import "./global.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -20,7 +19,7 @@ export const metadata: Metadata = {
         title: "Hitesh Pranav Reddy | Portfolio",
         description:
             "Portfolio of Hitesh Pranav Reddy - Electronics & Communication Engineer specializing in VLSI, Hardware Security, and ML.",
-        url: 'https://hitesh-pranav.vercel.app',
+        url: 'https://hiteshpranav267.github.io/hitesh-engineering',
         siteName: 'Hitesh Pranav Reddy Portfolio',
         locale: 'en_US',
         type: 'website',
@@ -51,7 +50,6 @@ export default function RootLayout({
         <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
             <body className="font-sans antialiased bg-navy-900 text-slate-200 min-h-screen">
                 {children}
-                <Analytics />
             </body>
         </html>
     );

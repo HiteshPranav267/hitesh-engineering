@@ -1,5 +1,7 @@
 import { MetadataRoute } from 'next'
 
+export const dynamic = "force-static";
+
 export default function robots(): MetadataRoute.Robots {
     return {
         rules: {
@@ -7,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: '/',
             disallow: '/private/',
         },
-        sitemap: 'https://hitesh-pranav.vercel.app/sitemap.xml',
+        sitemap: 'https://hiteshpranav267.github.io/hitesh-engineering/sitemap.xml',
     }
 }

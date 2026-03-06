@@ -1,8 +1,10 @@
 import { MetadataRoute } from 'next'
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
     // Use your real domain here once hosted
-    const baseUrl = 'https://hitesh-pranav.vercel.app'
+    const baseUrl = 'https://hiteshpranav267.github.io/hitesh-engineering'
 
     return [
         {

@@ -19,7 +19,7 @@ export default function ResumePDF() {
                 {/* Header */}
                 <header className="text-center mb-4">
                     <h1 className="text-3xl font-bold mb-1">
-                        <a href="https://hitesh-pranav.vercel.app/" className="hover:text-blue-600 transition-colors">
+                        <a href="https://hiteshpranav267.github.io/hitesh-engineering/" className="hover:text-blue-600 transition-colors">
                             {resumeData.name}
                         </a>
                     </h1>
