@@ -37,7 +37,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/chem/chem_esa_checklist.pdf",
+        "url": "/hitesh-engineering/notes/chem/chem_esa_checklist.pdf",
         "tags": []
     },
     {
@@ -48,7 +48,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/chem/chem_lab.pdf",
+        "url": "/hitesh-engineering/notes/chem/chem_lab.pdf",
         "tags": []
     },
     {
@@ -59,7 +59,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/chem/chem_practise_notes.pdf",
+        "url": "/hitesh-engineering/notes/chem/chem_practise_notes.pdf",
         "tags": []
     },
     {
@@ -70,7 +70,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/chem/chem_u1_p1.pdf",
+        "url": "/hitesh-engineering/notes/chem/chem_u1_p1.pdf",
         "tags": []
     },
     {
@@ -81,7 +81,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/chem/chem_u1_p2.pdf",
+        "url": "/hitesh-engineering/notes/chem/chem_u1_p2.pdf",
         "tags": []
     },
     {
@@ -92,7 +92,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/chem/chem_u2_p1.pdf",
+        "url": "/hitesh-engineering/notes/chem/chem_u2_p1.pdf",
         "tags": []
     },
     {
@@ -103,7 +103,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/chem/chem_u2_p2.pdf",
+        "url": "/hitesh-engineering/notes/chem/chem_u2_p2.pdf",
         "tags": []
     },
     {
@@ -114,7 +114,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/chem/chem_u3.pdf",
+        "url": "/hitesh-engineering/notes/chem/chem_u3.pdf",
         "tags": []
     },
     {
@@ -125,7 +125,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/chem/chem_u4_p1.pdf",
+        "url": "/hitesh-engineering/notes/chem/chem_u4_p1.pdf",
         "tags": []
     },
     {
@@ -136,7 +136,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/chem/chem_u4_p2.pdf",
+        "url": "/hitesh-engineering/notes/chem/chem_u4_p2.pdf",
         "tags": []
     },
     {
@@ -147,7 +147,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/chem/chem_u4_p3.pdf",
+        "url": "/hitesh-engineering/notes/chem/chem_u4_p3.pdf",
         "tags": []
     },
     {
@@ -158,7 +158,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/epd/epd_u1.pdf",
+        "url": "/hitesh-engineering/notes/epd/epd_u1.pdf",
         "tags": []
     },
     {
@@ -169,7 +169,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/epd/epd_u3.pdf",
+        "url": "/hitesh-engineering/notes/epd/epd_u3.pdf",
         "tags": []
     },
     {
@@ -180,7 +180,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/epd/epd_u4.pdf",
+        "url": "/hitesh-engineering/notes/epd/epd_u4.pdf",
         "tags": []
     },
     {
@@ -191,7 +191,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/mechanics/course_info.pdf",
+        "url": "/hitesh-engineering/notes/mechanics/course_info.pdf",
         "tags": []
     },
     {
@@ -202,7 +202,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/mechanics/Mechanics_Statics_Complete.pdf",
+        "url": "/hitesh-engineering/notes/mechanics/Mechanics_Statics_Complete.pdf",
         "tags": []
     },
     {
@@ -213,7 +213,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/mechanics/Engineering_Mechanics_Statics_8_edition_Text_book.pdf",
+        "url": "/hitesh-engineering/notes/mechanics/Engineering_Mechanics_Statics_8_edition_Text_book.pdf",
         "tags": []
     },
     {
@@ -224,7 +224,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/constitution/AllConstitutionQA.pdf",
+        "url": "/hitesh-engineering/notes/constitution/AllConstitutionQA.pdf",
         "tags": []
     },
     {
@@ -235,7 +235,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/constitution/AllSwamiVivekanandaQA.pdf",
+        "url": "/hitesh-engineering/notes/constitution/AllSwamiVivekanandaQA.pdf",
         "tags": []
     },
     {
@@ -246,7 +246,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/constitution/AllMahatmaGandhiQA.pdf",
+        "url": "/hitesh-engineering/notes/constitution/AllMahatmaGandhiQA.pdf",
         "tags": []
     },
     {
@@ -257,7 +257,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/physics/Physics_U1_to_U4_Notes.pdf",
+        "url": "/hitesh-engineering/notes/physics/Physics_U1_to_U4_Notes.pdf",
         "tags": []
     },
     {
@@ -268,7 +268,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/physics/Faisal_Sir_Slides.pdf",
+        "url": "/hitesh-engineering/notes/physics/Faisal_Sir_Slides.pdf",
         "tags": []
     },
     {
@@ -279,7 +279,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/physics/Phy_PESU_Notes.pdf",
+        "url": "/hitesh-engineering/notes/physics/Phy_PESU_Notes.pdf",
         "tags": []
     },
     {
@@ -290,7 +290,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/physics/U1_Notes.pdf",
+        "url": "/hitesh-engineering/notes/physics/U1_Notes.pdf",
         "tags": []
     },
     {
@@ -301,7 +301,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/mechanical/mech_u1.pdf",
+        "url": "/hitesh-engineering/notes/mechanical/mech_u1.pdf",
         "tags": []
     },
     {
@@ -312,7 +312,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/mechanical/mech_u2_p1.pdf",
+        "url": "/hitesh-engineering/notes/mechanical/mech_u2_p1.pdf",
         "tags": []
     },
     {
@@ -323,7 +323,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/mechanical/mech_u2_p2.pdf",
+        "url": "/hitesh-engineering/notes/mechanical/mech_u2_p2.pdf",
         "tags": []
     },
     {
@@ -334,7 +334,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/mechanical/mech_u3.pdf",
+        "url": "/hitesh-engineering/notes/mechanical/mech_u3.pdf",
         "tags": []
     },
     {
@@ -345,7 +345,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/mechanical/mech_u4.pdf",
+        "url": "/hitesh-engineering/notes/mechanical/mech_u4.pdf",
         "tags": []
     },
     {
@@ -356,7 +356,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/mechanical/mechanical_esa_revision_imp_stuff.pdf",
+        "url": "/hitesh-engineering/notes/mechanical/mechanical_esa_revision_imp_stuff.pdf",
         "tags": []
     },
     {
@@ -367,7 +367,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/eee/eee_u1.pdf",
+        "url": "/hitesh-engineering/notes/eee/eee_u1.pdf",
         "tags": []
     },
     {
@@ -378,7 +378,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/eee/eee_u2.pdf",
+        "url": "/hitesh-engineering/notes/eee/eee_u2.pdf",
         "tags": []
     },
     {
@@ -389,7 +389,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/eee/eee_u3.pdf",
+        "url": "/hitesh-engineering/notes/eee/eee_u3.pdf",
         "tags": []
     },
     {
@@ -400,7 +400,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/eee/eee_u4.pdf",
+        "url": "/hitesh-engineering/notes/eee/eee_u4.pdf",
         "tags": []
     },
     {
@@ -411,7 +411,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/eee/eee_theory_and_derivations.pdf",
+        "url": "/hitesh-engineering/notes/eee/eee_theory_and_derivations.pdf",
         "tags": []
     },
     {
@@ -422,7 +422,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/evs/evs.pdf",
+        "url": "/hitesh-engineering/notes/evs/evs.pdf",
         "tags": []
     },
     {
@@ -445,7 +445,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/m1/m1_u1_notes.pdf",
+        "url": "/hitesh-engineering/notes/m1/m1_u1_notes.pdf",
         "tags": []
     },
     {
@@ -456,7 +456,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/m1/m1_u2_notes.pdf",
+        "url": "/hitesh-engineering/notes/m1/m1_u2_notes.pdf",
         "tags": []
     },
     {
@@ -467,7 +467,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/m1/m1_u3_notes.pdf",
+        "url": "/hitesh-engineering/notes/m1/m1_u3_notes.pdf",
         "tags": []
     },
     {
@@ -478,7 +478,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/m1/m1_u4_notes.pdf",
+        "url": "/hitesh-engineering/notes/m1/m1_u4_notes.pdf",
         "tags": []
     },
     {
@@ -489,7 +489,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/m1/m1_self_learning.pdf",
+        "url": "/hitesh-engineering/notes/m1/m1_self_learning.pdf",
         "tags": []
     },
     {
@@ -500,7 +500,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/m1/m1_special_fns_proofs.pdf",
+        "url": "/hitesh-engineering/notes/m1/m1_special_fns_proofs.pdf",
         "tags": []
     },
     {
@@ -511,7 +511,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/m1/m1_u1_u2_formulas.pdf",
+        "url": "/hitesh-engineering/notes/m1/m1_u1_u2_formulas.pdf",
         "tags": []
     },
     {
@@ -522,7 +522,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "S&H",
         "type": "PDF",
-        "url": "/notes/m1/m1_u3_u4_formulas.pdf",
+        "url": "/hitesh-engineering/notes/m1/m1_u3_u4_formulas.pdf",
         "tags": []
     },
     {
@@ -533,7 +533,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "CSE",
         "type": "PDF",
-        "url": "/notes/python/py_u1.pdf",
+        "url": "/hitesh-engineering/notes/python/py_u1.pdf",
         "tags": []
     },
     {
@@ -544,7 +544,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "CSE",
         "type": "PDF",
-        "url": "/notes/python/py_u2.pdf",
+        "url": "/hitesh-engineering/notes/python/py_u2.pdf",
         "tags": []
     },
     {
@@ -555,7 +555,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "CSE",
         "type": "PDF",
-        "url": "/notes/python/py_u3.pdf",
+        "url": "/hitesh-engineering/notes/python/py_u3.pdf",
         "tags": []
     },
     {
@@ -566,7 +566,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "CSE",
         "type": "PDF",
-        "url": "/notes/python/py_u4.pdf",
+        "url": "/hitesh-engineering/notes/python/py_u4.pdf",
         "tags": []
     },
     {
@@ -577,7 +577,7 @@ export const resources: Resource[] = [
         "year": "1",
         "department": "CSE",
         "type": "PDF",
-        "url": "/notes/python/py_oops.pdf",
+        "url": "/hitesh-engineering/notes/python/py_oops.pdf",
         "tags": []
     },
     {
@@ -676,7 +676,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/la/la_matlab_programs.pdf",
+        "url": "/hitesh-engineering/notes/la/la_matlab_programs.pdf",
         "tags": []
     },
     {
@@ -687,7 +687,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/la/la_matlab_slides.pdf",
+        "url": "/hitesh-engineering/notes/la/la_matlab_slides.pdf",
         "tags": []
     },
     {
@@ -698,7 +698,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/la/la_u1_u2_formulas.pdf",
+        "url": "/hitesh-engineering/notes/la/la_u1_u2_formulas.pdf",
         "tags": []
     },
     {
@@ -709,7 +709,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/la/la_u1_u2.pdf",
+        "url": "/hitesh-engineering/notes/la/la_u1_u2.pdf",
         "tags": []
     },
     {
@@ -720,7 +720,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/la/la_u3_u4_formulas.pdf",
+        "url": "/hitesh-engineering/notes/la/la_u3_u4_formulas.pdf",
         "tags": []
     },
     {
@@ -731,7 +731,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/la/la_vibha.pdf",
+        "url": "/hitesh-engineering/notes/la/la_vibha.pdf",
         "tags": []
     },
     {
@@ -742,7 +742,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/cadd/cadd_u1_4.pdf",
+        "url": "/hitesh-engineering/notes/cadd/cadd_u1_4.pdf",
         "tags": []
     },
     {
@@ -753,7 +753,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/cadd/cadd_tb.pdf",
+        "url": "/hitesh-engineering/notes/cadd/cadd_tb.pdf",
         "tags": []
     },
     {
@@ -764,7 +764,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/acd/acd_u1_u2.pdf",
+        "url": "/hitesh-engineering/notes/acd/acd_u1_u2.pdf",
         "tags": []
     },
     {
@@ -775,7 +775,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/acd/acd_u3.pdf",
+        "url": "/hitesh-engineering/notes/acd/acd_u3.pdf",
         "tags": []
     },
     {
@@ -786,7 +786,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/acd/acd_u4.pdf",
+        "url": "/hitesh-engineering/notes/acd/acd_u4.pdf",
         "tags": []
     },
     {
@@ -797,7 +797,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/nas/nas_u1_u2.pdf",
+        "url": "/hitesh-engineering/notes/nas/nas_u1_u2.pdf",
         "tags": []
     },
     {
@@ -808,7 +808,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/nas/nas_u3.pdf",
+        "url": "/hitesh-engineering/notes/nas/nas_u3.pdf",
         "tags": []
     },
     {
@@ -819,7 +819,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/nas/nas_u4.pdf",
+        "url": "/hitesh-engineering/notes/nas/nas_u4.pdf",
         "tags": []
     },
     {
@@ -830,7 +830,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/sns/sns_u1.pdf",
+        "url": "/hitesh-engineering/notes/sns/sns_u1.pdf",
         "tags": []
     },
     {
@@ -841,7 +841,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/sns/sns_u2_u3_u4.pdf",
+        "url": "/hitesh-engineering/notes/sns/sns_u2_u3_u4.pdf",
         "tags": []
     },
     {
@@ -852,7 +852,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/mee/mee_u1_u2.pdf",
+        "url": "/hitesh-engineering/notes/mee/mee_u1_u2.pdf",
         "tags": []
     },
     {
@@ -863,7 +863,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/mee/mee_u3.pdf",
+        "url": "/hitesh-engineering/notes/mee/mee_u3.pdf",
         "tags": []
     },
     {
@@ -874,7 +874,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/mee/mee_u4.pdf",
+        "url": "/hitesh-engineering/notes/mee/mee_u4.pdf",
         "tags": []
     },
     {
@@ -896,7 +896,7 @@ export const resources: Resource[] = [
         "year": "3",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/ccn/ccn_u1.pdf",
+        "url": "/hitesh-engineering/notes/ccn/ccn_u1.pdf",
         "tags": []
     },
     {
@@ -907,7 +907,7 @@ export const resources: Resource[] = [
         "year": "3",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/ccn/ccn_u2.pdf",
+        "url": "/hitesh-engineering/notes/ccn/ccn_u2.pdf",
         "tags": []
     },
     {
@@ -918,7 +918,7 @@ export const resources: Resource[] = [
         "year": "3",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/ccn/cnn_u3.pdf",
+        "url": "/hitesh-engineering/notes/ccn/cnn_u3.pdf",
         "tags": []
     },
     {
@@ -929,7 +929,7 @@ export const resources: Resource[] = [
         "year": "3",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/ccn/ccn_u4.pdf",
+        "url": "/hitesh-engineering/notes/ccn/ccn_u4.pdf",
         "tags": []
     },
     {
@@ -940,7 +940,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/dsp/dsp_formulas.pdf",
+        "url": "/hitesh-engineering/notes/dsp/dsp_formulas.pdf",
         "tags": []
     },
     {
@@ -951,7 +951,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/dsp/dsp_u1_u2.pdf",
+        "url": "/hitesh-engineering/notes/dsp/dsp_u1_u2.pdf",
         "tags": []
     },
     {
@@ -962,7 +962,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/dsp/dsp_u3.pdf",
+        "url": "/hitesh-engineering/notes/dsp/dsp_u3.pdf",
         "tags": []
     },
     {
@@ -973,7 +973,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/dsp/dsp_u4.pdf",
+        "url": "/hitesh-engineering/notes/dsp/dsp_u4.pdf",
         "tags": []
     },
     {
@@ -984,7 +984,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/dsp/dsp_matlab_codes.txt",
+        "url": "/hitesh-engineering/notes/dsp/dsp_matlab_codes.txt",
         "tags": []
     },
     {
@@ -995,7 +995,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/dsp/dsp_codecomposer_codes.txt",
+        "url": "/hitesh-engineering/notes/dsp/dsp_codecomposer_codes.txt",
         "tags": []
     },
     {
@@ -1006,7 +1006,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/vlsi/dvlsi_u1_u2.pdf",
+        "url": "/hitesh-engineering/notes/vlsi/dvlsi_u1_u2.pdf",
         "tags": []
     },
     {
@@ -1017,7 +1017,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/vlsi/dvlsi_u3_u4.pdf",
+        "url": "/hitesh-engineering/notes/vlsi/dvlsi_u3_u4.pdf",
         "tags": []
     },
     {
@@ -1028,7 +1028,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/cs/cs_u1_u2_u3_u4.pdf",
+        "url": "/hitesh-engineering/notes/cs/cs_u1_u2_u3_u4.pdf",
         "tags": []
     },
     {
@@ -1039,7 +1039,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/emft/emft_u1.pdf",
+        "url": "/hitesh-engineering/notes/emft/emft_u1.pdf",
         "tags": []
     },
     {
@@ -1050,7 +1050,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/emft/emft_u3.pdf",
+        "url": "/hitesh-engineering/notes/emft/emft_u3.pdf",
         "tags": []
     },
     {
@@ -1061,7 +1061,7 @@ export const resources: Resource[] = [
         "year": "2",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/emft/emft_u4.pdf",
+        "url": "/hitesh-engineering/notes/emft/emft_u4.pdf",
         "tags": []
     },
     {
@@ -1116,7 +1116,7 @@ export const resources: Resource[] = [
         "year": "3",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/cod/cod_u1_u2.pdf",
+        "url": "/hitesh-engineering/notes/cod/cod_u1_u2.pdf",
         "tags": []
     },
     {
@@ -1127,7 +1127,7 @@ export const resources: Resource[] = [
         "year": "3",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/cod/cod_u3.pdf",
+        "url": "/hitesh-engineering/notes/cod/cod_u3.pdf",
         "tags": []
     },
     {
@@ -1138,7 +1138,7 @@ export const resources: Resource[] = [
         "year": "3",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/cod/cod_u4.pdf",
+        "url": "/hitesh-engineering/notes/cod/cod_u4.pdf",
         "tags": []
     },
     {
@@ -1149,7 +1149,7 @@ export const resources: Resource[] = [
         "year": "3",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/cod/cod_u1_u2_question_bank.pdf",
+        "url": "/hitesh-engineering/notes/cod/cod_u1_u2_question_bank.pdf",
         "tags": []
     },
     {
@@ -1160,7 +1160,7 @@ export const resources: Resource[] = [
         "year": "3",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/cod/cod_u3_u4_question_bank.pdf",
+        "url": "/hitesh-engineering/notes/cod/cod_u3_u4_question_bank.pdf",
         "tags": []
     },
     {
@@ -1171,7 +1171,7 @@ export const resources: Resource[] = [
         "year": "3",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/dc/dc_u1.pdf",
+        "url": "/hitesh-engineering/notes/dc/dc_u1.pdf",
         "tags": []
     },
     {
@@ -1182,7 +1182,7 @@ export const resources: Resource[] = [
         "year": "3",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/dc/dc_u2.pdf",
+        "url": "/hitesh-engineering/notes/dc/dc_u2.pdf",
         "tags": []
     },
     {
@@ -1193,7 +1193,7 @@ export const resources: Resource[] = [
         "year": "3",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/dc/dc_u3_u4.pdf",
+        "url": "/hitesh-engineering/notes/dc/dc_u3_u4.pdf",
         "tags": []
     },
     {
@@ -1204,7 +1204,7 @@ export const resources: Resource[] = [
         "year": "3",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/tlwa/tlwa_u1_u2.pdf",
+        "url": "/hitesh-engineering/notes/tlwa/tlwa_u1_u2.pdf",
         "tags": []
     },
     {
@@ -1215,7 +1215,7 @@ export const resources: Resource[] = [
         "year": "3",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/tlwa/tlwa_u3_u4.pdf",
+        "url": "/hitesh-engineering/notes/tlwa/tlwa_u3_u4.pdf",
         "tags": []
     },
     {
@@ -1270,7 +1270,7 @@ export const resources: Resource[] = [
         "year": "3",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/hpc/hpc_u1_dakshin.pdf",
+        "url": "/hitesh-engineering/notes/hpc/hpc_u1_dakshin.pdf",
         "tags": []
     },
     {
@@ -1281,7 +1281,7 @@ export const resources: Resource[] = [
         "year": "3",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/tlwa/tlwa_u1_u2_num.pdf",
+        "url": "/hitesh-engineering/notes/tlwa/tlwa_u1_u2_num.pdf",
         "tags": []
     },
     {
@@ -1292,7 +1292,7 @@ export const resources: Resource[] = [
         "year": "3",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/tlwa/tlwa_u1_u2_formulas.pdf",
+        "url": "/hitesh-engineering/notes/tlwa/tlwa_u1_u2_formulas.pdf",
         "tags": []
     },
     {
@@ -1303,7 +1303,7 @@ export const resources: Resource[] = [
         "year": "3",
         "department": "ECE",
         "type": "PDF",
-        "url": "/notes/mla/mla_u1_u2_num.pdf",
+        "url": "/hitesh-engineering/notes/mla/mla_u1_u2_num.pdf",
         "tags": []
     },
     {
@@ -1314,7 +1314,7 @@ export const resources: Resource[] = [
         "year": "3",
         "department": "ECE",
         "type": "Website",
-        "url": "/notes/mla/mla_u1_notes.html",
+        "url": "/hitesh-engineering/notes/mla/mla_u1_notes.html",
         "tags": []
     },
         {
@@ -1325,7 +1325,7 @@ export const resources: Resource[] = [
         "year": "3",
         "department": "ECE",
         "type": "Website",
-        "url": "/notes/mla/mla_u2_notes.html",
+        "url": "/hitesh-engineering/notes/mla/mla_u2_notes.html",
         "tags": []
     },
 ];

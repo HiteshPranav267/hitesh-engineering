@@ -61,7 +61,7 @@ export default function Navbar() {
                         className="flex items-center hover:opacity-80 transition-opacity"
                     >
                         <img
-                            src="/logo.png"
+                            src="/hitesh-engineering/logo.png"
                             alt="Logo"
                             className="h-10 w-auto"
                         />

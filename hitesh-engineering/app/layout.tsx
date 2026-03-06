@@ -37,7 +37,7 @@ export const metadata: Metadata = {
         follow: true,
     },
     icons: {
-        icon: "/favicon.png?v=1",
+        icon: "/hitesh-engineering/favicon.png?v=1",
     },
 };
 

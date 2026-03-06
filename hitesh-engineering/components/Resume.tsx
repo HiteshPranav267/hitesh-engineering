@@ -20,7 +20,7 @@ export default function Resume() {
                 {/* Download buttons */}
                 <ScrollReveal className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
                     <motion.a
-                        href="/Resume_Duggireddy_Hitesh_Pranav_Reddy.pdf"
+                        href="/hitesh-engineering/Resume_Duggireddy_Hitesh_Pranav_Reddy.pdf"
                         download
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.97 }}
