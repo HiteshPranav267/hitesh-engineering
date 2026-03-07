@@ -64,7 +64,7 @@ export const projects: Project[] = [
             "Deployment"],
         details: "A minimalist utility to capture thoughts, track finances, build habits, and plan your days. Private. Synced. Yours.",
         image: "/projects/life-os.jpg",
-        featured: true,
+        featured: false,
         link: "https://life-track-os.vercel.app",
     },
 ];
