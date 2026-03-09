@@ -1,3 +1,5 @@
+import { projects } from "./projects";
+
 export const resumeData = {
     name: "Duggireddy Hitesh Pranav Reddy",
     title: "ECE | VLSI & Hardware Security | ML & Cyber Security",
@@ -51,34 +53,10 @@ export const resumeData = {
         { category: "ML & Security", items: ["Scikit-learn", "PyTorch", "IDS / Anomaly Detection", "CAN Bus Security"] },
         { category: "Tools", items: ["Git", "Vivado", "Linux"] },
     ],
-    projects: [
-        {
-            title: "Automotive ML-based IDS",
-            period: "2025",
-            tech: "Python, Machine Learning, CAN Bus, Automotive Security",
-            bullets: [
-                "Developed an intelligent intrusion detection system leveraging machine learning algorithms to monitor and detect anomalous behavior in automotive CAN bus communications.",
-                "Integrated real-time Python-based firewall with ensemble models to enhance vehicular safety."
-            ]
-        },
-        {
-            title: "Motorsport Telemetry Dashboard - Ignition 1.0",
-            period: "2024",
-            tech: "Embedded Systems, IoT, Sensor Fusion, JavaScript, Chart.js",
-            bullets: [
-                "Built a real-time telemetry system integrating IMU acceleration data, GPS-based vehicle tracking, and speed estimation using sensor fusion.",
-                "Recognized as the 2nd lightest hardware system at Ignition 1.0 (sponsored by Ather Energy) and secured 5th place overall.",
-                "Implemented contextual interpretation of driving behavior through acceleration variance analysis."
-            ]
-        },
-        {
-            title: "Official Website – Joy of Engineering Lab (JoEL)",
-            period: "2025",
-            tech: "Next.js, TypeScript, Tailwind CSS, Vercel",
-            bullets: [
-                "Designed and developed the official digital presence for JoEL to showcase flagship events like HackeZee and Roadshow.",
-                "Optimized for performance and accessibility, ensuring a structured platform for student projects and initiatives."
-            ]
-        }
-    ]
+    projects: projects.map(p => ({
+        title: p.title,
+        period: p.period,
+        tech: p.tags.slice(0, 5).join(", "),
+        bullets: p.bullets
+    }))
 };

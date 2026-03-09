@@ -7,6 +7,8 @@ export interface Project {
     image: string;
     featured: boolean;
     link: string;
+    period: string;
+    bullets: string[];
 }
 
 export const projects: Project[] = [
@@ -21,6 +23,11 @@ export const projects: Project[] = [
         image: "/projects/automotive-ids.jpg",
         featured: true,
         link: "https://github.com/HiteshPranav267/carhackingids",
+        period: "2025",
+        bullets: [
+            "Developed an intelligent intrusion detection system leveraging machine learning algorithms to monitor and detect anomalous behavior in automotive CAN bus communications.",
+            "Integrated real-time Python-based firewall with ensemble models to enhance vehicular safety."
+        ]
     },
     {
         slug: "hackathon-telemetry-dashboard",
@@ -33,6 +40,12 @@ export const projects: Project[] = [
         image: "/projects/telemetry-dashboard.jpg",
         featured: true,
         link: "https://www.linkedin.com/posts/activity-7394568416873000960-MB9o",
+        period: "2024",
+        bullets: [
+            "Built a real-time telemetry system integrating IMU acceleration data, GPS-based vehicle tracking, and speed estimation using sensor fusion.",
+            "Recognized as the 2nd lightest hardware system at Ignition 1.0 (sponsored by Ather Energy) and secured 5th place overall.",
+            "Implemented contextual interpretation of driving behavior through acceleration variance analysis."
+        ]
     },
     {
         slug: "joy-of-engineering-website",
@@ -50,6 +63,11 @@ export const projects: Project[] = [
         image: "/projects/joy-of-engineering-website.jpg",
         featured: true,
         link: "https://joy-of-engineering.vercel.app",
+        period: "2025",
+        bullets: [
+            "Designed and developed the official digital presence for JoEL to showcase flagship events like HackeZee and Roadshow.",
+            "Optimized for performance and accessibility, ensuring a structured platform for student projects and initiatives."
+        ]
     },
     {
         slug: "life-os",
@@ -66,5 +84,10 @@ export const projects: Project[] = [
         image: "/projects/life-os.jpg",
         featured: false,
         link: "https://life-track-os.vercel.app",
+        period: "2024",
+        bullets: [
+            "A minimalist utility to capture thoughts, track finances, build habits, and plan your days.",
+            "Developed a full-stack personal management system with private synchronization and habit tracking."
+        ]
     },
 ];

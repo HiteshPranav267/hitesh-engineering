@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning — Unit 3 Notes</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Lora:ital,wght@0,400;1,400;1,600&display=swap"
+        rel="stylesheet">
+    <!-- MathJax for high-quality formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --bg: #0d0f14;
+            --surface: #13161e;
+            --surface2: #1a1e2a;
+            --border: #252a38;
+            --accent: #f0c040;
+            /* Gold */
+            --accent2: #4fc3f7;
+            /* Sky Blue */
+            --accent3: #a78bfa;
+            /* Lavender */
+            --accent4: #34d399;
+            /* Emerald */
+            --danger: #f87171;
+            --text: #e8eaf0;
+            --muted: #7a8099;
+            --formula-bg: #0a0c12;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Lora', Georgia, serif;
+            font-size: 16px;
+            line-height: 1.85;
+            min-height: 100vh;
+        }
+
+        /* ── SIDEBAR NAV ── */
+        #sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 260px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+            z-index: 100;
+            padding: 24px 0 40px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) transparent;
+        }
+
+        #sidebar h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            padding: 0 20px 16px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 12px;
+        }
+
+        #sidebar h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            padding: 16px 20px 8px;
+            margin: 0;
+        }
+
+        #sidebar a {
+            display: block;
+            padding: 7px 20px;
+            font-family: 'Syne', sans-serif;
+            font-size: 12.5px;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s, background 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        #sidebar a:hover,
+        #sidebar a.active {
+            color: var(--accent);
+            background: rgba(240, 192, 64, 0.06);
+            border-left-color: var(--accent);
+        }
+
+        #sidebar a span.num {
+            display: inline-block;
+            min-width: 36px;
+            color: var(--accent3);
+            font-size: 11px;
+            opacity: 0.8;
+        }
+
+        /* ── MAIN CONTENT ── */
+        #main {
+            margin-left: 260px;
+            max-width: 900px;
+            padding: 60px 48px 120px;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            margin-bottom: 64px;
+            padding-bottom: 48px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero .tag {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            color: var(--accent);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(32px, 5vw, 52px);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            color: #fff;
+        }
+
+        .hero h1 em {
+            color: var(--accent);
+            font-style: normal;
+        }
+
+        .hero p {
+            margin-top: 20px;
+            color: var(--muted);
+            font-size: 15px;
+            max-width: 560px;
+        }
+
+        /* ── SECTION ── */
+        .section {
+            margin-bottom: 80px;
+            scroll-margin-top: 32px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-num {
+            font-family: 'DM Mono', monospace;
+            font-size: 13px;
+            color: var(--accent);
+            background: rgba(240, 192, 64, 0.1);
+            border: 1px solid rgba(240, 192, 64, 0.3);
+            padding: 3px 10px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .section h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--accent2);
+            margin: 36px 0 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 18px;
+            background: var(--accent2);
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        h4 {
+            font-family: 'Syne', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--accent4);
+            margin: 24px 0 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        p {
+            margin-bottom: 14px;
+        }
+
+        /* ── VISUALIZATION CARDS ── */
+        .viz-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 22px 24px;
+            margin: 28px 0;
+            overflow: hidden;
+        }
+
+        .viz-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent2);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .viz-title::before {
+            content: '';
+            display: inline-block;
+            width: 3px;
+            height: 16px;
+            background: var(--accent2);
+            border-radius: 2px;
+        }
+
+        .viz-card canvas {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            border-radius: 4px;
+            background: #080a0f;
+        }
+
+        .viz-controls {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+            font-family: 'DM Mono', monospace;
+            font-size: 12px;
+            color: var(--muted);
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+        }
+
+        .viz-controls label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .viz-controls input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 120px;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .viz-controls input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            background: var(--accent2);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(79, 195, 247, 0.3);
+        }
+
+        .viz-stat {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            color: var(--accent);
+            background: rgba(240, 192, 64, 0.08);
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(240, 192, 64, 0.2);
+        }
+
+        .viz-legend {
+            display: flex;
+            gap: 15px;
+            margin-top: 12px;
+            font-size: 11px;
+            color: var(--muted);
+            font-family: 'DM Mono', monospace;
+        }
+
+        .viz-legend span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .leg-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .leg-line {
+            width: 16px;
+            height: 2px;
+            border-radius: 1px;
+        }
+
+        /* Grid/Layout helpers */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 700px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .callout.blue {
+            border-color: var(--accent2);
+            background: rgba(79, 195, 247, 0.06);
+        }
+
+        .callout.purple {
+            border-color: var(--accent3);
+            background: rgba(167, 139, 250, 0.06);
+        }
+
+        .callout.green {
+            border-color: var(--accent4);
+            background: rgba(52, 211, 153, 0.06);
+        }
+
+        .callout.red {
+            border-color: var(--danger);
+            background: rgba(248, 113, 113, 0.06);
+        }
+
+        .callout-title {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 8px;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .callout.blue .callout-title {
+            color: var(--accent2);
+        }
+
+        .callout.purple .callout-title {
+            color: var(--accent3);
+        }
+
+        .callout.green .callout-title {
+            color: var(--accent4);
+        }
+
+        .callout.red .callout-title {
+            color: var(--danger);
+        }
+
+        /* ── FORMULA BOX ── */
+        .formula {
+            background: var(--formula-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 20px 0;
+            overflow-x: auto;
+            line-height: 1.7;
+            text-align: center;
+        }
+
+        .formula .comment {
+            color: var(--muted);
+            font-style: italic;
+            font-size: 13px;
+            display: block;
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        /* ── KEY TERM ── */
+        .kterm {
+            background: rgba(167, 139, 250, 0.12);
+            color: var(--accent3);
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.88em;
+        }
+
+        /* ── BULLET LIST ── */
+        ul,
+        ol {
+            padding-left: 20px;
+            margin-bottom: 14px;
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        li::marker {
+            color: var(--accent);
+        }
+
+        /* scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        @media (max-width: 860px) {
+            #sidebar {
+                display: none;
+            }
+
+            #main {
+                margin-left: 0;
+                padding: 32px 20px 80px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <nav id="sidebar">
+        <h2>ML Unit 3 Notes</h2>
+
+        <h3>Ch 8: Nonparametric Methods</h3>
+        <a href="#s8-1"><span class="num">8.1</span> Introduction</a>
+        <a href="#s8-2"><span class="num">8.2</span> Nonparametric Density Estimation</a>
+        <a href="#s8-3"><span class="num">8.3</span> Gen. to Multivariate Data</a>
+        <a href="#s8-4"><span class="num">8.4</span> Nonparametric Classification</a>
+        <a href="#s8-5"><span class="num">8.5</span> Condensed Nearest Neighbor</a>
+        <a href="#s8-6"><span class="num">8.6</span> Distance-Based Classification</a>
+        <a href="#s8-7"><span class="num">8.7</span> Outlier Detection</a>
+        <a href="#s8-8"><span class="num">8.8</span> Nonparametric Regression</a>
+
+        <h3>Ch 9: Decision Trees</h3>
+        <a href="#s9-1"><span class="num">9.1</span> Introduction</a>
+        <a href="#s9-2"><span class="num">9.2</span> Univariate Trees</a>
+        <a href="#s9-3"><span class="num">9.3</span> Pruning</a>
+        <a href="#s9-4"><span class="num">9.4</span> Rule Extraction from Trees</a>
+        <a href="#s9-5"><span class="num">9.5</span> Learning Rules from Data</a>
+
+        <h3>Ch 14: Kernel Machines</h3>
+        <a href="#s14-1"><span class="num">14.1</span> Introduction</a>
+        <a href="#s14-2"><span class="num">14.2</span> Optimal Separating HP</a>
+        <a href="#s14-3"><span class="num">14.3</span> Soft Margin Hyperplane</a>
+        <a href="#s14-4"><span class="num">14.4</span> ν-SVM</a>
+        <a href="#s14-5"><span class="num">14.5</span> Kernel Trick</a>
+        <a href="#s14-6"><span class="num">14.6</span> Vectorial Kernels</a>
+        <a href="#s14-7"><span class="num">14.7</span> Defining Kernels</a>
+        <a href="#s14-8"><span class="num">14.8</span> Multiple Kernel Learning</a>
+        <a href="#s14-9"><span class="num">14.9</span> Multiclass Kernel Machines</a>
+        <a href="#s14-10"><span class="num">14.10</span> Kernel Machines for Reg</a>
+        <a href="#s14-11"><span class="num">14.11</span> Kernel Machines for Rank</a>
+        <a href="#s14-12"><span class="num">14.12</span> One-Class Kernel Machines</a>
+        <a href="#s14-13"><span class="num">14.13</span> Large Margin NN</a>
+        <a href="#s14-14"><span class="num">14.14</span> Kernel Dim. Reduction</a>
+    </nav>
+
+    <!-- MAIN -->
+    <main id="main">
+
+        <!-- HERO -->
+        <div class="hero">
+            <div class="tag">Machine Learning — Unit 3</div>
+            <h1>Nonparametric, Trees &amp; <em>Kernels</em></h1>
+            <p>Comprehensive study notes for Unit 3, covering Nonparametric methods, Decision Trees, and Support Vector
+                Machines (Kernel Machines). Designed for quick revision and exam success.</p>
+        </div>
+
+        <!-- SECTION 8.1 -->
+        <div class="section" id="s8-1">
+            <div class="section-header">
+                <span class="section-num">8.1</span>
+                <h2>Introduction</h2>
+            </div>
+
+            <p>In previous chapters, we used <strong>parametric methods</strong> where we assumed a specific functional
+                form for the underlying distribution (like a Gaussian). However, in many real-world scenarios, the
+                actual distribution is unknown and may not fit standard models.</p>
+
+            <div class="callout">
+                <div class="callout-title">✦ Core Philosophy</div>
+                <strong>Nonparametric methods</strong> do not assume a fixed functional form. Instead, they assume that
+                <em>similar inputs should have similar outputs</em>.
+            </div>
+
+            <p>These methods are often called <span class="kterm">memory-based learning</span> or <span
+                    class="kterm">instance-based learning</span> because they typically store the entire training
+                dataset in memory. Unlike parametric models, there is no "training phase" in the traditional sense;
+                instead, most of the computation happens at the time of prediction (query time).</p>
+
+            <h3>Key Characteristics</h3>
+            <ul>
+                <li><strong>Local Models:</strong> The estimate for a given input is influenced only by the training
+                    points in its immediate neighborhood.</li>
+                <li><strong>Flexible:</strong> Can model complex, multi-modal distributions that parametric models might
+                    miss.</li>
+                <li><strong>Data Requirement:</strong> As the dataset size increases, the model complexity grows to
+                    better fit the data.</li>
+            </ul>
+        </div>
+
+        <!-- SECTION 8.2 -->
+        <div class="section" id="s8-2">
+            <div class="section-header">
+                <span class="section-num">8.2</span>
+                <h2>Nonparametric Density Estimation</h2>
+            </div>
+
+            <p>The objective of density estimation is to find an estimator \(\hat{p}(x)\) for an unknown probability
+                density \(p(x)\) based on a sample \(\mathcal{X} = \{x^1, x^2, \dots, x^N\}\).</p>
+
+            <!-- VISUALIZATION: DENSITY ESTIMATION -->
+            <div class="viz-card">
+                <div class="viz-title">Interactive Density Estimation</div>
+                <canvas id="viz-density" width="800" height="300"></canvas>
+                <div class="viz-controls">
+                    <label>Method:
+                        <select id="density-method"
+                            style="background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:4px;padding:2px 6px;font-family:inherit;">
+                            <option value="histogram">Histogram</option>
+                            <option value="kernel" selected>Kernel (Gaussian)</option>
+                            <option value="knn">k-Nearest Neighbor</option>
+                        </select>
+                    </label>
+                    <label id="param-label">Smoothing (h): <strong id="param-val"
+                            style="color:var(--accent2)">0.15</strong>
+                        <input type="range" id="density-param" min="0.01" max="0.5" step="0.01" value="0.15">
+                    </label>
+                    <button id="regen-data"
+                        style="background:var(--accent4);color:var(--bg);border:none;padding:4px 12px;border-radius:4px;font-family:'Syne',sans-serif;font-weight:700;cursor:pointer;font-size:11px;">REGENERATE
+                        SAMPLES</button>
+                </div>
+                <div class="viz-legend">
+                    <span><span class="leg-dot" style="background:var(--accent4)"></span> Data Points</span>
+                    <span><span class="leg-line" style="background:var(--accent2)"></span> Estimated Density
+                        \(\hat{p}(x)\)</span>
+                </div>
+            </div>
+
+            <div class="callout purple">
+                <div class="callout-title">The Smoothing Parameter (h)</div>
+                The parameter \(h\) (window width or bin width) controls the <strong>bias-variance trade-off</strong>:
+                <ul>
+                    <li><strong>Small \(h\):</strong> High variance. The estimate is "spiky" and overfits the noise in
+                        the data.</li>
+                    <li><strong>Large \(h\):</strong> High bias. The estimate is too smooth and may miss critical
+                        features of the distribution.</li>
+                </ul>
+            </div>
+
+            <!-- 8.2.1 -->
+            <h3>8.2.1 Histogram Estimator</h3>
+            <p>The simplest approach. The input space is divided into equal-sized "bins" of width \(h\). Given an origin
+                \(x_0\), the bins are defined by intervals \([x_0 + mh, x_0 + (m+1)h]\).</p>
+
+            <div class="formula">
+                \[ \hat{p}(x) = \frac{\#\{x^t \text{ in the same bin as } x\}}{Nh} \]
+                <span class="comment">→ Where N is the total number of samples and h is the bin width.</span>
+            </div>
+
+            <div class="callout red">
+                <div class="callout-title">Limitations</div>
+                1. <strong>Discontinuity:</strong> The estimate jumps at bin boundaries.<br>
+                2. <strong>Origin Dependency:</strong> The shape depends on the choice of \(x_0\).
+            </div>
+
+            <h4>Naive Estimator</h4>
+            <p>To fix the origin dependency, we can center the window of width \(h\) at the point \(x\). This is the
+                naive estimator:</p>
+            <div class="formula">
+                \[ \hat{p}(x) = \frac{1}{Nh} \sum_{t=1}^N w\left(\frac{x - x^t}{h}\right) \]
+                <span class="comment">where \(w(u)\) is a weight function (rectangular window):</span>
+                \[ w(u) = \begin{cases} 1 & \text{if } |u| < 1/2 \\ 0 & \text{otherwise} \end{cases} \] </div>
+
+                    <!-- 8.2.2 -->
+                    <h3>8.2.2 Kernel Estimator (Parzen Window)</h3>
+                    <p>The Naive estimator is still discontinuous. To get a smooth estimate, we replace the box weight
+                        function with a smooth <span class="kterm">Kernel Function (K)</span>.</p>
+
+                    <div class="formula">
+                        \[ \hat{p}(x) = \frac{1}{Nh} \sum_{t=1}^N K\left(\frac{x - x^t}{h}\right) \]
+                    </div>
+
+                    <p>The most common choice is the <strong>Gaussian Kernel</strong>:</p>
+                    <div class="formula">
+                        \[ K(u) = \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{u^2}{2}\right) \]
+                    </div>
+                    <p>Using a Gaussian kernel results in a density estimate that is the sum of \(N\) Gaussians, each
+                        centered at a training point \(x^t\), with variance \(h^2\).</p>
+
+                    <!-- 8.2.3 -->
+                    <h3>8.2.3 k-Nearest Neighbor (k-NN) Estimator</h3>
+                    <p>In previous methods, we fixed the volume (width \(h\)) and counted how many samples fell inside.
+                        In the k-NN estimator, we <strong>fix the number of samples \(k\)</strong> and let the volume
+                        vary.</p>
+
+                    <div class="formula">
+                        \[ \hat{p}(x) = \frac{k}{2N d_k(x)} \]
+                        <span class="comment">→ Where \(d_k(x)\) is the distance from \(x\) to its \(k\)-th nearest
+                            neighbor.</span>
+                    </div>
+
+                    <p>This method adapts to the density of the data: it uses a small window in high-density regions and
+                        a large window in low-density regions.</p>
+            </div>
+
+            <!-- SECTION 8.3 -->
+            <div class="section" id="s8-3">
+                <div class="section-header">
+                    <span class="section-num">8.3</span>
+                    <h2>Generalization to Multivariate Data</h2>
+                </div>
+
+                <p>For \(d\)-dimensional data (vectors \(\mathbf{x}\)), the density estimators are extended by scaling
+                    the volume appropriately.</p>
+
+                <h4>Multivariate Kernel Estimator</h4>
+                <div class="formula">
+                    \[ \hat{p}(\mathbf{x}) = \frac{1}{Nh^d} \sum_{t=1}^N K\left(\frac{\mathbf{x} -
+                    \mathbf{x}^t}{h}\right) \]
+                </div>
+                <p>A common kernel is the <strong>Multivariate Gaussian</strong>. If the variables are independent, the
+                    kernel can simply be a product of univariate kernels.</p>
+
+                <h4>Multivariate k-NN Estimator</h4>
+                <div class="formula">
+                    \[ \hat{p}(\mathbf{x}) = \frac{k}{N V_k(\mathbf{x})} \]
+                    <span class="comment">where \(V_k(\mathbf{x})\) is the volume of a hypersphere with radius \(r =
+                        d_k(\mathbf{x})\).</span>
+                </div>
+                <p>The volume is calculated as \(V_k(\mathbf{x}) = c_d \cdot (d_k(\mathbf{x}))^d\), where \(c_d\) is a
+                    constant for the volume of a unit sphere in \(d\) dimensions.</p>
+            </div>
+
+            <!-- SECTION 8.4 -->
+            <div class="section" id="s8-4">
+                <div class="section-header">
+                    <span class="section-num">8.4</span>
+                    <h2>Nonparametric Classification</h2>
+                </div>
+
+                <p>Nonparametric classification applies the density estimation techniques from Section 8.2 to the
+                    problem of predicting class labels. We use Bayes' Rule to calculate the posterior probability for
+                    each class \(C_i\).</p>
+
+                <div class="formula">
+                    \[ g_i(x) = \hat{p}(x|C_i) \hat{P}(C_i) \]
+                    <span class="comment">→ Where \(\hat{p}(x|C_i)\) is the class-conditional density and \(\hat{P}(C_i)
+                        = N_i/N\) is the prior.</span>
+                </div>
+
+                <h3>k-Nearest Neighbor (k-NN) Classifier</h3>
+                <p>The k-NN classifier is the most popular nonparametric classification method. Instead of estimating
+                    densities explicitly, it simplifies the posterior probability calculation:</p>
+
+                <div class="formula">
+                    \[ \hat{P}(C_i|x) = \frac{k_i}{k} \]
+                    <span class="comment">→ Where \(k_i\) is the number of neighbors from class \(C_i\) among the \(k\)
+                        nearest points.</span>
+                </div>
+
+                <div class="callout green">
+                    <div class="callout-title">The Decision Rule</div>
+                    Assign the input \(x\) to the class that is most heavily represented among its \(k\) nearest
+                    neighbors (Majority Vote).
+                </div>
+            </div>
+
+            <!-- SECTION 8.5 -->
+            <div class="section" id="s8-5">
+                <div class="section-header">
+                    <span class="section-num">8.5</span>
+                    <h2>Condensed Nearest Neighbor</h2>
+                </div>
+
+                <p>The primary disadvantage of k-NN is its <strong>space and time complexity</strong>: it requires
+                    storing all \(N\) training points and calculating distances to all of them for every prediction.
+                    <span class="kterm">Condensed Nearest Neighbor (CNN)</span> is a data reduction algorithm that finds
+                    a small subset \(\mathcal{Z}\) of the training set \(\mathcal{X}\) that performs as well as the full
+                    set.
+                </p>
+
+                <div class="callout blue">
+                    <div class="callout-title">The Core Logic</div>
+                    Points that are deep inside a class region (far from the decision boundary) do not contribute to the
+                    classification boundary and can be safely removed. We only need to store points near the boundary.
+                </div>
+
+                <h4>The CNN Algorithm</h4>
+                <ol>
+                    <li>Initialize \(\mathcal{Z}\) as an empty set (or add one random instance from each class).</li>
+                    <li>For each instance \(x\) in the training set \(\mathcal{X}\):
+                        <ul>
+                            <li>Find its nearest neighbor \(x'\) in the subset \(\mathcal{Z}\).</li>
+                            <li>If \(class(x) \neq class(x')\) (i.e., \(\mathcal{Z}\) misclassifies \(x\)), <strong>add
+                                    \(x\) to \(\mathcal{Z}\)</strong>.</li>
+                        </ul>
+                    </li>
+                    <li>Repeat the loop until no more points are added to \(\mathcal{Z}\) in a full pass.</li>
+                </ol>
+            </div>
+
+            <!-- SECTION 8.6 -->
+            <div class="section" id="s8-6">
+                <div class="section-header">
+                    <span class="section-num">8.6</span>
+                    <h2>Distance-Based Classification</h2>
+                </div>
+
+                <p>Distance-based classifiers assign instances to a class based on their proximity to class
+                    representatives (like means) or specific training members.</p>
+
+                <h3>Common Distance Measures</h3>
+                <ul>
+                    <li><strong>Euclidean Distance:</strong> The most common measure for continuous features.
+                        \[ \mathcal{D}(x, y) = \sqrt{\sum_{j=1}^d (x_j - y_j)^2} \]
+                    </li>
+                    <li><strong>Mahalanobis Distance:</strong> Accounts for the covariance \(S\) and scaling of
+                        different features.
+                        \[ \mathcal{D}(x, m_i) = (x - m_i)^T S^{-1} (x - m_i) \]
+                    </li>
+                    <li><strong>Manhattan Distance (L1):</strong> The sum of absolute differences.
+                        \[ \mathcal{D}_1(x, y) = \sum_{j=1}^d |x_j - y_j| \]
+                    </li>
+                    <li><strong>Hamming Distance:</strong> Used for discrete or binary features; counts the number of
+                        mismatching attributes.
+                    </li>
+                </ul>
+
+                <div class="callout">
+                    <div class="callout-title">Nearest Mean Classifier</div>
+                    A simple distance-based classifier that assigns \(x\) to the class \(C_i\) whose mean \(m_i\) is
+                    closest to \(x\).
+                </div>
+            </div>
+
+            <!-- SECTION 8.7 -->
+            <div class="section" id="s8-7">
+                <div class="section-header">
+                    <span class="section-num">8.7</span>
+                    <h2>Outlier Detection</h2>
+                </div>
+
+                <p><span class="kterm">Outliers</span> are data points that don't follow the general pattern of the rest
+                    of the data. They might be caused by measurement errors (noise) or represent rare, interesting
+                    events (anomalies).</p>
+
+                <h4>k-NN Based Detection</h4>
+                <ul>
+                    <li><strong>Distance-based:</strong> A point \(x\) is an outlier if its distance to its \(k\)-th
+                        nearest neighbor is greater than a threshold \(\theta\).
+                        \[ d_k(x) > \theta \implies \text{Outlier} \]
+                    </li>
+                    <li><strong>Density-based:</strong> A point is an outlier if it has fewer than \(k_{min}\) neighbors
+                        within a fixed radius \(R\).</li>
+                </ul>
+
+                <div class="callout red">
+                    <div class="callout-title">Applications</div>
+                    Outlier detection is critical for <strong>Fraud Detection</strong> (identifying unusual
+                    transactions) and <strong>Data Cleaning</strong> (removing noise before training).
+                </div>
+            </div>
+
+            <!-- SECTION 8.8 -->
+            <div class="section" id="s8-8">
+                <div class="section-header">
+                    <span class="section-num">8.8</span>
+                    <h2>Nonparametric Regression: Smoothing Models</h2>
+                </div>
+
+                <p>In nonparametric regression, we assume that the output function \(g(x)\) is smooth, meaning points
+                    close to \(x\) should have similar response values. We estimate \(g(x)\) by taking a weighted
+                    average of the training responses \(r^t\) in the neighborhood of \(x\).</p>
+
+                <!-- 8.8.1 -->
+                <h3>8.8.1 Running Mean Smoother</h3>
+                <p>A simple average of response values within a symmetric window (bin) of width \(h\) around \(x\).</p>
+                <div class="formula">
+                    \[ \hat{g}(x) = \frac{\sum_{t=1}^N w\left(\frac{x-x^t}{h}\right) r^t}{\sum_{t=1}^N
+                    w\left(\frac{x-x^t}{h}\right)} \]
+                    <span class="comment">where \(w(u) = 1\) if \(|u| < 1\), and \(0\) otherwise.</span>
+                </div>
+
+                <!-- 8.8.2 -->
+                <h3>8.8.2 Kernel Smoother</h3>
+                <p>Also known as the <span class="kterm">Nadaraya-Watson estimator</span>. It uses a smooth kernel
+                    \(K(\cdot)\) to give higher weight to points closer to \(x\).</p>
+                <div class="formula">
+                    \[ \hat{g}(x) = \frac{\sum_{t=1}^N K\left(\frac{x-x^t}{h}\right) r^t}{\sum_{t=1}^N
+                    K\left(\frac{x-x^t}{h}\right)} \]
+                </div>
+                <p>For a **Gaussian kernel**, this estimate is a surface that "smooths" out the data points into a
+                    continuous curve.</p>
+
+                <!-- 8.8.3 -->
+                <h3>8.8.3 Running Line Smoother</h3>
+                <p>The running mean often suffers from <strong>bias at the boundaries</strong> of the data. The running
+                    line smoother (or <span class="kterm">locally weighted regression</span>) fixes this by fitting a
+                    local linear model instead of just a constant mean.</p>
+                <div class="formula">
+                    \[ \text{Minimize: } E(a, b|x) = \sum_{t=1}^N w\left(\frac{x-x^t}{h}\right) [r^t - (a + b(x^t -
+                    x))]^2 \]
+                    <span class="comment">The estimate at \(x\) is simply the intercept \(\hat{g}(x) = a\).</span>
+                </div>
+            </div>
+
+            <!-- CHAPTER 9 -->
+            <div class="section" id="s9-1">
+                <div class="section-header">
+                    <span class="section-num">9.1</span>
+                    <h2>Introduction to Decision Trees</h2>
+                </div>
+
+                <p>A <span class="kterm">Decision Tree</span> is a hierarchical model for supervised learning. It
+                    consists of internal nodes (tests/splits) and leaf nodes (outputs). It works by recursively
+                    partitioning the input space into local regions.</p>
+                <ul>
+                    <li><strong>Root Node:</strong> The first split point (contains all data).</li>
+                    <li><strong>Internal Nodes:</strong> Points where a specific test is applied to a feature.</li>
+                    <li><strong>Leaves:</strong> Final nodes that store the class label (Classification) or mean value
+                        (Regression).</li>
+                </ul>
+            </div>
+
+            <div class="section" id="s9-2">
+                <div class="section-header">
+                    <span class="section-num">9.2</span>
+                    <h2>Univariate Trees</h2>
+                </div>
+
+                <p>In a univariate tree, each internal node uses only <strong>one</strong> input dimension \(x_j\). For
+                    numeric data, this is typically a binary split: \(x_j > w_{m0}\).</p>
+
+                <h3>9.2.1 Classification Trees (Impurity)</h3>
+                <p>The goal is to split a node such that the resulting child nodes are as "pure" as possible (containing
+                    instances from mostly one class). <span class="kterm">Impurity \(I(m)\)</span> measures how mixed
+                    the classes are at node \(m\).</p>
+
+                <div class="callout purple">
+                    <div class="callout-title">Impurity Measures</div>
+                    Let \(p_m^i\) be the fraction of instances at node \(m\) that belong to class \(C_i\).
+                    <ol>
+                        <li style="margin-top:10px"><strong>Entropy:</strong>
+                            \[ I(m) = -\sum_{i=1}^K p_m^i \log_2 p_m^i \]
+                        </li>
+                        <li><strong>Gini Index:</strong>
+                            \[ I(m) = 1 - \sum_{i=1}^K (p_m^i)^2 \]
+                        </li>
+                        <li><strong>Misclassification Error:</strong>
+                            \[ I(m) = 1 - \max_i p_m^i \]
+                        </li>
+                    </ol>
+                </div>
+
+                <p>We choose the split that maximizes the <strong>Information Gain</strong> (the reduction in total
+                    impurity across child nodes).</p>
+
+                <h3>9.2.2 Regression Trees</h3>
+                <p>In regression, "impurity" is measured by the **Variance** of the response values at the node.</p>
+                <div class="formula">
+                    \[ I(m) = \sigma_m^2 = \frac{1}{N_m} \sum_{t \in \mathcal{X}_m} (r^t - \bar{r}_m)^2 \]
+                    <span class="comment">→ Where \(\bar{r}_m\) is the average response value at node \(m\).</span>
+                </div>
+                <p>The output of a leaf in a regression tree is simply the mean value \(\bar{r}_m\) of all training
+                    points that reach that leaf.</p>
+            </div>
+
+            <div class="section" id="s9-3">
+                <div class="section-header">
+                    <span class="section-num">9.3</span>
+                    <h2>Pruning</h2>
+                </div>
+
+                <p>Trees are prone to <span class="kterm">overfitting</span>. A tree that is too deep will capture noise
+                    in the training data. Pruning simplifies the tree to improve generalization.</p>
+
+                <ul>
+                    <li><strong>Pre-pruning (Early Stopping):</strong> Stop growing the tree if the number of instances
+                        in a node falls below a threshold, or if the impurity reduction is not statistically
+                        significant.</li>
+                    <li><strong>Post-pruning:</strong> Grow the full tree (possibly to 0 impurity) then remove subtrees
+                        starting from the bottom. We replace a subtree with a leaf if the error on a **validation set**
+                        does not increase.</li>
+                </ul>
+
+                <div class="callout red">
+                    <div class="callout-title">Error-Complexity Pruning</div>
+                    A typical strategy where we minimize a cost function that combines the error rate and the number of
+                    nodes: \(Cost = Error + \alpha \cdot (\text{Size})\).
+                </div>
+            </div>
+
+            <div class="section" id="s9-4">
+                <div class="section-header">
+                    <span class="section-num">9.4 &amp; 9.5</span>
+                    <h2>Rule Extraction and Learning Rules</h2>
+                </div>
+
+                <h4>Rule Extraction (9.4)</h4>
+                <p>Every path from the root to a leaf in a decision tree can be written as an <strong>IF-THEN
+                        rule</strong>. The set of all such rules is exhaustive (covers all cases) and mutually exclusive
+                    (only one rule applies to any instance).</p>
+
+                <h4>Learning Rules from Data (9.5)</h4>
+                <p>Instead of building a tree, we can learn rules directly using a <span class="kterm">Sequential
+                        Covering</span> (separate-and-conquer) algorithm:
+                <ol>
+                    <li>Find the best single rule that covers some positive instances.</li>
+                    <li>Remove the instances covered by this rule from the dataset.</li>
+                    <li>Repeat until all instances are covered.</li>
+                </ol>
+                </p>
+            </div>
+
+            <!-- CHAPTER 14 -->
+            <div class="section" id="s14-1">
+                <div class="section-header">
+                    <span class="section-num">14.1</span>
+                    <h2>Introduction to Kernel Machines</h2>
+                </div>
+
+                <p><span class="kterm">Kernel Machines</span>, such as Support Vector Machines (SVMs), are among the
+                    most powerful algorithms in machine learning. They bridge the gap between global models (like linear
+                    regression) and local models (like k-NN). While they find a global decision boundary, that boundary
+                    is defined only by a few "local" critical points called <span class="kterm">Support Vectors</span>.
+                </p>
+            </div>
+
+            <div class="section" id="s14-2">
+                <div class="section-header">
+                    <span class="section-num">14.2</span>
+                    <h2>Optimal Separating Hyperplane</h2>
+                </div>
+
+                <p>For a linearly separable dataset, there are infinitely many hyperplanes that can separate the
+                    classes. SVM chooses the one that has the **Maximum Margin**.</p>
+
+                <div class="formula">
+                    \[ \text{Minimize: } \frac{1}{2} \|w\|^2 \]
+                    \[ \text{Subject to: } r^t(w^T x^t + w_0) \ge 1 \]
+                    <span class="comment">The margin width is exactly \(\frac{2}{\|w\|}\).</span>
+                </div>
+
+                <!-- VISUALIZATION: SVM MARGIN -->
+                <div class="viz-card">
+                    <div class="viz-title">SVM: Max-Margin Separation</div>
+                    <canvas id="viz-svm" width="800" height="400"></canvas>
+                    <div class="viz-controls">
+                        <span class="viz-stat">Drag points to see the margin adapt. This uses a Primal SGD solver for
+                            real-time visualization.</span>
+                        <label>Complexity (C):
+                            <input type="range" id="svm-c" min="0.1" max="100" value="10">
+                            <strong id="svm-c-val">10</strong>
+                        </label>
+                    </div>
+                    <div class="viz-legend">
+                        <span><span class="leg-dot" style="background:var(--accent2)"></span> Class A</span>
+                        <span><span class="leg-dot" style="background:var(--danger)"></span> Class B</span>
+                        <span><span class="leg-line" style="background:var(--text)"></span> Decision Boundary</span>
+                        <span><span class="leg-line"
+                                style="border:1px dashed var(--muted); background:transparent;"></span> Margin</span>
+                    </div>
+                </div>
+
+                <div class="callout blue">
+                    <div class="callout-title">Support Vectors</div>
+                    The training points \(x^t\) that satisfy the constraint with equality (\(r^t(w^T x^t + w_0) = 1\))
+                    are the Support Vectors. They are the only points that "support" the boundary; removing other points
+                    wouldn't change the boundary.
+                </div>
+            </div>
+
+            <div class="section" id="s14-3">
+                <div class="section-header">
+                    <span class="section-num">14.3</span>
+                    <h2>The Nonseparable Case: Soft Margin</h2>
+                </div>
+
+                <p>If the data is not linearly separable, we introduce <span class="kterm">Slack Variables
+                        (\(\xi^t\))</span> to allow some points to be on the wrong side of the margin or even the
+                    boundary.</p>
+
+                <div class="formula">
+                    \[ \text{Minimize: } \frac{1}{2} \|w\|^2 + C \sum_{t=1}^N \xi^t \]
+                    <span class="comment">→ \(C\) is the penalty parameter. Large \(C\) = strict margin (overfitting
+                        risk), Small \(C\) = soft margin (underfitting risk).</span>
+                </div>
+            </div>
+
+            <div class="section" id="s14-5">
+                <div class="section-header">
+                    <span class="section-num">14.5</span>
+                    <h2>The Kernel Trick</h2>
+                </div>
+
+                <p>The <span class="kterm">Kernel Trick</span> allows SVM to find a linear boundary in a
+                    high-dimensional feature space without ever explicitly mapping the data to that space. It
+                    substitutes the dot product \(x^T x'\) with a <strong>Kernel Function \(K(x, x')\)</strong>.</p>
+
+                <div class="formula">
+                    \[ g(x) = \sum_{t=1}^N \alpha^t r^t K(x^t, x) + w_0 \]
+                </div>
+
+                <h3>14.7 Defining Kernels</h3>
+                <ul>
+                    <li><strong>Polynomial:</strong> \( K(x, x') = (x^T x' + 1)^q \)</li>
+                    <li><strong>Radial Basis Function (RBF):</strong> \( K(x, x') = \exp\left(-\frac{\|x -
+                        x'\|^2}{2\sigma^2}\right) \)</li>
+                    <li><strong>Sigmoid:</strong> \( K(x, x') = \tanh(\eta x^T x' + \nu) \)</li>
+                </ul>
+            </div>
+
+            <div class="section" id="s14-9">
+                <div class="section-header">
+                    <span class="section-num">14.9 - 14.12</span>
+                    <h2>Extensions of Kernel Machines</h2>
+                </div>
+
+                <h4>Multiclass Kernel Machines (14.9)</h4>
+                <ul>
+                    <li><strong>One-vs-All:</strong> Train \(K\) classifiers, one for each class vs the rest.</li>
+                    <li><strong>One-vs-One:</strong> Train \(\frac{K(K-1)}{2}\) pairwise classifiers.</li>
+                </ul>
+
+                <h4>Kernel Machines for Regression (14.10)</h4>
+                <p>Uses the <span class="kterm">\(\epsilon\)-sensitive loss function</span>, where errors smaller than
+                    \(\epsilon\) are ignored. The goal is to find a function that stays within a "tube" of width
+                    \(2\epsilon\) around the data.</p>
+
+                <h4>One-Class Kernel Machines (14.12)</h4>
+                <p>Used for <strong>Novelty/Outlier Detection</strong>. It finds a boundary that encloses the
+                    high-density region of the data. Anything outside this boundary is flagged as an anomaly.</p>
+            </div>
+
+            <div class="section" id="s14-13">
+                <div class="section-header">
+                    <span class="section-num">14.13 &amp; 14.14</span>
+                    <h2>Dimensionality Reduction</h2>
+                </div>
+
+                <h4>Large Margin Nearest Neighbor (14.13)</h4>
+                <p>Learns a distance metric to improve k-NN classification by pulling "target neighbors" closer and
+                    pushing "imposters" (different class neighbors) away.</p>
+
+                <h4>Kernel PCA (14.14)</h4>
+                <p>Performs Principal Component Analysis in the high-dimensional feature space defined by a kernel. This
+                    allows for **Nonlinear Dimensionality Reduction**.</p>
+            </div>
+
+            <!-- SUMMARY CALLOUT -->
+            <div class="callout green" style="margin-top: 80px;">
+                <div class="callout-title">Summary of Unit 3</div>
+                Unit 3 covers the core "local" and "hierarchical" learning paradigms.
+                <ul>
+                    <li><strong>Nonparametric:</strong> Memory-based methods like k-NN and Kernel Density Estimation.
+                    </li>
+                    <li><strong>Decision Trees:</strong> Partitioning the space into boxes using information gain.</li>
+                    <li><strong>Kernel Machines:</strong> Using the kernel trick to solve nonlinear problems with linear
+                        efficiency (SVM).</li>
+                </ul>
+            </div>
+
+    </main>
+
+    <script>
+        (function () {
+            // --- UTILS ---
+            const rand = () => Math.random();
+            const randG = () => (rand() + rand() + rand() + rand() + rand() + rand() - 3) / 3;
+
+            // --- DENSITY ESTIMATION VIZ ---
+            (function initDensity() {
+                const canvas = document.getElementById('viz-density');
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                const methodSel = document.getElementById('density-method');
+                const paramSld = document.getElementById('density-param');
+                const paramVal = document.getElementById('param-val');
+                const paramLbl = document.getElementById('param-label');
+                const regenBtn = document.getElementById('regen-data');
+
+                let samples = [];
+                function generateSamples() {
+                    samples = [];
+                    const centers = [0.3, 0.7];
+                    for (let i = 0; i < 30; i++) {
+                        const c = centers[rand() > 0.6 ? 1 : 0];
+                        samples.push(c + (randG() * 0.12));
+                    }
+                    samples.sort((a, b) => a - b);
+                }
+
+                function draw() {
+                    const W = canvas.width, H = canvas.height;
+                    const pad = 40, gW = W - 2 * pad, gH = H - 2 * pad;
+                    const method = methodSel.value;
+                    const h = parseFloat(paramSld.value);
+
+                    if (method === 'knn') {
+                        paramLbl.firstChild.textContent = "Neighbors (k): ";
+                        paramSld.min = 1; paramSld.max = 15; paramSld.step = 1;
+                        if (paramSld.value < 1) paramSld.value = 3;
+                    } else {
+                        paramLbl.firstChild.textContent = "Smoothing (h): ";
+                        paramSld.min = 0.01; paramSld.max = 0.5; paramSld.step = 0.01;
+                    }
+                    paramVal.textContent = paramSld.value;
+
+                    ctx.clearRect(0, 0, W, H);
+                    ctx.strokeStyle = '#252a38'; ctx.lineWidth = 1;
+                    ctx.beginPath(); ctx.moveTo(pad, H - pad); ctx.lineTo(W - pad, H - pad); ctx.stroke();
+
+                    ctx.fillStyle = '#34d399';
+                    samples.forEach(s => { ctx.beginPath(); ctx.arc(pad + s * gW, H - pad, 3, 0, Math.PI * 2); ctx.fill(); });
+
+                    ctx.strokeStyle = '#4fc3f7'; ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    const N = samples.length;
+                    for (let i = 0; i <= gW; i++) {
+                        const x = i / gW;
+                        let density = 0;
+                        if (method === 'histogram') {
+                            const bin = Math.floor(x / h);
+                            const count = samples.filter(s => Math.floor(s / h) === bin).length;
+                            density = count / (N * h);
+                        } else if (method === 'kernel') {
+                            samples.forEach(s => {
+                                const u = (x - s) / h;
+                                density += (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-0.5 * u * u);
+                            });
+                            density /= (N * h);
+                        } else if (method === 'knn') {
+                            const k = parseInt(paramSld.value);
+                            const dists = samples.map(s => Math.abs(x - s)).sort((a, b) => a - b);
+                            const dk = dists[Math.min(k - 1, N - 1)];
+                            density = (dk > 0) ? k / (2 * N * dk) : 10;
+                        }
+                        const y = H - pad - (Math.min(density, 10) * gH * 0.15);
+                        if (i === 0) ctx.moveTo(pad + i, y); else ctx.lineTo(pad + i, y);
+                    }
+                    ctx.stroke();
+                }
+                methodSel.onchange = draw;
+                paramSld.oninput = draw;
+                regenBtn.onclick = () => { generateSamples(); draw(); };
+                generateSamples(); draw();
+            })();
+
+            // --- SVM VIZ ---
+            (function initSVM() {
+                const canvas = document.getElementById('viz-svm');
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                const cSld = document.getElementById('svm-c');
+                const cVal = document.getElementById('svm-c-val');
+                let pts = [
+                    { x: 0.2, y: 0.3, label: 1 }, { x: 0.3, y: 0.5, label: 1 }, { x: 0.15, y: 0.45, label: 1 },
+                    { x: 0.8, y: 0.7, label: -1 }, { x: 0.7, y: 0.6, label: -1 }, { x: 0.85, y: 0.55, label: -1 }
+                ];
+                let dragPt = null;
+                canvas.onmousedown = (e) => {
+                    const rect = canvas.getBoundingClientRect();
+                    const mx = (e.clientX - rect.left) / rect.width;
+                    const my = (e.clientY - rect.top) / rect.height;
+                    pts.forEach(p => { if (Math.sqrt((p.x - mx) ** 2 + (p.y - my) ** 2) < 0.03) dragPt = p; });
+                };
+                window.onmousemove = (e) => {
+                    if (!dragPt) return;
+                    const rect = canvas.getBoundingClientRect();
+                    dragPt.x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+                    dragPt.y = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
+                    draw();
+                };
+                window.onmouseup = () => dragPt = null;
+
+                function draw() {
+                    const W = canvas.width, H = canvas.height;
+                    const C = parseFloat(cSld.value);
+                    cVal.textContent = C;
+                    ctx.clearRect(0, 0, W, H);
+                    let w = [0, 0], b = 0;
+                    for (let iter = 0; iter < 3000; iter++) {
+                        pts.forEach(p => {
+                            const score = w[0] * p.x + w[1] * p.y + b;
+                            if (p.label * score < 1) {
+                                w[0] = w[0] * 0.999 + 0.01 * C * p.label * p.x;
+                                w[1] = w[1] * 0.999 + 0.01 * C * p.label * p.y;
+                                b += 0.01 * C * p.label;
+                            } else { w[0] *= 0.999; w[1] *= 0.999; }
+                        });
+                    }
+                    const drawLine = (val, col, dash = []) => {
+                        ctx.strokeStyle = col; ctx.lineWidth = (val === 0 ? 2 : 1); ctx.setLineDash(dash);
+                        ctx.beginPath();
+                        for (let x = 0; x <= W; x += 10) {
+                            const y = (val - b - w[0] * (x / W)) / w[1];
+                            if (x === 0) ctx.moveTo(x, y * H); else ctx.lineTo(x, y * H);
+                        }
+                        ctx.stroke();
+                    };
+                    const step = 8;
+                    for (let x = 0; x < W; x += step) {
+                        for (let y = 0; y < H; y += step) {
+                            const val = w[0] * (x / W) + w[1] * (y / H) + b;
+                            if (Math.abs(val) < 0.1) { ctx.fillStyle = '#252a38'; ctx.fillRect(x, y, step, step); }
+                            else if (val > 0) { ctx.fillStyle = 'rgba(79,195,247,0.03)'; ctx.fillRect(x, y, step, step); }
+                            else { ctx.fillStyle = 'rgba(248,113,113,0.03)'; ctx.fillRect(x, y, step, step); }
+                        }
+                    }
+                    drawLine(0, '#fff');
+                    drawLine(1, 'rgba(79,195,247,0.3)', [5, 5]);
+                    drawLine(-1, 'rgba(248,113,113,0.3)', [5, 5]);
+                    ctx.setLineDash([]);
+                    pts.forEach(p => {
+                        ctx.fillStyle = p.label > 0 ? '#4fc3f7' : '#f87171';
+                        ctx.beginPath(); ctx.arc(p.x * W, p.y * H, 7, 0, Math.PI * 2); ctx.fill();
+                        if (p.label * (w[0] * p.x + w[1] * p.y + b) <= 1.1) { ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke(); }
+                    });
+                }
+                cSld.oninput = draw;
+                draw();
+            })();
+        })();
+    </script>
+
+</body>
+
+</html>
