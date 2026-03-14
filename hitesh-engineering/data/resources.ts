@@ -979,23 +979,12 @@ export const resources: Resource[] = [
     {
         "isHiteshNotes": true,
         "id": "res-local-89",
-        "title": "DSP Lab MATLAB Codes",
+        "title": "DSP Lab MATLAB & Code Composer Codes",
         "subject": "DSP",
         "year": "2",
         "department": "ECE",
-        "type": "PDF",
-        "url": "/hitesh-engineering/notes/dsp/dsp_matlab_codes.txt",
-        "tags": []
-    },
-    {
-        "isHiteshNotes": true,
-        "id": "res-local-90",
-        "title": "DSP Lab Code Composer Codes",
-        "subject": "DSP",
-        "year": "2",
-        "department": "ECE",
-        "type": "PDF",
-        "url": "/hitesh-engineering/notes/dsp/dsp_codecomposer_codes.txt",
+        "type": "GitHub",
+        "url": "https://github.com/HiteshPranav267/digital-signal-processing-ue23ec23ec241b",
         "tags": []
     },
     {
