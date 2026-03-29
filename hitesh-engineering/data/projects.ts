@@ -40,7 +40,7 @@ export const projects: Project[] = [
         image: "/projects/telemetry-dashboard.jpg",
         featured: true,
         link: "https://www.linkedin.com/posts/activity-7394568416873000960-MB9o",
-        period: "2024",
+        period: "2025",
         bullets: [
             "Built a real-time telemetry system integrating IMU acceleration data, GPS-based vehicle tracking, and speed estimation using sensor fusion.",
             "Recognized as the 2nd lightest hardware system at Ignition 1.0 (sponsored by Ather Energy) and secured 5th place overall.",
@@ -84,10 +84,29 @@ export const projects: Project[] = [
         image: "/projects/life-os.jpg",
         featured: false,
         link: "https://life-track-os.vercel.app",
-        period: "2024",
+        period: "2026",
         bullets: [
             "A minimalist utility to capture thoughts, track finances, build habits, and plan your days.",
             "Developed a full-stack personal management system with private synchronization and habit tracking."
+        ]
+    },
+    {
+        slug: "pesu-research-match",
+        title: "PESU ResearchMatch",
+        description:
+            "Match your skills and interests to the right research faculty at PES University — powered by state-of-the-art Hybrid Search.",
+        tags: ["Python", "Machine Learning", "NLP", "Flask", "React", "Semantic Search", "BGE-Large", "BM25"],
+        details:
+            "Built for the Machine Learning and Applications (UE23EC352B) course, this project implements a high-performance faculty matching system for PES University. It utilizes a Hybrid Retrieval pipeline combining BGE-Large dense embeddings (1024-dim) with BM25 sparse keyword matching to ensure both semantic depth and lexical precision. The system features local LLM-generated summaries using Qwen-2.5-0.5B and a responsive React frontend, allowing students to match their resumes or interest descriptions to faculty profiles across RR and EC campuses.",
+        image: "/projects/research-match.jpg",
+        featured: true,
+        link: "https://github.com/HiteshPranav267/pesu-research-match",
+        period: "2026",
+        bullets: [
+            "Developed a Hybrid Retrieval pipeline combining BGE-Large dense embeddings with BM25 keyword matching for high-precision faculty discovery.",
+            "Integrated local LLM (Qwen-2.5-0.5B) to provide personalized explanations for each professor-student match.",
+            "Implemented client-side PDF text extraction for resume analysis and seamless interest-based semantic search.",
+            "Engineered a full-stack system using Flask and React, processing 1024-dimensional semantic vectors locally without external API dependencies."
         ]
     },
 ];
