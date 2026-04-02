@@ -35,9 +35,8 @@ export default function LoginPage() {
         }
 
         try {
-            const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-            if (!supabaseUrl) throw new Error("Supabase URL is missing.");
-
+            const supabaseUrl = "https://wvsdsaeyqqaguzhhdezs.supabase.co";
+            
             // Hits our secure edge function which bypasses CORS issues!
             const edgeFuncUrl = `${supabaseUrl}/functions/v1/pesu-auth`; 
             
@@ -45,7 +44,7 @@ export default function LoginPage() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`
+                    "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind2c2RzYWV5cXFhZ3V6aGhkZXpzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNDUyODQsImV4cCI6MjA5MDcyMTI4NH0.stfUuaid6fQtG6Q4Dmd8q951lrjCQMQIkGgstk0Ry3A`
                 },
                 body: JSON.stringify({ srn, password })
             });
