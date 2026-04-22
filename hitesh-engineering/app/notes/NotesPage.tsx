@@ -81,6 +81,53 @@ export default function NotesPage() {
             <Navbar />
             <main className="pt-28 pb-24 min-h-screen bg-[#050810]">
                 <div className="max-w-7xl mx-auto px-6">
+                    {/* Capstone Support Banner */}
+                    <ScrollReveal className="mb-8">
+                        <div className="relative overflow-hidden rounded-[2rem] bg-white/[0.03] border border-white/10 p-6 md:p-8 backdrop-blur-xl group hover:bg-white/[0.05] transition-all duration-500 shadow-2xl">
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-electric-500/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2" />
+                            <div className="absolute bottom-0 left-0 w-40 h-40 bg-violet-600/5 rounded-full blur-[60px] translate-y-1/2 -translate-x-1/2" />
+                            
+                            <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+                                <div className="text-center lg:text-left">
+                                    <div className="flex items-center justify-center lg:justify-start gap-2 mb-3">
+                                        <span className="w-2 h-2 rounded-full bg-electric-400 animate-pulse" />
+                                        <h3 className="text-xl md:text-2xl font-black text-white tracking-tight uppercase font-outfit">
+                                            Facing Capstone Challenges?
+                                        </h3>
+                                    </div>
+                                    <p className="text-slate-400 text-sm md:text-base font-medium max-w-2xl leading-relaxed">
+                                        Finding the right team or research mentor shouldn't be a hurdle. We've built dedicated platforms to help you connect with motivated peers and expert mentors.
+                                    </p>
+                                </div>
+                                
+                                <div className="flex flex-wrap items-center justify-center gap-4 shrink-0">
+                                    <a 
+                                        href="https://tejaatexploring.github.io/CapstoneTeamFinder/main.html" 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        className="px-6 py-3.5 bg-white/5 hover:bg-white/10 text-white rounded-2xl font-black text-xs uppercase tracking-widest border border-white/10 transition-all active:scale-95 flex items-center gap-3 group/btn"
+                                    >
+                                        Find Teammates
+                                        <svg className="w-4 h-4 text-electric-400 group-hover/btn:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                        </svg>
+                                    </a>
+                                    <a 
+                                        href="https://huggingface.co/spaces/HiteshPranav/research-match" 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        className="px-6 py-3.5 bg-electric-600 hover:bg-electric-500 text-white rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-xl shadow-electric-600/20 active:scale-95 flex items-center gap-3"
+                                    >
+                                        Find Mentor
+                                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </ScrollReveal>
+
                     {/* Hero Header */}
                     <ScrollReveal className="mb-12">
                         <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 border border-white/5 p-8 md:p-14 shadow-2xl">
