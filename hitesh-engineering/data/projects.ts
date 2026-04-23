@@ -100,7 +100,7 @@ export const projects: Project[] = [
             "Built for the Machine Learning and Applications (UE23EC352B) course, this project implements a high-performance faculty matching system for PES University. It utilizes a Hybrid Retrieval pipeline combining BGE-Large dense embeddings (1024-dim) with BM25 sparse keyword matching to ensure both semantic depth and lexical precision. The system features local LLM-generated summaries using Qwen-2.5-0.5B and a responsive React frontend, allowing students to match their resumes or interest descriptions to faculty profiles across RR and EC campuses.",
         image: "/projects/research-match.jpg",
         featured: true,
-        link: "https://github.com/HiteshPranav267/pesu-research-match",
+        link: "https://huggingface.co/spaces/HiteshPranav/research-match",
         period: "2026",
         bullets: [
             "Developed a Hybrid Retrieval pipeline combining BGE-Large dense embeddings with BM25 keyword matching for high-precision faculty discovery.",
