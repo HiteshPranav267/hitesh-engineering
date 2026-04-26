@@ -128,6 +128,42 @@ export default function NotesPage() {
                         </div>
                     </ScrollReveal>
 
+                    {/* Generosity Banner */}
+                    <ScrollReveal className="mb-8">
+                        <div className="relative overflow-hidden rounded-[2rem] bg-amber-500/[0.03] border border-amber-500/10 p-6 md:p-8 backdrop-blur-xl group hover:bg-amber-500/[0.05] transition-all duration-500 shadow-2xl">
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2" />
+                            <div className="absolute bottom-0 left-0 w-40 h-40 bg-orange-600/5 rounded-full blur-[60px] translate-y-1/2 -translate-x-1/2" />
+                            
+                            <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+                                <div className="text-center lg:text-left">
+                                    <div className="flex items-center justify-center lg:justify-start gap-2 mb-3">
+                                        <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                                        <h3 className="text-xl md:text-2xl font-black text-white tracking-tight uppercase font-outfit">
+                                            Feeling generous?
+                                        </h3>
+                                    </div>
+                                    <p className="text-slate-400 text-sm md:text-base font-medium max-w-2xl leading-relaxed">
+                                        If these resources helped you in your journey, consider supporting the work. Your contributions keep this repository alive and updated.
+                                    </p>
+                                </div>
+                                
+                                <div className="flex shrink-0">
+                                    <a 
+                                        href="/hitesh-engineering/notes/upi_qr.png" 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        className="px-8 py-4 bg-amber-600 hover:bg-amber-500 text-white rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-xl shadow-amber-600/20 active:scale-95 flex items-center gap-3 group/btn"
+                                    >
+                                        Support via UPI
+                                        <svg className="w-5 h-5 text-white group-hover/btn:scale-125 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </ScrollReveal>
+
                     {/* Hero Header */}
                     <ScrollReveal className="mb-12">
                         <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 border border-white/5 p-8 md:p-14 shadow-2xl">
