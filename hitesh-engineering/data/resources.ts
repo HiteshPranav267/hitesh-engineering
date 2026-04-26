@@ -1317,6 +1317,28 @@ export const resources: Resource[] = [
         "url": "/hitesh-engineering/notes/mla/mla_u2_notes.html",
         "tags": []
     },
+    {
+        "isHiteshNotes": true,
+        "id": "res-local-124",
+        "title": "TLWA U3 and U4 Numericals",
+        "subject": "TLWA",
+        "year": "3",
+        "department": "ECE",
+        "type": "PDF",
+        "url": "/hitesh-engineering/notes/tlwa/tlwa_u3_u4_numericals.pdf",
+        "tags": []
+    },
+    {
+        "isHiteshNotes": true,
+        "id": "res-local-125",
+        "title": "Mathematics 2 Entire subject notes",
+        "subject": "Mathematics 2",
+        "year": "2",
+        "department": "S&H",
+        "type": "Website",
+        "url": "https://hitesh-notes.notion.site/Math-sem-2-b501fe44d9044c848cca2af3d73571f0",
+        "tags": []
+    },
 ];
 
 // Template
