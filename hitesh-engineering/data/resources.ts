@@ -1361,6 +1361,17 @@ export const resources: Resource[] = [
         "url": "/hitesh-engineering/notes/mla/mla_u4_notes.html",
         "tags": []
     },
+    {
+        "isHiteshNotes": true,
+        "id": "res-local-128",
+        "title": "MLA U3 & U4 Numericals",
+        "subject": "MLA",
+        "year": "3",
+        "department": "ECE",
+        "type": "PDF",
+        "url": "/hitesh-engineering/notes/mla/mla_u3_u4_num.pdf",
+        "tags": []
+    },
 ];
 
 // Template
