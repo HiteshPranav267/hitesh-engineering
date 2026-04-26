@@ -1339,6 +1339,28 @@ export const resources: Resource[] = [
         "url": "https://hitesh-notes.notion.site/Math-sem-2-b501fe44d9044c848cca2af3d73571f0",
         "tags": []
     },
+    {
+        "isHiteshNotes": true,
+        "id": "res-local-126",
+        "title": "MLA U3 Notes",
+        "subject": "MLA",
+        "year": "3",
+        "department": "ECE",
+        "type": "Website",
+        "url": "/hitesh-engineering/notes/mla/mla_u3_notes.html",
+        "tags": []
+    },
+    {
+        "isHiteshNotes": true,
+        "id": "res-local-127",
+        "title": "MLA U4 Notes",
+        "subject": "MLA",
+        "year": "3",
+        "department": "ECE",
+        "type": "Website",
+        "url": "/hitesh-engineering/notes/mla/mla_u4_notes.html",
+        "tags": []
+    },
 ];
 
 // Template

@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning — Unit 4 Notes</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Lora:ital,wght@0,400;1,400;1,600&display=swap"
+        rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --bg: #0a0a0c;
+            --surface: #141418;
+            --surface2: #1e1e24;
+            --accent: #f0c040;
+            --accent2: #40c0f0;
+            --accent3: #f040c0;
+            --accent4: #40f0c0;
+            --text: #e0e0e6;
+            --muted: #a0a0b0;
+            --border: #2a2a32;
+            --danger: #ff4d4d;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Lora', serif;
+            line-height: 1.7;
+            display: flex;
+        }
+
+        /* SIDEBAR */
+        #sidebar {
+            width: 280px;
+            height: 100vh;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            position: fixed;
+            overflow-y: auto;
+            padding-bottom: 40px;
+        }
+
+        #sidebar h2 {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 18px;
+            padding: 30px 20px;
+            color: var(--accent);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 12px;
+        }
+
+        #sidebar h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            padding: 16px 20px 8px;
+            margin: 0;
+        }
+
+        #sidebar a {
+            display: block;
+            padding: 7px 20px;
+            font-family: 'Syne', sans-serif;
+            font-size: 12.5px;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s, background 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        #sidebar a:hover,
+        #sidebar a.active {
+            color: var(--accent);
+            background: rgba(240, 192, 64, 0.06);
+            border-left-color: var(--accent);
+        }
+
+        #sidebar a span.num {
+            display: inline-block;
+            min-width: 36px;
+            color: var(--accent3);
+            font-size: 11px;
+            opacity: 0.8;
+        }
+
+        /* MAIN CONTENT */
+        #main {
+            margin-left: 280px;
+            flex: 1;
+            max-width: 900px;
+            padding: 60px 80px;
+        }
+
+        .hero {
+            margin-bottom: 80px;
+        }
+
+        .hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin: 20px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .hero em {
+            color: var(--accent);
+            font-style: normal;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(240, 192, 64, 0.1);
+            color: var(--accent);
+            font-family: 'DM Mono', monospace;
+            font-size: 12px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .section {
+            margin-bottom: 80px;
+            scroll-margin-top: 40px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .section-num {
+            font-family: 'DM Mono', monospace;
+            color: var(--accent3);
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        p {
+            margin-bottom: 24px;
+            font-size: 17px;
+            color: rgba(224, 224, 230, 0.9);
+        }
+
+        .kterm {
+            color: var(--accent2);
+            font-weight: 600;
+            border-bottom: 1px dashed rgba(64, 192, 240, 0.3);
+        }
+
+        .formula {
+            background: var(--surface);
+            padding: 30px;
+            border-radius: 12px;
+            margin: 24px 0;
+            border: 1px solid var(--border);
+            text-align: center;
+            overflow-x: auto;
+        }
+
+        .formula .comment {
+            display: block;
+            margin-top: 10px;
+            font-family: 'DM Mono', monospace;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .callout {
+            padding: 24px;
+            border-radius: 12px;
+            margin: 30px 0;
+            border-left: 4px solid;
+        }
+
+        .callout.blue {
+            background: rgba(64, 192, 240, 0.05);
+            border-left-color: var(--accent2);
+        }
+
+        .callout.green {
+            background: rgba(64, 240, 192, 0.05);
+            border-left-color: var(--accent4);
+        }
+
+        .callout.purple {
+            background: rgba(240, 64, 192, 0.05);
+            border-left-color: var(--accent3);
+        }
+
+        .callout-title {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 0.05em;
+        }
+
+        .viz-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .viz-title {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- SIDEBAR -->
+    <nav id="sidebar">
+        <h2>ML Unit 4 Notes</h2>
+
+        <h3>Ch 7: Clustering</h3>
+        <a href="#s7-1" class="active"><span class="num">7.1</span> Introduction</a>
+        <a href="#s7-2"><span class="num">7.2</span> Mixture Densities</a>
+        <a href="#s7-3"><span class="num">7.3</span> k-Means Clustering</a>
+        <a href="#s7-4"><span class="num">7.4</span> EM Algorithm</a>
+        <a href="#s7-5"><span class="num">7.5</span> Latent Variable Mixtures</a>
+        <a href="#s7-6"><span class="num">7.6</span> Supervised Learning</a>
+        <a href="#s7-7"><span class="num">7.7</span> Spectral Clustering</a>
+        <a href="#s7-8"><span class="num">7.8</span> Hierarchical Clustering</a>
+        <a href="#s7-9"><span class="num">7.9</span> Choosing k</a>
+        <br>
+        <h3>Ch 6: Dim. Reduction</h3>
+        <a href="#s6-1"><span class="num">6.1</span> Introduction</a>
+        <a href="#s6-3"><span class="num">6.3</span> PCA</a>
+        <a href="#s6-6"><span class="num">6.6</span> SVD</a>
+        <a href="#s6-8"><span class="num">6.8</span> LDA</a>
+    </nav>
+
+    <!-- MAIN -->
+    <main id="main">
+        <!-- HERO -->
+        <div class="hero">
+            <div class="tag">Machine Learning — Unit 4</div>
+            <h1>Clustering &amp; <em>Mixture Models</em></h1>
+            <p>Comprehensive study notes for Unit 4, covering Clustering (k-means, EM, Hierarchical) and Graphical Models. Designed for technical depth and exam readiness.</p>
+        </div>
+
+        <!-- SECTION 7.1 -->
+        <div class="section" id="s7-1">
+            <div class="section-header">
+                <span class="section-num">7.1</span>
+                <h2>Introduction</h2>
+            </div>
+
+            <p>In parametric density estimation, we assume the data is drawn from a single known distribution (like a Gaussian). However, assuming a rigid parametric model can be a significant source of <strong>bias</strong> if the data naturally forms multiple subgroups.</p>
+
+            <div class="callout blue">
+                <div class="callout-title">✦ The Semiparametric Approach</div>
+                When a single distribution is untenable, we use a <strong>Semiparametric</strong> approach. This relaxes the rigid assumption by allowing a <strong>mixture of distributions</strong> to represent the sample.
+            </div>
+
+            <h3>The Need for Multiple Prototypes</h3>
+            <p>A single Gaussian assumes data forms one group. In practice, many classes are <strong>disjunctions</strong> of multiple groups:</p>
+
+            <div class="viz-card">
+                <div class="viz-title">Example: Digit 7 OCR</div>
+                <p>The digit '7' can be written in two distinct styles:</p>
+                <ul>
+                    <li><strong>American Style:</strong> '7' (simple stroke)</li>
+                    <li><strong>European Style:</strong> '7' with a horizontal bar in the middle.</li>
+                </ul>
+                <p style="margin-top: 10px; font-style: italic; color: var(--accent2);">To be statistically correct, the class '7' should be modeled as a mixture of two Gaussians—one for each prototype style.</p>
+            </div>
+
+            <p>Similar examples exist in <strong>Speech Recognition</strong>, where a single word has different "prototypes" due to variations in accent, gender, and age.</p>
+
+            <p>While semiparametric methods assume a parametric model for each group, <strong>nonparametric methods</strong> (Chapter 8) are used when no structure is applicable at all. In this chapter, we focus on <strong>unsupervised learning</strong> to find these hidden groups.</p>
+        </div>
+
+        <!-- SECTION 7.2 -->
+        <div class="section" id="s7-2">
+            <div class="section-header">
+                <span class="section-num">7.2</span>
+                <h2>Mixture Densities</h2>
+            </div>
+
+            <p>A <span class="kterm">Mixture Density</span> is a weighted sum of several component densities. This allows for representing data that comes from multiple distinct sources.</p>
+
+            <div class="formula">
+                \[ p(x) = \sum_{i=1}^k p(x|G_i) P(G_i) \]
+                <span class="comment">→ where \(G_i\) are the mixture components (clusters).</span>
+            </div>
+
+            <h3>Key Components:</h3>
+            <ul>
+                <li><strong>\(p(x|G_i)\):</strong> Component densities (e.g., multivariate Gaussians \(N(\mu_i, \Sigma_i)\)).</li>
+                <li><strong>\(P(G_i)\):</strong> Mixture proportions (priors), where \(\sum P(G_i) = 1\).</li>
+                <li><strong>\(k\):</strong> The number of components (a hyperparameter that must be specified).</li>
+            </ul>
+
+            <div class="callout blue">
+                <div class="callout-title">✦ Supervised vs. Unsupervised Learning</div>
+                <p><strong>Supervised:</strong> Labels are known. We know which instance belongs to which component. Parameter estimation is a simple Maximum Likelihood problem.</p>
+                <p><strong>Unsupervised (Clustering):</strong> Labels are <strong>hidden</strong>. We don't know which \(x^t\) comes from which component \(G_i\). We must estimate both the labels and the parameters.</p>
+            </div>
+        </div>
+
+        <!-- SECTION 7.3 -->
+        <div class="section" id="s7-3">
+            <div class="section-header">
+                <span class="section-num">7.3</span>
+                <h2>k-Means Clustering</h2>
+            </div>
+
+            <p>The <span class="kterm">k-Means algorithm</span> is a widely used iterative method for finding groups in data. In the context of signal processing, it is used for <strong>Vector Quantization</strong>—mapping a continuous space to a finite set of reference vectors.</p>
+
+            <div class="viz-card">
+                <div class="viz-title">Example: Color Quantization</div>
+                <p>Reducing an image from 24-bit color (16 million colors) to 8-bit (256 colors). We find the 256 colors (codebook) that best represent the original distribution of pixels.</p>
+            </div>
+
+            <h3>Mathematical Objective</h3>
+            <p>The goal is to minimize the <strong>Total Reconstruction Error</strong> (also called distortion):</p>
+            <div class="formula">
+                \[ E(\{m_i\}_{i=1}^k | X) = \sum_{t} \sum_{i} b_i^t \|x^t - m_i\|^2 \]
+                <span class="comment">where \(b_i^t = 1\) if \(\|x^t - m_i\| = \min_j \|x^t - m_j\|\), and 0 otherwise.</span>
+            </div>
+
+            <div class="callout green">
+                <div class="callout-title">✦ The k-Means Algorithm</div>
+                <ol>
+                    <li><strong>Initialize:</strong> Start with \(k\) centers \(m_i\) (randomly or via heuristics).</li>
+                    <li><strong>Assignment Step:</strong> For each \(x^t\), find the closest center \(m_i\) and set \(b_i^t = 1\).</li>
+                    <li><strong>Update Step:</strong> Recalculate each center as the mean of instances assigned to it:
+                        \[ m_i = \frac{\sum_t b_i^t x^t}{\sum_t b_i^t} \]
+                    </li>
+                    <li><strong>Repeat:</strong> Iterate steps 2 and 3 until the centers \(m_i\) stabilize.</li>
+                </ol>
+            </div>
+
+            <h3>Initialization Strategies</h3>
+            <ul>
+                <li><strong>Random Selection:</strong> Pick \(k\) instances from the training set as initial centers.</li>
+                <li><strong>Mean Perturbation:</strong> Start with the global mean and add small random vectors to create \(k\) distinct centers.</li>
+                <li><strong>PC Partitioning:</strong> Divide the range of the principal component into \(k\) equal intervals and take the mean of each.</li>
+            </ul>
+
+            <div class="callout purple">
+                <div class="callout-title">Optimization Note</div>
+                k-Means is a <strong>local search</strong> procedure. The final result depends heavily on the initial centers. It is common to run the algorithm multiple times with different initializations.
+            </div>
+        </div>
+
+        <!-- SECTION 7.4 -->
+        <div class="section" id="s7-4">
+            <div class="section-header">
+                <span class="section-num">7.4</span>
+                <h2>Expectation-Maximization (EM) Algorithm</h2>
+            </div>
+
+            <p>The <span class="kterm">EM Algorithm</span> is a general framework for Maximum Likelihood estimation in the presence of <strong>Hidden Variables</strong> (latent variables). In clustering, these hidden variables indicate which component generated which data point.</p>
+
+            <div class="formula">
+                <span class="comment">Log Likelihood:</span>
+                \[ \mathcal{L}(\Phi|X) = \sum_{t} \log \sum_{i=1}^k P(G_i) p(x^t|G_i) \]
+            </div>
+
+            <h3>The Two Steps of EM</h3>
+            
+            <div class="callout blue">
+                <div class="callout-title">1. E-Step (Expectation)</div>
+                Calculate the <strong>Responsibilities</strong> \(h_i^t\). This is the posterior probability that instance \(x^t\) belongs to component \(G_i\):
+                \[ h_i^t = E[z_i^t | x^t, \Phi^l] = P(G_i | x^t, \Phi^l) = \frac{p(x^t | G_i) P(G_i)}{\sum_j p(x^t | G_j) P(G_j)} \]
+            </div>
+
+            <div class="callout green">
+                <div class="callout-title">2. M-Step (Maximization)</div>
+                Update the parameters \(\Phi\) to maximize the expected likelihood using the responsibilities found in the E-step:
+                <ul style="margin-top: 15px;">
+                    <li><strong>Priors:</strong> \(\hat{P}(G_i) = \frac{\sum_t h_i^t}{N}\)</li>
+                    <li><strong>Means:</strong> \(\hat{\mu}_i = \frac{\sum_t h_i^t x^t}{\sum_t h_i^t}\)</li>
+                    <li><strong>Covariances:</strong> \(\hat{\Sigma}_i = \frac{\sum_t h_i^t (x^t - \hat{\mu}_i)(x^t - \hat{\mu}_i)^T}{\sum_t h_i^t}\)</li>
+                </ul>
+            </div>
+
+            <h3>EM vs. k-Means</h3>
+            <p>k-Means is a special case of EM for Gaussian mixtures where:</p>
+            <ul>
+                <li>All components have <strong>equal priors</strong>.</li>
+                <li>All components have <strong>equal, isotropic covariances</strong>.</li>
+                <li>The assignment is <strong>"hard"</strong> (\(h_i^t\) is either 0 or 1), whereas EM uses <strong>"soft"</strong> assignments.</li>
+            </ul>
+        </div>
+
+        <!-- SECTION 7.5 -->
+        <div class="section" id="s7-5">
+            <div class="section-header">
+                <span class="section-num">7.5</span>
+                <h2>Mixtures of Latent Variable Models</h2>
+            </div>
+
+            <p>In high-dimensional spaces, using full covariance matrices for each mixture component can lead to <strong>Overfitting</strong> due to the massive number of parameters. Conversely, diagonal matrices might ignore crucial correlations.</p>
+
+            <div class="callout blue">
+                <div class="callout-title">✦ The Solution: Local Dimensionality Reduction</div>
+                Instead of modeling the full covariance, we perform dimensionality reduction <strong>within each cluster</strong>. This captures correlations while keeping the number of free parameters manageable.
+            </div>
+
+            <h3>Mixture of Factor Analyzers (MFA)</h3>
+            <p>Each cluster \(G_i\) is modeled using a separate Factor Analysis model:</p>
+            <div class="formula">
+                \[ p(x|G_i) = N(\mu_i, V_i V_i^T + \Psi_i) \]
+                <span class="comment">→ where \(V_i\) are the factor loadings and \(\Psi_i\) are the specific variances for cluster \(i\).</span>
+            </div>
+
+            <h3>Mixtures of Probabilistic PCA</h3>
+            <p>Similar to MFA, but specifically using Principal Component Analysis within each group. This is called <strong>Mixtures of Probabilistic PC Analyzers</strong>.</p>
+
+            <div class="callout purple">
+                <div class="callout-title">Coupled Learning</div>
+                The EM algorithm couples clustering and dimensionality reduction. An instance \(x^t\) contributes to the calculation of the latent variables of <strong>all groups</strong>, weighted by its responsibility \(h_i^t\).
+            </div>
+        </div>
+
+        <!-- SECTION 7.6 -->
+        <div class="section" id="s7-6">
+            <div class="section-header">
+                <span class="section-num">7.6</span>
+                <h2>Supervised Learning after Clustering</h2>
+            </div>
+
+            <p>Clustering can be used as a preprocessing stage for supervised learning. We map the data from the original \(d\)-dimensional space to a new \(k\)-dimensional space where the dimensions are the responsibilities \(h_i\).</p>
+
+            <div class="callout blue">
+                <div class="callout-title">✦ Local vs. Distributed Representation</div>
+                <ul>
+                    <li><strong>Distributed (e.g., PCA):</strong> Few new dimensions, but all contribute to the representation of an instance (all values are non-zero).</li>
+                    <li><strong>Local (Clustering):</strong> Many new dimensions, but only one (hard assignment) or a few (soft assignment) are non-zero.</li>
+                </ul>
+            </div>
+
+            <h3>Mixture of Mixtures</h3>
+            <p>In classification, we can model each class density as a mixture model itself. This is useful when a class is composed of several distinct prototypes:</p>
+            <div class="formula">
+                \[ p(x|C_i) = \sum_{j=1}^{k_i} p(x|G_{ij}) P(G_{ij}) \]
+                <span class="comment">→ where \(G_{ij}\) is component \(j\) of class \(i\).</span>
+            </div>
+
+            <div class="viz-card">
+                <div class="viz-title">Advantage of Unsupervised Preprocessing</div>
+                <p>Labeling data is expensive. We can use a large amount of <strong>unlabeled data</strong> for the unsupervised clustering stage (learning "what normally happens") and then use a smaller amount of <strong>labeled data</strong> for the supervised stage (learning "what it means").</p>
+            </div>
+        </div>
+
+        <!-- SECTION 7.7 -->
+        <div class="section" id="s7-7">
+            <div class="section-header">
+                <span class="section-num">7.7</span>
+                <h2>Spectral Clustering</h2>
+            </div>
+
+            <p><span class="kterm">Spectral Clustering</span> first maps data to a new space where clusters are more apparent and then performs clustering (like k-means) in that new space. It uses the <strong>Graph Laplacian</strong> to preserve local neighborhood structure.</p>
+
+            <h3>The Graph Laplacian</h3>
+            <p>We define a similarity matrix \(B\) and a diagonal degree matrix \(D\) where \(D_{ii} = \sum_j B_{ij}\). The unnormalized Laplacian is:</p>
+            <div class="formula">
+                \[ L = D - B \]
+            </div>
+
+            <div class="callout green">
+                <div class="callout-title">✦ Normalized Laplacians</div>
+                Normalization often leads to better clustering performance:
+                <ul style="margin-top: 15px;">
+                    <li><strong>Random Walk:</strong> \( L_{rw} = I - D^{-1}B \)</li>
+                    <li><strong>Symmetric:</strong> \( L_{sym} = I - D^{-1/2} B D^{-1/2} \)</li>
+                </ul>
+            </div>
+
+            <h3>The Algorithm Process</h3>
+            <ol>
+                <li><strong>Local Neighborhood:</strong> Define a neighborhood for each point (e.g., k-nearest neighbors).</li>
+                <li><strong>Similarity:</strong> Compute pairwise similarities \(B_{ij}\) (e.g., using a Gaussian kernel) for neighbors, and set others to 0.</li>
+                <li><strong>Embedding:</strong> Use the eigenvectors of the Laplacian to map data to a new space (Feature Embedding).</li>
+                <li><strong>Clustering:</strong> Run k-means in this new space.</li>
+            </ol>
+
+            <div class="callout purple">
+                <div class="callout-title">Why it works</div>
+                Unlike PCA which preserves global variance, Laplacian eigenmaps preserve <strong>local similarities</strong>. Instances that are nearby in the original space (same cluster) will be placed very close in the new space, while those in different clusters will be pushed far apart.
+            </div>
+        </div>
+
+        <!-- SECTION 7.8 -->
+        <div class="section" id="s7-8">
+            <div class="section-header">
+                <span class="section-num">7.8</span>
+                <h2>Hierarchical Clustering</h2>
+            </div>
+
+            <p><span class="kterm">Hierarchical Clustering</span> does not require a predefined number of clusters. Instead, it builds a tree-like hierarchy of clusters based on pairwise similarities.</p>
+
+            <div class="callout blue">
+                <div class="callout-title">✦ Two Directions</div>
+                <ul>
+                    <li><strong>Agglomerative (Bottom-up):</strong> Starts with each instance in its own cluster and merges the two closest clusters iteratively.</li>
+                    <li><strong>Divisive (Top-down):</strong> Starts with one giant cluster and recursively splits it into smaller ones.</li>
+                </ul>
+            </div>
+
+            <h3>Linkage Methods (Merging Criteria)</h3>
+            <p>How we define the "distance" between two groups of instances determines the shape of the clusters:</p>
+            <ul>
+                <li><strong>Single-Link:</strong> The distance between the <strong>closest</strong> pair of elements (one from each group).
+                    <br><span class="comment">→ Risk: "Chaining effect" where clusters become elongated.</span>
+                </li>
+                <li><strong>Complete-Link:</strong> The distance between the <strong>farthest</strong> pair of elements.
+                    <br><span class="comment">→ Result: Produces compact, spherical clusters.</span>
+                </li>
+                <li><strong>Average-Link:</strong> The average distance between all possible pairs.</li>
+                <li><strong>Centroid-Link:</strong> The distance between the means (centroids) of the groups.</li>
+            </ul>
+
+            <div class="viz-card">
+                <div class="viz-title">The Dendrogram</div>
+                <p>A visualization of the merge sequence. The leaves are instances, and the height of the branches indicates the distance at which clusters were merged. Cutting the tree at height \(h\) yields the desired clusters.</p>
+            </div>
+        </div>
+
+        <!-- SECTION 7.9 -->
+        <div class="section" id="s7-9">
+            <div class="section-header">
+                <span class="section-num">7.9</span>
+                <h2>Choosing the Number of Clusters</h2>
+            </div>
+
+            <p>Since \(k\) is a complexity parameter, choosing it correctly is critical. "Meaningless" groups can be forced onto data if \(k\) is incorrect.</p>
+
+            <div class="callout green">
+                <div class="callout-title">✦ The Elbow Method</div>
+                Plot the <strong>Reconstruction Error</strong> (or log likelihood) as a function of \(k\). As \(k\) increases, error decreases. The "elbow" is the point where the rate of decrease drops significantly, suggesting the natural number of clusters.
+            </div>
+
+            <h3>Other Heuristics:</h3>
+            <ul>
+                <li><strong>Application Constraints:</strong> (e.g., color palette size).</li>
+                <li><strong>Visualization:</strong> Plotting data in 2D using PCA to spot natural gaps.</li>
+                <li><strong>Incremental Splitting:</strong> Start with \(k=1\) and split clusters until a maximum allowed error threshold is met.</li>
+                <li><strong>Domain Validation:</strong> Checking if clusters represent meaningful real-world segments (e.g., customer archetypes).</li>
+            </ul>
+        </div>
+
+        <div style="margin: 100px 0; border-top: 1px solid var(--border);"></div>
+
+        <!-- SECTION 6.1 -->
+        <div class="section" id="s6-1">
+            <div class="section-header">
+                <span class="section-num">6.1</span>
+                <h2>Introduction (Dim. Reduction)</h2>
+            </div>
+
+            <p><span class="kterm">Dimensionality Reduction</span> is a critical preprocessing step. While ideally a learner should handle irrelevant features, reducing dimensions separately offers several advantages.</p>
+
+            <div class="callout blue">
+                <div class="callout-title">✦ Why Reduce Dimensionality?</div>
+                <ul>
+                    <li><strong>Efficiency:</strong> Lower memory and computational cost during both training and testing.</li>
+                    <li><strong>Robustness:</strong> Simpler models are less prone to <strong>Overfitting</strong> on small datasets (lower variance).</li>
+                    <li><strong>Interpretability:</strong> Finding <strong>Latent Factors</strong> allows for better understanding of the underlying process.</li>
+                    <li><strong>Visualization:</strong> Mapping data to 2D or 3D for visual inspection of structure and outliers.</li>
+                </ul>
+            </div>
+
+            <h3>Selection vs. Extraction</h3>
+            <p>There are two primary paradigms for reducing dimensions:</p>
+            <ul>
+                <li><strong>Feature Selection:</strong> We find a subset of \(k\) original dimensions and discard the remaining \((d-k)\). This preserves the physical meaning of the features.</li>
+                <li><strong>Feature Extraction:</strong> We find a new set of \(k\) dimensions that are linear or nonlinear <strong>combinations</strong> of the original dimensions (e.g., PCA, LDA).</li>
+            </ul>
+        </div>
+
+        <!-- SECTION 6.3 -->
+        <div class="section" id="s6-3">
+            <div class="section-header">
+                <span class="section-num">6.3</span>
+                <h2>Principal Component Analysis (PCA)</h2>
+            </div>
+
+            <p><span class="kterm">PCA</span> is an unsupervised linear projection method that seeks to find a new coordinate system such that the variance of the projected data is maximized. It reduces dimensionality by discarding directions with low variance.</p>
+
+            <div class="formula">
+                <span class="comment">The Eigenvalue Problem:</span>
+                \[ \Sigma \mathbf{w}_i = \lambda_i \mathbf{w}_i \]
+                <span class="comment">→ where \(\Sigma\) is the covariance matrix, \(\mathbf{w}_i\) are eigenvectors (PCs), and \(\lambda_i\) are eigenvalues (variance).</span>
+            </div>
+
+            <h3>Key Mathematical Properties:</h3>
+            <ul>
+                <li><strong>Maximizing Variance:</strong> The first PC (\(w_1\)) is the direction of maximum spread. Subsequent PCs (\(w_2, \dots\)) maximize remaining variance while being orthogonal to previous ones.</li>
+                <li><strong>Proportion of Variance Explained:</strong> For \(k\) components:
+                    \[ \frac{\sum_{i=1}^k \lambda_i}{\sum_{i=1}^d \lambda_i} \]
+                </li>
+                <li><strong>Uncorrelated Features:</strong> After projection, the new variables \(z_i\) are uncorrelated (Covariance matrix of \(Z\) is diagonal).</li>
+            </ul>
+
+            <div class="callout green">
+                <div class="callout-title">✦ Choosing k (Scree Graph)</div>
+                The <strong>Scree Graph</strong> plots eigenvalues in descending order. We typically look for the <strong>"elbow"</strong>—the point where the variance contribution of additional components becomes negligible. Alternatively, we keep enough PCs to explain a fixed percentage (e.g., 90%) of total variance.
+            </div>
+
+            <div class="callout blue">
+                <div class="callout-title">Reconstruction & Error</div>
+                PCA minimizes the <strong>Reconstruction Error</strong>: the squared distance between the original point \(x\) and its projection back from the \(k\)-dimensional space.
+                \[ \text{Error} = \sum_t \|x^t - \hat{x}^t\|^2 \]
+            </div>
+
+            <div class="viz-card">
+                <div class="viz-title">Importance of Normalization</div>
+                <p>If input dimensions have widely different scales (e.g., age in years vs. income in thousands), the dimension with the larger scale will dominate the variance. <strong>Standardizing</strong> data to zero mean and unit variance is crucial before applying PCA.</p>
+            </div>
+        </div>
+
+        <!-- SECTION 6.6 -->
+        <div class="section" id="s6-6">
+            <div class="section-header">
+                <span class="section-num">6.6</span>
+                <h2>SVD &amp; Matrix Factorization</h2>
+            </div>
+
+            <p><span class="kterm">Singular Value Decomposition (SVD)</span> is a powerful matrix decomposition technique that works for any rectangular \(N \times d\) matrix.</p>
+
+            <div class="formula">
+                \[ X = V \Lambda W^T \]
+                <span class="comment">→ where \(V\) contains eigenvectors of \(XX^T\), \(W\) contains eigenvectors of \(X^T X\), and \(\Lambda\) contains singular values.</span>
+            </div>
+
+            <h3>Matrix Factorization (\(X \approx FG\))</h3>
+            <p>We can represent a large matrix as the product of two smaller matrices, capturing the latent structure of the data:</p>
+            <ul>
+                <li><strong>\(F\) (\(N \times k\)):</strong> Defines data instances in terms of hidden factors.</li>
+                <li><strong>\(G\) (\(k \times d\)):</strong> Defines factors in terms of the original attributes.</li>
+            </ul>
+
+            <div class="viz-card">
+                <div class="viz-title">Example: Retail Consumer Data</div>
+                <p>A customer-product purchase matrix can be factored into \(k\) hidden factors like "household size", "income level", or "lifestyle preference". This explains purchases not as random events, but as outcomes of these latent variables.</p>
+            </div>
+        </div>
+
+        <!-- SECTION 6.8 -->
+        <div class="section" id="s6-8">
+            <div class="section-header">
+                <span class="section-num">6.8</span>
+                <h2>Linear Discriminant Analysis (LDA)</h2>
+            </div>
+
+            <p><span class="kterm">LDA</span> is a supervised method that uses class information to find directions that maximize the separation between different classes.</p>
+
+            <div class="callout green">
+                <div class="callout-title">✦ Fisher’s Linear Discriminant</div>
+                We seek a direction \(\mathbf{w}\) that maximizes the ratio of <strong>Between-class scatter</strong> (\(S_B\)) to <strong>Within-class scatter</strong> (\(S_W\)):
+                \[ J(\mathbf{w}) = \frac{\mathbf{w}^T S_B \mathbf{w}}{\mathbf{w}^T S_W \mathbf{w}} \]
+            </div>
+
+            <h3>Scatter Matrices:</h3>
+            <ul>
+                <li><strong>\(S_B\) (Between-class):</strong> Measures the distance between class means.
+                    \[ S_B = \sum_{i=1}^K N_i (\mathbf{m}_i - \mathbf{m})(\mathbf{m}_i - \mathbf{m})^T \]
+                </li>
+                <li><strong>\(S_W\) (Within-class):</strong> Measures the spread of data within each class.
+                    \[ S_W = \sum_{i=1}^K S_i \]
+                </li>
+            </ul>
+
+            <div class="callout blue">
+                <div class="callout-title">PCA vs. LDA</div>
+                <p><strong>PCA:</strong> Unsupervised. Finds directions of maximum variance for the <strong>entire</strong> data, regardless of class.</p>
+                <p><strong>LDA:</strong> Supervised. Specifically seeks directions that make classes <strong>separable</strong>.</p>
+            </div>
+
+            <p><strong>Dimensionality Constraint:</strong> For \(K\) classes, LDA can find at most \(K-1\) discriminative directions.</p>
+        </div>
+    </main>
+</body>
+
+</html>
