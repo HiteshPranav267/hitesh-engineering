@@ -517,6 +517,66 @@
       line-height: 1.6
     }
 
+    /* === TABS === */
+    .tab-nav {
+      display: flex; justify-content: center; gap: 10px; margin: 0 auto 40px;
+      max-width: 450px; background: var(--card2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 6px;
+    }
+    .tab-btn {
+      flex: 1; padding: 12px 20px; border: none; background: transparent; color: var(--text2);
+      font-family: var(--race); font-size: 16px; cursor: pointer; border-radius: 8px; transition: all 0.3s;
+      letter-spacing: 1px;
+    }
+    .tab-btn:hover { background: rgba(255,255,255,0.05); color: #fff; }
+    .tab-btn.active { background: var(--red); color: #fff; box-shadow: 0 4px 15px var(--red-glow); }
+    
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* === Q&A SECTION === */
+    .qa-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 20px;
+      overflow: hidden; transition: all 0.3s;
+    }
+    .qa-card:hover { border-color: var(--blue); box-shadow: 0 4px 20px var(--blue-glow); }
+    .qa-card-header {
+      padding: 16px 24px; cursor: pointer; background: var(--card2); display: flex; align-items: center; gap: 14px;
+    }
+    .qa-num {
+      background: var(--blue); color: #fff; width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-family: var(--race); font-size: 14px; flex-shrink: 0;
+    }
+    .qa-question { font-weight: 600; font-size: 15px; color: var(--text); flex: 1; }
+    .qa-toggle { color: var(--text2); transition: transform 0.3s; }
+    .qa-card.open .qa-toggle { transform: rotate(180deg); color: var(--gold); }
+    .qa-card-body { display: none; padding: 0 24px 24px; }
+    .qa-card.open .qa-card-body { display: block; }
+    .qa-answer { margin-top: 16px; padding: 20px; background: rgba(0,0,0,0.2); border-left: 3px solid var(--gold); border-radius: 8px; }
+    .qa-answer p { margin-bottom: 12px; font-size: 14px; color: var(--text); line-height: 1.6; }
+    .qa-answer ul, .qa-answer ol { padding-left: 20px; margin-bottom: 12px; }
+    .qa-answer li { font-size: 14px; color: var(--text); margin-bottom: 6px; line-height: 1.6; }
+    .qa-answer strong { color: var(--gold); }
+
+    /* === MCQ QUIZ === */
+    .quiz-section {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 24px; margin-bottom: 20px;
+    }
+    .quiz-section h3 {
+      font-family: var(--race); font-size: 20px; color: var(--gold); margin-bottom: 20px;
+    }
+    .quiz-q { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .quiz-q p { font-weight: 600; margin-bottom: 12px; color: var(--text); font-size: 15px; }
+    .quiz-q label {
+      display: block; padding: 10px 16px; margin: 6px 0; border-radius: 8px; cursor: pointer;
+      transition: all 0.2s; border: 1px solid transparent; font-size: 14px; background: var(--card2);
+    }
+    .quiz-q label:hover { background: rgba(255,255,255,0.05); }
+    .quiz-q label.correct { background: rgba(34, 197, 94, 0.15); border-color: var(--green); color: var(--green); }
+    .quiz-q label.wrong { background: rgba(230, 0, 18, 0.15); border-color: var(--red); color: var(--red); }
+
     /* === RESPONSIVE === */
     @media(max-width:900px) {
       .sidebar {
@@ -562,6 +622,14 @@
       <div class="sub">Unit 3 · Piston Cup Study Edition · Ka-Chow! 🏆</div>
       <div class="divider"></div>
     </div>
+
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('notes')">📖 STUDY NOTES</button>
+      <button class="tab-btn" onclick="switchTab('qa')">❓ Q&A BANK</button>
+      <button class="tab-btn" onclick="switchTab('mcq')">🎯 MCQ QUIZ</button>
+    </div>
+
+    <div class="tab-content active" id="tab-notes">
 
     <!-- ===================== SECTION 1: FINITE FIELDS ===================== -->
     <div class="topic" id="ff">
@@ -1522,6 +1590,301 @@
       </div>
     </div>
 
+    </div><!-- end #tab-notes -->
+
+    <div class="tab-content" id="tab-qa">
+      <div class="topic">
+        <div class="topic-header">
+          <h2>❓ Piston Cup Question Bank</h2>
+        </div>
+        <div class="topic-body">
+          <div class="sub-title">Lecture -1: Network on Chips (NoC)</div>
+          
+          <div class="qa-card" onclick="this.classList.toggle('open')">
+            <div class="qa-card-header">
+              <div class="qa-num">1</div>
+              <div class="qa-question">With neat diagram, explain the Mesh and Torus and folded torus topologies of the Network on chips and write the equation for diameters</div>
+              <div class="qa-toggle">▼</div>
+            </div>
+            <div class="qa-card-body">
+              <div class="qa-answer">
+                <div style="display:flex; flex-direction:column; gap:10px; text-align:center; margin-bottom:16px;">
+                  <img src="aha_u3/q1_1.png" alt="Question 1 Diagram 1" style="max-width:100%; border-radius:8px; border:1px solid var(--border);">
+                  <img src="aha_u3/q1_2.png" alt="Question 1 Diagram 2" style="max-width:100%; border-radius:8px; border:1px solid var(--border);">
+                  <img src="aha_u3/q1_3.png" alt="Question 1 Diagram 3" style="max-width:100%; border-radius:8px; border:1px solid var(--border);">
+                </div>
+                <p><strong>Mesh Topology:</strong> A 2D grid where adjacent nodes on the same row/column are connected with rectilinear links. Easy to fabricate, but has a higher diameter. <strong>Diameter = 2N − 2</strong>.</p>
+                <p><strong>Torus Topology:</strong> A mesh with wrap-around connections between the ends of each row and column. This halves the diameter but introduces very long wires that increase delay. <strong>Diameter = N</strong>.</p>
+                <p><strong>Folded Torus:</strong> Solves the long-wire problem of the standard torus by interleaving node connections (nodes connect to the one 2 positions away). This eliminates long wires while maintaining the exact same properties and diameter. <strong>Diameter = N</strong>.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="qa-card" onclick="this.classList.toggle('open')">
+            <div class="qa-card-header">
+              <div class="qa-num">2</div>
+              <div class="qa-question">With neat diagram, explain the Clos network and butterfly network</div>
+              <div class="qa-toggle">▼</div>
+            </div>
+            <div class="qa-card-body">
+              <div class="qa-answer">
+                <div style="display:flex; flex-direction:column; gap:10px; text-align:center; margin-bottom:16px;">
+                  <img src="aha_u3/q2_1.png" alt="Question 2 Diagram 1" style="max-width:100%; border-radius:8px; border:1px solid var(--border);">
+                  <img src="aha_u3/q2_2.png" alt="Question 2 Diagram 2" style="max-width:100%; border-radius:8px; border:1px solid var(--border);">
+                </div>
+                <p><strong>Clos Network:</strong> A three-layer network consisting of Ingress, Middle, and Egress layers. It provides high path diversity. It can be designed to be <em>rearrangeably non-blocking</em> (if Middle switches m ≥ Ingress inputs n) or <em>strictly non-blocking</em> (if m ≥ 2n−1). Folded Clos allows input and output terminals to connect to the same set of routers.</p>
+                <p><strong>Butterfly Network:</strong> Uses log₂(N) layers of 2×2 switches. Each layer divides the destination space in half, routing like a binary decision tree. It has a low diameter of <strong>log₂(N) + 1</strong> but suffers from poor path diversity (only a single path exists between any source-destination pair).</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="qa-card" onclick="this.classList.toggle('open')">
+            <div class="qa-card-header">
+              <div class="qa-num">3</div>
+              <div class="qa-question">Define the following terminologies w.r.t NoC: Message, Packet, Flits and Phits</div>
+              <div class="qa-toggle">▼</div>
+            </div>
+            <div class="qa-card-body">
+              <div class="qa-answer">
+                <ul>
+                  <li><strong>Message:</strong> The logical unit of data generated by the application layer. Often too large to be routed at once.</li>
+                  <li><strong>Packet:</strong> The basic routing entity (typically 64–128 bytes). A message is broken down into packets. All bits in a packet follow the same path.</li>
+                  <li><strong>Flit (Flow Control Digit):</strong> The basic unit of flow control and router storage (8–16 bytes). Packets are broken into flits. Types include Head (contains routing info), Body, and Tail flits.</li>
+                  <li><strong>Phit (Physical Digit):</strong> The chunk of data transmitted across the physical link in a single clock cycle (e.g., 32 bits on a 32-wire link). A flit consists of one or more phits.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="qa-card" onclick="this.classList.toggle('open')">
+            <div class="qa-card-header">
+              <div class="qa-num">4</div>
+              <div class="qa-question">With neat diagram, explain the following: Credit based flow control, On-off flow control, Message based flow control</div>
+              <div class="qa-toggle">▼</div>
+            </div>
+            <div class="qa-card-body">
+              <div class="qa-answer">
+                <div style="display:flex; flex-direction:column; gap:10px; text-align:center; margin-bottom:16px;">
+                  <img src="aha_u3/q4_1.png" alt="Question 4 Diagram 1" style="max-width:100%; border-radius:8px; border:1px solid var(--border);">
+                  <img src="aha_u3/q4_2.png" alt="Question 4 Diagram 2" style="max-width:100%; border-radius:8px; border:1px solid var(--border);">
+                  <img src="aha_u3/q4_3.png" alt="Question 4 Diagram 3" style="max-width:100%; border-radius:8px; border:1px solid var(--border);">
+                </div>
+                <p><strong>Credit-Based Flow Control:</strong> The upstream router keeps a count ("credits") of the free buffers available in the downstream router. Sending a flit decrements credits; when the downstream frees a buffer, it sends a credit message back, incrementing the count. Requires at least <em>t_D / t_f</em> buffers downstream to avoid stalls.</p>
+                <p><strong>On-Off Flow Control:</strong> The downstream router uses two buffer thresholds: N_OFF and N_ON. When buffers drop below N_OFF, it sends an "OFF" signal to stop the upstream router. When buffers rise above N_ON, it sends an "ON" signal to resume. Reduces control message overhead compared to credit-based.</p>
+                <p><strong>Message-Based (Circuit Switching):</strong> A probe packet is sent from source to destination to reserve bandwidth and buffer space along the entire path. Once the destination sends an acknowledgement back, the actual data transmission begins. High setup latency but ensures guaranteed delivery once established.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="qa-card" onclick="this.classList.toggle('open')">
+            <div class="qa-card-header">
+              <div class="qa-num">5</div>
+              <div class="qa-question">With neat diagram, explain the following: Dimension Ordered Routing, Oblivious Routing, Minimally Oblivious routing, Adaptive Routing</div>
+              <div class="qa-toggle">▼</div>
+            </div>
+            <div class="qa-card-body">
+              <div class="qa-answer">
+                <div style="display:flex; flex-direction:column; gap:10px; text-align:center; margin-bottom:16px;">
+                  <img src="aha_u3/q5_1.png" alt="Question 5 Diagram 1" style="max-width:100%; border-radius:8px; border:1px solid var(--border);">
+                  <img src="aha_u3/q5_2.png" alt="Question 5 Diagram 2" style="max-width:100%; border-radius:8px; border:1px solid var(--border);">
+                  <img src="aha_u3/q5_3.png" alt="Question 5 Diagram 3" style="max-width:100%; border-radius:8px; border:1px solid var(--border);">
+                  <img src="aha_u3/q5_4.png" alt="Question 5 Diagram 4" style="max-width:100%; border-radius:8px; border:1px solid var(--border);">
+                </div>
+                <p><strong>Dimension Ordered Routing (DOR):</strong> A strict routing protocol where packets must traverse one dimension entirely before moving to the next (e.g., XY routing in a 2D mesh, moving all the way horizontally then all the way vertically). This strict ordering naturally prevents deadlocks.</p>
+                <p><strong>Oblivious Routing:</strong> The routing path is determined entirely by the source and destination addresses, without taking the current network state (like congestion) into account.</p>
+                <p><strong>Minimally Oblivious Routing:</strong> A subset of oblivious routing where the chosen path is strictly one of the shortest paths (minimal distance) between the source and destination.</p>
+                <p><strong>Adaptive Routing:</strong> The router dynamically chooses the path based on current network conditions. It can route packets around congested nodes or faulty links to improve overall throughput and reliability.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="qa-card" onclick="this.classList.toggle('open')">
+            <div class="qa-card-header">
+              <div class="qa-num">6</div>
+              <div class="qa-question">With neat diagram, explain round robin arbiter and matrix arbiter</div>
+              <div class="qa-toggle">▼</div>
+            </div>
+            <div class="qa-card-body">
+              <div class="qa-answer">
+                <div style="display:flex; flex-direction:column; gap:10px; text-align:center; margin-bottom:16px;">
+                  <img src="aha_u3/q6_1.png" alt="Question 6 Diagram 1" style="max-width:100%; border-radius:8px; border:1px solid var(--border);">
+                  <img src="aha_u3/q6_2.png" alt="Question 6 Diagram 2" style="max-width:100%; border-radius:8px; border:1px solid var(--border);">
+                </div>
+                <p><strong>Round Robin Arbiter:</strong> Grants access to requesting inputs in a cyclic, sequential order. Once an input is granted the resource, it is moved to the lowest priority for the next cycle. This guarantees fairness and prevents starvation, but does not allow for priority-based allocation.</p>
+                <p><strong>Matrix Arbiter:</strong> Uses a 2D matrix of priority bits to resolve conflicts. If requester <em>i</em> has priority over requester <em>j</em>, the matrix bit (i,j) is set. Every time a request is granted, the matrix is updated to lower that requester's priority relative to all others. This provides a fast, hardware-efficient way to implement a Least-Recently-Served priority scheme.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="qa-card" onclick="this.classList.toggle('open')">
+            <div class="qa-card-header">
+              <div class="qa-num">7</div>
+              <div class="qa-question">Describe the difference between the allocators and arbiters.</div>
+              <div class="qa-toggle">▼</div>
+            </div>
+            <div class="qa-card-body">
+              <div class="qa-answer">
+                <p><strong>Arbiter:</strong> A hardware component that resolves contention for a <em>single</em> shared resource among multiple requesters (e.g., multiple input ports wanting to write to the same crossbar output port).</p>
+                <p><strong>Allocator:</strong> A higher-level component that resolves contention across <em>multiple</em> resources simultaneously. It matches multiple requesters to multiple available resources (e.g., matching N input ports to M output ports in a router). An allocator typically consists of multiple arbiters working together.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="sub-title">Lecture -2 (Security Architectures)</div>
+
+          <div class="qa-card" onclick="this.classList.toggle('open')">
+            <div class="qa-card-header">
+              <div class="qa-num">8</div>
+              <div class="qa-question">Describe the Advanced Encryption Standard (AES) with neat diagram.</div>
+              <div class="qa-toggle">▼</div>
+            </div>
+            <div class="qa-card-body">
+              <div class="qa-answer">
+                <div style="text-align:center; margin-bottom:16px;">
+                  <img src="aha_u3/q8.png" alt="Question 8 Diagram" style="max-width:100%; border-radius:8px; border:1px solid var(--border);">
+                </div>
+                <p>AES is a symmetric block cipher standardized by NIST. It operates on a 128-bit block (arranged as a 4×4 byte matrix called the State Array). It uses varying round counts based on key size: 10 rounds for 128-bit key, 12 rounds for 192-bit, and 14 rounds for 256-bit.</p>
+                <p>Each standard round consists of four transformations:</p>
+                <ol>
+                  <li><strong>SubBytes:</strong> A non-linear byte substitution using a fixed S-Box (provides confusion).</li>
+                  <li><strong>ShiftRows:</strong> Rows of the State Array are cyclically shifted left by 0, 1, 2, and 3 positions respectively.</li>
+                  <li><strong>MixColumns:</strong> Columns are multiplied by a fixed polynomial matrix over GF(2⁸) (provides diffusion).</li>
+                  <li><strong>AddRoundKey:</strong> The State is XORed with the round key (the only step using the secret key).</li>
+                </ol>
+                <p>The final round omits the MixColumns step.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="qa-card" onclick="this.classList.toggle('open')">
+            <div class="qa-card-header">
+              <div class="qa-num">9</div>
+              <div class="qa-question">Explain the following: Difference between Block cipher and Stream cipher, Pseudo random number generation, Difference between Symmetric and Asymmetric cipher</div>
+              <div class="qa-toggle">▼</div>
+            </div>
+            <div class="qa-card-body">
+              <div class="qa-answer">
+                <p><strong>Block Cipher vs. Stream Cipher:</strong> A block cipher (like AES or SIMON) encrypts data in fixed-size chunks (e.g., 64 or 128 bits) all at once using a fixed transformation. A stream cipher (like Trivium) generates a continuous pseudo-random key stream and encrypts data bit-by-bit or byte-by-byte using XOR.</p>
+                <p><strong>Pseudo Random Number Generation (PRNG):</strong> The generation of a sequence of numbers that appear random but are actually produced by a deterministic algorithm using an initial seed. Essential in cryptography for generating strong keys, Initialization Vectors (IVs), and nonces.</p>
+                <p><strong>Symmetric vs. Asymmetric Cipher:</strong> Symmetric ciphers (like AES) use the <em>same</em> secret key for both encryption and decryption; they are fast and good for bulk data, but require secure key distribution. Asymmetric ciphers (like RSA) use a <em>pair</em> of keys: a public key for encryption and a private key for decryption; they solve the key distribution problem but are computationally much heavier.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div><!-- end #tab-qa -->
+
+    <div class="tab-content" id="tab-mcq">
+      <div class="topic">
+        <div class="topic-header">
+          <h2>🎯 MCQ QUIZ</h2>
+        </div>
+        <div class="topic-body">
+          <div class="quiz-section">
+            <h3>Unit 3 Quiz</h3>
+
+            <div class="quiz-q">
+              <p>1. Which of the statement is true?</p>
+              <label onclick="checkAnswer(this, true)">Power supply noise is bad for PUF and good for TRNG</label>
+              <label onclick="checkAnswer(this, false)">Temperature variation is bad for PUF and good for TRNG</label>
+              <label onclick="checkAnswer(this, false)">Power supply noise is good for PUF and bad for TRNG</label>
+              <label onclick="checkAnswer(this, false)">Aging is bad for PUF and good for TRNG</label>
+            </div>
+
+            <div class="quiz-q">
+              <p>2. Phit in NoC represents the</p>
+              <label onclick="checkAnswer(this, true)">the set of bits that are sent in a single clock cycle</label>
+              <label onclick="checkAnswer(this, false)">the set of bits that are sent in two clock cycles.</label>
+              <label onclick="checkAnswer(this, false)">the set of bits that are sent in bytes/bits in a single clock cycle</label>
+              <label onclick="checkAnswer(this, false)">the set of bits that are sent as packets.</label>
+            </div>
+
+            <div class="quiz-q">
+              <p>3. The Physical Unclonable Function (PUF) which support limited/small number of quality challenge response pairs is called</p>
+              <label onclick="checkAnswer(this, false)">Strong PUF</label>
+              <label onclick="checkAnswer(this, false)">Limited PUF</label>
+              <label onclick="checkAnswer(this, false)">Obfuscated PUF</label>
+              <label onclick="checkAnswer(this, true)">Weak PUF</label>
+            </div>
+
+            <div class="quiz-q">
+              <p>4. A situation where we have a set of flits (in NoC) that are not able to make progress because of circular wait is known as</p>
+              <label onclick="checkAnswer(this, true)">deadlock</label>
+              <label onclick="checkAnswer(this, false)">Livelock</label>
+              <label onclick="checkAnswer(this, false)">Starvation</label>
+              <label onclick="checkAnswer(this, false)">drought</label>
+            </div>
+
+            <div class="quiz-q">
+              <p>5. The Physical Unclonable Function generate the CRPs by exploiting the</p>
+              <label onclick="checkAnswer(this, false)">Power supply noise</label>
+              <label onclick="checkAnswer(this, false)">Gaussian noise due to electromagnetics</label>
+              <label onclick="checkAnswer(this, true)">Process variations occurring during manufacturing</label>
+              <label onclick="checkAnswer(this, false)">Changes in temperature</label>
+            </div>
+
+            <div class="quiz-q">
+              <p>6. A Physical Unclonable Function (PUF) which measures the distinctive challenge-response pair (CRP) generation quality, that is, distinguishability, of a PUF with respect to other instances is called</p>
+              <label onclick="checkAnswer(this, true)">Uniqueness</label>
+              <label onclick="checkAnswer(this, false)">Responsiveness</label>
+              <label onclick="checkAnswer(this, false)">Reliability</label>
+              <label onclick="checkAnswer(this, false)">Uniformity</label>
+            </div>
+
+            <div class="quiz-q">
+              <p>7. In the context of the Network on Chips (NoC) the packet is divided into several flow control digits, referred as</p>
+              <label onclick="checkAnswer(this, true)">Flits</label>
+              <label onclick="checkAnswer(this, false)">Phits</label>
+              <label onclick="checkAnswer(this, false)">Packet</label>
+              <label onclick="checkAnswer(this, false)">address</label>
+            </div>
+
+            <div class="quiz-q">
+              <p>8. Successful modelling attacks on PUF require an access to</p>
+              <label onclick="checkAnswer(this, true)">Large number of PUF devices to collect sufficient number of challenge response pairs.</label>
+              <label onclick="checkAnswer(this, false)">Process related details of PUF</label>
+              <label onclick="checkAnswer(this, false)">Design related details of PUF</label>
+              <label onclick="checkAnswer(this, false)">Temperature related data of the PUF</label>
+            </div>
+
+            <div class="quiz-q">
+              <p>9. Butterfly PUF is designed by exploiting the</p>
+              <label onclick="checkAnswer(this, true)">Metastable properties in the FPGA matrix</label>
+              <label onclick="checkAnswer(this, false)">Jitter and skew sensitivities in the FPGA matrix</label>
+              <label onclick="checkAnswer(this, false)">Clocking circuit properties in FPGA matrix</label>
+              <label onclick="checkAnswer(this, false)">Macro's design and interconnect properties in FPGA matrix</label>
+            </div>
+
+            <div class="quiz-q">
+              <p>10. Ring Oscillator PUFs fail to generate a reliable response if</p>
+              <label onclick="checkAnswer(this, false)">a frequency crossover happens in ring oscillator after possible frequency degradation due to process variation.</label>
+              <label onclick="checkAnswer(this, false)">a frequency crossover happens in ring oscillator after possible frequency degradation due to temperature variations</label>
+              <label onclick="checkAnswer(this, false)">a frequency crossover happens in ring oscillators after possible frequency degradation due to modelling attacks</label>
+              <label onclick="checkAnswer(this, true)">a frequency crossover happens in ring oscillators after possible frequency degradation due to aging.</label>
+            </div>
+
+            <div class="quiz-q">
+              <p>11. AES supports the</p>
+              <label onclick="checkAnswer(this, true)">128 bit key with 10 rounds</label>
+              <label onclick="checkAnswer(this, false)">128 bit key with 12 rounds</label>
+              <label onclick="checkAnswer(this, false)">128 bit key with 14 rounds</label>
+              <label onclick="checkAnswer(this, false)">192 bit with 10 rounds</label>
+            </div>
+
+            <div class="quiz-q">
+              <p>12. The Mix columns is involved in AES as below</p>
+              <label onclick="checkAnswer(this, false)">All rounds will have Mix Columns</label>
+              <label onclick="checkAnswer(this, true)">All rounds will have Mix Columns except last round</label>
+              <label onclick="checkAnswer(this, false)">All rounds will have Mix Columns except first round</label>
+              <label onclick="checkAnswer(this, false)">Only one round randomly will have Mix Column</label>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div><!-- end #tab-mcq -->
+
     <!-- === FOOTER === -->
     <div style="text-align:center;padding:50px 0 30px;color:#4a4a5a;font-size:12px">
       <div style="font-family:'Racing Sans One',cursive;font-size:20px;color:#e60012;margin-bottom:8px">Ka-Chow! 🏁
@@ -1535,6 +1898,41 @@
 
   <!-- === JAVASCRIPT === -->
   <script>
+    // Tab switching
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + tabId).classList.add('active');
+      document.querySelector(`.tab-btn[onclick="switchTab('${tabId}')"]`).classList.add('active');
+    }
+
+    // MCQ checking
+    function checkAnswer(l, ok) {
+      const q = l.parentElement;
+      if (q.dataset.answered) return;
+      q.dataset.answered = 'true';
+      if (ok) {
+        l.classList.add('correct');
+        l.innerHTML = '✅ ' + l.innerHTML;
+      } else {
+        l.classList.add('wrong');
+        l.innerHTML = '❌ ' + l.innerHTML;
+        q.querySelectorAll('label').forEach(lb => {
+          const onclick = lb.getAttribute('onclick');
+          if (onclick && onclick.includes('true')) lb.classList.add('correct');
+        });
+      }
+    }
+
+    // Handle sidebar links switching to notes tab
+    document.querySelectorAll('.sidebar a').forEach(a => {
+      a.addEventListener('click', () => {
+        if (!document.getElementById('tab-notes').classList.contains('active')) {
+          switchTab('notes');
+        }
+      });
+    });
+
     // Progress bar
     window.addEventListener('scroll', () => {
       const h = document.documentElement;

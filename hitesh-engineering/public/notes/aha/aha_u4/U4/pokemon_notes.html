@@ -66,6 +66,7 @@
   <div class="tab-nav">
     <button class="tab-btn active" onclick="switchTab('notes')"><span class="tab-icon">📖</span>STUDY NOTES</button>
     <button class="tab-btn" onclick="switchTab('qa')"><span class="tab-icon">❓</span>Q&A BANK</button>
+    <button class="tab-btn" onclick="switchTab('mcq')"><span class="tab-icon">🎯</span>MCQ QUIZ</button>
   </div>
   <div class="tab-content active" id="tab-notes">
     <div class="search-bar"><span class="search-icon">&#128269;</span><input type="text" id="searchInput"
@@ -2382,6 +2383,90 @@
               Maximize reuse of stationary (cached) filter weights to minimize memory traffic.</p>
           </div>
         </div>
+      </div>
+
+    </div>
+  </div>
+  
+  <div class="tab-content" id="tab-mcq">
+    <div class="qa-header">
+      <h2>🎯 MCQ QUIZ</h2>
+      <p>Test your knowledge on GPU Architecture & ML Accelerators</p>
+    </div>
+    
+    <div class="quiz-section">
+      <h3>Unit 4 Quiz</h3>
+      
+      <div class="quiz-q">
+        <p>1. The sequence of commands that are meant to execute in order is called</p>
+        <label onclick="checkAnswer(this, false)">Graphs</label>
+        <label onclick="checkAnswer(this, false)">Events</label>
+        <label onclick="checkAnswer(this, true)">Stream</label>
+        <label onclick="checkAnswer(this, false)">Kernel</label>
+      </div>
+
+      <div class="quiz-q">
+        <p>2. Shading technique used to compute the colour values based on the colour of the vertices, the nature of the ambient light source and model of reflectivity of the surface is called</p>
+        <label onclick="checkAnswer(this, false)">Phong Shading</label>
+        <label onclick="checkAnswer(this, false)">General Shading</label>
+        <label onclick="checkAnswer(this, true)">Goraud Shading</label>
+        <label onclick="checkAnswer(this, false)">Zero shading</label>
+      </div>
+
+      <div class="quiz-q">
+        <p>3. The process of converting the triangles (or polygons) into sets of pixels is called</p>
+        <label onclick="checkAnswer(this, false)">Tessellation</label>
+        <label onclick="checkAnswer(this, true)">Rasterization</label>
+        <label onclick="checkAnswer(this, false)">Fragmentation</label>
+        <label onclick="checkAnswer(this, false)">Vectorization</label>
+      </div>
+
+      <div class="quiz-q">
+        <p>4. Vertex shaders are used to</p>
+        <label onclick="checkAnswer(this, true)">To add the visual effects to the scene.</label>
+        <label onclick="checkAnswer(this, false)">To add the lighting effects to the scene.</label>
+        <label onclick="checkAnswer(this, false)">To add the colour effects to the scene.</label>
+        <label onclick="checkAnswer(this, false)">To add the wooding effects to the scene.</label>
+      </div>
+
+      <div class="quiz-q">
+        <p>5. Shader program which is used in motion detection, adding texture, etc is a</p>
+        <label onclick="checkAnswer(this, false)">Software</label>
+        <label onclick="checkAnswer(this, false)">Hardware</label>
+        <label onclick="checkAnswer(this, true)">Software, to run efficiently, it needs elaborate hardware support</label>
+        <label onclick="checkAnswer(this, false)">firmware</label>
+      </div>
+
+      <div class="quiz-q">
+        <p>6. CUDA is an abbreviation for</p>
+        <label onclick="checkAnswer(this, false)">Compute Unified Design Architecture</label>
+        <label onclick="checkAnswer(this, false)">Compute Universal Device Architecture</label>
+        <label onclick="checkAnswer(this, false)">Compute Unified Design Architecture</label>
+        <label onclick="checkAnswer(this, true)">Compute Unified Device Architecture</label>
+      </div>
+
+      <div class="quiz-q">
+        <p>7. A process of automatically creating an image (2D or 3D) from same rules and models is known as</p>
+        <label onclick="checkAnswer(this, false)">pixeling</label>
+        <label onclick="checkAnswer(this, false)">Rastering</label>
+        <label onclick="checkAnswer(this, false)">fragmenting</label>
+        <label onclick="checkAnswer(this, true)">Rendering</label>
+      </div>
+
+      <div class="quiz-q">
+        <p>8. The set of threads are grouped together to run on GPU is called</p>
+        <label onclick="checkAnswer(this, false)">Kernel</label>
+        <label onclick="checkAnswer(this, true)">Warp</label>
+        <label onclick="checkAnswer(this, false)">Grid</label>
+        <label onclick="checkAnswer(this, false)">Graphs</label>
+      </div>
+
+      <div class="quiz-q">
+        <p>9. Dividing the surface of an object into a set of polygons is called</p>
+        <label onclick="checkAnswer(this, true)">Tessellation</label>
+        <label onclick="checkAnswer(this, false)">Rasterization</label>
+        <label onclick="checkAnswer(this, false)">Vectorization</label>
+        <label onclick="checkAnswer(this, false)">Fragmentation</label>
       </div>
 
     </div>
