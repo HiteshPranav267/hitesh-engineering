@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AHA Unit 3 Notes — Ka-Chow Edition</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Racing+Sans+One&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --red: #e60012;
+      --red-glow: rgba(230, 0, 18, 0.35);
+      --gold: #facc15;
+      --gold-dim: #b8960f;
+      --blue: #00a8e8;
+      --blue-glow: rgba(0, 168, 232, 0.25);
+      --green: #22c55e;
+      --bg: #08080c;
+      --card: #111118;
+      --card2: #1a1a24;
+      --border: #2a2a38;
+      --text: #cbd5e1;
+      --text2: #94a3b8;
+      --font: 'Inter', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+      --race: 'Racing Sans One', cursive;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      overflow-x: hidden
+    }
+
+    ::-webkit-scrollbar {
+      width: 7px
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg)
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--red);
+      border-radius: 4px
+    }
+
+    /* === PROGRESS BAR (Route 66) === */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--red), var(--gold));
+      z-index: 9999;
+      transition: width .15s;
+      width: 0
+    }
+
+    /* === SIDEBAR NAV === */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 260px;
+      height: 100vh;
+      background: var(--card);
+      border-right: 3px solid var(--red);
+      overflow-y: auto;
+      padding: 24px 16px;
+      z-index: 500;
+      background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h10v10H0zM10 10h10v10H10z' fill='rgba(255,255,255,0.015)'/%3E%3C/svg%3E")
+    }
+
+    .sidebar .logo {
+      font-family: var(--race);
+      color: var(--gold);
+      font-size: 22px;
+      text-align: center;
+      margin-bottom: 6px;
+      text-shadow: 0 0 15px var(--red-glow)
+    }
+
+    .sidebar .tagline {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text2);
+      margin-bottom: 24px;
+      font-style: italic
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text2);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-bottom: 4px;
+      transition: all .25s;
+      border-left: 3px solid transparent
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background: rgba(230, 0, 18, 0.08);
+      color: #fff;
+      border-left-color: var(--red);
+      transform: translateX(4px)
+    }
+
+    .sidebar a .num {
+      background: var(--red);
+      color: #fff;
+      font-size: 10px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      flex-shrink: 0
+    }
+
+    /* === MAIN CONTENT === */
+    .main {
+      margin-left: 260px;
+      padding: 40px 50px 80px;
+      max-width: 960px
+    }
+
+    .hero {
+      text-align: center;
+      padding: 50px 0 40px
+    }
+
+    .hero h1 {
+      font-family: var(--race);
+      font-size: 48px;
+      color: var(--red);
+      text-shadow: 0 0 40px var(--red-glow);
+      letter-spacing: 2px
+    }
+
+    .hero .sub {
+      color: var(--text2);
+      font-size: 14px;
+      margin-top: 8px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-weight: 600
+    }
+
+    .hero .divider {
+      width: 120px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--red), var(--gold), var(--red), transparent);
+      margin: 20px auto 0;
+      border-radius: 2px
+    }
+
+    /* === TOPIC CARD === */
+    .topic {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 0;
+      margin-bottom: 48px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4)
+    }
+
+    .topic-header {
+      padding: 28px 35px 20px;
+      border-bottom: 1px solid var(--border);
+      position: relative
+    }
+
+    .topic-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--red), var(--gold), var(--red))
+    }
+
+    .topic-header h2 {
+      font-family: var(--race);
+      font-size: 28px;
+      color: var(--gold);
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap
+    }
+
+    .topic-header h2 .badge {
+      font-family: var(--font);
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3px 14px;
+      font-size: 11px;
+      color: var(--text2);
+      font-weight: 600;
+      margin-left: auto
+    }
+
+    .topic-body {
+      padding: 30px 35px
+    }
+
+    /* === SUBSECTION === */
+    .sub-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--blue);
+      margin: 28px 0 14px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px dashed rgba(0, 168, 232, 0.2)
+    }
+
+    .sub-title::before {
+      content: '🏁';
+      font-size: 14px
+    }
+
+    .sub-title:first-child {
+      margin-top: 0
+    }
+
+    p {
+      margin-bottom: 12px;
+      font-size: 15px;
+      color: var(--text)
+    }
+
+    p b,
+    p strong {
+      color: #fff
+    }
+
+    /* === FORMULA BOX === */
+    .formula {
+      background: var(--bg);
+      border-left: 3px solid var(--gold);
+      padding: 16px 20px;
+      font-family: var(--mono);
+      font-size: 13px;
+      color: #e2e8f0;
+      border-radius: 0 10px 10px 0;
+      margin: 16px 0;
+      overflow-x: auto;
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5)
+    }
+
+    /* === GRID CARDS === */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 20px 0
+    }
+
+    .box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      transition: all .3s
+    }
+
+    .box:hover {
+      border-color: var(--blue);
+      box-shadow: 0 0 20px var(--blue-glow);
+      transform: translateY(-3px)
+    }
+
+    .box h4 {
+      color: var(--blue);
+      font-size: 14px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px
+    }
+
+    .box p {
+      font-size: 13px;
+      color: var(--text2);
+      margin: 0
+    }
+
+    /* === TABLE === */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin: 16px 0;
+      border-radius: 10px;
+      overflow: hidden
+    }
+
+    thead {
+      background: var(--card2)
+    }
+
+    th {
+      color: var(--gold);
+      padding: 12px 14px;
+      text-align: left;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 1px;
+      font-weight: 700;
+      border-bottom: 2px solid var(--red)
+    }
+
+    td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text)
+    }
+
+    tbody tr:hover td {
+      background: var(--card2)
+    }
+
+    /* === CALLOUTS === */
+    .doc-hudson {
+      background: rgba(0, 168, 232, 0.06);
+      border: 1px solid rgba(0, 168, 232, 0.2);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin: 18px 0;
+      font-size: 14px;
+      color: var(--blue);
+      display: flex;
+      gap: 12px;
+      align-items: flex-start
+    }
+
+    .doc-hudson::before {
+      content: '🏆';
+      font-size: 20px;
+      flex-shrink: 0
+    }
+
+    .exam-warn {
+      background: rgba(230, 0, 18, 0.06);
+      border: 1px solid rgba(230, 0, 18, 0.2);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin: 18px 0;
+      font-size: 14px;
+      color: var(--red);
+      display: flex;
+      gap: 12px;
+      align-items: flex-start
+    }
+
+    .exam-warn::before {
+      content: '🚦';
+      font-size: 20px;
+      flex-shrink: 0
+    }
+
+    .pitstop-tip {
+      background: rgba(34, 197, 94, 0.06);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin: 18px 0;
+      font-size: 14px;
+      color: var(--green);
+      display: flex;
+      gap: 12px;
+      align-items: flex-start
+    }
+
+    .pitstop-tip::before {
+      content: '⛽';
+      font-size: 20px;
+      flex-shrink: 0
+    }
+
+    /* === ACCORDION (Pit Stop) === */
+    .accordion {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin: 16px 0;
+      overflow: hidden
+    }
+
+    .accordion summary {
+      cursor: pointer;
+      padding: 14px 20px;
+      background: var(--card2);
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--gold);
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background .2s;
+      user-select: none
+    }
+
+    .accordion summary:hover {
+      background: rgba(250, 204, 21, 0.08)
+    }
+
+    .accordion summary::before {
+      content: '▸';
+      font-size: 16px;
+      transition: transform .2s;
+      color: var(--red)
+    }
+
+    .accordion[open] summary::before {
+      transform: rotate(90deg)
+    }
+
+    .accordion .acc-body {
+      padding: 18px 20px;
+      font-size: 14px;
+      border-top: 1px solid var(--border)
+    }
+
+    /* === FLASHCARD === */
+    .flashcard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+      margin: 20px 0
+    }
+
+    .flashcard {
+      perspective: 800px;
+      height: 180px;
+      cursor: pointer
+    }
+
+    .flashcard-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform .5s;
+      transform-style: preserve-3d
+    }
+
+    .flashcard.flipped .flashcard-inner {
+      transform: rotateY(180deg)
+    }
+
+    .flashcard-front,
+    .flashcard-back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center
+    }
+
+    .flashcard-front {
+      background: linear-gradient(135deg, #1a1a28, #111118);
+      border: 1px solid var(--border);
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 15px
+    }
+
+    .flashcard-front .hint {
+      font-size: 11px;
+      color: var(--text2);
+      margin-top: 8px;
+      font-weight: 400
+    }
+
+    .flashcard-back {
+      background: linear-gradient(135deg, #0f172a, #111118);
+      border: 1px solid var(--blue);
+      transform: rotateY(180deg);
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.6
+    }
+
+    /* === RESPONSIVE === */
+    @media(max-width:900px) {
+      .sidebar {
+        display: none
+      }
+
+      .main {
+        margin-left: 0;
+        padding: 20px
+      }
+
+      .grid {
+        grid-template-columns: 1fr
+      }
+
+      .hero h1 {
+        font-size: 32px
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="progress-bar"></div>
+
+  <!-- === SIDEBAR === -->
+  <div class="sidebar">
+    <div class="logo">🏎️ Rust-eze Notes</div>
+    <div class="tagline">"I am speed." — Lightning McQueen</div>
+    <a href="#ff"><span class="num">1</span>Finite Field Arithmetic</a>
+    <a href="#aes"><span class="num">2</span>Advanced Encryption Standard</a>
+    <a href="#ntt"><span class="num">3</span>Number Theoretic Transform</a>
+    <a href="#lwc"><span class="num">4</span>Lightweight Ciphers</a>
+    <a href="#trivium"><span class="num">5</span>Trivium (Stream Cipher)</a>
+    <a href="#simon"><span class="num">6</span>SIMON (Block Cipher)</a>
+    <a href="#noc"><span class="num">7</span>Network on Chip</a>
+  </div>
+
+  <!-- === MAIN CONTENT === -->
+  <div class="main">
+    <div class="hero">
+      <h1>Architectures for Hardware Acceleration</h1>
+      <div class="sub">Unit 3 · Piston Cup Study Edition · Ka-Chow! 🏆</div>
+      <div class="divider"></div>
+    </div>
+
+    <!-- ===================== SECTION 1: FINITE FIELDS ===================== -->
+    <div class="topic" id="ff">
+      <div class="topic-header">
+        <h2>🏎️ Finite Field Arithmetic <span class="badge">PDF 1 · 33 slides</span></h2>
+      </div>
+      <div class="topic-body">
+
+        <div class="doc-hudson">Think of a finite field like Radiator Springs' racetrack — no matter how many laps you
+          drive (add/multiply), you always loop back within the track boundaries (modulo reduction). Every operation
+          stays bounded!</div>
+
+        <div class="sub-title">1.1 Basic Definitions</div>
+        <p><strong>Natural Numbers:</strong> ℕ = {0, 1, 2, 3, …} &nbsp;|&nbsp; <strong>Integers:</strong> ℤ = {…, −2,
+          −1, 0, 1, 2, …}</p>
+        <p><strong>Divisibility:</strong> We say y divides x (written y|x) if there exists an integer z such that x =
+          z·y.</p>
+        <p><strong>Division Algorithm:</strong> Given integers x and y (y > 0), there exist unique q and r such that
+          <strong>x = q·y + r</strong>, where 0 ≤ r &lt; y. Here r = x mod y, q = x div y.</p>
+        <p><strong>Prime Number:</strong> An integer p > 1 with no divisors other than 1 and itself.</p>
+        <p><strong>GCD:</strong> gcd(a, b) = the largest integer that divides both a and b.</p>
+
+        <div class="sub-title">1.2 Euclidean Algorithm</div>
+        <p>Finds the GCD by repeated division. The key insight is: <strong>gcd(a, b) = gcd(b, a mod b)</strong>.</p>
+        <div class="formula">gcd(a, b) = a, if b = 0<br>gcd(a, b) = gcd(b, a mod b), otherwise</div>
+
+        <details class="accordion">
+          <summary>🔧 Pit Stop — Euclidean Algorithm Example</summary>
+          <div class="acc-body">
+            <p><strong>Find gcd(252, 105):</strong></p>
+            <p>252 = 2 × 105 + 42 → gcd(252, 105) = gcd(105, 42)</p>
+            <p>105 = 2 × 42 + 21 → gcd(105, 42) = gcd(42, 21)</p>
+            <p>42 = 2 × 21 + 0 → gcd(42, 21) = <strong>21</strong></p>
+          </div>
+        </details>
+
+        <div class="sub-title">1.3 Extended Euclidean Algorithm</div>
+        <p>Finds integers s and t such that: <strong>gcd(a, b) = s·a + t·b</strong> (Bézout's Identity).</p>
+        <p>This is used to find the <strong>modular inverse</strong>: if gcd(a, m) = 1, then a⁻¹ mod m exists and can be
+          computed with this algorithm.</p>
+
+        <div class="sub-title">1.4 Congruences</div>
+        <p><strong>a ≡ b (mod m)</strong> means m divides (a − b). Properties: reflexive, symmetric, transitive.</p>
+        <p>The mod n relation partitions ℤ into n equivalence classes, each containing exactly one element from {0, 1,
+          2, …, n−1}.</p>
+        <p><strong>Fermat's Little Theorem:</strong> If p is prime, then a<sup>p</sup> ≡ a (mod p), so a<sup>p−1</sup> ≡
+          1 (mod p).</p>
+        <p><strong>Euler's Theorem:</strong> a<sup>φ(n)</sup> ≡ 1 (mod n), where φ(n) is Euler's totient function.</p>
+
+        <div class="sub-title">1.5 Groups, Rings, and Fields</div>
+        <div class="grid">
+          <div class="box">
+            <h4>Group (G, ·)</h4>
+            <p>A set G with one operation satisfying: closure, associativity, identity element, and inverse. If also
+              commutative → <b>Abelian group</b>.</p>
+          </div>
+          <div class="box">
+            <h4>Ring (R, +, ·)</h4>
+            <p>Two operations. Abelian group under +, associative under ·, and distributive law holds. May lack
+              multiplicative inverse.</p>
+          </div>
+          <div class="box">
+            <h4>Field (F, +, ·)</h4>
+            <p>A ring where <b>every non-zero element has a multiplicative inverse</b>. Both + and · are commutative.
+            </p>
+          </div>
+          <div class="box">
+            <h4>Finite Field GF(p)</h4>
+            <p>A field with p elements (p must be prime). All operations are performed mod p. Also called a <b>Galois
+                Field</b>.</p>
+          </div>
+        </div>
+
+        <div class="sub-title">1.6 GF(2ⁿ) — Binary Extension Fields</div>
+        <p>Elements are polynomials of degree &lt; n with coefficients in GF(2) (i.e., coefficients are just 0 or 1).
+        </p>
+        <p><strong>Addition:</strong> XOR of corresponding coefficients (no carry propagation — super fast in
+          hardware!).</p>
+        <p><strong>Multiplication:</strong> Polynomial multiplication, then reduce modulo an <strong>irreducible
+            polynomial</strong>.</p>
+        <p><strong>GF(2⁸) in AES:</strong> Uses irreducible polynomial P(x) = x⁸ + x⁴ + x³ + x + 1.</p>
+        <div class="formula">A(x) + B(x) = XOR of coefficients<br>A(x) × B(x) = polynomial product mod P(x)
+          [shift-and-XOR with reduction]</div>
+
+        <div class="pitstop-tip">MCQ Tip: GF(2ⁿ) addition = XOR (no carry). Multiplication = shift-and-XOR with modular
+          reduction by the irreducible polynomial.</div>
+
+        <div class="flashcard-grid">
+          <div class="flashcard" onclick="this.classList.toggle('flipped')">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">What is a Finite Field?<div class="hint">Click to flip</div>
+              </div>
+              <div class="flashcard-back">A field with a finite number of elements. GF(p) has p elements (p prime). All
+                arithmetic is mod p. Every non-zero element has a multiplicative inverse.</div>
+            </div>
+          </div>
+          <div class="flashcard" onclick="this.classList.toggle('flipped')">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">GF(2⁸) Irreducible Poly for AES?<div class="hint">Click to flip</div>
+              </div>
+              <div class="flashcard-back">P(x) = x⁸ + x⁴ + x³ + x + 1<br><br>This is used to reduce multiplication
+                results back into the field.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="exam-warn">Exam Alert: Explain the Extended Euclidean Algorithm and its use in finding modular
+          inverse — with a worked example. (4 marks)</div>
+      </div>
+    </div>
+
+    <!-- ===================== SECTION 2: AES ===================== -->
+    <div class="topic" id="aes">
+      <div class="topic-header">
+        <h2>🏆 Advanced Encryption Standard <span class="badge">PDF 2 · 38 slides</span></h2>
+      </div>
+      <div class="topic-body">
+
+        <div class="doc-hudson">AES is the Piston Cup champion of symmetric ciphers — the undisputed #95 of encryption.
+          Reliable, fast, and used everywhere from your phone to military-grade systems.</div>
+
+        <div class="sub-title">2.1 Overview</div>
+        <p>AES (Rijndael) is a <strong>symmetric block cipher</strong> standardized by NIST. It operates on a
+          <strong>128-bit block</strong> (arranged as a 4×4 byte matrix called the <strong>State Array</strong>).</p>
+        <p>Key sizes: <strong>128-bit</strong> (10 rounds), <strong>192-bit</strong> (12 rounds), or
+          <strong>256-bit</strong> (14 rounds).</p>
+
+        <div class="sub-title">2.2 AES Round Operations</div>
+        <p>Each round (except the last) performs four transformations in order:</p>
+        <div class="grid">
+          <div class="box">
+            <h4>1. SubBytes (Byte Substitution)</h4>
+            <p>Each byte is replaced using the <b>S-Box</b>, a non-linear substitution providing confusion. The S-Box is
+              based on the multiplicative inverse in GF(2⁸) followed by an affine transformation.</p>
+          </div>
+          <div class="box">
+            <h4>2. ShiftRows</h4>
+            <p>Rows of the state are cyclically shifted left. Row 0: no shift, Row 1: shift by 1, Row 2: shift by 2, Row
+              3: shift by 3.</p>
+          </div>
+          <div class="box">
+            <h4>3. MixColumns</h4>
+            <p>Each column is treated as a polynomial over GF(2⁸) and multiplied by a fixed polynomial c(x) = 3x³ + x² +
+              x + 2. Provides diffusion.</p>
+          </div>
+          <div class="box">
+            <h4>4. AddRoundKey</h4>
+            <p>The state is XORed with the round key (derived from key expansion). This is the only step that uses the
+              secret key.</p>
+          </div>
+        </div>
+        <p><strong>Note:</strong> The final round omits the MixColumns step. Before Round 1, an initial AddRoundKey is
+          applied.</p>
+
+        <div class="sub-title">2.3 Key Expansion</div>
+        <p>The original cipher key is expanded into a <strong>key schedule</strong> producing round keys for each round.
+        </p>
+        <p>For AES-128: The 128-bit key is expanded into <strong>44 words</strong> (4 words per round × 11 = 44). Each
+          word is 32 bits.</p>
+        <p>Key expansion uses a function <strong>g()</strong> that applies: RotWord → SubBytes (on each byte) → XOR with
+          Round Constant (Rcon).</p>
+
+        <details class="accordion">
+          <summary>🔧 Pit Stop — The S-Box Deep Dive</summary>
+          <div class="acc-body">
+            <p>The S-Box maps an 8-bit input c to an 8-bit output s = S(c). Two steps:</p>
+            <p><strong>Step 1:</strong> Find the multiplicative inverse x' = c⁻¹ in GF(2⁸) using the irreducible
+              polynomial x⁸ + x⁴ + x³ + x + 1. Zero maps to itself.</p>
+            <p><strong>Step 2:</strong> Apply an affine transformation: x<sub>out</sub> = A · x' + c, where A is a
+              specific 8×8 binary matrix and c = 0x63.</p>
+            <p>The four circular rotations are through 4, 5, 6, and 7 bit positions to the right, then XORed together
+              with the constant byte.</p>
+          </div>
+        </details>
+
+        <details class="accordion">
+          <summary>🔧 Pit Stop — MixColumns Math</summary>
+          <div class="acc-body">
+            <p>Each column of the State is treated as a 4-term polynomial over GF(2⁸) and multiplied modulo x⁴ + 1 by
+              the fixed polynomial:</p>
+            <div class="formula">c(x) = {03}x³ + {01}x² + {01}x + {02}</div>
+            <p>This is equivalent to matrix multiplication in GF(2⁸):</p>
+            <div class="formula">[2 3 1 1] [s0]<br>[1 2 3 1] × [s1]<br>[1 1 2 3] [s2]<br>[3 1 1 2] [s3]</div>
+          </div>
+        </details>
+
+        <div class="flashcard-grid">
+          <div class="flashcard" onclick="this.classList.toggle('flipped')">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">AES-128: Rounds & Key Words?<div class="hint">Click to flip</div>
+              </div>
+              <div class="flashcard-back">10 rounds, 44 expanded key words (32-bit each).<br>128-bit block = 4×4 byte
+                State Array.</div>
+            </div>
+          </div>
+          <div class="flashcard" onclick="this.classList.toggle('flipped')">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">Which round step provides confusion?<div class="hint">Click to flip</div>
+              </div>
+              <div class="flashcard-back"><b>SubBytes</b> — non-linear substitution via S-Box (multiplicative inverse in
+                GF(2⁸) + affine transform).</div>
+            </div>
+          </div>
+          <div class="flashcard" onclick="this.classList.toggle('flipped')">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">What's different about the final AES round?<div class="hint">Click to flip
+                </div>
+              </div>
+              <div class="flashcard-back">The last round <b>omits MixColumns</b>.<br>It only does: SubBytes → ShiftRows
+                → AddRoundKey.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== SECTION 3: NTT ===================== -->
+    <div class="topic" id="ntt">
+      <div class="topic-header">
+        <h2>⚙️ Number Theoretic Transform <span class="badge">PDF 3 · 21 slides</span></h2>
+      </div>
+      <div class="topic-body">
+
+        <div class="doc-hudson">If the DFT is like driving in the real world (floating-point, messy), the NTT is like
+          driving on a perfect, controlled simulation track — integer arithmetic only, zero rounding errors. It's the
+          turbocharger for post-quantum cryptography!</div>
+
+        <div class="sub-title">3.1 Introduction</div>
+        <p>The <strong>Number Theoretic Transform (NTT)</strong> is the DFT applied over finite fields/rings instead of
+          complex numbers.</p>
+        <p>It's a critical tool in <strong>Post-Quantum Cryptography (PQC)</strong> and <strong>Homomorphic Encryption
+            (HE)</strong>.</p>
+        <p>Key advantage: Enables polynomial multiplication with complexity <strong>O(n log n)</strong> instead of O(n²)
+          — and all arithmetic is integer-based with <strong>zero floating-point errors</strong>.</p>
+        <p>Unlike the DFT (which represents signals in the frequency domain), the NTT has no physical interpretation.
+          However, it preserves the crucial <strong>convolution theorem</strong>.</p>
+
+        <div class="sub-title">3.2 DFT vs NTT Comparison</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>DFT</th>
+              <th>NTT</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Domain</td>
+              <td>Complex numbers ℂ</td>
+              <td>Integers mod prime q</td>
+            </tr>
+            <tr>
+              <td>Roots of Unity</td>
+              <td>e<sup>2πi/n</sup></td>
+              <td>ω where ωⁿ ≡ 1 (mod q)</td>
+            </tr>
+            <tr>
+              <td>Arithmetic</td>
+              <td>Floating point (approximate)</td>
+              <td>Integer (exact)</td>
+            </tr>
+            <tr>
+              <td>Use Case</td>
+              <td>Signal processing, audio</td>
+              <td>Cryptography (PQC, HE)</td>
+            </tr>
+            <tr>
+              <td>Complexity</td>
+              <td>O(n log n)</td>
+              <td>O(n log n)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="sub-title">3.3 Mathematical Basis</div>
+        <p>Choose a prime q such that n | (q−1). Then a primitive n-th root of unity ω exists modulo q.</p>
+        <p>ω satisfies: ωⁿ ≡ 1 (mod q), and ωᵏ ≢ 1 for 0 &lt; k &lt; n.</p>
+        <div class="formula">Forward NTT: A[k] = Σᵢ a[i]·ωⁱᵏ mod q (k = 0, 1, ..., n-1)<br>Inverse INTT: a[i] = n⁻¹ · Σₖ
+          A[k]·ω⁻ⁱᵏ mod q</div>
+
+        <div class="sub-title">3.4 Butterfly Operation</div>
+        <p>The core computational unit in NTT (analogous to the FFT butterfly):</p>
+        <div class="formula">a' = a + ω·b mod q<br>b' = a − ω·b mod q</div>
+        <p><strong>Cooley-Tukey NTT:</strong> Decimation-In-Time (DIT) — used for forward NTT.</p>
+        <p><strong>Gentleman-Sande NTT:</strong> Decimation-In-Frequency (DIF) — used for inverse NTT.</p>
+
+        <div class="sub-title">3.5 Polynomial Multiplication via NTT</div>
+        <p>To multiply polynomials A(x) and B(x) efficiently:</p>
+        <div class="grid">
+          <div class="box">
+            <h4>Step 1</h4>
+            <p>Compute NTT(A) and NTT(B) — transform to "NTT domain"</p>
+          </div>
+          <div class="box">
+            <h4>Step 2</h4>
+            <p>Pointwise multiply: C[k] = NTT(A)[k] · NTT(B)[k] mod q</p>
+          </div>
+          <div class="box">
+            <h4>Step 3</h4>
+            <p>Compute INTT(C) — transform back to get the product polynomial</p>
+          </div>
+          <div class="box">
+            <h4>Complexity</h4>
+            <p>Total: O(n log n) instead of O(n²) — this is the convolution theorem over finite fields!</p>
+          </div>
+        </div>
+
+        <div class="sub-title">3.6 Applications in PQC</div>
+        <p><strong>CRYSTALS-Kyber:</strong> NIST PQC standard for key encapsulation. Uses NTT for fast polynomial ops in
+          Module-LWE.</p>
+        <p><strong>CRYSTALS-Dilithium:</strong> NIST PQC digital signature scheme — also NTT-based.</p>
+        <p><strong>NTRU:</strong> Ring-based encryption using cyclic convolution via NTT.</p>
+        <p>NTT reduces key generation, encryption, and decryption from O(n²) to O(n log n).</p>
+
+        <div class="exam-warn">Exam Alert: Explain how NTT enables efficient polynomial multiplication. Compare with
+          DFT. (4 marks)</div>
+      </div>
+    </div>
+
+    <!-- ===================== SECTION 4: LIGHTWEIGHT CIPHERS ===================== -->
+    <div class="topic" id="lwc">
+      <div class="topic-header">
+        <h2>🛞 Lightweight Ciphers <span class="badge">PDF 4 · 24 slides</span></h2>
+      </div>
+      <div class="topic-body">
+
+        <div class="doc-hudson">If AES is Lightning McQueen (heavy, powerful, the champ) — then lightweight ciphers are
+          like the nimble little cars of Radiator Springs. They're not trying to win the Piston Cup; they're built for
+          the tight, resource-constrained dirt tracks of IoT devices where McQueen simply can't fit.</div>
+
+        <div class="sub-title">4.1 Why Lightweight Cryptography?</div>
+        <p>Conventional algorithms (AES, RSA) were designed for servers and PCs — devices with plenty of compute,
+          memory, and power.</p>
+        <p>But the Internet of Things (IoT) has created billions of <strong>resource-constrained devices</strong>: RFID
+          tags, sensors, implantable medical devices, smart cards.</p>
+        <p>These devices operate at the <strong>Perception Layer</strong> — they have very limited compute power, are
+          often battery-powered, and cannot run heavy algorithms like AES or RSA.</p>
+
+        <div class="grid">
+          <div class="box">
+            <h4>Cloud/Storage Layer</h4>
+            <p>Full-power: AES, RSA — no constraints.</p>
+          </div>
+          <div class="box">
+            <h4>Gateway Layer</h4>
+            <p>AES, conventional ciphers — moderate resources.</p>
+          </div>
+          <div class="box">
+            <h4>Perception Layer (IoT)</h4>
+            <p>Massive number of tiny devices. Need <b>lightweight ciphers</b> (SIMON, Trivium, PRESENT).</p>
+          </div>
+          <div class="box">
+            <h4>NIST Standardization</h4>
+            <p>NIST standardized lightweight ciphers in 2015 after evaluating submissions based on device profiles.</p>
+          </div>
+        </div>
+
+        <div class="sub-title">4.2 Design Goals</div>
+        <div class="grid">
+          <div class="box">
+            <h4>Low Area</h4>
+            <p>Minimize gate equivalents (GE). Target: &lt;2000 GE for ultra-constrained devices. GE = area of a 2-input
+              NAND gate.</p>
+          </div>
+          <div class="box">
+            <h4>Low Power</h4>
+            <p>Minimize dynamic and static power. Critical for battery-operated and passive (energy-harvesting) devices.
+            </p>
+          </div>
+          <div class="box">
+            <h4>Low Latency</h4>
+            <p>Fast encryption for real-time applications (automotive, aerospace). Minimize clock cycles from plaintext
+              → ciphertext.</p>
+          </div>
+          <div class="box">
+            <h4>Flexibility</h4>
+            <p>Support multiple platforms: 8-bit MCU, 32-bit, FPGA, ASIC. Adjustable key/block sizes for different use
+              cases.</p>
+          </div>
+        </div>
+
+        <div class="sub-title">4.3 Design Considerations</div>
+        <p><strong>Security Strength:</strong> Must exceed 112 bits. Lightweight ≠ weak — it's optimized, not dumbed
+          down.</p>
+        <p><strong>Low Overhead for Multiple Functions:</strong> Encryption and decryption sharing the same logic
+          circuit saves area (e.g., Feistel ciphers).</p>
+        <p><strong>Ciphertext Expansion:</strong> Minimize data overhead — ideal for storage/transmission constrained
+          devices.</p>
+        <p><strong>Side-Channel Attacks:</strong> Hardware implementations are prone to timing, power, and EM attacks.
+          Differential fault analysis can extract keys from faulty ciphertexts.</p>
+        <p><strong>Plaintext-Ciphertext Limit:</strong> Acceptable to limit data processed under a single key for
+          lightweight applications.</p>
+        <p><strong>Related-Key Attacks:</strong> Adversary exploits known relations between keys to guess unknown keys.
+        </p>
+
+        <div class="pitstop-tip">Lightweight cryptography is NOT weak cryptography. It is a minimal, optimized version
+          for constrained devices. It is NOT designed to replace traditional cryptography or defend against powerful
+          adversaries.</div>
+
+        <div class="sub-title">4.4 Lightweight Block Cipher Characteristics</div>
+        <p><strong>Smaller block size:</strong> 64-bit instead of 128-bit → reduces memory overhead.</p>
+        <p><strong>Smaller key size:</strong> &lt;96 bits (e.g., PRESENT uses 80-bit key).</p>
+        <p><strong>Simpler rounds:</strong> 4-bit S-Box (PRESENT) instead of 8-bit (AES). Saves area: 367 GE vs 395 GE.
+        </p>
+        <p><strong>Simpler key schedule:</strong> On-the-fly sub-key generation during runtime to save power and
+          resources.</p>
+        <p><strong>Note:</strong> AES-128 and Triple-DES are NIST-approved lightweight block ciphers for
+          resource-constrained environments.</p>
+
+        <div class="sub-title">4.5 Comparison Table</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Cipher</th>
+              <th>Block Size</th>
+              <th>Key Size</th>
+              <th>Rounds</th>
+              <th>Structure</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>PRESENT</td>
+              <td>64-bit</td>
+              <td>80/128-bit</td>
+              <td>31</td>
+              <td>SPN</td>
+            </tr>
+            <tr>
+              <td>SIMON</td>
+              <td>32–128-bit</td>
+              <td>64–256-bit</td>
+              <td>32–72</td>
+              <td>Feistel</td>
+            </tr>
+            <tr>
+              <td>SPECK</td>
+              <td>32–128-bit</td>
+              <td>64–256-bit</td>
+              <td>22–34</td>
+              <td>ARX</td>
+            </tr>
+            <tr>
+              <td>GIFT</td>
+              <td>64/128-bit</td>
+              <td>128-bit</td>
+              <td>28/40</td>
+              <td>SPN</td>
+            </tr>
+            <tr>
+              <td>AES-128</td>
+              <td>128-bit</td>
+              <td>128-bit</td>
+              <td>10</td>
+              <td>SPN</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="sub-title">4.6 Lightweight Stream Ciphers</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Cipher</th>
+              <th>Key Size</th>
+              <th>Strengths</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Grain</td>
+              <td>128-bit</td>
+              <td>Flexible, supports authentication</td>
+              <td>LFSR + NLFSR, hardware optimized</td>
+            </tr>
+            <tr>
+              <td>Trivium</td>
+              <td>80-bit</td>
+              <td>Simple, widely analyzed</td>
+              <td>3 shift registers, very compact</td>
+            </tr>
+            <tr>
+              <td>Mickey</td>
+              <td>80-bit</td>
+              <td>—</td>
+              <td>Less flexible, vulnerable to timing/power SCA</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="sub-title">4.7 Lightweight Hash Functions & MACs</div>
+        <p><strong>Hash Functions:</strong> Smaller internal state &amp; output size. Collision resistance may be
+          relaxed. Supports smaller message sizes (e.g., max 256 bits). Examples: PHOTON, SPONGENT, QUARK.</p>
+        <p><strong>MACs:</strong> Shorter tag sizes (conventional = 64 bits). Some apps (VoIP) can tolerate occasional
+          inauthentic messages. NIST-approved: CMAC, GMAC, HMAC.</p>
+
+        <div class="exam-warn">Exam Alert: Compare lightweight cryptography with traditional cryptography. List the
+          design considerations for lightweight ciphers. (4 marks)</div>
+      </div>
+    </div>
+
+    <!-- ===================== SECTION 5: TRIVIUM ===================== -->
+    <div class="topic" id="trivium">
+      <div class="topic-header">
+        <h2>⚡ Trivium — Stream Cipher <span class="badge">PDF 5 · 9 slides</span></h2>
+      </div>
+      <div class="topic-body">
+
+        <div class="doc-hudson">Trivium is the lightning-fast pit crew of ciphers — small, efficient, and gets the job
+          done one bit at a time. Just three shift registers working together in perfect sync, like a well-oiled racing
+          team.</div>
+
+        <div class="sub-title">5.1 Stream Ciphers Overview</div>
+        <p>A <strong>stream cipher</strong> is a symmetric encryption algorithm that operates <strong>bit by
+            bit</strong> (or byte by byte) on plaintext.</p>
+        <p>Inputs: plaintext stream + <strong>Secret Key</strong> (fixed length) + <strong>Initialization Vector
+            (IV)</strong> (fixed length).</p>
+        <p>The key and IV initialize the state of the <strong>Key Stream Generator</strong>, which produces a
+          pseudo-random key stream. Plaintext is XORed with this key stream to produce ciphertext.</p>
+
+        <div class="sub-title">5.2 Trivium Architecture</div>
+        <p>Trivium is a hardware-oriented lightweight stream cipher designed for extreme compactness.</p>
+        <p><strong>Key:</strong> 80-bit &nbsp;|&nbsp; <strong>IV:</strong> 80-bit &nbsp;|&nbsp; <strong>Output:</strong>
+          up to 2⁶⁴ bits of key stream.</p>
+        <p><strong>Internal State:</strong> 288 bits organized into <strong>3 interconnected shift registers</strong>:
+        </p>
+        <div class="grid">
+          <div class="box">
+            <h4>Register A</h4>
+            <p>93 bits (positions 1–93). Feedback taps and XOR operations.</p>
+          </div>
+          <div class="box">
+            <h4>Register B</h4>
+            <p>84 bits (positions 94–177). Cross-connected with A and C.</p>
+          </div>
+          <div class="box">
+            <h4>Register C</h4>
+            <p>111 bits (positions 178–288). Completes the circular feedback loop.</p>
+          </div>
+        </div>
+        <p>Each clock cycle, one output bit is generated by XORing specific taps from all three registers. The registers
+          update using AND + XOR combinations of their own bits and feedback from neighboring registers.</p>
+
+        <div class="sub-title">5.3 Key Stream Generator Strategies</div>
+        <p>Various approaches for building key stream generators:</p>
+        <p><strong>LFSRs</strong> (Linear Feedback Shift Registers) — simple but predictable if used alone.</p>
+        <p><strong>NLFSRs</strong> (Non-Linear Feedback Shift Registers) — add non-linearity for security.</p>
+        <p><strong>FCSRs</strong> (Feedback with Carry Shift Registers) and <strong>T-functions</strong> — alternative
+          designs.</p>
+
+        <div class="pitstop-tip">Trivium's public, open design is a strength — it has been extensively analyzed by the
+          cryptographic community, unlike secret proprietary ciphers that may have hidden vulnerabilities.</div>
+      </div>
+    </div>
+
+    <!-- ===================== SECTION 6: SIMON ===================== -->
+    <div class="topic" id="simon">
+      <div class="topic-header">
+        <h2>🛠️ SIMON — Block Cipher <span class="badge">PDF 6 · 16 slides</span></h2>
+      </div>
+      <div class="topic-body">
+
+        <div class="doc-hudson">SIMON is like Mater — simple on the outside, but incredibly effective under the hood.
+          Built by the NSA specifically for hardware, it uses the Feistel structure where encryption and decryption are
+          basically mirror images of each other. Tow-Mater approved!</div>
+
+        <div class="sub-title">6.1 Overview</div>
+        <p><strong>SIMON</strong> is a family of lightweight <strong>balanced Feistel block ciphers</strong> designed by
+          the NSA.</p>
+        <p>Optimized for <strong>high performance in hardware</strong> — targeting constrained pervasive computing
+          devices and IoT.</p>
+        <p>Proposed alongside <strong>SPECK</strong> (which is optimized for software instead).</p>
+
+        <div class="sub-title">6.2 Parameters & Naming</div>
+        <p>Naming convention: <strong>SIMON 2n/m</strong> — where 2n = block size and m = key size.</p>
+        <p>Example: <strong>SIMON64/128</strong> = 64-bit block (two 32-bit words) + 128-bit master key.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Configuration</th>
+              <th>Block (2n)</th>
+              <th>Key (m)</th>
+              <th>Word (n)</th>
+              <th>Key Words</th>
+              <th>Rounds</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>SIMON32/64</td>
+              <td>32</td>
+              <td>64</td>
+              <td>16</td>
+              <td>4</td>
+              <td>32</td>
+            </tr>
+            <tr>
+              <td>SIMON64/128</td>
+              <td>64</td>
+              <td>128</td>
+              <td>32</td>
+              <td>4</td>
+              <td>44</td>
+            </tr>
+            <tr>
+              <td>SIMON128/256</td>
+              <td>128</td>
+              <td>256</td>
+              <td>64</td>
+              <td>4</td>
+              <td>72</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="sub-title">6.3 Round Function</div>
+        <p>Based on a <strong>balanced Feistel network</strong> — a symmetric structure where encryption and decryption
+          are highly symmetric.</p>
+        <p>The round function uses three simple operations:</p>
+        <div class="grid">
+          <div class="box">
+            <h4>Bitwise AND (&amp;)</h4>
+            <p>Non-linear operation providing confusion.</p>
+          </div>
+          <div class="box">
+            <h4>Bitwise XOR (⊕)</h4>
+            <p>Linear mixing operation.</p>
+          </div>
+          <div class="box">
+            <h4>Circular Left Shift (S<sup>j</sup>)</h4>
+            <p>Rotations by 1, 2, and 8 positions provide diffusion.</p>
+          </div>
+        </div>
+        <p>The Feistel map R<sub>k</sub> for round key k:</p>
+        <div class="formula">R_k(x, y) = (y ⊕ f(x) ⊕ k, x)<br><br>where f(x) = (S¹(x) AND S⁸(x)) ⊕ S²(x)</div>
+
+        <div class="sub-title">6.4 Key Schedule</div>
+        <p>The key schedule expands the master key into all required round keys.</p>
+        <p>For <strong>SIMON64/128</strong>: Generates <strong>44 round keys</strong> (32-bit each) from the 128-bit
+          master key.</p>
+        <p>It combines previously cached round keys with a constant <strong>c</strong> and a 1-bit round constant using
+          XOR and circular shifts.</p>
+
+        <div class="sub-title">6.5 Encryption & Decryption</div>
+        <div class="grid">
+          <div class="box">
+            <h4>Encryption</h4>
+            <p>Apply the round function <b>44 times</b> to the 64-bit plaintext block using the generated round keys
+              (k₀, k₁, …, k₄₃). Can run in parallel with key expansion.</p>
+          </div>
+          <div class="box">
+            <h4>Decryption</h4>
+            <p>1) Swap left and right 32-bit words.<br>2) Apply round function 44 times with <b>reverse key order</b>
+              (k₄₃, k₄₂, …, k₀).<br>3) Swap left and right words again.</p>
+          </div>
+        </div>
+
+        <div class="flashcard-grid">
+          <div class="flashcard" onclick="this.classList.toggle('flipped')">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">SIMON vs SPECK?<div class="hint">Click to flip</div>
+              </div>
+              <div class="flashcard-back"><b>SIMON</b>: Feistel, optimized for <b>hardware</b>.<br><b>SPECK</b>: ARX,
+                optimized for <b>software</b>.<br>Both designed by NSA for lightweight applications.</div>
+            </div>
+          </div>
+          <div class="flashcard" onclick="this.classList.toggle('flipped')">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">SIMON64/128 — how many rounds?<div class="hint">Click to flip</div>
+              </div>
+              <div class="flashcard-back">44 rounds. 64-bit block (two 32-bit words), 128-bit key expanded into 44 round
+                keys.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== SECTION 7: NOC ===================== -->
+    <div class="topic" id="noc">
+      <div class="topic-header">
+        <h2>🛣️ Network on Chip (NoC) <span class="badge">PDF 7 · 76 slides</span></h2>
+      </div>
+      <div class="topic-body">
+
+        <div class="doc-hudson">Imagine the entire Interstate highway system — but shrunk down onto a single chip.
+          Routers are the intersections, flits are the cars, and you absolutely CANNOT have traffic jams (deadlocks) or
+          cars going in circles forever (livelocks). Welcome to Radiator Springs… on silicon!</div>
+
+        <div class="sub-title">7.1 Why Network on Chip?</div>
+        <p>By 2005, single-core performance hit a wall due to <strong>power dissipation</strong> and <strong>diminishing
+            returns from ILP</strong>.</p>
+        <p>The shift to <strong>multicore/manycore</strong> processors meant 10–20 cores, cache banks, memory
+          controllers, and accelerators all need to communicate on-chip.</p>
+        <p>An <strong>on-chip network (NoC)</strong> manages all senders, receivers, and data packets. Unlike the
+          internet, <strong>packets cannot be dropped</strong> in an NoC — reliable delivery is mandatory.</p>
+
+        <div class="grid">
+          <div class="box">
+            <h4>Deadlock</h4>
+            <p>Circular dependency among packets — none can reach their destination. Like a 4-way traffic standoff.</p>
+          </div>
+          <div class="box">
+            <h4>Starvation</h4>
+            <p>A packet can never reach its destination because other packets keep blocking it.</p>
+          </div>
+          <div class="box">
+            <h4>Livelock</h4>
+            <p>A packet moves around endlessly in circles but never reaches its destination.</p>
+          </div>
+          <div class="box">
+            <h4>Solution</h4>
+            <p>Complex routing protocols and flow control mechanisms to prevent all three issues.</p>
+          </div>
+        </div>
+
+        <div class="sub-title">7.2 Nodes, Links & Routers</div>
+        <p>An NoC is modeled as a <strong>graph</strong> with nodes and edges.</p>
+        <p><strong>Node (Router):</strong> A generic communication unit attached to a core, cache bank, memory
+          controller, or accelerator. Multiple cores/caches are grouped into a <strong>tile</strong> with one router per
+          tile.</p>
+        <p><strong>Edge (Link/Channel):</strong> Communication path between two nodes. "Link" = physical connection,
+          "Channel" = logical connection.</p>
+        <p><strong>Message delivery is atomic:</strong> either the entire message is delivered, or nothing is delivered.
+        </p>
+
+        <div class="sub-title">7.3 Topologies</div>
+
+        <details class="accordion">
+          <summary>🔧 Mesh Topology</summary>
+          <div class="acc-body">
+            <p>A simple <strong>2D grid</strong> where adjacent nodes on the same row/column are connected with
+              rectilinear (horizontal/vertical) links.</p>
+            <p><strong>Pros:</strong> Very easy to fabricate in modern VLSI — only horizontal and vertical wires needed.
+            </p>
+            <p><strong>Cons:</strong> High network diameter. For an N×N mesh: <strong>diameter = 2N − 2</strong>
+              (distance between two diagonally opposite corners).</p>
+          </div>
+        </details>
+
+        <details class="accordion">
+          <summary>🔧 Torus Topology</summary>
+          <div class="acc-body">
+            <p>A mesh with <strong>wrap-around connections</strong> between the ends of each row and column.</p>
+            <p><strong>Advantage:</strong> Reduces diameter to roughly <strong>N</strong> (halved from 2N−2).</p>
+            <p><strong>Disadvantage:</strong> Introduces very long wires spanning the chip, causing large delays.</p>
+            <p><strong>Folded Torus:</strong> Interleaves node connections (each node connects to the node 2
+              columns/rows away instead of the directly adjacent one). This <strong>eliminates long wires</strong> while
+              preserving the torus properties, at the cost of 2× delay between adjacent nodes.</p>
+          </div>
+        </details>
+
+        <details class="accordion">
+          <summary>🔧 Hypercube Topology</summary>
+          <div class="acc-body">
+            <p>A <strong>recursive, high-radix</strong> network. H₀ = single node. H₁ = two copies of H₀ connected. H₂ =
+              two copies of H₁ with corresponding nodes connected, and so on.</p>
+            <p>Nodes are labeled with <strong>binary numbers</strong>. Traversing a link flips exactly one bit.</p>
+            <p>For N = 2ᵏ nodes: each node has <strong>log₂(N) neighbors</strong>, and the <strong>diameter =
+                log₂(N)</strong>.</p>
+            <p>The maximum distance (Hamming distance) between two labels equals log₂(N).</p>
+          </div>
+        </details>
+
+        <details class="accordion">
+          <summary>🔧 Clos Network</summary>
+          <div class="acc-body">
+            <p>A <strong>three-layer network</strong> described by parameters n, m, and r:</p>
+            <p><strong>Ingress layer:</strong> r switches, each [n × m]. Accepts input messages.</p>
+            <p><strong>Middle layer:</strong> m switches, each [r × r]. Routes between ingress and egress.</p>
+            <p><strong>Egress layer:</strong> r switches, each [m × n]. Outputs to destination.</p>
+            <p>Total I/O: <strong>n·r inputs and n·r outputs</strong>. Any input can reach any output.</p>
+            <p><strong>Key properties:</strong></p>
+            <p>• If m ≥ n → can always connect unused terminals by rearranging existing connections
+              (<strong>rearrangeably non-blocking</strong>).</p>
+            <p>• If m ≥ 2n−1 → can connect without ANY rearrangement (<strong>strictly non-blocking</strong>).</p>
+            <p><strong>Folded Clos:</strong> Input and output terminals connect to the same set of routers.</p>
+          </div>
+        </details>
+
+        <details class="accordion">
+          <summary>🔧 Butterfly Network</summary>
+          <div class="acc-body">
+            <p>Uses <strong>log₂(N) layers</strong> of 2×2 switches for N input/output terminals.</p>
+            <p>Each layer progressively routes messages by dividing the destination space in half (binary decision
+              tree).</p>
+            <p><strong>Diameter:</strong> log₂(N) + 1 — significantly better than torus (~N).</p>
+            <p><strong>Links:</strong> N + N·log₂(N) — more than torus (2N), reducing congestion.</p>
+            <p><strong>Drawback:</strong> Only a <strong>single path</strong> between any source-destination pair (low
+              path diversity).</p>
+            <p><strong>Folded Butterfly:</strong> Input and output nodes are the same physical routers.</p>
+          </div>
+        </details>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Topology</th>
+              <th>Diameter</th>
+              <th>Links</th>
+              <th>Path Diversity</th>
+              <th>Fabrication</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Mesh (N×N)</td>
+              <td>2N − 2</td>
+              <td>~2N²</td>
+              <td>Multiple</td>
+              <td>Easy (rectilinear)</td>
+            </tr>
+            <tr>
+              <td>Torus (N×N)</td>
+              <td>N</td>
+              <td>~2N²</td>
+              <td>Multiple</td>
+              <td>Has long wires</td>
+            </tr>
+            <tr>
+              <td>Folded Torus</td>
+              <td>N</td>
+              <td>~2N²</td>
+              <td>Multiple</td>
+              <td>No long wires</td>
+            </tr>
+            <tr>
+              <td>Hypercube</td>
+              <td>log₂(N)</td>
+              <td>N·log₂(N)/2</td>
+              <td>High</td>
+              <td>Difficult (oblique)</td>
+            </tr>
+            <tr>
+              <td>Butterfly</td>
+              <td>log₂(N)+1</td>
+              <td>N+N·log₂(N)</td>
+              <td>Single path</td>
+              <td>Moderate</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="sub-title">7.4 Message Transmission Hierarchy</div>
+        <p>Data is broken into progressively smaller units for efficient routing:</p>
+        <div class="grid">
+          <div class="box">
+            <h4>1. Message</h4>
+            <p>Logical unit from the application layer. Too big to handle as one piece — divided into <b>packets</b>.
+            </p>
+          </div>
+          <div class="box">
+            <h4>2. Packet</h4>
+            <p>The routing entity (typically 64–128 bytes). All bits in a packet follow the <b>same path</b>. NoCs
+              generally do <b>not drop packets</b>.</p>
+          </div>
+          <div class="box">
+            <h4>3. Flit (Flow Control Digit)</h4>
+            <p>Basic unit for router storage &amp; flow control (8–16 bytes). Types: <b>Head</b> (routing info),
+              <b>Body</b>, <b>Tail</b>. All flits of a packet follow the same route.</p>
+          </div>
+          <div class="box">
+            <h4>4. Phit (Physical Digit)</h4>
+            <p>Chunk transmitted in one clock cycle on the physical link (e.g., 32 bits on a 32-wire link). A flit may
+              contain multiple phits.</p>
+          </div>
+        </div>
+        <p><strong>Head flit</strong> contains destination router ID and routing info. Routers analyze it to compute the
+          route; body and tail flits follow along.</p>
+
+        <div class="sub-title">7.5 Flow Control</div>
+        <p>Flow control ensures that buffers don't overflow — since NoCs <strong>cannot drop packets</strong>, the
+          upstream router must know if the downstream router has space.</p>
+
+        <details class="accordion">
+          <summary>🔧 Credit-Based Flow Control</summary>
+          <div class="acc-body">
+            <p>Router A maintains a <strong>credit count</strong> = estimate of free buffers at downstream router B.</p>
+            <p>Initially, credits = number of buffers in B. When A sends a flit, it <strong>decrements</strong> credits.
+              When B frees a buffer, it sends a credit message to A, which <strong>increments</strong> credits. If
+              credits = 0, A stops sending.</p>
+            <div class="formula">Credit Round Trip Delay: t_D = t_f + t_ph + 2·t_pr<br><br>t_f = time to send a
+              flit<br>t_ph = time for one phit to traverse link<br>t_pr = time to process a message</div>
+            <p>To prevent stalls: B needs at least <strong>t_D / t_f</strong> buffers. If A starts with t_D/t_f credits,
+              it will never run out (credits return within t_D cycles).</p>
+            <p><strong>Overhead:</strong> One credit message per freed buffer — increases network load.</p>
+          </div>
+        </details>
+
+        <details class="accordion">
+          <summary>🔧 On-Off Flow Control</summary>
+          <div class="acc-body">
+            <p>Uses two thresholds: <strong>N_OFF</strong> (stop sending) and <strong>N_ON</strong> (resume sending).
+            </p>
+            <p>When free buffers at B reach N_OFF → B sends "OFF" to A → A stops sending.</p>
+            <p>When free buffers rise to N_ON → B sends "ON" to A → A resumes.</p>
+            <p><strong>N_OFF ≥ t_D / t_f</strong> (must accommodate in-flight flits after OFF is sent but before A
+              receives it).</p>
+            <p><strong>N_ON > N_OFF</strong> (to avoid frequent on-off oscillation — engineering decision based on
+              simulation).</p>
+            <p><strong>Advantage over credit-based:</strong> Fewer control messages (only ON/OFF, not per-buffer). More
+              power efficient.</p>
+          </div>
+        </details>
+
+        <details class="accordion">
+          <summary>🔧 Message-Based (Circuit Switching) Flow Control</summary>
+          <div class="acc-body">
+            <p>A <strong>probe packet</strong> is sent along the route to reserve bandwidth and buffer space at each
+              router.</p>
+            <p>Once the probe reaches the destination, an <strong>acknowledgement</strong> is sent back to the source.
+            </p>
+            <p>Only then does the actual data transmission begin.</p>
+            <div class="formula">Total time = 3K + L/B − 1 cycles<br><br>K = number of hops<br>L = packet length
+              (flits)<br>B = link bandwidth (flits/cycle)</div>
+            <p>2K cycles for probe + ack round trip. L/B cycles to put last byte on first link. K−1 cycles for last byte
+              to traverse remaining hops.</p>
+          </div>
+        </details>
+
+        <div class="sub-title">7.6 Router Architecture</div>
+        <p>A routing node consists of: <strong>Buffers</strong> (store incoming flits), <strong>Switch/Crossbar</strong>
+          (connects input to output buffers), <strong>Routing &amp; Arbitration Unit</strong> (decides connections), and
+          <strong>Link Controller</strong> (manages physical link).</p>
+
+        <div class="flashcard-grid">
+          <div class="flashcard" onclick="this.classList.toggle('flipped')">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">Message → Packet → Flit → Phit<div class="hint">Click to flip</div>
+              </div>
+              <div class="flashcard-back"><b>Message:</b> Logical unit<br><b>Packet:</b> 64-128 bytes, same
+                route<br><b>Flit:</b> 8-16 bytes, flow control unit (Head/Body/Tail)<br><b>Phit:</b> 1 clock cycle on
+                the wire</div>
+            </div>
+          </div>
+          <div class="flashcard" onclick="this.classList.toggle('flipped')">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">Mesh diameter for N×N?<div class="hint">Click to flip</div>
+              </div>
+              <div class="flashcard-back"><b>2N − 2</b><br>Distance between two diagonally opposite corners. Torus
+                halves this to N.</div>
+            </div>
+          </div>
+          <div class="flashcard" onclick="this.classList.toggle('flipped')">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">Credit-based flow control — min buffers?<div class="hint">Click to flip</div>
+              </div>
+              <div class="flashcard-back">Downstream router needs at least <b>t_D / t_f</b> buffers to prevent
+                stalls.<br><br>t_D = t_f + t_ph + 2·t_pr</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="exam-warn">Exam Alert: Differentiate between Mesh, Torus, and Folded Torus topologies. Explain the
+          Message → Packet → Flit → Phit hierarchy. Compare Credit-based and On-Off flow control.</div>
+      </div>
+    </div>
+
+    <!-- === FOOTER === -->
+    <div style="text-align:center;padding:50px 0 30px;color:#4a4a5a;font-size:12px">
+      <div style="font-family:'Racing Sans One',cursive;font-size:20px;color:#e60012;margin-bottom:8px">Ka-Chow! 🏁
+      </div>
+      <p>AHA Unit 3 Notes · Dr. Sudeendra Kumar K · PES University</p>
+      <p style="margin-top:4px;font-style:italic;color:#3a3a4a">"Float like a Cadillac, sting like a Beemer." —
+        Lightning McQueen</p>
+    </div>
+
+  </div><!-- end .main -->
+
+  <!-- === JAVASCRIPT === -->
+  <script>
+    // Progress bar
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+      document.getElementById('progress-bar').style.width = pct + '%';
+    });
+
+    // Active nav link
+    const sections = document.querySelectorAll('.topic');
+    const navLinks = document.querySelectorAll('.sidebar a');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(a => a.classList.remove('active'));
+          const id = e.target.id;
+          const link = document.querySelector('.sidebar a[href="#' + id + '"]');
+          if (link) link.classList.add('active');
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '-80px 0px -60% 0px' });
+    sections.forEach(s => observer.observe(s));
+  </script>
+</body>
+
+</html>

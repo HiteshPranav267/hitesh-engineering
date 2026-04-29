@@ -1372,6 +1372,39 @@ export const resources: Resource[] = [
         "url": "/hitesh-engineering/notes/mla/mla_u3_u4_num.pdf",
         "tags": []
     },
+    {
+        "isHiteshNotes": true,
+        "id": "res-local-129",
+        "title": "AHA U1&2 Notes",
+        "subject": "AHA",
+        "year": "3",
+        "department": "ECE",
+        "type": "PDF",
+        "url": "/hitesh-engineering/notes/aha/aha_u1_u2_notes.pdf",
+        "tags": []
+    },
+    {
+        "isHiteshNotes": false,
+        "id": "res-local-130",
+        "title": "AHA U3 Notes",
+        "subject": "AHA",
+        "year": "3",
+        "department": "ECE",
+        "type": "Website",
+        "url": "/hitesh-engineering/notes/aha/aha_u3_notes.html",
+        "tags": []
+    },
+    {
+        "isHiteshNotes": false,
+        "id": "res-local-131",
+        "title": "AHA U4 Notes",
+        "subject": "AHA",
+        "year": "3",
+        "department": "ECE",
+        "type": "Website",
+        "url": "/hitesh-engineering/notes/aha/aha_u4/U4/pokemon_notes.html",
+        "tags": []
+    },
 ];
 
 // Template

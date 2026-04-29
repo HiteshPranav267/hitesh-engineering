@@ -1,0 +1,2519 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>AHA Unit 4 - Pokedex Study Notes</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-pokeball"></div>
+    <div class="loading-text">Catching all the knowledge...</div>
+  </div>
+  <div class="xp-bar-container"><span class="trainer-level">LV.1 TRAINER</span>
+    <div class="xp-bar">
+      <div class="xp-bar-fill" id="xpFill"></div>
+    </div><span class="xp-text" id="xpText">0/22 caught</span>
+  </div>
+  <div class="bg-pokeballs">
+    <div class="floating-ball" style="left:11%;animation-delay:3.6s;width:47px;height:49px;animation-duration:18s">
+    </div>
+    <div class="floating-ball" style="left:63%;animation-delay:8.1s;width:50px;height:48px;animation-duration:19s">
+    </div>
+    <div class="floating-ball" style="left:92%;animation-delay:15.9s;width:34px;height:60px;animation-duration:30s">
+    </div>
+    <div class="floating-ball" style="left:21%;animation-delay:10.9s;width:39px;height:37px;animation-duration:25s">
+    </div>
+    <div class="floating-ball" style="left:8%;animation-delay:11.5s;width:57px;height:35px;animation-duration:34s">
+    </div>
+    <div class="floating-ball" style="left:55%;animation-delay:13.9s;width:41px;height:24px;animation-duration:26s">
+    </div>
+    <div class="floating-ball" style="left:67%;animation-delay:13.5s;width:33px;height:56px;animation-duration:27s">
+    </div>
+    <div class="floating-ball" style="left:93%;animation-delay:6.6s;width:37px;height:40px;animation-duration:20s">
+    </div>
+    <div class="floating-ball" style="left:18%;animation-delay:12.0s;width:43px;height:44px;animation-duration:21s">
+    </div>
+    <div class="floating-ball" style="left:42%;animation-delay:11.1s;width:46px;height:23px;animation-duration:27s">
+    </div>
+    <div class="floating-ball" style="left:77%;animation-delay:14.4s;width:32px;height:42px;animation-duration:18s">
+    </div>
+    <div class="floating-ball" style="left:31%;animation-delay:9.3s;width:24px;height:26px;animation-duration:29s">
+    </div>
+    <div class="floating-ball" style="left:1%;animation-delay:2.2s;width:34px;height:45px;animation-duration:16s"></div>
+    <div class="floating-ball" style="left:30%;animation-delay:6.7s;width:24px;height:20px;animation-duration:25s">
+    </div>
+    <div class="floating-ball" style="left:2%;animation-delay:18.7s;width:50px;height:56px;animation-duration:31s">
+    </div>
+    <div class="floating-ball" style="left:81%;animation-delay:12.2s;width:47px;height:21px;animation-duration:18s">
+    </div>
+    <div class="floating-ball" style="left:41%;animation-delay:3.3s;width:21px;height:28px;animation-duration:29s">
+    </div>
+    <div class="floating-ball" style="left:95%;animation-delay:3.0s;width:36px;height:36px;animation-duration:18s">
+    </div>
+    <div class="floating-ball" style="left:43%;animation-delay:0.8s;width:58px;height:44px;animation-duration:21s">
+    </div>
+    <div class="floating-ball" style="left:12%;animation-delay:6.0s;width:51px;height:23px;animation-duration:19s">
+    </div>
+  </div>
+  <div class="pokedex-header">
+    <h1>AHA UNIT 4 POKEDEX</h1>
+    <div class="subtitle">GPU Architecture and ML Accelerators - Gotta Learn Em All!</div>
+  </div>
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('notes')"><span class="tab-icon">📖</span>STUDY NOTES</button>
+    <button class="tab-btn" onclick="switchTab('qa')"><span class="tab-icon">❓</span>Q&A BANK</button>
+  </div>
+  <div class="tab-content active" id="tab-notes">
+    <div class="search-bar"><span class="search-icon">&#128269;</span><input type="text" id="searchInput"
+        placeholder="Search topics..." oninput="filterSections(this.value)"></div>
+    <div class="type-nav" id="typeNav">
+      <div class="type-badge type-fire" onclick="scrollToSection('why-gpu')">Why GPU? ⚡ The Power</div>
+      <div class="type-badge type-water" onclick="scrollToSection('gpu-history')">GPU Evolution 🎮 Earl</div>
+      <div class="type-badge type-electric" onclick="scrollToSection('graphics-pipeline')">Graphics Pipeline 🔧 </div>
+      <div class="type-badge type-dragon" onclick="scrollToSection('polymorph-engine')">Polymorph Engine 🔷 M</div>
+      <div class="type-badge type-psychic" onclick="scrollToSection('raster-fragment')">Rasterization & Frag</div>
+      <div class="type-badge type-steel" onclick="scrollToSection('cuda-gpgpu')">CUDA & GPGPU Program</div>
+      <div class="type-badge type-grass" onclick="scrollToSection('kernels-threads')">Kernels, Threads, Bl</div>
+      <div class="type-badge type-ice" onclick="scrollToSection('memory-cuda')">GPU Memory & CUDA Me</div>
+      <div class="type-badge type-water" onclick="scrollToSection('streams-graphs')">Streams, Graphs & Ev</div>
+      <div class="type-badge type-fire" onclick="scrollToSection('gpu-architecture')">GPU Architecture 🏗️ </div>
+      <div class="type-badge type-electric" onclick="scrollToSection('sm-pb')">SM & Processing Bloc</div>
+      <div class="type-badge type-dragon" onclick="scrollToSection('warps')">Warps & SIMT Executi</div>
+      <div class="type-badge type-ghost" onclick="scrollToSection('branch-divergence')">Branch Divergence & </div>
+      <div class="type-badge type-psychic" onclick="scrollToSection('warp-scheduling')">Warp Scheduling & De</div>
+      <div class="type-badge type-steel" onclick="scrollToSection('gpu-pipeline-regfile')">GPU Pipeline & Regis</div>
+      <div class="type-badge type-psychic" onclick="scrollToSection('ml-intro')">Intro to Machine Lea</div>
+      <div class="type-badge type-normal" onclick="scrollToSection('learning-basics')">Learning Problem For</div>
+      <div class="type-badge type-fire" onclick="scrollToSection('neural-networks')">Neural Networks & Ac</div>
+      <div class="type-badge type-water" onclick="scrollToSection('cnn-basics')">CNN & Convolution Op</div>
+      <div class="type-badge type-dragon" onclick="scrollToSection('dataflow-arch')">PE Array & Dataflow </div>
+      <div class="type-badge type-grass" onclick="scrollToSection('stationarity')">Stationarity: WS, IS</div>
+      <div class="type-badge type-steel" onclick="scrollToSection('ws-hardware')">WS Hardware Architec</div>
+    </div>
+    <div class="pokedex-content" id="content">
+      <h2
+        style="font-family:'Press Start 2P',monospace;color:var(--fire);font-size:0.9rem;text-align:center;margin:40px 0 20px;position:relative;z-index:10">
+        PDF 1 - GPU Architecture and CUDA</h2>
+      <div class="pokemon-section" id="why-gpu" data-idx="0">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="pokeball-icon"></div>
+          <div class="section-title">#01 - Why GPU? ⚡ The Power Problem</div>
+          <img class="pokemon-sprite"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png" alt="Pokemon"
+            loading="lazy">
+        </div>
+        <div class="section-body">
+
+          <div class="poke-card">
+            <h3><span class="mini-ball"></span> Key Points</h3>
+            <ul>
+              <li>General purpose processors max out at IPC of 4-6 — not enough for heavy computation</li>
+              <li>Programs like weather simulation, image recognition need massive ILP (Instruction Level Parallelism)
+              </li>
+              <li>Solution: Create processors with 100s of ALUs for parallel computation</li>
+              <li>GPU approach: Simple ISA + limit irregular memory accesses + hundreds of simple cores</li>
+              <li>Trade-off: Dedicate area to ALUs → simplify fetch/decode/schedule logic</li>
+            </ul>
+          </div>
+          <div class="important-box">
+            <div class="imp-title">SUPER EFFECTIVE! (Exam Focus)</div>
+            <p>GPUs sacrifice single-thread performance for massive parallel throughput. They have simple cores but LOTS
+              of them.</p>
+          </div>
+          <div class="flip-card-grid">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">What limits CPU performance for scientific computing?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>IPC maxes at 4-6, power constraints prevent scaling issue width beyond 6 instructions/cycle</p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">Why can GPUs exploit linear algebra well?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Matrix ops have N² independent additions with no dependencies — massive ILP that maps perfectly to
+                    parallel ALUs</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pokemon-section" id="gpu-history" data-idx="1">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="pokeball-icon"></div>
+          <div class="section-title">#02 - GPU Evolution 🎮 Early Days</div>
+          <img class="pokemon-sprite"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/131.png" alt="Pokemon"
+            loading="lazy">
+        </div>
+        <div class="section-body">
+
+          <div class="poke-card">
+            <h3><span class="mini-ball"></span> Key Points</h3>
+            <ul>
+              <li>Graphics originated in 70s — CAD and flight simulation</li>
+              <li>Vector Graphics: Define shapes by coordinates (scalable, small storage)</li>
+              <li>Raster Graphics: Store pixel-by-pixel matrix (good for effects like illumination, shadows)</li>
+              <li>Single-pass pipeline preferred: Images enter → transform → display</li>
+              <li>Shader programs born — small programs for vertex/pixel processing (rotation, shading, illumination)
+              </li>
+              <li>Shader languages made hardware-independent for portability across GPUs</li>
+            </ul>
+          </div>
+          <div class="important-box">
+            <div class="imp-title">SUPER EFFECTIVE! (Exam Focus)</div>
+            <p>Vector graphics = coordinates (scales well). Raster graphics = pixel matrix (better for effects). Modern
+              GPUs support both.</p>
+          </div>
+          <div class="flip-card-grid">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">Vector vs Raster Graphics?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Vector: 4 floats define a rectangle, scales perfectly. Raster: stores every pixel's color, better
+                    for illumination/shadows/blurring</p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">What is a Shader?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>A small program that processes vertices/pixels to apply transformations like rotation, shading, or
+                    illumination</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pokemon-section" id="graphics-pipeline" data-idx="2">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="pokeball-icon"></div>
+          <div class="section-title">#03 - Graphics Pipeline 🔧 Rendering</div>
+          <img class="pokemon-sprite"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" alt="Pokemon"
+            loading="lazy">
+        </div>
+        <div class="section-body">
+          <div class="slide-viewer"><img src="diagrams/graphics_pipeline.png" alt="Graphics Rendering Pipeline Stages"
+              onclick="openModal(this.src)" loading="lazy">
+            <div class="slide-caption">Graphics Rendering Pipeline Stages — click to enlarge</div>
+          </div>
+          <div class="poke-card">
+            <h3><span class="mini-ball"></span> Key Points</h3>
+            <ul>
+              <li>Graphics pipeline synthesizes (renders) images, not just displays them</li>
+              <li>4 main stages: Vertex Processor → Rasterizer → Fragment Processor → Pixel Engine</li>
+              <li>PTX (Parallel Thread eXecution): NVIDIA's virtual ISA — platform independent</li>
+              <li>SASS (Shader ASSembler): Device-specific native ISA, compiled from PTX</li>
+              <li>Triangles are the fundamental primitive — always planar, easy to compute ray intersections</li>
+              <li>Moving/rotating/scaling triangles = matrix operations → perfect for GPU parallelism</li>
+            </ul>
+          </div>
+          <div class="important-box">
+            <div class="imp-title">SUPER EFFECTIVE! (Exam Focus)</div>
+            <p>PTX is virtual (portable) ISA → compiled to SASS (device-specific) at runtime via JIT. This ensures
+              backward compatibility across GPU generations.</p>
+          </div>
+          <div class="flip-card-grid">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">Why triangles for 3D graphics?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>3 vertices always coplanar, efficient ray-triangle intersection, easy to apply textures, transforms
+                    are just matrix ops</p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">PTX vs SASS?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>PTX = virtual portable ISA (like Java bytecode). SASS = native device-specific machine code.
+                    PTX→SASS via JIT compilation</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pokemon-section" id="polymorph-engine" data-idx="3">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="pokeball-icon"></div>
+          <div class="section-title">#04 - Polymorph Engine 🔷 Modern Pipeline</div>
+          <img class="pokemon-sprite"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/384.png" alt="Pokemon"
+            loading="lazy">
+        </div>
+        <div class="section-body">
+          <div class="slide-viewer"><img src="diagrams/graphics_pipeline.png" alt="Polymorph Engine 5-Stage Pipeline"
+              onclick="openModal(this.src)" loading="lazy">
+            <div class="slide-caption">Polymorph Engine 5-Stage Pipeline — click to enlarge</div>
+          </div>
+          <div class="poke-card">
+            <h3><span class="mini-ball"></span> Key Points</h3>
+            <ul>
+              <li>Polymorph Engine replaced the simple Vertex Processor in modern GPUs (NVIDIA Fermi+)</li>
+              <li>5-stage pipeline: Vertex Fetch → Tessellation → Viewport Transform → Attribute Setup → Stream Output
+              </li>
+              <li>Vertex Fetch: Converts object-space coords → world coords, vertex shading + hull shading</li>
+              <li>Tessellation: Breaks polygons into smaller triangles for surface detail</li>
+              <li>Hull Shader: Controls granularity — finer for near objects, coarser for far objects</li>
+              <li>Viewport Transform: Clips 3D scene to visible portion, handles aspect ratio scaling</li>
+              <li>Attribute Setup: Computes plane equations for illumination (dot product of normal &amp; light rays)
+              </li>
+            </ul>
+          </div>
+          <div class="important-box">
+            <div class="imp-title">SUPER EFFECTIVE! (Exam Focus)</div>
+            <p>Polymorph Engine's 5 stages: Vertex Fetch → Tessellation → Viewport Transform → Attribute Setup → Stream
+              Output. Delegates work to Streaming Multiprocessors (SMs).</p>
+          </div>
+          <div class="flip-card-grid">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">What does the Hull Shader do?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Divides polygons into smaller polygons — finer granularity for near objects, coarser for far
+                    objects</p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">What is Tessellation?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Breaking down polygons into smaller triangles and line segments to create more surface detail</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pokemon-section" id="raster-fragment" data-idx="4">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="pokeball-icon"></div>
+          <div class="section-title">#05 - Rasterization &amp; Fragments 🎨</div>
+          <img class="pokemon-sprite"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/282.png" alt="Pokemon"
+            loading="lazy">
+        </div>
+        <div class="section-body">
+
+          <div class="poke-card">
+            <h3><span class="mini-ball"></span> Key Points</h3>
+            <ul>
+              <li>Rasterization: Converts triangles → pixel fragments by overlaying a grid</li>
+              <li>Fragment Processor computes final color of each pixel fragment</li>
+              <li>Goraud Shading: Simple linear interpolation (assumes flat triangle surface)</li>
+              <li>Phong Shading: Smoothly varying normal vector, more complex reflectivity model</li>
+              <li>Texture Mapping: Maps pre-defined textures to triangle surfaces for realism</li>
+              <li>Distance Fog: Pixels farther away colored differently to give depth perception</li>
+              <li>Pixel Engine: Populates frame buffer (2D color matrix → sent to monitor)</li>
+              <li>Z-depth buffering: Determines which fragments are visible/hidden in 3D</li>
+              <li>Alpha channel: 0.0 (transparent) to 1.0 (opaque) for transparency effects</li>
+            </ul>
+          </div>
+          <div class="important-box">
+            <div class="imp-title">SUPER EFFECTIVE! (Exam Focus)</div>
+            <p>Goraud = fast, flat interpolation. Phong = smooth normals, better quality. Both compute pixel colors from
+              vertex colors + light + reflectivity.</p>
+          </div>
+          <div class="flip-card-grid">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">Goraud vs Phong Shading?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Goraud: linear interpolation, flat surface assumption, fast. Phong: smooth varying normals, complex
+                    reflectivity, better quality</p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">What is the frame buffer?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Simple 2D matrix holding color info for each pixel on screen — directly sent to the monitor for
+                    display</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pokemon-section" id="cuda-gpgpu" data-idx="5">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="pokeball-icon"></div>
+          <div class="section-title">#06 - CUDA &amp; GPGPU Programming ⚙️</div>
+          <img class="pokemon-sprite"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/376.png" alt="Pokemon"
+            loading="lazy">
+        </div>
+        <div class="section-body">
+
+          <div class="poke-card">
+            <h3><span class="mini-ball"></span> Key Points</h3>
+            <ul>
+              <li>CUDA (Compute Unified Device Architecture) released by NVIDIA in Feb 2007</li>
+              <li>GPGPU = General Purpose GPU — not just graphics anymore</li>
+              <li>nvcc compiler: Separates CPU code and GPU code, compiles GPU→PTX→SASS</li>
+              <li>Fat binary: Contains PTX code + pre-compiled machine code for different GPU models</li>
+              <li>JIT compilation: PTX compiled at runtime to optimize for specific GPU hardware</li>
+              <li>Two-step compilation: C++/CUDA → PTX (virtual ISA) → SASS (device-specific)</li>
+              <li>PTX: RISC-like ISA with infinite registers, single assignment form</li>
+            </ul>
+          </div>
+          <div class="important-box">
+            <div class="imp-title">SUPER EFFECTIVE! (Exam Focus)</div>
+            <p>Compilation flow: CUDA C++ → nvcc → PTX (virtual) → JIT/ptxas → SASS (native). Fat binary contains
+              multiple ISA images for portability.</p>
+          </div>
+          <div class="flip-card-grid">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">What is a Fat Binary in CUDA?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>A single binary containing PTX code AND pre-compiled machine code for different GPU models —
+                    ensures portability</p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">Why JIT compilation for GPUs?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>GPUs change significantly every generation. JIT lets old PTX code run optimized on new hardware</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pokemon-section" id="kernels-threads" data-idx="6">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="pokeball-icon"></div>
+          <div class="section-title">#07 - Kernels, Threads, Blocks &amp; Grids 🧱</div>
+          <img class="pokemon-sprite"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/389.png" alt="Pokemon"
+            loading="lazy">
+        </div>
+        <div class="section-body">
+          <div class="slide-viewer"><img src="diagrams/cuda_memory_model.png" alt="Thread → Block → Grid Hierarchy"
+              onclick="openModal(this.src)" loading="lazy">
+            <div class="slide-caption">Thread → Block → Grid Hierarchy — click to enlarge</div>
+          </div>
+          <div class="poke-card">
+            <h3><span class="mini-ball"></span> Key Points</h3>
+            <ul>
+              <li>Kernel: Function executed on GPU, invoked by CPU host code (__global__ directive)</li>
+              <li>Thread: Separate program instance on GPU, shares address space, has unique threadIdx</li>
+              <li>Block: Group of threads (1D/2D/3D arrangement), max 768-1024 threads per block</li>
+              <li>Grid: Collection of blocks (1D/2D/3D), blocks execute independently</li>
+              <li>threadIdx.x/y/z: Thread's position within block</li>
+              <li>blockIdx: Block's position in grid, blockDim: dimensions of each block</li>
+              <li>dim3: Built-in 3-tuple type for specifying dimensions (defaults unspecified to 1)</li>
+              <li>Threads within a block can synchronize via __syncthreads() (barrier)</li>
+              <li>Blocks scheduled in any order — must be independent, no inter-block sync</li>
+            </ul>
+          </div>
+          <div class="important-box">
+            <div class="imp-title">SUPER EFFECTIVE! (Exam Focus)</div>
+            <p>Hierarchy: Thread → Block → Grid. Threads in same block CAN sync (__syncthreads). Blocks in grid CANNOT
+              sync — execute independently in any order.</p>
+          </div>
+          <div class="flip-card-grid">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">Thread vs Block vs Grid?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Thread = single execution unit. Block = group of threads (can sync). Grid = group of blocks
+                    (independent, no sync)</p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">What does __syncthreads() do?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Acts as a barrier — all threads in a block must reach this point before any thread proceeds past it
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">How to compute global thread index for 2D?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>row = blockIdx.y * blockDim.y + threadIdx.y, col = blockIdx.x * blockDim.x + threadIdx.x</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pokemon-section" id="memory-cuda" data-idx="7">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="pokeball-icon"></div>
+          <div class="section-title">#08 - GPU Memory &amp; CUDA Memory Ops 💾</div>
+          <img class="pokemon-sprite"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/131.png" alt="Pokemon"
+            loading="lazy">
+        </div>
+        <div class="section-body">
+          <div class="slide-viewer"><img src="diagrams/cuda_memory_model.png"
+              alt="CUDA Memory Model &amp; Thread Hierarchy" onclick="openModal(this.src)" loading="lazy">
+            <div class="slide-caption">CUDA Memory Model &amp; Thread Hierarchy — click to enlarge</div>
+          </div>
+          <div class="poke-card">
+            <h3><span class="mini-ball"></span> Key Points</h3>
+            <ul>
+              <li>Two separate memory spaces: CPU (host) and GPU (device) — explicit data management</li>
+              <li>Memory hierarchy: Per-thread local → Shared memory (block) → Global memory (all threads)</li>
+              <li>Read-only memories: Constant memory + Texture memory</li>
+              <li>cudaMalloc(): Allocate space in global memory on GPU</li>
+              <li>cudaMemcpy(): Copy data between host↔device with direction flag</li>
+              <li>Direction flags: cudaMemcpyHostToDevice, cudaMemcpyDeviceToHost</li>
+              <li>cudaFree(): Free GPU memory</li>
+              <li>cudaMallocPitch() for 2D, cudaMalloc3D() for 3D arrays — handle alignment</li>
+              <li>Shared memory: 64-128KB per SM, accessed via __shared__ specifier</li>
+            </ul>
+          </div>
+          <div class="important-box">
+            <div class="imp-title">SUPER EFFECTIVE! (Exam Focus)</div>
+            <p>CUDA memory flow: cudaMalloc (GPU) → cudaMemcpy (CPU→GPU) → kernel execution → cudaMemcpy (GPU→CPU) →
+              cudaFree</p>
+          </div>
+          <div class="flip-card-grid">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">GPU Memory hierarchy (fastest→slowest)?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Registers → Shared Memory (block-level, 64-128KB) → L1 Cache → L2 Cache → Global Memory (DRAM)</p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">What are the CUDA memory functions?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>cudaMalloc (allocate), cudaMemcpy (transfer), cudaFree (deallocate). For 2D/3D: cudaMallocPitch,
+                    cudaMalloc3D</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pokemon-section" id="streams-graphs" data-idx="8">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="pokeball-icon"></div>
+          <div class="section-title">#09 - Streams, Graphs &amp; Events 🌊</div>
+          <img class="pokemon-sprite"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/130.png" alt="Pokemon"
+            loading="lazy">
+        </div>
+        <div class="section-body">
+
+          <div class="poke-card">
+            <h3><span class="mini-ball"></span> Key Points</h3>
+            <ul>
+              <li>Problem: Sequential phases (ToGPU → Compute → ToCPU) waste time</li>
+              <li>Stream: Sequence of commands executing in order, initiated by host threads</li>
+              <li>Multiple streams execute independently — no ordering across streams</li>
+              <li>With 2 streams: execution time reduced from 3 units to 2 units (33% speedup)</li>
+              <li>More streams = more overlap = more speedup (if device supports concurrent execution)</li>
+              <li>CUDA Graphs: Reduce overhead of launching many short-duration kernels</li>
+              <li>Graph nodes: Kernels, CPU function calls, memory copy/init, child graphs</li>
+              <li>Edges define dependencies — runtime pre-computes schedule, prefetches data</li>
+            </ul>
+          </div>
+          <div class="important-box">
+            <div class="imp-title">SUPER EFFECTIVE! (Exam Focus)</div>
+            <p>Streams overlap ToGPU/Compute/ToCPU phases. Graphs reduce kernel launch overhead by pre-computing the
+              execution schedule for an ensemble of tasks.</p>
+          </div>
+          <div class="flip-card-grid">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">How do streams improve performance?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>By overlapping data transfer and computation phases — e.g., stream 1 computes while stream 2
+                    transfers data</p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">When are CUDA Graphs useful?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>When launching many short-duration kernels — reduces setup overhead by pre-computing schedule and
+                    prefetching</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pokemon-section" id="gpu-architecture" data-idx="9">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="pokeball-icon"></div>
+          <div class="section-title">#10 - GPU Architecture 🏗️ GPC/SM/PB</div>
+          <img class="pokemon-sprite"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png" alt="Pokemon"
+            loading="lazy">
+        </div>
+        <div class="section-body">
+          <div class="slide-viewer"><img src="diagrams/gpu_architecture.png"
+              alt="GPU Architecture Hierarchy — GPC / TPC / SM / PB" onclick="openModal(this.src)" loading="lazy">
+            <div class="slide-caption">GPU Architecture Hierarchy — GPC / TPC / SM / PB — click to enlarge</div>
+          </div>
+          <div class="poke-card">
+            <h3><span class="mini-ball"></span> Key Points</h3>
+            <ul>
+              <li>GPU connected to CPU via PCI Express or on same die (e.g., Intel Sandy Bridge)</li>
+              <li>Giga Thread Engine: Hardware scheduler for threads across compute units</li>
+              <li>GPU divided into 6 GPCs (Graphics Processing Clusters)</li>
+              <li>Each GPC: 1 Raster Engine + 7 TPCs (Texture Processing Clusters)</li>
+              <li>Each TPC: 1 Polymorph Engine + 2 SMs (Streaming Multiprocessors) → Total 84 SMs</li>
+              <li>L2 Cache: 4-6 MB shared across GPU</li>
+              <li>HBM2 (High Bandwidth Memory 2) via multiple memory controllers</li>
+              <li>NVLink: High-bandwidth interconnect for multi-GPU systems</li>
+              <li>SM internals: Instruction Cache, L1 Cache, Texture Cache, Constant Cache, Shared Memory (64-128KB)
+              </li>
+            </ul>
+          </div>
+          <div class="important-box">
+            <div class="imp-title">SUPER EFFECTIVE! (Exam Focus)</div>
+            <p>GPU hierarchy: GPU → 6 GPCs → 7 TPCs each → 2 SMs each = 84 SMs total. Each SM has 4 Processing Blocks
+              (PBs).</p>
+          </div>
+          <div class="flip-card-grid">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">What is a GPC?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Graphics Processing Cluster — contains 1 Raster Engine + 7 TPCs. GPU has 6 GPCs total</p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">What is inside a TPC?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>1 Polymorph Engine (vertex processing) + 2 Streaming Multiprocessors (SMs) for compute</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pokemon-section" id="sm-pb" data-idx="10">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="pokeball-icon"></div>
+          <div class="section-title">#11 - SM &amp; Processing Block Details 🔬</div>
+          <img class="pokemon-sprite"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/212.png" alt="Pokemon"
+            loading="lazy">
+        </div>
+        <div class="section-body">
+          <div class="slide-viewer"><img src="diagrams/gpu_architecture.png"
+              alt="SM &amp; Processing Block Internal Structure" onclick="openModal(this.src)" loading="lazy">
+            <div class="slide-caption">SM &amp; Processing Block Internal Structure — click to enlarge</div>
+          </div>
+          <div class="poke-card">
+            <h3><span class="mini-ball"></span> Key Points</h3>
+            <ul>
+              <li>Each SM has 4 Processing Blocks (PBs) + 4 texture processing units</li>
+              <li>Each PB contains: 16 INT cores + 16 FP32 cores + 8 FP64 cores + 2 Tensor cores</li>
+              <li>Also per PB: 8 LD/ST units + Special Function Unit (SFU) for transcendentals/trig</li>
+              <li>PB pipeline: Instruction Buffer → Scoreboard Scheduler → Dispatch → Register File → Compute</li>
+              <li>Simple in-order pipeline — no rename tables or reservation stations (saves power/area)</li>
+              <li>Streaming Processors (SPs) contain fully pipelined functional units</li>
+              <li>MAD (Multiply-And-Add) instruction: a = a + b*c — key for matrix operations</li>
+              <li>SFU also handles pixel color interpolation for fragment processing</li>
+            </ul>
+          </div>
+          <div class="important-box">
+            <div class="imp-title">SUPER EFFECTIVE! (Exam Focus)</div>
+            <p>Per PB: 16 INT + 16 FP32 + 8 FP64 + 2 Tensor cores + 8 LD/ST + 1 SFU. Simple in-order pipeline
+              (scoreboard-based, no OOO) to save power.</p>
+          </div>
+          <div class="flip-card-grid">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">What cores does each Processing Block have?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>16 integer, 16 single-precision FP, 8 double-precision FP, 2 tensor cores, 8 LD/ST units, 1 SFU</p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">Why no OOO execution in GPU cores?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Too many cores — OOO hardware (rename tables, reservation stations) would consume excessive power
+                    and area</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pokemon-section" id="warps" data-idx="11">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="pokeball-icon"></div>
+          <div class="section-title">#12 - Warps &amp; SIMT Execution 🌀</div>
+          <img class="pokemon-sprite"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/149.png" alt="Pokemon"
+            loading="lazy">
+        </div>
+        <div class="section-body">
+          <div class="slide-viewer"><img src="diagrams/warp_simt.png" alt="SIMT Warp Execution &amp; Branch Divergence"
+              onclick="openModal(this.src)" loading="lazy">
+            <div class="slide-caption">SIMT Warp Execution &amp; Branch Divergence — click to enlarge</div>
+          </div>
+          <div class="poke-card">
+            <h3><span class="mini-ball"></span> Key Points</h3>
+            <ul>
+              <li>SIMT = Single Instruction, Multiple Thread (NVIDIA's execution model)</li>
+              <li>Warp = group of 32 threads scheduled together on a PB</li>
+              <li>Lockstep execution: All threads execute same instruction simultaneously on different data</li>
+              <li>Scheduler picks next instruction → sends to ALL cores in warp</li>
+              <li>If one thread's memory access is slow (cache miss), ALL threads wait</li>
+              <li>This is acceptable because GPU workloads have regular, co-located memory access patterns</li>
+              <li>Varying execution times can cause performance degradation when accesses straddle cache lines</li>
+            </ul>
+          </div>
+          <div class="important-box">
+            <div class="imp-title">SUPER EFFECTIVE! (Exam Focus)</div>
+            <p>SIMT: All 32 threads in a warp execute the SAME instruction in lockstep, but on DIFFERENT data. If any
+              thread stalls, ALL wait.</p>
+          </div>
+          <div class="flip-card-grid">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">What is SIMT?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Single Instruction Multiple Thread — 32 threads in a warp execute same instruction in lockstep on
+                    different data pieces</p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">What happens on a cache miss in a warp?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>ALL threads wait until the slowest thread completes — lockstep means no thread runs ahead</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pokemon-section" id="branch-divergence" data-idx="12">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="pokeball-icon"></div>
+          <div class="section-title">#13 - Branch Divergence &amp; Predication 🔀</div>
+          <img class="pokemon-sprite"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png" alt="Pokemon"
+            loading="lazy">
+        </div>
+        <div class="section-body">
+          <div class="slide-viewer"><img src="diagrams/warp_simt.png" alt="Predicated Execution with Mask"
+              onclick="openModal(this.src)" loading="lazy">
+            <div class="slide-caption">Predicated Execution with Mask — click to enlarge</div>
+          </div>
+          <div class="poke-card">
+            <h3><span class="mini-ball"></span> Key Points</h3>
+            <ul>
+              <li>Branch Divergence: Different threads take different paths (if/else) — breaks lockstep</li>
+              <li>Solution: Predicated Execution — ALL threads execute ALL paths</li>
+              <li>Correct path instructions: executed and committed to architectural state</li>
+              <li>Wrong path instructions: processed but results DISCARDED (thread still waits in lockstep)</li>
+              <li>32-bit mask per warp: bit i = 1 means thread i should execute current instruction</li>
+              <li>Stack-based tracking: Push 1 (correct path) or 0 (wrong path) when entering branch</li>
+              <li>Instruction committed only if ALL stack entries are 1 (on correct path of all branches)</li>
+              <li>Reconvergence point: instruction where all divergent threads rejoin after branch</li>
+              <li>Nested branches handled by growing the stack per thread</li>
+            </ul>
+          </div>
+          <div class="important-box">
+            <div class="imp-title">SUPER EFFECTIVE! (Exam Focus)</div>
+            <p>Predicated execution: ALL threads execute ALL branch paths in lockstep. A 32-bit mask tracks which
+              threads are on the correct path. Stack handles nested branches.</p>
+          </div>
+          <div class="flip-card-grid">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">How do GPUs handle if-else with SIMT?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Predicated execution — all threads execute both paths. Mask bits determine which threads commit
+                    results. Wrong-path results discarded.</p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">What is a reconvergence point?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>An instruction just outside all conditional statements where all divergent threads rejoin and
+                    resume normal lockstep execution</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pokemon-section" id="warp-scheduling" data-idx="13">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="pokeball-icon"></div>
+          <div class="section-title">#14 - Warp Scheduling &amp; Deadlocks 📋</div>
+          <img class="pokemon-sprite"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/395.png" alt="Pokemon"
+            loading="lazy">
+        </div>
+        <div class="section-body">
+
+          <div class="poke-card">
+            <h3><span class="mini-ball"></span> Key Points</h3>
+            <ul>
+              <li>Warp scheduler: Keeps buffer of warps, selects one every few cycles</li>
+              <li>NVIDIA Tesla: Max 24 warps, select 1 per cycle</li>
+              <li>NVIDIA Fermi: 2 warps simultaneously — each gets 16 cores + 16 LD/ST or 4 SFUs</li>
+              <li>NVIDIA Kepler: 4 warp schedulers per SM</li>
+              <li>NVIDIA Volta: 1 warp scheduler per PB (4 PBs per SM)</li>
+              <li>Multi-warp scheduling improves utilization: overlap ALU ops of one warp with memory ops of another →
+                100% utilization</li>
+              <li>Deadlock problem: While loop in lockstep SIMT can deadlock if thread needs another thread to set a
+                variable</li>
+              <li>Volta solution: Per-thread program counter + restricted lockstep — execute code blocks concurrently
+              </li>
+              <li>syncwarp() function forces reconvergence between threads</li>
+            </ul>
+          </div>
+          <div class="important-box">
+            <div class="imp-title">SUPER EFFECTIVE! (Exam Focus)</div>
+            <p>Deadlock scenario: Threads 0,1 wait in while(x==0) loop, threads 2,3 would set x=1 but can't reach that
+              line due to lockstep. Volta's per-thread PC solves this.</p>
+          </div>
+          <div class="flip-card-grid">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">Why schedule multiple warps simultaneously?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>One warp uses ALUs while another uses LD/ST units → 100% functional unit utilization instead of 50%
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">How did Volta solve the SIMT deadlock?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Per-thread program counter + restricted lockstep: execute divergent code blocks (W, X, Y)
+                    concurrently, ensuring all threads make forward progress</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pokemon-section" id="gpu-pipeline-regfile" data-idx="14">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="pokeball-icon"></div>
+          <div class="section-title">#15 - GPU Pipeline &amp; Register File 📦</div>
+          <img class="pokemon-sprite"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/376.png" alt="Pokemon"
+            loading="lazy">
+        </div>
+        <div class="section-body">
+
+          <div class="poke-card">
+            <h3><span class="mini-ball"></span> Key Points</h3>
+            <ul>
+              <li>Reference GPU: 6 GPCs, 6MB L2, 8 memory controllers, 6 NVLink controllers</li>
+              <li>Each GPC: 14 SMs. Each SM: 4 PBs + 128KB L1 data cache</li>
+              <li>GPU pipeline: i-cache → Decode → Scoreboard → Dispatch → Register File → Execute → Writeback</li>
+              <li>No rename table / reservation stations — uses scoreboard for dependence tracking</li>
+              <li>Register file: 64KB per PB, divided into 16 banks of 4KB each</li>
+              <li>Block size = 1024 bits (32 threads × 32 bits) — reads all thread data at once</li>
+              <li>Operand Collectors: Buffer entries that collect source operands from register banks</li>
+              <li>Crossbar switch: N×M switch connecting register file banks to operand collectors</li>
+              <li>L1 Cache: Most critical — arbiter splits accesses into conflict-free subsets</li>
+              <li>MSHR (Miss Status Handling Register): Records cache misses, merges requests for same block</li>
+            </ul>
+          </div>
+          <div class="important-box">
+            <div class="imp-title">SUPER EFFECTIVE! (Exam Focus)</div>
+            <p>Register file is 64KB (huge!) with 1024-bit block size (32 threads × 32 bits). Operand collectors +
+              crossbar handle the massive bandwidth requirement.</p>
+          </div>
+          <div class="flip-card-grid">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">Why is GPU register file so large?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>32 threads need data simultaneously — 32×32 bits = 1024 bits per access. Need 64KB with 16 banks to
+                    sustain throughput</p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">What are Operand Collectors?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Buffers that gather source operands from register file banks via a crossbar switch before sending
+                    to execution units</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2
+        style="font-family:'Press Start 2P',monospace;color:var(--water);font-size:0.9rem;text-align:center;margin:40px 0 20px;position:relative;z-index:10">
+        PDF 2 - ML Architectures and CNNs</h2>
+      <div class="pokemon-section" id="ml-intro" data-idx="15">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="pokeball-icon"></div>
+          <div class="section-title">#16 - Intro to Machine Learning 🧠</div>
+          <img class="pokemon-sprite"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png" alt="Pokemon"
+            loading="lazy">
+        </div>
+        <div class="section-body">
+
+          <div class="poke-card">
+            <h3><span class="mini-ball"></span> Key Points</h3>
+            <ul>
+              <li>Complex tasks (face recognition, speech synthesis) were impossible before deep learning</li>
+              <li>Deep learning mimics human brain processes — hierarchy of simple learners</li>
+              <li>Each layer computes a function (linear or nonlinear) over inputs</li>
+              <li>Alternating linear and nonlinear layers learns extremely complex functions</li>
+              <li>Computation is massively parallel and requires very high memory bandwidth</li>
+              <li>Very different from traditional integer/floating point programs</li>
+            </ul>
+          </div>
+          <div class="important-box">
+            <div class="imp-title">SUPER EFFECTIVE! (Exam Focus)</div>
+            <p>Deep learning = hierarchy of simple learners. Alternating linear + nonlinear layers. Massively parallel
+              computation with high memory bandwidth needs.</p>
+          </div>
+          <div class="flip-card-grid">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">What makes deep learning different from traditional AI?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Uses hierarchy of simple learners (layers) that progressively learn complex concepts, inspired by
+                    human brain — not traditional algorithms</p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">Why alternate linear and nonlinear layers?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Linear layers alone can only learn linear functions. Nonlinear activations allow learning
+                    arbitrarily complex functions</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pokemon-section" id="learning-basics" data-idx="16">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="pokeball-icon"></div>
+          <div class="section-title">#17 - Learning Problem Formulation 📐</div>
+          <img class="pokemon-sprite"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/143.png" alt="Pokemon"
+            loading="lazy">
+        </div>
+        <div class="section-body">
+
+          <div class="poke-card">
+            <h3><span class="mini-ball"></span> Key Points</h3>
+            <ul>
+              <li>Training: Given inputs X and outputs Y, learn hidden function f*</li>
+              <li>Testing/Inferencing: Use trained model to predict output for unseen input</li>
+              <li>Error measurement: Absolute difference, Mean Square Error (MSE), etc.</li>
+              <li>Goal: Minimize error for unseen test inputs (generalization)</li>
+              <li>The hidden function f* is memoryless — doesn't depend on input order</li>
+              <li>Universal Approximator: Algorithm that can approximate ANY continuous function</li>
+              <li>Behavior fully controlled by parameters — just need to estimate parameters</li>
+              <li>Linear regression: y = w^T·x + b — fails for non-linear functions, NOT a universal approximator</li>
+            </ul>
+          </div>
+          <div class="important-box">
+            <div class="imp-title">SUPER EFFECTIVE! (Exam Focus)</div>
+            <p>Universal approximator: can approximate ANY continuous function in R^n by just changing parameters.
+              Neural networks ARE universal approximators. Linear regression is NOT.</p>
+          </div>
+          <div class="flip-card-grid">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">Training vs Inferencing?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Training: learn weights from known input-output pairs (offline). Inferencing: predict output for
+                    unknown input using trained model (needs hardware acceleration)</p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">What is a Universal Approximator?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Algorithm that can approximate any continuous function without prior knowledge of f*, fully
+                    controlled by learnable parameters</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pokemon-section" id="neural-networks" data-idx="17">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="pokeball-icon"></div>
+          <div class="section-title">#18 - Neural Networks &amp; Activation 🔥</div>
+          <img class="pokemon-sprite"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/609.png" alt="Pokemon"
+            loading="lazy">
+        </div>
+        <div class="section-body">
+          <div class="slide-viewer"><svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg"
+              style="width:100%;max-width:600px;margin:0 auto;display:block">
+              <defs>
+                <filter id="g">
+                  <feGaussianBlur stdDeviation="2" />
+                </filter>
+              </defs>
+              <rect width="600" height="300" fill="#0a0a2e" rx="12" />
+              <text x="300" y="25" fill="#FFCB05" font-size="13" text-anchor="middle" font-family="monospace"
+                font-weight="bold">Neural Network: Input → Linear → ReLU → Linear → Output</text>
+              <!-- Input nodes -->
+              <circle cx="60" cy="120" r="18" fill="none" stroke="#6890F0" stroke-width="2" filter="url(#g)" /><text
+                x="60" y="124" fill="#6890F0" font-size="11" text-anchor="middle">x1</text>
+              <circle cx="60" cy="200" r="18" fill="none" stroke="#6890F0" stroke-width="2" filter="url(#g)" /><text
+                x="60" y="204" fill="#6890F0" font-size="11" text-anchor="middle">x2</text>
+              <!-- Hidden layer 1 -->
+              <circle cx="200" cy="90" r="18" fill="none" stroke="#F08030" stroke-width="2" filter="url(#g)" /><text
+                x="200" y="94" fill="#F08030" font-size="9" text-anchor="middle">w·x+b</text>
+              <circle cx="200" cy="160" r="18" fill="none" stroke="#F08030" stroke-width="2" filter="url(#g)" /><text
+                x="200" y="164" fill="#F08030" font-size="9" text-anchor="middle">w·x+b</text>
+              <circle cx="200" cy="230" r="18" fill="none" stroke="#F08030" stroke-width="2" filter="url(#g)" /><text
+                x="200" y="234" fill="#F08030" font-size="9" text-anchor="middle">w·x+b</text>
+              <!-- ReLU layer -->
+              <rect x="270" y="75" width="60" height="30" rx="6" fill="none" stroke="#78C850" stroke-width="2" /><text
+                x="300" y="95" fill="#78C850" font-size="10" text-anchor="middle">ReLU</text>
+              <rect x="270" y="145" width="60" height="30" rx="6" fill="none" stroke="#78C850" stroke-width="2" /><text
+                x="300" y="165" fill="#78C850" font-size="10" text-anchor="middle">ReLU</text>
+              <rect x="270" y="215" width="60" height="30" rx="6" fill="none" stroke="#78C850" stroke-width="2" /><text
+                x="300" y="235" fill="#78C850" font-size="10" text-anchor="middle">ReLU</text>
+              <!-- Hidden layer 2 -->
+              <circle cx="410" cy="130" r="18" fill="none" stroke="#F8D030" stroke-width="2" filter="url(#g)" /><text
+                x="410" y="134" fill="#F8D030" font-size="9" text-anchor="middle">w·x+b</text>
+              <circle cx="410" cy="200" r="18" fill="none" stroke="#F8D030" stroke-width="2" filter="url(#g)" /><text
+                x="410" y="204" fill="#F8D030" font-size="9" text-anchor="middle">w·x+b</text>
+              <!-- Output -->
+              <circle cx="540" cy="160" r="18" fill="none" stroke="#F85888" stroke-width="2" filter="url(#g)" /><text
+                x="540" y="164" fill="#F85888" font-size="11" text-anchor="middle">y</text>
+              <!-- Connections -->
+              <line x1="78" y1="120" x2="182" y2="90" stroke="#6890F044" stroke-width="1" />
+              <line x1="78" y1="120" x2="182" y2="160" stroke="#6890F044" stroke-width="1" />
+              <line x1="78" y1="120" x2="182" y2="230" stroke="#6890F044" stroke-width="1" />
+              <line x1="78" y1="200" x2="182" y2="90" stroke="#6890F044" stroke-width="1" />
+              <line x1="78" y1="200" x2="182" y2="160" stroke="#6890F044" stroke-width="1" />
+              <line x1="78" y1="200" x2="182" y2="230" stroke="#6890F044" stroke-width="1" />
+              <line x1="218" y1="90" x2="270" y2="90" stroke="#F0803044" stroke-width="1" />
+              <line x1="218" y1="160" x2="270" y2="160" stroke="#F0803044" stroke-width="1" />
+              <line x1="218" y1="230" x2="270" y2="230" stroke="#F0803044" stroke-width="1" />
+              <line x1="330" y1="90" x2="392" y2="130" stroke="#78C85044" stroke-width="1" />
+              <line x1="330" y1="90" x2="392" y2="200" stroke="#78C85044" stroke-width="1" />
+              <line x1="330" y1="160" x2="392" y2="130" stroke="#78C85044" stroke-width="1" />
+              <line x1="330" y1="160" x2="392" y2="200" stroke="#78C85044" stroke-width="1" />
+              <line x1="330" y1="230" x2="392" y2="130" stroke="#78C85044" stroke-width="1" />
+              <line x1="330" y1="230" x2="392" y2="200" stroke="#78C85044" stroke-width="1" />
+              <line x1="428" y1="130" x2="522" y2="160" stroke="#F8D03044" stroke-width="1" />
+              <line x1="428" y1="200" x2="522" y2="160" stroke="#F8D03044" stroke-width="1" />
+              <!-- Labels --><text x="60" y="280" fill="#6890F0" font-size="10" text-anchor="middle">Input</text><text
+                x="200" y="280" fill="#F08030" font-size="10" text-anchor="middle">Linear</text><text x="300" y="280"
+                fill="#78C850" font-size="10" text-anchor="middle">Activation</text><text x="410" y="280" fill="#F8D030"
+                font-size="10" text-anchor="middle">Linear</text><text x="540" y="280" fill="#F85888" font-size="10"
+                text-anchor="middle">Output</text>
+            </svg>
+            <div class="slide-caption">Neural Network Architecture with Activation Functions</div>
+          </div>
+          <div class="poke-card">
+            <h3><span class="mini-ball"></span> Key Points</h3>
+            <ul>
+              <li>Neural networks introduce nonlinearity: output = g(w^T·x + b)</li>
+              <li>Activation functions: Sigmoid (0 to 1), tanh (-1 to 1), ReLU (max(0,x))</li>
+              <li>XOR example: Can't be solved with single linear layer (not linearly separable)</li>
+              <li>XOR solution: Compute a-b with weights [1,-1], then |x| = ReLU(x) + ReLU(-x)</li>
+              <li>Network structure: Linear → Nonlinear (ReLU) → Linear layers alternating</li>
+              <li>Architecture (layers, units) decided a priori — training only computes weights</li>
+              <li>Backpropagation algorithm used for computing weights during training</li>
+              <li>Deeper networks (100+ layers, millions of weights) = Deep Neural Networks (DNNs)</li>
+            </ul>
+          </div>
+          <div class="important-box">
+            <div class="imp-title">SUPER EFFECTIVE! (Exam Focus)</div>
+            <p>XOR requires nonlinearity! Weight [1,-1] computes a-b, then ReLU gives |a-b|. Structure: alternate Linear
+              → Nonlinear layers. ReLU(x) = max(0, x).</p>
+          </div>
+          <div class="flip-card-grid">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">Why can't a single linear layer compute XOR?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>XOR is not linearly separable — need nonlinear activation (ReLU) between layers to capture the
+                    function</p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">Name 3 activation functions</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Sigmoid: 1/(1+e^-x) range [0,1]. Tanh: range [-1,1]. ReLU: max(0,x) — most popular, computationally
+                    simple</p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">How is XOR computed with a neural network?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Layer 1: weights [1,-1] and [-1,1] → Layer 2: ReLU on both → Layer 3: sum outputs = |a-b| = a⊕b</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pokemon-section" id="cnn-basics" data-idx="18">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="pokeball-icon"></div>
+          <div class="section-title">#19 - CNN &amp; Convolution Operation 🔍</div>
+          <img class="pokemon-sprite"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/130.png" alt="Pokemon"
+            loading="lazy">
+        </div>
+        <div class="section-body">
+          <div class="slide-viewer"><img src="diagrams/cnn_convolution.png" alt="CNN Convolution Operation"
+              onclick="openModal(this.src)" loading="lazy">
+            <div class="slide-caption">CNN Convolution Operation — click to enlarge</div>
+          </div>
+          <div class="poke-card">
+            <h3><span class="mini-ball"></span> Key Points</h3>
+            <ul>
+              <li>Fully Connected Layer: Each input multiplied by its own weight — N inputs need N weights (expensive!)
+              </li>
+              <li>Convolutional Layer: Uses small filter (R×S) instead of full weight vector — local operation</li>
+              <li>Convolution: Slide filter over ifmap, compute dot product at each position → ofmap pixel</li>
+              <li>O[h][w] = Σ_r Σ_s I[h+r][w+s] × F[r][s] (element-wise dot product)</li>
+              <li>NOT traditional signal processing convolution — it's cross-correlation (no sign flip)</li>
+              <li>CNN terminology: ifmap (input feature map), ofmap (output feature map), filter/kernel</li>
+              <li>Multiple channels: Each ofmap depends on ALL C input channels — unique filter per (ifmap, ofmap) pair
+              </li>
+              <li>Batch processing: N images processed simultaneously for efficiency</li>
+              <li>4 layer types in CNN: Convolutional, Fully Connected, ReLU, Pooling</li>
+            </ul>
+          </div>
+          <div class="important-box">
+            <div class="imp-title">SUPER EFFECTIVE! (Exam Focus)</div>
+            <p>Convolution = slide small filter (R×S) over large ifmap, dot product at each position. MUCH cheaper than
+              fully connected layer. Per output pixel: C×R×S MAC operations.</p>
+          </div>
+          <div class="flip-card-grid">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">Fully Connected vs Convolutional Layer?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>FC: N inputs × N weights (huge). Conv: small R×S filter slides over input — local operation, weight
+                    sharing, much fewer parameters</p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">What is a MAC operation?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Multiply-And-Accumulate: product I[n][c][h+r][w+s]×F[k][c][r][s] added to running sum. Per output
+                    pixel: C×R×S MACs</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pokemon-section" id="dataflow-arch" data-idx="19">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="pokeball-icon"></div>
+          <div class="section-title">#20 - PE Array &amp; Dataflow Architectures 🏛️</div>
+          <img class="pokemon-sprite"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/149.png" alt="Pokemon"
+            loading="lazy">
+        </div>
+        <div class="section-body">
+          <div class="slide-viewer"><img src="diagrams/pe_array_dataflow.png" alt="PE Array &amp; Dataflow Architecture"
+              onclick="openModal(this.src)" loading="lazy">
+            <div class="slide-caption">PE Array &amp; Dataflow Architecture — click to enlarge</div>
+          </div>
+          <div class="poke-card">
+            <h3><span class="mini-ball"></span> Key Points</h3>
+            <ul>
+              <li>Reference architecture: 2D matrix of PEs + Local Buffer (LB, like L1) + Global Buffer (GB, like L2) +
+                Main Memory</li>
+              <li>PEs interconnected via Network-on-Chip (NoC)</li>
+              <li>Dispatcher: Complex processor that orchestrates computation, divides work among PEs</li>
+              <li>Loop notation: '&gt;' means temporal (sequential), '‖' means parallel</li>
+              <li>Tiling: Break iteration space into sub-spaces mapped to PEs</li>
+              <li>7 loop dimensions: n (batch), k (ofmap), c (channel), h, w (spatial), r, s (filter)</li>
+              <li>Loops can be reordered freely — no dependencies between iterators</li>
+              <li>Folded execution: When iterations exceed PE count, hybrid parallel+sequential</li>
+              <li>Barrier synchronization between loop iterations for correctness</li>
+            </ul>
+          </div>
+          <div class="important-box">
+            <div class="imp-title">SUPER EFFECTIVE! (Exam Focus)</div>
+            <p>Architecture: 2D PE array + LB (L1) + GB (L2) + DRAM. 7 independent loop dimensions can be reordered and
+              parallelized freely. '&gt;' = sequential, '‖' = parallel.</p>
+          </div>
+          <div class="flip-card-grid">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">What is the reference ML architecture?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>2D PE array with Local Buffers (L1), Global Buffer (L2), connected via NoC, controlled by a
+                    dispatcher processor</p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">What does '‖' mean in loop notation?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>The loop can be parallelized — distribute iterations across PEs. If not enough PEs, execution is
+                    'folded' (hybrid parallel+sequential)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pokemon-section" id="stationarity" data-idx="20">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="pokeball-icon"></div>
+          <div class="section-title">#21 - Stationarity: WS, IS, OS, RS ⚖️</div>
+          <img class="pokemon-sprite"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/389.png" alt="Pokemon"
+            loading="lazy">
+        </div>
+        <div class="section-body">
+          <div class="slide-viewer"><img src="diagrams/pe_array_dataflow.png" alt="WS / IS / OS / RS Stationarity Types"
+              onclick="openModal(this.src)" loading="lazy">
+            <div class="slide-caption">WS / IS / OS / RS Stationarity Types — click to enlarge</div>
+          </div>
+          <div class="poke-card">
+            <h3><span class="mini-ball"></span> Key Points</h3>
+            <ul>
+              <li>Stationarity: Keep certain data cached in PE's local buffer for maximum reuse</li>
+              <li>Weight Stationary (WS): Cache filter weights in each PE — stream inputs/outputs</li>
+              <li>WS: Each PE has filter for one (ifmap, ofmap) pair. Rows = channels, Columns = ofmaps</li>
+              <li>Input Stationary (IS): Cache ifmap tiles in PEs — stream filter weights</li>
+              <li>IS: Store C ifmap tiles per PE. Halo pixels at tile edges need special handling</li>
+              <li>Output Stationary (OS): Distribute output pixels across PEs — stream inputs and filters</li>
+              <li>Row Stationary (RS): Distribute rows of ifmap and filter — one PE aggregates partial sums per ofmap
+                row</li>
+              <li>No Local Reuse (NLR): No stationarity — data not cached in PEs</li>
+              <li>Key principle: Maximize reuse of stationary data, minimize reloads</li>
+            </ul>
+          </div>
+          <div class="important-box">
+            <div class="imp-title">SUPER EFFECTIVE! (Exam Focus)</div>
+            <p>WS: filters stay in PE. IS: inputs stay in PE. OS: outputs stay in PE. RS: rows distributed. Goal:
+              maximize data reuse, minimize memory traffic.</p>
+          </div>
+          <div class="flip-card-grid">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">4 types of stationarity?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Weight Stationary (cache filters), Input Stationary (cache ifmaps), Output Stationary (cache
+                    ofmaps), Row Stationary (cache rows)</p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">What are Halo Pixels?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Pixels at tile edges that need data from neighboring tiles for convolution — requires extra storage
+                    or inter-PE communication</p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">What is NLR?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>No Local Reuse — architecture where nothing is cached in PE local buffers. Inefficient but simplest
+                    design</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pokemon-section" id="ws-hardware" data-idx="21">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="pokeball-icon"></div>
+          <div class="section-title">#22 - WS Hardware Architecture 🔧</div>
+          <img class="pokemon-sprite"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/212.png" alt="Pokemon"
+            loading="lazy">
+        </div>
+        <div class="section-body">
+          <div class="slide-viewer"><img src="diagrams/pe_array_dataflow.png"
+              alt="Weight Stationary Hardware — 4 Phases" onclick="openModal(this.src)" loading="lazy">
+            <div class="slide-caption">Weight Stationary Hardware — 4 Phases — click to enlarge</div>
+          </div>
+          <div class="poke-card">
+            <h3><span class="mini-ball"></span> Key Points</h3>
+            <ul>
+              <li>Spatial reuse: Read data once from memory, multicast to multiple PEs</li>
+              <li>Data can also flow systolically from one PE to next along row/column</li>
+              <li>2D PE array for WS: Rows = channels (c), Columns = ofmaps (k)</li>
+              <li>Phase I: Load filter weights into PEs (each PE gets one (k,c) filter)</li>
+              <li>Phase II: Stream ifmap blocks along rows (one channel per row)</li>
+              <li>Phase III: Each PE computes convolution between input data and cached filter</li>
+              <li>Phase IV: Reduction — sum partial sums column-wise</li>
+              <li>Reduction methods: Parallel reduction (adder tree via NoC) OR Systolic transfer (pass partial sums
+                down column)</li>
+              <li>Systolic transfer: Top PE sends to PE below, which adds and passes down → result exits at bottom row
+              </li>
+            </ul>
+          </div>
+          <div class="important-box">
+            <div class="imp-title">SUPER EFFECTIVE! (Exam Focus)</div>
+            <p>WS Hardware: 4 phases — Load filters → Stream inputs along rows → Compute convolutions → Reduce partial
+              sums column-wise (systolic or adder tree).</p>
+          </div>
+          <div class="flip-card-grid">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">What are the 4 phases of WS execution?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Phase I: Load filters. Phase II: Stream inputs. Phase III: Compute convolutions. Phase IV: Reduce
+                    (sum partial sums column-wise)</p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="card-question">Systolic vs Parallel Reduction?</div>
+                  <div class="tap-hint">Click to reveal</div>
+                </div>
+                <div class="flip-card-back">
+                  <p>Systolic: Each PE passes partial sums to next PE in column — simple, sequential. Parallel: Adder
+                    tree via NoC — faster, more complex</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="poke-card">
+        <h3><span class="mini-ball"></span> Stationarity Comparison</h3>
+        <table class="poke-table">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Cached Data</th>
+              <th>Streamed</th>
+              <th>Best For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Weight (WS)</td>
+              <td>Filter weights</td>
+              <td>Inputs+Outputs</td>
+              <td>Small filters, large ifmaps</td>
+            </tr>
+            <tr>
+              <td>Input (IS)</td>
+              <td>ifmap tiles</td>
+              <td>Filter weights</td>
+              <td>Large ifmaps, reuse across ofmaps</td>
+            </tr>
+            <tr>
+              <td>Output (OS)</td>
+              <td>Output pixels</td>
+              <td>Inputs+Filters</td>
+              <td>Minimize partial sum storage</td>
+            </tr>
+            <tr>
+              <td>Row (RS)</td>
+              <td>Rows of ifmap+filter</td>
+              <td>Partial sums</td>
+              <td>Balanced reuse (Eyeriss)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="poke-card">
+        <h3><span class="mini-ball"></span> GPU Architecture Summary</h3>
+        <table class="poke-table">
+          <thead>
+            <tr>
+              <th>Level</th>
+              <th>Count</th>
+              <th>Contains</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>GPU</td>
+              <td>1</td>
+              <td>6 GPCs + 6MB L2 + 8 MemCtrl + 6 NVLink</td>
+            </tr>
+            <tr>
+              <td>GPC</td>
+              <td>6</td>
+              <td>1 Raster Engine + 7 TPCs</td>
+            </tr>
+            <tr>
+              <td>TPC</td>
+              <td>42</td>
+              <td>1 Polymorph Engine + 2 SMs</td>
+            </tr>
+            <tr>
+              <td>SM</td>
+              <td>84</td>
+              <td>4 PBs + 128KB L1 + Shared Mem</td>
+            </tr>
+            <tr>
+              <td>PB</td>
+              <td>336</td>
+              <td>16 INT + 16 FP32 + 8 FP64 + 2 Tensor + 8 LD/ST + 1 SFU</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="quiz-section" id="quiz">
+        <h3>POKEMON BATTLE QUIZ - Test Your Knowledge!</h3>
+        <div class="quiz-q" id="q0">
+          <p>Q1. What does SIMT stand for?</p>
+          <label onclick="checkAnswer(this,true)">
+            <input type="radio" name="q0" style="display:none"> A) Single Instruction Multiple Thread</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q0" style="display:none"> B) Simple Instruction Machine Type</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q0" style="display:none"> C) Shared Instruction Memory Thread</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q0" style="display:none"> D) Sequential Instruction Multiple Task</label>
+        </div>
+        <div class="quiz-q" id="q1">
+          <p>Q2. How many threads are in a warp?</p>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q1" style="display:none"> A) 16</label>
+          <label onclick="checkAnswer(this,true)">
+            <input type="radio" name="q1" style="display:none"> B) 32</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q1" style="display:none"> C) 64</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q1" style="display:none"> D) 128</label>
+        </div>
+        <div class="quiz-q" id="q2">
+          <p>Q3. What is PTX?</p>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q2" style="display:none"> A) Physical Thread eXecution</label>
+          <label onclick="checkAnswer(this,true)">
+            <input type="radio" name="q2" style="display:none"> B) Parallel Thread eXecution (virtual ISA)</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q2" style="display:none"> C) Pixel Texture eXtension</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q2" style="display:none"> D) Pipeline Thread eXchange</label>
+        </div>
+        <div class="quiz-q" id="q3">
+          <p>Q4. Which function allocates GPU memory?</p>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q3" style="display:none"> A) malloc()</label>
+          <label onclick="checkAnswer(this,true)">
+            <input type="radio" name="q3" style="display:none"> B) cudaMalloc()</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q3" style="display:none"> C) gpuAlloc()</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q3" style="display:none"> D) deviceMalloc()</label>
+        </div>
+        <div class="quiz-q" id="q4">
+          <p>Q5. What is a Universal Approximator?</p>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q4" style="display:none"> A) A linear function estimator</label>
+          <label onclick="checkAnswer(this,true)">
+            <input type="radio" name="q4" style="display:none"> B) An algorithm approximating any continuous
+            function</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q4" style="display:none"> C) A GPU scheduling algorithm</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q4" style="display:none"> D) A memory allocation technique</label>
+        </div>
+        <div class="quiz-q" id="q5">
+          <p>Q6. CNN convolution does what?</p>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q5" style="display:none"> A) Fully connects all inputs</label>
+          <label onclick="checkAnswer(this,true)">
+            <input type="radio" name="q5" style="display:none"> B) Slides small filter computing dot products</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q5" style="display:none"> C) Pools adjacent pixels</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q5" style="display:none"> D) Applies nonlinear activation</label>
+        </div>
+        <div class="quiz-q" id="q6">
+          <p>Q7. What is Weight Stationarity?</p>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q6" style="display:none"> A) Weights change every cycle</label>
+          <label onclick="checkAnswer(this,true)">
+            <input type="radio" name="q6" style="display:none"> B) Filter weights cached in PE for reuse</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q6" style="display:none"> C) Weights only in global memory</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q6" style="display:none"> D) Weights computed at runtime</label>
+        </div>
+        <div class="quiz-q" id="q7">
+          <p>Q8. What is branch divergence in SIMT?</p>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q7" style="display:none"> A) All threads take same branch</label>
+          <label onclick="checkAnswer(this,true)">
+            <input type="radio" name="q7" style="display:none"> B) Different threads take different paths breaking
+            lockstep</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q7" style="display:none"> C) Branches predicted by GPU</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q7" style="display:none"> D) Branch instructions unsupported</label>
+        </div>
+        <div class="quiz-q" id="q8">
+          <p>Q9. What is a GPC?</p>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q8" style="display:none"> A) General Purpose Core</label>
+          <label onclick="checkAnswer(this,true)">
+            <input type="radio" name="q8" style="display:none"> B) Graphics Processing Cluster</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q8" style="display:none"> C) GPU Pipeline Controller</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q8" style="display:none"> D) Global Processing Cache</label>
+        </div>
+        <div class="quiz-q" id="q9">
+          <p>Q10. What are Halo Pixels?</p>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q9" style="display:none"> A) Center pixels of tile</label>
+          <label onclick="checkAnswer(this,true)">
+            <input type="radio" name="q9" style="display:none"> B) Edge pixels needing neighbor tile data</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q9" style="display:none"> C) Discarded pixels</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q9" style="display:none"> D) Output pixels of convolution</label>
+        </div>
+        <div class="quiz-q" id="q10">
+          <p>Q11. Predicated execution means?</p>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q10" style="display:none"> A) Only executing correct path</label>
+          <label onclick="checkAnswer(this,true)">
+            <input type="radio" name="q10" style="display:none"> B) All threads execute all paths; wrong results
+            discarded</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q10" style="display:none"> C) Predicting which path</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q10" style="display:none"> D) Skipping branches entirely</label>
+        </div>
+        <div class="quiz-q" id="q11">
+          <p>Q12. 4 phases of WS hardware?</p>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q11" style="display:none"> A) Fetch Decode Execute Writeback</label>
+          <label onclick="checkAnswer(this,true)">
+            <input type="radio" name="q11" style="display:none"> B) Load filters Stream inputs Compute Reduce</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q11" style="display:none"> C) Read Process Write Sync</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q11" style="display:none"> D) Init Train Test Deploy</label>
+        </div>
+        <div class="quiz-q" id="q12">
+          <p>Q13. ReLU is defined as?</p>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q12" style="display:none"> A) 1/(1+e^-x)</label>
+          <label onclick="checkAnswer(this,true)">
+            <input type="radio" name="q12" style="display:none"> B) max(0, x)</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q12" style="display:none"> C) tanh(x)</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q12" style="display:none"> D) (e^x-e^-x)/(e^x+e^-x)</label>
+        </div>
+        <div class="quiz-q" id="q13">
+          <p>Q14. cudaMemcpyHostToDevice does?</p>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q13" style="display:none"> A) GPU to CPU copy</label>
+          <label onclick="checkAnswer(this,true)">
+            <input type="radio" name="q13" style="display:none"> B) CPU to GPU copy</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q13" style="display:none"> C) Allocate GPU memory</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q13" style="display:none"> D) Free GPU memory</label>
+        </div>
+        <div class="quiz-q" id="q14">
+          <p>Q15. Reference GPU has how many GPCs?</p>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q14" style="display:none"> A) 2</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q14" style="display:none"> B) 4</label>
+          <label onclick="checkAnswer(this,true)">
+            <input type="radio" name="q14" style="display:none"> C) 6</label>
+          <label onclick="checkAnswer(this,false)">
+            <input type="radio" name="q14" style="display:none"> D) 8</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-content" id="tab-qa">
+    <div class="qa-header">
+      <h2>QUESTION BANK & ANSWERS</h2>
+      <p>AHA Unit 4 — Descriptive Questions with Detailed Answers</p>
+    </div>
+    <div class="pokedex-content">
+      <div class="qa-lecture-divider gpu"><span>LECTURE 1 — GPUs ⚡</span></div>
+      <div class="qa-card" id="qa-1">
+        <div class="qa-card-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="qa-num">1</div>
+          <div class="qa-question">What is the importance of GPUs to address the modern computational problems?</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-card-body">
+          <div class="qa-answer">
+            <h4>⚡ Answer</h4>
+            <p>GPUs are crucial for modern computation because:</p>
+            <ul>
+              <li>General-purpose CPUs max out at <strong>IPC of 4-6</strong> — insufficient for heavy parallel
+                workloads like weather simulation, image recognition, and scientific computing.</li>
+              <li>Programs requiring massive <strong>Instruction Level Parallelism (ILP)</strong> cannot be efficiently
+                handled by CPUs alone.</li>
+              <li>GPUs solve this by having <strong>hundreds of simple ALUs</strong> for massive parallel computation.
+              </li>
+              <li>GPU approach: <strong>Simple ISA + limited irregular memory accesses + hundreds of simple
+                  cores</strong>.</li>
+              <li>Trade-off: Dedicate chip area to ALUs instead of complex fetch/decode/schedule logic.</li>
+              <li>Matrix operations (core of scientific computing) have <strong>N² independent additions</strong> with
+                no dependencies — perfect for GPU parallelism.</li>
+            </ul>
+            <p><strong>Key Applications:</strong></p>
+            <ul>
+              <li>Scientific simulations (weather, molecular dynamics)</li>
+              <li>Machine Learning / Deep Learning training and inference</li>
+              <li>Image and video processing</li>
+              <li>Cryptography and blockchain</li>
+              <li>Real-time 3D graphics rendering</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="qa-card" id="qa-2">
+        <div class="qa-card-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="qa-num">2</div>
+          <div class="qa-question">With neat diagram, explain the rendering pipeline applicable to GPU.</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-card-body">
+          <div class="qa-answer">
+            <h4>⚡ Answer</h4>
+            <div class="qa-diagram-placeholder"><img src="diagrams/graphics_pipeline.png" alt="Graphics Pipeline"
+                onclick="openModal(this.src)">
+              <div class="caption">Graphics Rendering Pipeline — click to enlarge</div>
+            </div>
+            <p>The <strong>Graphics Rendering Pipeline</strong> synthesizes (renders) images through 4 main stages:</p>
+            <ol>
+              <li><strong>Vertex Processor (Polymorph Engine in modern GPUs):</strong> Transforms object-space
+                coordinates to world coordinates. Performs vertex shading, hull shading. In modern GPUs (Fermi+), this
+                is a 5-stage Polymorph Engine: Vertex Fetch → Tessellation → Viewport Transform → Attribute Setup →
+                Stream Output.</li>
+              <li><strong>Rasterizer:</strong> Converts triangles into pixel fragments by overlaying a grid. Determines
+                which pixels each triangle covers.</li>
+              <li><strong>Fragment Processor:</strong> Computes final color of each pixel using shading models (Goraud
+                or Phong), texture mapping, and distance fog.</li>
+              <li><strong>Pixel Engine:</strong> Populates the frame buffer (2D color matrix sent to monitor). Handles
+                Z-depth buffering (visibility) and alpha channel (transparency 0.0–1.0).</li>
+            </ol>
+            <p><strong>Key concepts:</strong></p>
+            <ul>
+              <li><strong>Triangles</strong> are the fundamental primitive — always planar, easy ray intersection.</li>
+              <li><strong>PTX</strong> (Parallel Thread eXecution): NVIDIA's virtual ISA — platform independent.</li>
+              <li><strong>SASS</strong> (Shader ASSembler): Device-specific native ISA, compiled from PTX via JIT.</li>
+              <li>Moving/rotating/scaling triangles = matrix operations → perfect for GPU parallelism.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="qa-card" id="qa-3">
+        <div class="qa-card-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="qa-num">3</div>
+          <div class="qa-question">List and briefly explain the applications of GPU.</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-card-body">
+          <div class="qa-answer">
+            <h4>⚡ Answer</h4>
+            <ul>
+              <li><strong>3D Graphics Rendering:</strong> Real-time rendering for games and CAD applications using the
+                graphics pipeline (vertex processing, rasterization, fragment shading).</li>
+              <li><strong>Scientific Computing (GPGPU):</strong> Weather simulation, molecular dynamics, fluid dynamics
+                — exploiting massive parallelism for matrix/vector operations.</li>
+              <li><strong>Machine Learning:</strong> Training deep neural networks (DNNs, CNNs) with millions of
+                parameters using parallel matrix multiply-accumulate operations.</li>
+              <li><strong>Image/Video Processing:</strong> Real-time filters, encoding/decoding, computer vision tasks.
+              </li>
+              <li><strong>Cryptography:</strong> Parallel hash computations, blockchain mining, encryption/decryption.
+              </li>
+              <li><strong>Financial Modeling:</strong> Monte Carlo simulations, risk analysis with massive parallel
+                random sampling.</li>
+              <li><strong>Medical Imaging:</strong> CT/MRI reconstruction, real-time ultrasound processing.</li>
+            </ul>
+            <p><strong>Why GPUs excel:</strong> These applications share a common trait — they involve <strong>massively
+                parallel, regular computations</strong> on large datasets, which maps perfectly to the GPU's
+              architecture of hundreds of simple cores with high memory bandwidth.</p>
+          </div>
+        </div>
+      </div>
+      <div class="qa-card" id="qa-4">
+        <div class="qa-card-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="qa-num">4</div>
+          <div class="qa-question">Describe the following keywords with respect to GPU: Kernels, Threads, Blocks and
+            Grids</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-card-body">
+          <div class="qa-answer">
+            <h4>⚡ Answer</h4>
+            <div class="sub-section">
+              <h5>Kernel</h5>
+              <p>A function executed on the GPU, invoked by CPU host code using the <code>__global__</code> directive.
+                When launched, it creates thousands of parallel thread instances.</p>
+            </div>
+            <div class="sub-section">
+              <h5>Thread</h5>
+              <p>The smallest execution unit on GPU. Each thread is a separate program instance that shares address
+                space with other threads and has a unique identifier <code>threadIdx</code> (can be 1D, 2D, or 3D).</p>
+            </div>
+            <div class="sub-section">
+              <h5>Block</h5>
+              <p>A group of threads (1D/2D/3D arrangement). Max <strong>768–1024 threads per block</strong>. Threads
+                within a block can <strong>synchronize</strong> via <code>__syncthreads()</code> (barrier) and share
+                data through <strong>shared memory</strong>. Identified by <code>blockIdx</code>.</p>
+            </div>
+            <div class="sub-section">
+              <h5>Grid</h5>
+              <p>A collection of blocks (1D/2D/3D). Blocks execute <strong>independently</strong> in any order — no
+                inter-block synchronization. This enables scalability across different GPU sizes.</p>
+            </div>
+            <p><strong>Hierarchy:</strong> Thread → Block → Grid</p>
+            <p><strong>Index computation:</strong> <code>globalIdx = blockIdx.x * blockDim.x + threadIdx.x</code></p>
+            <p><code>dim3</code> is the built-in 3-tuple type for specifying dimensions (unspecified values default to
+              1).</p>
+          </div>
+        </div>
+      </div>
+      <div class="qa-card" id="qa-5">
+        <div class="qa-card-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="qa-num">5</div>
+          <div class="qa-question">Describe the following keywords with respect to GPU: Streams, Graphs and Events</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-card-body">
+          <div class="qa-answer">
+            <h4>⚡ Answer</h4>
+            <div class="sub-section">
+              <h5>Streams</h5>
+              <p>A <strong>stream</strong> is a sequence of commands (memory transfers, kernel launches) that execute in
+                order. Multiple streams execute <strong>independently</strong> with no ordering guarantee across
+                streams.</p>
+              <p><strong>Purpose:</strong> Overlap data transfer and computation phases. Without streams, execution is
+                sequential: ToGPU → Compute → ToCPU. With 2 streams, one stream computes while another transfers data —
+                reducing execution time from 3 units to 2 units (<strong>33% speedup</strong>).</p>
+            </div>
+            <div class="sub-section">
+              <h5>Graphs</h5>
+              <p>CUDA Graphs reduce the overhead of launching many <strong>short-duration kernels</strong>. A graph
+                consists of nodes (kernels, CPU functions, memory operations, child graphs) connected by edges
+                (dependencies).</p>
+              <p>The runtime <strong>pre-computes the execution schedule</strong> and prefetches data, eliminating
+                per-launch overhead.</p>
+            </div>
+            <div class="sub-section">
+              <h5>Events</h5>
+              <p>Events are used for <strong>timing and synchronization</strong> between streams. They mark points in a
+                stream's execution for measuring elapsed time or creating dependencies between streams.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="qa-card" id="qa-6">
+        <div class="qa-card-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="qa-num">6</div>
+          <div class="qa-question">Explain the Top-level architecture of GPU with neat diagram.</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-card-body">
+          <div class="qa-answer">
+            <h4>⚡ Answer</h4>
+            <div class="qa-diagram-placeholder"><img src="diagrams/gpu_architecture.png" alt="GPU Architecture"
+                onclick="openModal(this.src)">
+              <div class="caption">GPU Architecture Hierarchy — click to enlarge</div>
+            </div>
+            <p>The GPU connects to CPU via <strong>PCI Express</strong> (or on same die). Top-level components:</p>
+            <ul>
+              <li><strong>Giga Thread Engine:</strong> Hardware scheduler that distributes threads across compute units.
+              </li>
+              <li><strong>6 GPCs</strong> (Graphics Processing Clusters)</li>
+              <li><strong>L2 Cache:</strong> 4–6 MB shared across GPU</li>
+              <li><strong>HBM2</strong> (High Bandwidth Memory 2) via multiple memory controllers</li>
+              <li><strong>NVLink:</strong> High-bandwidth interconnect for multi-GPU systems</li>
+            </ul>
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>Level</th>
+                  <th>Count</th>
+                  <th>Contains</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>GPU</td>
+                  <td>1</td>
+                  <td>6 GPCs + 6MB L2 + 8 MemCtrl + 6 NVLink</td>
+                </tr>
+                <tr>
+                  <td>GPC</td>
+                  <td>6</td>
+                  <td>1 Raster Engine + 7 TPCs</td>
+                </tr>
+                <tr>
+                  <td>TPC</td>
+                  <td>42</td>
+                  <td>1 Polymorph Engine + 2 SMs</td>
+                </tr>
+                <tr>
+                  <td>SM</td>
+                  <td>84</td>
+                  <td>4 PBs + 128KB L1 + Shared Mem</td>
+                </tr>
+                <tr>
+                  <td>PB</td>
+                  <td>336</td>
+                  <td>16 INT + 16 FP32 + 8 FP64 + 2 Tensor + 8 LD/ST + 1 SFU</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="qa-card" id="qa-7">
+        <div class="qa-card-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="qa-num">7</div>
+          <div class="qa-question">With neat diagram, explain the structure of GPC and SM</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-card-body">
+          <div class="qa-answer">
+            <h4>⚡ Answer</h4>
+            <div class="qa-diagram-placeholder"><img src="diagrams/gpu_architecture.png" alt="GPC and SM Structure"
+                onclick="openModal(this.src)">
+              <div class="caption">GPC and SM Internal Structure — click to enlarge</div>
+            </div>
+            <div class="sub-section">
+              <h5>GPC (Graphics Processing Cluster)</h5>
+              <p>Each GPC contains:</p>
+              <ul>
+                <li><strong>1 Raster Engine</strong> — converts triangles to pixel fragments</li>
+                <li><strong>7 TPCs</strong> (Texture Processing Clusters)</li>
+              </ul>
+              <p>Each TPC contains: <strong>1 Polymorph Engine</strong> (5-stage vertex processing) + <strong>2
+                  SMs</strong></p>
+            </div>
+            <div class="sub-section">
+              <h5>SM (Streaming Multiprocessor)</h5>
+              <p>Each SM contains <strong>4 Processing Blocks (PBs)</strong> + 4 texture processing units. SM internals
+                include: Instruction Cache, L1 Cache (128KB), Texture Cache, Constant Cache, Shared Memory (64–128KB).
+              </p>
+              <p>Each PB contains:</p>
+              <ul>
+                <li><strong>16 INT cores</strong> + <strong>16 FP32 cores</strong> + <strong>8 FP64 cores</strong> +
+                  <strong>2 Tensor cores</strong></li>
+                <li><strong>8 LD/ST units</strong> + <strong>1 SFU</strong> (Special Function Unit for
+                  transcendentals/trig)</li>
+                <li>Pipeline: Instruction Buffer → Scoreboard Scheduler → Dispatch → Register File → Compute</li>
+                <li><strong>Simple in-order pipeline</strong> — no rename tables or reservation stations (saves
+                  power/area)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="qa-card" id="qa-8">
+        <div class="qa-card-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="qa-num">8</div>
+          <div class="qa-question">Explain the concept of warp and its importance in GPU</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-card-body">
+          <div class="qa-answer">
+            <h4>⚡ Answer</h4>
+            <p>A <strong>warp</strong> is a group of <strong>32 threads</strong> that are scheduled and executed
+              together on a Processing Block (PB) using the <strong>SIMT (Single Instruction, Multiple Thread)</strong>
+              execution model.</p>
+            <p><strong>Key characteristics:</strong></p>
+            <ul>
+              <li><strong>Lockstep execution:</strong> All 32 threads execute the SAME instruction simultaneously on
+                DIFFERENT data.</li>
+              <li>The scheduler picks the next instruction and sends it to ALL cores in the warp.</li>
+              <li>If one thread's memory access is slow (cache miss), ALL threads wait.</li>
+              <li>This is acceptable because GPU workloads typically have <strong>regular, co-located memory access
+                  patterns</strong>.</li>
+            </ul>
+            <p><strong>Importance:</strong></p>
+            <ul>
+              <li><strong>Efficiency:</strong> Single fetch/decode for 32 threads saves enormous power and area vs. 32
+                independent pipelines.</li>
+              <li><strong>Latency hiding:</strong> When one warp stalls on memory, the scheduler switches to another
+                ready warp — keeping ALUs busy.</li>
+              <li><strong>Throughput:</strong> Multiple warps per SM enables near-100% utilization of functional units.
+              </li>
+              <li><strong>Scalability:</strong> The warp abstraction allows the GPU to scale from small to large configs
+                transparently.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="qa-card" id="qa-9">
+        <div class="qa-card-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="qa-num">9</div>
+          <div class="qa-question">Explain how warp works in the following cases: Branch divergence and predicated
+            execution; Varying execution times</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-card-body">
+          <div class="qa-answer">
+            <h4>⚡ Answer</h4>
+            <div class="sub-section">
+              <h5>Branch Divergence & Predicated Execution</h5>
+              <div class="qa-diagram-placeholder"><img src="diagrams/warp_simt.png" alt="Branch Divergence"
+                  onclick="openModal(this.src)">
+                <div class="caption">Predicated Execution with Mask — click to enlarge</div>
+              </div>
+              <p>When threads in a warp take <strong>different paths</strong> (if/else), it breaks lockstep — this is
+                <strong>branch divergence</strong>.</p>
+              <p><strong>Solution — Predicated Execution:</strong></p>
+              <ul>
+                <li>ALL threads execute ALL branch paths in lockstep.</li>
+                <li><strong>Correct path:</strong> Instructions executed and committed to architectural state.</li>
+                <li><strong>Wrong path:</strong> Instructions processed but results DISCARDED.</li>
+                <li>A <strong>32-bit mask</strong> per warp tracks which threads should commit: bit i = 1 means thread i
+                  is on correct path.</li>
+                <li><strong>Stack-based tracking</strong> for nested branches: Push 1 (correct) or 0 (wrong).
+                  Instruction committed only if ALL stack entries are 1.</li>
+                <li><strong>Reconvergence point:</strong> Where all divergent threads rejoin after the branch.</li>
+              </ul>
+            </div>
+            <div class="sub-section">
+              <h5>Varying Execution Times</h5>
+              <p>Since all threads execute in lockstep, varying execution times cause problems:</p>
+              <ul>
+                <li>If one thread has a <strong>cache miss</strong>, ALL 32 threads wait for that thread's data.</li>
+                <li>Performance degrades when memory accesses <strong>straddle cache lines</strong>.</li>
+                <li>This is generally acceptable because GPU workloads have <strong>regular, co-located memory
+                    patterns</strong> — most threads access nearby data.</li>
+                <li>Solution: Ensure <strong>coalesced memory accesses</strong> — adjacent threads access adjacent
+                  memory locations.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="qa-card" id="qa-10">
+        <div class="qa-card-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="qa-num">10</div>
+          <div class="qa-question">Explain Warp Scheduling in GPUs</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-card-body">
+          <div class="qa-answer">
+            <h4>⚡ Answer</h4>
+            <p>The <strong>warp scheduler</strong> maintains a buffer of ready warps and selects warps for execution to
+              maximize utilization.</p>
+            <p><strong>Evolution across GPU generations:</strong></p>
+            <ul>
+              <li><strong>Tesla:</strong> Max 24 warps, select 1 per cycle.</li>
+              <li><strong>Fermi:</strong> 2 warps simultaneously — each gets 16 cores + 16 LD/ST or 4 SFUs.</li>
+              <li><strong>Kepler:</strong> 4 warp schedulers per SM.</li>
+              <li><strong>Volta:</strong> 1 warp scheduler per PB (4 PBs per SM).</li>
+            </ul>
+            <p><strong>Multi-warp scheduling</strong> improves utilization: overlap ALU ops of one warp with memory ops
+              of another → <strong>100% utilization</strong>.</p>
+            <p><strong>Deadlock Problem (pre-Volta):</strong> While loop in lockstep SIMT can deadlock if thread A waits
+              for thread B to set a variable, but B can't reach that code due to lockstep.</p>
+            <p><strong>Volta's Solution:</strong></p>
+            <ul>
+              <li><strong>Per-thread program counter</strong> + restricted lockstep.</li>
+              <li>Divergent code blocks execute concurrently, ensuring all threads make forward progress.</li>
+              <li><code>syncwarp()</code> function forces reconvergence between threads.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="qa-lecture-divider ml"><span>LECTURE 2 — ML ARCHITECTURES 🧠</span></div>
+      <div class="qa-card" id="qa-11">
+        <div class="qa-card-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="qa-num">11</div>
+          <div class="qa-question">Define Deep Learning</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-card-body">
+          <div class="qa-answer">
+            <h4>⚡ Answer</h4>
+            <p><strong>Deep Learning</strong> is a subset of machine learning that mimics the human brain using a
+              <strong>hierarchy of simple learners</strong> (layers).</p>
+            <ul>
+              <li>Each layer computes a function (linear or nonlinear) over its inputs.</li>
+              <li><strong>Alternating linear and nonlinear layers</strong> allows learning extremely complex functions.
+              </li>
+              <li>Deep networks have <strong>100+ layers</strong> with <strong>millions of parameters/weights</strong>.
+              </li>
+              <li>Computation is <strong>massively parallel</strong> and requires very high memory bandwidth.</li>
+            </ul>
+            <p><strong>Key concepts:</strong></p>
+            <ul>
+              <li><strong>Training:</strong> Given inputs X and outputs Y, learn the hidden function f* by adjusting
+                weights via backpropagation.</li>
+              <li><strong>Inferencing:</strong> Use the trained model to predict output for unseen inputs.</li>
+              <li><strong>Universal Approximator:</strong> Neural networks can approximate ANY continuous function in
+                R^n by tuning parameters — unlike linear regression which is NOT a universal approximator.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="qa-card" id="qa-12">
+        <div class="qa-card-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="qa-num">12</div>
+          <div class="qa-question">Describe the following functions: Sigmoid, Tanh, ReLU</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-card-body">
+          <div class="qa-answer">
+            <h4>⚡ Answer</h4>
+            <div class="sub-section">
+              <h5>Sigmoid Function</h5>
+              <div class="formula-box">σ(x) = 1 / (1 + e<sup>−x</sup>)</div>
+              <ul>
+                <li>Output range: <strong>(0, 1)</strong></li>
+                <li>S-shaped curve, smooth gradient</li>
+                <li>Used for binary classification outputs</li>
+                <li><strong>Drawback:</strong> Vanishing gradient problem for very large/small inputs; output not
+                  zero-centered</li>
+              </ul>
+            </div>
+            <div class="sub-section">
+              <h5>Tanh Function</h5>
+              <div class="formula-box">tanh(x) = (e<sup>x</sup> − e<sup>−x</sup>) / (e<sup>x</sup> + e<sup>−x</sup>)
+              </div>
+              <ul>
+                <li>Output range: <strong>(−1, 1)</strong></li>
+                <li>Zero-centered output (better than sigmoid)</li>
+                <li><strong>Drawback:</strong> Still suffers from vanishing gradient for extreme values</li>
+              </ul>
+            </div>
+            <div class="sub-section">
+              <h5>ReLU (Rectified Linear Unit)</h5>
+              <div class="formula-box">ReLU(x) = max(0, x)</div>
+              <ul>
+                <li>Output range: <strong>[0, ∞)</strong></li>
+                <li><strong>Most popular</strong> activation function in modern deep learning</li>
+                <li>Computationally simple — just a threshold operation</li>
+                <li>No vanishing gradient for positive values</li>
+                <li><strong>Drawback:</strong> "Dying ReLU" — neurons with negative input always output 0</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="qa-card" id="qa-13">
+        <div class="qa-card-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="qa-num">13</div>
+          <div class="qa-question">Model the XOR function using neural networks</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-card-body">
+          <div class="qa-answer">
+            <h4>⚡ Answer</h4>
+            <p>XOR is <strong>NOT linearly separable</strong> — a single linear layer cannot compute it. We need
+              nonlinear activation (ReLU).</p>
+            <p><strong>Solution Architecture:</strong></p>
+            <ol>
+              <li><strong>Layer 1 (Linear):</strong> Two neurons with weights:
+                <ul>
+                  <li>Neuron 1: weights [1, −1] → computes (a − b)</li>
+                  <li>Neuron 2: weights [−1, 1] → computes (b − a)</li>
+                </ul>
+              </li>
+              <li><strong>Layer 2 (ReLU):</strong> Apply ReLU to both outputs:
+                <ul>
+                  <li>ReLU(a − b) = max(0, a−b)</li>
+                  <li>ReLU(b − a) = max(0, b−a)</li>
+                </ul>
+              </li>
+              <li><strong>Layer 3 (Linear sum):</strong> Sum both ReLU outputs:
+                <ul>
+                  <li>ReLU(a−b) + ReLU(b−a) = |a − b| = a ⊕ b</li>
+                </ul>
+              </li>
+            </ol>
+            <p><strong>Verification:</strong></p>
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>a</th>
+                  <th>b</th>
+                  <th>a−b</th>
+                  <th>b−a</th>
+                  <th>ReLU(a−b)</th>
+                  <th>ReLU(b−a)</th>
+                  <th>Sum = XOR</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>−1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>−1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="qa-card" id="qa-14">
+        <div class="qa-card-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="qa-num">14</div>
+          <div class="qa-question">Differentiate between Deep Neural Network and CNN</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-card-body">
+          <div class="qa-answer">
+            <h4>⚡ Answer</h4>
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>Aspect</th>
+                  <th>Deep Neural Network (DNN)</th>
+                  <th>Convolutional Neural Network (CNN)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Connection</strong></td>
+                  <td>Fully connected — every input connected to every neuron</td>
+                  <td>Locally connected — small filter (R×S) slides over input</td>
+                </tr>
+                <tr>
+                  <td><strong>Parameters</strong></td>
+                  <td>N inputs × N weights per neuron (huge)</td>
+                  <td>Shared filter weights — much fewer parameters</td>
+                </tr>
+                <tr>
+                  <td><strong>Input Type</strong></td>
+                  <td>Any structured data (tabular, etc.)</td>
+                  <td>Spatial data (images, video, audio)</td>
+                </tr>
+                <tr>
+                  <td><strong>Operation</strong></td>
+                  <td>Matrix multiplication (y = Wx + b)</td>
+                  <td>Convolution: slide filter, compute dot products</td>
+                </tr>
+                <tr>
+                  <td><strong>Spatial Awareness</strong></td>
+                  <td>No — flattens input, loses spatial structure</td>
+                  <td>Yes — preserves and exploits spatial relationships</td>
+                </tr>
+                <tr>
+                  <td><strong>Key Layers</strong></td>
+                  <td>Linear + Activation layers</td>
+                  <td>Convolutional + ReLU + Pooling + Fully Connected</td>
+                </tr>
+                <tr>
+                  <td><strong>Weight Sharing</strong></td>
+                  <td>No — unique weight per connection</td>
+                  <td>Yes — same filter applied across all positions</td>
+                </tr>
+                <tr>
+                  <td><strong>Computation</strong></td>
+                  <td>Per output: N MACs</td>
+                  <td>Per output pixel: C×R×S MACs (much less)</td>
+                </tr>
+              </tbody>
+            </table>
+            <p><strong>CNN Key Terms:</strong> ifmap (input feature map), ofmap (output feature map), filter/kernel.
+              Multiple channels: each ofmap depends on ALL C input channels with unique filter per (ifmap, ofmap) pair.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="qa-card" id="qa-15">
+        <div class="qa-card-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="qa-num">15</div>
+          <div class="qa-question">Describe the Weight Stationary (WS) architecture with neat diagram</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-card-body">
+          <div class="qa-answer">
+            <h4>⚡ Answer</h4>
+            <div class="qa-diagram-placeholder"><img src="diagrams/pe_array_dataflow.png" alt="WS Architecture"
+                onclick="openModal(this.src)">
+              <div class="caption">Weight Stationary Hardware Architecture — click to enlarge</div>
+            </div>
+            <p><strong>Weight Stationary (WS)</strong> is a dataflow architecture where <strong>filter weights are
+                cached in each PE's local buffer</strong> for maximum reuse, while inputs and outputs are streamed.</p>
+            <p><strong>Reference Architecture:</strong> 2D PE array + Local Buffer (LB, like L1) + Global Buffer (GB,
+              like L2) + Main Memory, connected via NoC.</p>
+            <p><strong>2D PE Array Layout:</strong> Rows = channels (c), Columns = ofmaps (k). Each PE stores the filter
+              for one (ifmap channel, ofmap) pair.</p>
+            <p><strong>4 Phases of WS Execution:</strong></p>
+            <ol>
+              <li><strong>Phase I — Load Filters:</strong> Load filter weights into PEs. Each PE gets one (k,c) filter.
+              </li>
+              <li><strong>Phase II — Stream Inputs:</strong> Stream ifmap blocks along rows (one channel per row). Data
+                flows systolically from PE to PE.</li>
+              <li><strong>Phase III — Compute:</strong> Each PE computes convolution between streamed input data and its
+                cached filter weights.</li>
+              <li><strong>Phase IV — Reduce:</strong> Sum partial sums column-wise using either:
+                <ul>
+                  <li><strong>Parallel reduction:</strong> Adder tree via NoC — faster, more complex.</li>
+                  <li><strong>Systolic transfer:</strong> Top PE sends partial sum to PE below, which adds its own and
+                    passes down — simpler, sequential.</li>
+                </ul>
+              </li>
+            </ol>
+            <p><strong>Key Principle:</strong> Spatial reuse — read data once from memory, multicast to multiple PEs.
+              Maximize reuse of stationary (cached) filter weights to minimize memory traffic.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <img class="pikachu-mascot" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
+    alt="Pikachu" title="Click for a tip!" onclick="randomTip()">
+  <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"></button>
+  <div class="caught-counter">
+    <div class="ball-sm"></div><span id="caughtText">0/22 Caught</span>
+  </div>
+  <div class="modal-overlay" id="imageModal" onclick="this.classList.remove('active')"><img id="modalImg" src=""
+      alt="Diagram"></div>
+  <script>
+    window.addEventListener('load', () => {
+      setTimeout(() => document.getElementById('loadingScreen').classList.add('hidden'), 1500);
+      initSections();
+    });
+
+    function toggleSection(h) {
+      const b = h.nextElementSibling;
+      const s = h.parentElement;
+      const isCollapsed = b.style.display === 'none' || b.style.display === '';
+      if (isCollapsed) {
+        b.style.display = 'block';
+        if (!s.classList.contains('caught')) {
+          s.classList.add('caught');
+          updateProgress();
+        }
+      } else {
+        b.style.display = 'none';
+      }
+    }
+
+    function initSections() {
+      document.querySelectorAll('.section-body').forEach(b => {
+        b.style.display = 'none';
+      });
+      const o = new IntersectionObserver(es => es.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      }), { threshold: 0.1 });
+      document.querySelectorAll('.pokemon-section').forEach(s => o.observe(s));
+    }
+
+    function updateProgress() {
+      const c = document.querySelectorAll('.pokemon-section.caught').length;
+      const t = 22;
+      const p = Math.round(c / t * 100);
+      document.getElementById('xpFill').style.width = p + '%';
+      document.getElementById('xpText').textContent = c + '/' + t + ' caught';
+      document.getElementById('caughtText').textContent = c + '/' + t + ' Caught';
+      let l = 1;
+      if (p >= 90) l = 10; else if (p >= 75) l = 8; else if (p >= 60) l = 6; else if (p >= 40) l = 4; else if (p >= 20) l = 2;
+      document.querySelector('.trainer-level').textContent = 'LV.' + l + ' TRAINER';
+    }
+
+    function filterSections(q) {
+      q = q.toLowerCase();
+      document.querySelectorAll('.pokemon-section').forEach(s => {
+        s.style.display = s.textContent.toLowerCase().includes(q) ? '' : 'none';
+      });
+    }
+
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const b = el.querySelector('.section-body');
+        if (b && (b.style.display === 'none' || b.style.display === ''))
+          toggleSection(el.querySelector('.section-header'));
+      }
+    }
+
+    function openModal(src) {
+      document.getElementById('modalImg').src = src;
+      document.getElementById('imageModal').classList.add('active');
+    }
+
+    function checkAnswer(l, ok) {
+      const q = l.parentElement;
+      if (q.dataset.answered) return;
+      q.dataset.answered = 'true';
+      if (ok) {
+        l.classList.add('correct');
+        l.innerHTML = '&#10004; ' + l.innerHTML;
+      } else {
+        l.classList.add('wrong');
+        l.innerHTML = '&#10008; ' + l.innerHTML;
+        // highlight correct answer
+        q.querySelectorAll('label').forEach(lb => {
+          const onclick = lb.getAttribute('onclick');
+          if (onclick && onclick.includes('true')) lb.classList.add('correct');
+        });
+      }
+    }
+
+    window.addEventListener('scroll', () => {
+      document.getElementById('scrollTop').classList.toggle('show', window.scrollY > 500);
+    });
+
+    const tips = [
+      "SIMT = 32 threads in lockstep!",
+      "PTX is virtual, SASS is native!",
+      "GPU has 84 SMs = 336 PBs!",
+      "Convolution = slide small filter over big input!",
+      "Weight Stationary = cache filters in PEs!",
+      "ReLU(x) = max(0, x)!",
+      "Predicated execution = ALL paths, mask selects!",
+      "cudaMalloc > cudaMemcpy > kernel > cudaMemcpy > cudaFree!",
+      "Warp = 32 threads. Block max = 1024!",
+      "Universal Approximator = learns ANY function!"
+    ];
+
+    function randomTip() {
+      const t = tips[Math.floor(Math.random() * tips.length)];
+      const old = document.querySelector('.pika-tooltip');
+      if (old) old.remove();
+      const tt = document.createElement('div');
+      tt.className = 'pika-tooltip';
+      tt.style.cssText = 'position:fixed;bottom:160px;right:10px;background:var(--poke-yellow);color:#111;padding:12px 16px;border-radius:12px;font-size:0.8rem;max-width:280px;z-index:200;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,0.3);animation:fadeInUp 0.3s ease';
+      tt.textContent = 'Pika! ' + t;
+      document.body.appendChild(tt);
+      setTimeout(() => tt.remove(), 4000);
+    }
+
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + tab).classList.add('active');
+      event.currentTarget.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+
+</html>
