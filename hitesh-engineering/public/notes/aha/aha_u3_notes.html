@@ -1552,10 +1552,99 @@
           </div>
         </details>
 
-        <div class="sub-title">7.6 Router Architecture</div>
-        <p>A routing node consists of: <strong>Buffers</strong> (store incoming flits), <strong>Switch/Crossbar</strong>
-          (connects input to output buffers), <strong>Routing &amp; Arbitration Unit</strong> (decides connections), and
-          <strong>Link Controller</strong> (manages physical link).</p>
+        <div class="sub-title">7.6 Optimized Switch Designs</div>
+        <p>Monolithic crossbars are often too expensive in terms of area. Hierarchical designs are used to optimize this:</p>
+        <div class="grid">
+          <div class="box">
+            <h4>Design 1 - Full Hierarchical</h4>
+            <p>Uses five 2×1 switches and one 5×5 switch.<br><b>Metrics:</b> Area = 35, Latency = 13.<br><b>Problem:</b> Cannot send from both Virtual Channels (VCs) of the same channel simultaneously.</p>
+          </div>
+          <div class="box">
+            <h4>Design 2 - Partial Hierarchical</h4>
+            <p>Uses two 5×2 switches and one 4×5 switch.<br><b>Metrics:</b> Area = 40, Latency = 16.<br><b>Benefit:</b> Provides better flexibility; assumes a maximum of 4 simultaneous outgoing packets.</p>
+          </div>
+        </div>
+
+        <div class="sub-title">7.7 Routing</div>
+        <p>The routing algorithm determines the path taken from source to destination.</p>
+        <p><strong>Classification:</strong></p>
+        <ul>
+            <li><strong>Where:</strong> Source routing (path decided at source) vs. Distributed routing (decisions made at each router).</li>
+            <li><strong>When/How:</strong> Deterministic (fixed path) vs. Oblivious (path independent of network state) vs. Adaptive (path depends on network congestion).</li>
+        </ul>
+        <p><strong>Examples:</strong> XY routing (deterministic), Valiant's algorithm (oblivious), and Minimal Adaptive routing.</p>
+        
+        <div class="sub-title">7.8 Deadlock & Livelock</div>
+        <div class="grid">
+          <div class="box">
+            <h4>Deadlock</h4>
+            <p>Occurs when packets form a cycle of dependency on resources (buffers/links) and cannot move forward.</p>
+            <p><b>Resource Dependency Graph (RDG):</b> A cycle in the RDG indicates a potential deadlock.</p>
+            <p><b>Solutions:</b> Turn Model (prohibiting certain turns to break cycles) or using Virtual Channels (providing escape paths).</p>
+          </div>
+          <div class="box">
+            <h4>Livelock</h4>
+            <p>Occurs when packets keep moving within the network but never reach their destination.</p>
+            <p><b>Solution:</b> Bounded misrouting (limiting the number of hops a packet can take away from its destination).</p>
+          </div>
+        </div>
+
+        <div class="sub-title">7.9 Flow Control</div>
+        <p>Manages the allocation of buffers and links between routers.</p>
+        <p><strong>Bufferless:</strong> Includes techniques like Dropping or Deflection (Hot-potato) routing.</p>
+        <p><strong>Buffered:</strong></p>
+        <ul>
+            <li><strong>Store-and-forward:</strong> Entire packet is stored before being forwarded.</li>
+            <li><strong>Virtual cut-through:</strong> Forwarding starts as soon as the header is processed and output is available.</li>
+            <li><strong>Wormhole routing:</strong> Packets are broken into <strong>flits</strong> (Flow control units). Only the head flit contains routing info; body and tail flits follow. This significantly reduces buffer requirements.</li>
+        </ul>
+
+        <div class="sub-title">7.10 Router Pipeline</div>
+        <p>Stages of a typical router pipeline:</p>
+        <ol>
+            <li><strong>BW (Buffer Write):</strong> Flit arrives and is written to the buffer.</li>
+            <li><strong>RC (Route Computation):</strong> Determines the output port for the head flit.</li>
+            <li><strong>VA (Virtual Channel Allocation):</strong> Head flit requests an available output VC.</li>
+            <li><strong>SA (Switch Allocation):</strong> Flit requests access to the crossbar switch.</li>
+            <li><strong>ST (Switch Traversal):</strong> Flit moves through the crossbar to the output port.</li>
+            <li><strong>LT (Link Traversal):</strong> Flit moves across the physical link to the next router.</li>
+        </ol>
+        <p><strong>Optimizations:</strong> Look-ahead routing and Speculative Allocation (performing SA and VA in parallel).</p>
+
+        <div class="sub-title">7.11 Performance Metrics</div>
+        <div class="grid">
+            <div class="box">
+                <h4>Throughput</h4>
+                <p>The number of packets or bits delivered per unit time. Max throughput is limited by the narrowest bottleneck in the network.</p>
+            </div>
+            <div class="box">
+                <h4>Latency</h4>
+                <p>The total time taken for a packet to travel from source to destination.<br><b>Zero-load latency:</b> The latency experienced when there is no other traffic in the network.</p>
+            </div>
+        </div>
+        <p><strong>Latency vs. Throughput:</strong> Latency remains relatively flat until the network reaches a "saturation point," after which it rises sharply.</p>
+
+        <div class="sub-title">8.0 Network Interface (NI)</div>
+        <p>Acts as the interface between a Processing Element (PE) and the network.</p>
+        <p><strong>Primary Functions:</strong></p>
+        <ul>
+            <li>Packetization and Depacketization of data.</li>
+            <li>Buffer management for the PE.</li>
+            <li>Protocol conversion (e.g., translating PE-specific protocols like AXI or OCP to the NoC protocol).</li>
+            <li>Providing end-to-end flow control and error control.</li>
+        </ul>
+
+        <div class="sub-title">8.1 Network Interface Architecture</div>
+        <ul>
+            <li><strong>PE Side:</strong> Typically uses standard bus interfaces (AXI, OCP).</li>
+            <li><strong>Network Side:</strong> Directly interfaces with the router.</li>
+            <li>Contains dedicated buffers for incoming and outgoing packets.</li>
+            <li><strong>DMA (Direct Memory Access):</strong> Often incorporated to offload data transfer tasks from the PE.</li>
+        </ul>
+
+        <div class="sub-title">8.2 Protocol Conversion</div>
+        <p>NoCs typically use simplified internal protocols. The NI translates PE requests (like Load/Store) into specific NoC packets.</p>
+        <p><strong>Request-Response Matching:</strong> The NI tracks outstanding requests to correctly match them with incoming responses from the network.</p>
 
         <div class="flashcard-grid">
           <div class="flashcard" onclick="this.classList.toggle('flipped')">
@@ -1586,7 +1675,7 @@
         </div>
 
         <div class="exam-warn">Exam Alert: Differentiate between Mesh, Torus, and Folded Torus topologies. Explain the
-          Message → Packet → Flit → Phit hierarchy. Compare Credit-based and On-Off flow control.</div>
+          Message → Packet → Flit → Phit hierarchy. Compare Credit-based and On-Off flow control. Describe the stages of the router pipeline.</div>
       </div>
     </div>
 
