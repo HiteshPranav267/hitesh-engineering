@@ -1417,6 +1417,17 @@ export const resources: Resource[] = [
         "url": "https://drive.google.com/drive/folders/1nyBngkybKoQE2aTZb_sW3XSe8_X43L56?usp=sharing",
         "tags": []
     },
+    {
+        "isHiteshNotes": true,
+        "id": "res-local-133",
+        "title": "HPC U3&4 Notes",
+        "subject": "HPC",
+        "year": "3",
+        "department": "ECE",
+        "type": "PDF",
+        "url": "/hitesh-engineering/notes/hpc/hpc_u3_u4.pdf",
+        "tags": []
+    },
 
 ];
 
