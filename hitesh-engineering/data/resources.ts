@@ -1254,12 +1254,12 @@ export const resources: Resource[] = [
     {
         "isHiteshNotes": false,
         "id": "res-local-118",
-        "title": "HPC U1 Dakshin Notes",
+        "title": "HPC U1 and U2 Notes",
         "subject": "HPC",
         "year": "3",
         "department": "ECE",
         "type": "PDF",
-        "url": "/hitesh-engineering/notes/hpc/hpc_u1_dakshin.pdf",
+        "url": "/hitesh-engineering/notes/hpc/hpc_u1_u2.pdf",
         "tags": []
     },
     {
