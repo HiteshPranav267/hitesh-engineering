@@ -1362,7 +1362,7 @@ export const resources: Resource[] = [
         "tags": []
     },
     {
-        "isHiteshNotes": true,
+        "isHiteshNotes": false,
         "id": "res-local-128",
         "title": "MLA U3 & U4 Numericals",
         "subject": "MLA",
@@ -1405,6 +1405,19 @@ export const resources: Resource[] = [
         "url": "/hitesh-engineering/notes/aha/aha_u4/U4/pokemon_notes.html",
         "tags": []
     },
+
+    {
+        "isHiteshNotes": false,
+        "id": "res-local-132",
+        "title": "Sem 6 PYQs",
+        "subject": "Others",
+        "year": "3",
+        "department": "ECE",
+        "type": "Website",
+        "url": "https://drive.google.com/drive/folders/1nyBngkybKoQE2aTZb_sW3XSe8_X43L56?usp=sharing",
+        "tags": []
+    },
+
 ];
 
 // Template
