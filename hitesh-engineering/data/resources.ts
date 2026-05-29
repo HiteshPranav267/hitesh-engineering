@@ -1333,7 +1333,7 @@ export const resources: Resource[] = [
         "id": "res-local-125",
         "title": "Mathematics 2 Entire subject notes",
         "subject": "Mathematics 2",
-        "year": "2",
+        "year": "1",
         "department": "S&H",
         "type": "Website",
         "url": "https://hitesh-notes.notion.site/Math-sem-2-b501fe44d9044c848cca2af3d73571f0",
