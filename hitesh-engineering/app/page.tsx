@@ -1,8 +1,12 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import Currently from "@/components/Currently";
 import About from "@/components/About";
+import HowIThink from "@/components/HowIThink";
 import Projects from "@/components/Projects";
-import Resume from "@/components/Resume";
+import Experience from "@/components/Experience";
+import Stack from "@/components/Stack";
+import OtherWork from "@/components/OtherWork";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -11,9 +15,13 @@ export default function Home() {
         <main>
             <Navbar />
             <Hero />
+            <Currently />
             <About />
+            <HowIThink />
             <Projects />
-            <Resume />
+            <Experience />
+            <Stack />
+            <OtherWork />
             <Contact />
             <Footer />
         </main>

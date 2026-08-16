@@ -9,18 +9,18 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "Hitesh Pranav Reddy | Portfolio",
+    title: "Hitesh Pranav Reddy | Software, Hardware & AI",
     description:
-        "Electronics & Communication Engineer specializing in VLSI, Hardware Security, and Machine Learning.",
-    keywords: ["Hitesh Pranav Reddy", "Portfolio", "ECE Engineer", "Hardware Security", "VLSI Design", "Machine Learning", "Cyber Security"],
+        "I'm an Electronics & Communication Engineer at PES University building across software, hardware, and AI — full-stack products, embedded systems, and applied machine learning.",
+    keywords: ["Hitesh Pranav Reddy", "Systems Engineer", "Software Engineer", "Embedded Systems", "Machine Learning", "AI Engineer", "PES University", "Full Stack Developer"],
     authors: [{ name: "Hitesh Pranav Reddy" }],
     creator: "Hitesh Pranav Reddy",
     openGraph: {
-        title: "Hitesh Pranav Reddy | Portfolio",
+        title: "Hitesh Pranav — Engineer | Software, Hardware & AI",
         description:
-            "Portfolio of Hitesh Pranav Reddy - Electronics & Communication Engineer specializing in VLSI, Hardware Security, and ML.",
+            "An ECE engineer building across software, hardware, and AI. Full-stack products, embedded systems, and applied machine learning.",
         url: 'https://hiteshpranav267.github.io/hitesh-engineering',
-        siteName: 'Hitesh Pranav Reddy Portfolio',
+        siteName: 'Hitesh Pranav — Systems Engineer',
         locale: 'en_US',
         type: 'website',
     },
@@ -29,8 +29,8 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: "Hitesh Pranav Reddy | Portfolio",
-        description: "Electronics & Communication Engineer | VLSI & Hardware Security | ML & Cyber Security",
+        title: "Hitesh Pranav — Systems Engineer | Software, Hardware & AI",
+        description: "Building across software, hardware & AI. ECE @ PES University.",
     },
     robots: {
         index: true,
@@ -48,7 +48,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
-            <body className="font-sans antialiased bg-navy-900 text-slate-200 min-h-screen">
+            <body className="font-sans antialiased bg-ink-950 text-paper min-h-screen">
                 {children}
             </body>
         </html>

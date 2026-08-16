@@ -1,8 +1,6 @@
-import { projects } from "./projects";
-
 export const resumeData = {
     name: "Duggireddy Hitesh Pranav Reddy",
-    title: "ECE | VLSI & Hardware Security | ML & Cyber Security",
+    title: "Systems Engineer — Software, Hardware & AI",
     contact: {
         email: "hiteshpranavreddy.d@gmail.com",
         phone: "+91 8296465473",
@@ -30,9 +28,9 @@ export const resumeData = {
             company: "Joy of Engineering Lab (JoEL), PES University",
             period: "August 2024 – Present",
             bullets: [
-                "Contributed to the backend planning and technical coordination of HackeZee 2025, JoEL's flagship hardware hackathon.",
-                "Assisted in event logistics, participant support, and mentoring, ensuring a smooth experience for all attendees for multiple events",
-                "Mentored 6+ teams on IoT based projects, guiding them through design, implementation, and debugging processes.",
+                "Led technical coordination and backend planning for HackeZee 2025, JoEL's flagship hardware hackathon.",
+                "Mentored 6+ teams on IoT-based projects, guiding design, implementation, and debugging processes.",
+                "Built and maintain the lab's official website, and coordinated logistics and stakeholder communication across students, vendors, and university staff for multiple events.",
             ],
         },
         {
@@ -41,22 +39,64 @@ export const resumeData = {
             period: "June 2025 – July 2025",
             bullets: [
                 "Collaborated with a team to develop a modular cybersecurity framework for automotive networks.",
-                "Design and implemented a full-stack intrusion detection system (IDS) using machine learning models.",
+                "Designed and implemented a full-stack intrusion detection system (IDS) using machine learning models.",
                 "Integrated a real-time Python-based firewall with an ensemble of models to enhance vehicular safety.",
                 "Created a Tkinter-based GUI for controlled CAN message injection and post-attack analytics visualization.",
             ],
         },
     ],
     skills: [
-        { category: "Languages", items: ["Python", "C / C++", "Verilog / VHDL"] },
-        { category: "Hardware", items: ["FPGA", "Arduino/RPi"] },
-        { category: "ML & Security", items: ["Scikit-learn", "PyTorch", "IDS / Anomaly Detection", "CAN Bus Security"] },
-        { category: "Tools", items: ["Git", "Vivado", "Linux"] },
+        { category: "Software", items: ["Python", "C / C++", "TypeScript", "JavaScript", "React", "Next.js", "Flask"] },
+        { category: "AI / ML", items: ["PyTorch", "Scikit-learn", "NLP", "Semantic Search", "Hybrid Retrieval"] },
+        { category: "Systems", items: ["Linux", "Git", "SystemC", "PostgreSQL", "APIs"] },
+        { category: "Hardware", items: ["FPGA", "Verilog / VHDL", "Arduino / Raspberry Pi", "IMU / GPS Sensors"] },
+        { category: "Security", items: ["CAN Bus Security", "Intrusion Detection", "Anomaly Detection"] },
     ],
-    projects: projects.map(p => ({
-        title: p.title,
-        period: p.period,
-        tech: p.tags.slice(0, 5).join(", "),
-        bullets: p.bullets
-    }))
+    projects: [
+        {
+            title: "LifeOS",
+            period: "2026",
+            tech: "React, TypeScript, Vite, Supabase, PostgreSQL",
+            bullets: [
+                "Built a full-stack personal operating system unifying productivity, fitness, nutrition, finance, and habit tracking on one schema.",
+                "Implemented Supabase authentication, local-first sync, and AI-powered nutrition search.",
+            ],
+        },
+        {
+            title: "PESU ResearchMatch",
+            period: "2026",
+            tech: "Python, Flask, React, BGE-Large, BM25",
+            bullets: [
+                "Built a hybrid retrieval pipeline combining BGE-Large dense embeddings (1024-dim) with BM25 keyword matching for faculty search.",
+                "Integrated a local Qwen-2.5-0.5B model to generate per-match explanations without external API calls.",
+            ],
+        },
+        {
+            title: "Automotive ML IDS",
+            period: "2025",
+            tech: "Python, python-can, Random Forest",
+            bullets: [
+                "Developed a machine-learning intrusion detection system for automotive CAN bus networks.",
+                "Integrated a real-time Python-based firewall with ensemble models to enhance vehicular safety.",
+            ],
+        },
+        {
+            title: "Motorsport Telemetry Dashboard — Ignition 1.0",
+            period: "2025",
+            tech: "JavaScript, Chart.js, Leaflet, IMU, GPS",
+            bullets: [
+                "Built a real-time telemetry system integrating IMU acceleration data, GPS tracking, and IMU+GPS sensor-fusion speed estimation.",
+                "Recognized as the 2nd-lightest hardware system at Ignition 1.0 (sponsored by Ather Energy); placed 5th overall.",
+            ],
+        },
+        {
+            title: "Joy of Engineering Lab — Website",
+            period: "2025",
+            tech: "Next.js, TypeScript, Tailwind CSS",
+            bullets: [
+                "Designed and built the official website for JoEL, showcasing flagship events HackeZee and Roadshow.",
+                "Deployed on Vercel with a focus on clarity, accessibility, and long-term maintainability by future teams.",
+            ],
+        },
+    ],
 };
