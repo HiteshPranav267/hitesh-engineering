@@ -1,1 +1,26 @@
-node_modules
+# dependencies
+node_modules/
+.pnp
+.pnp.*
+
+# next.js
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# private source material (main.md, assets, notes PDFs, handwriting)
+private/
+
+# local note PDFs and tiles until they move to R2
+public/notes-dev/
+
+# env
+.env*
+
+# misc
+.DS_Store
+*.pem
+npm-debug.log*
+.vercel
+coverage/
