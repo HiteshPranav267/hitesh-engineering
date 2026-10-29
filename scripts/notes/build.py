@@ -13,6 +13,8 @@ Outputs
   public/notes-dev/desk/<subject>.dzi        deep-zoom desk, one per subject (gitignored)
   public/notes-dev/desk/shelf.dzi            every subject on one desk (gitignored)
   public/notes-dev/desk/<name>.json          page rectangles on each desk image
+  public/notes-desk/<name>.dzi + .json       the same desks minus the top two zoom levels
+                                             (committed; the site renders close-ups from the PDF)
   private/notes-cache/                       full-size page renders (cache)
 
 Usage
@@ -55,6 +57,9 @@ SHELF_COLS = 10
 SHELF_W, SHELF_H = 220, 311
 
 DEPT_ORDER = {"S&H": 0, "ECE": 1, "CSE": 2}
+
+LITE = ROOT / "public" / "notes-desk"
+LITE_DROP = 2  # top levels left out of the committed desk (each is 4x the size of the one below)
 
 
 def slugify(s: str) -> str:
@@ -200,11 +205,40 @@ def save_desk(name: str, desk: dict) -> None:
     (out / f"{name}.json").write_text(json.dumps(desk["layout"]))
 
 
+def make_lite(name: str) -> None:
+    """Copy a desk without its top LITE_DROP levels; scale its size and page map to match."""
+    src = DEV / "desk"
+    levels = sorted(int(p.name) for p in (src / f"{name}_files").iterdir() if p.name.isdigit())
+    top = levels[-1] - LITE_DROP
+    out = LITE / f"{name}_files"
+    if out.exists():
+        shutil.rmtree(out)
+    for lvl in levels:
+        if lvl <= top:
+            shutil.copytree(src / f"{name}_files" / str(lvl), out / str(lvl))
+    k = 2 ** LITE_DROP
+    dzi = (src / f"{name}.dzi").read_text()
+    w = int(re.search(r'Width="(\d+)"', dzi).group(1))
+    h = int(re.search(r'Height="(\d+)"', dzi).group(1))
+    dzi = re.sub(r'Width="\d+"', f'Width="{math.ceil(w / k)}"', re.sub(r'Height="\d+"', f'Height="{math.ceil(h / k)}"', dzi))
+    (LITE / f"{name}.dzi").write_text(dzi)
+    layout = json.loads((src / f"{name}.json").read_text())
+    layout["scale"] = k  # multiply desk-image coordinates by this to get full-resolution ones
+    (LITE / f"{name}.json").write_text(json.dumps(layout))
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--only", help="rebuild one subject slug")
     ap.add_argument("--no-tiles", action="store_true", help="skip page renders and deep-zoom tiles")
+    ap.add_argument("--lite-only", action="store_true", help="only rebuild public/notes-desk from existing tiles")
     args = ap.parse_args()
+    if args.lite_only:
+        LITE.mkdir(parents=True, exist_ok=True)
+        for dzi in sorted((DEV / "desk").glob("*.dzi")):
+            make_lite(dzi.stem)
+        print(f"lite desks -> {LITE.relative_to(ROOT)}")
+        return
     REVISED.update(git_revised_dates())
 
     seed = {e["path"]: e for e in yaml.safe_load(SEED.read_text(encoding="utf-8"))["files"]}
@@ -275,10 +309,13 @@ def main() -> None:
                     pyvips.Image.thumbnail(str(full), THUMB_W).jpegsave(str(thumb), Q=75, strip=True)
             doc.close()
         save_desk(s["slug"], build_subject_desk(s["slug"], s["subject"], s["files"]))
+        LITE.mkdir(parents=True, exist_ok=True)
+        make_lite(s["slug"])
         print(f"desk: {s['slug']} ({s['pages']} pages)")
 
     if not args.no_tiles and not args.only:
         save_desk("shelf", build_shelf_desk(subjects))
+        make_lite("shelf")
         print("desk: shelf")
 
     OUT_YAML.parent.mkdir(parents=True, exist_ok=True)

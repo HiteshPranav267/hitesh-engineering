@@ -28,7 +28,7 @@ export default async function SubjectDesk({ params }: { params: Promise<{ subjec
                 <Link href="/notes/">Notes</Link> · <Link href={`/notes/${s.slug}/`}>{s.subject} in the reader</Link> · <Link href="/desk/">Whole shelf</Link>
             </p>
             <h1 style={{ marginTop: "0.4rem" }}>{s.subject}</h1>
-            <Desk name={s.slug} subject={s.slug} />
+            <Desk name={s.slug} subject={s.slug} pdfs={Object.fromEntries(s.files.map((f) => [`${s.slug}/${f.stem}`, f.pdf]))} />
         </main>
     );
 }

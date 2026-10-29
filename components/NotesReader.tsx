@@ -3,15 +3,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { replaceUrl, safeStorage, setStorage, useBrowserValue, useLocation } from "@/lib/browser";
 import type { NoteFile } from "@/lib/content";
-import { asset, NOTES_PDF_BASE } from "@/lib/site";
+import { openPdf, type PdfDoc } from "@/lib/pdf";
+import { NOTES_PDF_BASE } from "@/lib/site";
 
-type PdfDoc = import("pdfjs-dist").PDFDocumentProxy;
-
-async function loadPdfjs() {
-    const pdfjs = await import("pdfjs-dist");
-    pdfjs.GlobalWorkerOptions.workerSrc = asset("vendor/pdf.worker.min.mjs");
-    return pdfjs;
-}
 
 function parseLocation(loc: string): { unit: string | null; page: number } {
     const [search, hash = ""] = loc.split("#");
@@ -68,8 +62,7 @@ export default function NotesReader({ files }: { files: NoteFile[] }) {
     useEffect(() => {
         let cancelled = false;
         let d: PdfDoc | null = null;
-        loadPdfjs()
-            .then((pdfjs) => pdfjs.getDocument({ url, disableAutoFetch: true }).promise)
+        openPdf(url)
             .then((x) => {
                 d = x;
                 if (!cancelled) setLoaded({ url, doc: x });
