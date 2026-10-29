@@ -1,0 +1,347 @@
+{
+    "$comment": "Room hotspots. Each object is drawn in its own local coordinates (box = [w, h]) and placed with x, y, s per composition. Array order is the keyboard Tab order. layer: 0 wall/window, 1 shelf, 2 desk, 3 objects, 4 foreground.",
+    "viewBox": {
+        "landscape": [
+            1600,
+            1000
+        ],
+        "portrait": [
+            900,
+            1600
+        ]
+    },
+    "deskTop": {
+        "landscape": 640,
+        "portrait": 1010
+    },
+    "music": {
+        "src": null,
+        "credit": null
+    },
+    "objects": [
+        {
+            "id": "laptop",
+            "label": "Laptop — projects",
+            "kind": "link",
+            "target": "/projects/",
+            "layer": 3,
+            "box": [
+                420,
+                300
+            ],
+            "landscape": {
+                "x": 600,
+                "y": 395,
+                "s": 1
+            },
+            "portrait": {
+                "x": 240,
+                "y": 735,
+                "s": 1
+            }
+        },
+        {
+            "id": "fieldnotes",
+            "label": "RTL Field Notes",
+            "kind": "link",
+            "target": "/field-notes/",
+            "layer": 3,
+            "box": [
+                300,
+                130
+            ],
+            "landscape": {
+                "x": 1010,
+                "y": 760,
+                "s": 1
+            },
+            "portrait": {
+                "x": 300,
+                "y": 1100,
+                "s": 1
+            }
+        },
+        {
+            "id": "shelf",
+            "label": "Notebook shelf — notes",
+            "kind": "link",
+            "target": "/notes/",
+            "layer": 1,
+            "box": [
+                560,
+                430
+            ],
+            "landscape": {
+                "x": 70,
+                "y": 70,
+                "s": 0.9
+            },
+            "portrait": {
+                "x": 40,
+                "y": 70,
+                "s": 0.82
+            }
+        },
+        {
+            "id": "stickies",
+            "label": "Sticky notes — about",
+            "kind": "link",
+            "target": "/about/",
+            "layer": 0,
+            "box": [
+                240,
+                150
+            ],
+            "landscape": {
+                "x": 330,
+                "y": 478,
+                "s": 1
+            },
+            "portrait": {
+                "x": 560,
+                "y": 500,
+                "s": 1
+            }
+        },
+        {
+            "id": "calendar",
+            "label": "Wall calendar — experience",
+            "kind": "link",
+            "target": "/experience/",
+            "layer": 0,
+            "box": [
+                250,
+                330
+            ],
+            "landscape": {
+                "x": 720,
+                "y": 60,
+                "s": 1
+            },
+            "portrait": {
+                "x": 40,
+                "y": 470,
+                "s": 0.85
+            }
+        },
+        {
+            "id": "lanyards",
+            "label": "ID cards — roles",
+            "kind": "link",
+            "target": "/about/#roles",
+            "layer": 0,
+            "box": [
+                150,
+                270
+            ],
+            "landscape": {
+                "x": 1010,
+                "y": 120,
+                "s": 1
+            },
+            "portrait": {
+                "x": 300,
+                "y": 470,
+                "s": 0.9
+            }
+        },
+        {
+            "id": "tray",
+            "label": "Paper tray — CV",
+            "kind": "link",
+            "target": "/cv/",
+            "layer": 3,
+            "box": [
+                200,
+                120
+            ],
+            "landscape": {
+                "x": 1330,
+                "y": 610,
+                "s": 1
+            },
+            "portrait": {
+                "x": 670,
+                "y": 930,
+                "s": 0.9
+            }
+        },
+        {
+            "id": "phone",
+            "label": "Phone — contact",
+            "kind": "link",
+            "target": "/contact/",
+            "layer": 3,
+            "box": [
+                110,
+                60
+            ],
+            "landscape": {
+                "x": 850,
+                "y": 860,
+                "s": 1
+            },
+            "portrait": {
+                "x": 110,
+                "y": 1330,
+                "s": 1.15
+            }
+        },
+        {
+            "id": "lamp",
+            "label": "Desk lamp — light / dark",
+            "kind": "theme",
+            "target": null,
+            "layer": 3,
+            "box": [
+                220,
+                330
+            ],
+            "landscape": {
+                "x": 40,
+                "y": 478,
+                "s": 0.84
+            },
+            "portrait": {
+                "x": 20,
+                "y": 755,
+                "s": 0.9
+            }
+        },
+        {
+            "id": "window",
+            "label": "Window — rain",
+            "kind": "rain",
+            "target": null,
+            "layer": 0,
+            "box": [
+                380,
+                420
+            ],
+            "landscape": {
+                "x": 1160,
+                "y": 60,
+                "s": 1
+            },
+            "portrait": {
+                "x": 530,
+                "y": 50,
+                "s": 0.84
+            }
+        },
+        {
+            "id": "speaker",
+            "label": "Speaker — music",
+            "kind": "music",
+            "target": null,
+            "layer": 3,
+            "box": [
+                90,
+                120
+            ],
+            "landscape": {
+                "x": 1220,
+                "y": 610,
+                "s": 1
+            },
+            "portrait": {
+                "x": 770,
+                "y": 1130,
+                "s": 0.9
+            }
+        },
+        {
+            "id": "plane",
+            "label": "Model aeroplane",
+            "kind": "egg",
+            "target": null,
+            "layer": 1,
+            "box": [
+                120,
+                50
+            ],
+            "landscape": {
+                "x": 430,
+                "y": 139,
+                "s": 0.9
+            },
+            "portrait": {
+                "x": 300,
+                "y": 130,
+                "s": 0.8
+            }
+        },
+        {
+            "id": "mug",
+            "label": "Mug",
+            "kind": "none",
+            "target": null,
+            "layer": 3,
+            "box": [
+                80,
+                100
+            ],
+            "landscape": {
+                "x": 440,
+                "y": 690,
+                "s": 1
+            },
+            "portrait": {
+                "x": 110,
+                "y": 1120,
+                "s": 1
+            }
+        },
+        {
+            "id": "plant",
+            "label": "Plant",
+            "kind": "none",
+            "target": null,
+            "layer": 4,
+            "box": [
+                130,
+                190
+            ],
+            "landscape": {
+                "x": 1440,
+                "y": 770,
+                "s": 1
+            },
+            "portrait": {
+                "x": 700,
+                "y": 1360,
+                "s": 1.1
+            }
+        }
+    ],
+    "cable": {
+        "landscape": {
+            "c1": [
+                1010,
+                760
+            ],
+            "c2": [
+                975,
+                900
+            ],
+            "end": [
+                985,
+                1040
+            ]
+        },
+        "portrait": {
+            "c1": [
+                700,
+                1080
+            ],
+            "c2": [
+                690,
+                1400
+            ],
+            "end": [
+                700,
+                1640
+            ]
+        }
+    }
+}

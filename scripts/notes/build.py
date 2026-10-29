@@ -13,6 +13,7 @@ Outputs
   public/notes-dev/desk/<subject>.dzi        deep-zoom desk, one per subject (gitignored)
   public/notes-dev/desk/shelf.dzi            every subject on one desk (gitignored)
   public/notes-dev/desk/<name>.json          page rectangles on each desk image
+  private/notes-cache/                       full-size page renders (cache)
 
 Usage
   scripts/notes/.venv/Scripts/python scripts/notes/build.py [--only SUBJECT_SLUG] [--no-tiles]
@@ -41,7 +42,7 @@ SEED = SRC / "_seed.yaml"
 OUT_YAML = ROOT / "content" / "notes.yaml"
 COVERS = ROOT / "public" / "notes-covers"
 DEV = ROOT / "public" / "notes-dev"
-CACHE = DEV / "_cache"
+CACHE = ROOT / "private" / "notes-cache"  # full-size page renders, reused between runs
 
 PAGE_W, PAGE_H = 1100, 1556  # full-resolution desk cell (A4 ratio)
 THUMB_W = 220

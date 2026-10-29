@@ -1,0 +1,329 @@
+/* The study room. Colours come only from the six palette tokens in globals.css. */
+
+.room {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    background: var(--ink);
+    color: var(--black);
+}
+
+.stage {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stage-landscape .frame {
+    width: min(100vw, 160vh);
+}
+
+.stage-portrait .frame {
+    width: min(100vw, 56.25vh);
+}
+
+/* Separate compositions: phones in portrait get the re-stacked room, not a shrunken one. */
+@media (max-aspect-ratio: 17/20) {
+    .stage-landscape {
+        display: none;
+    }
+}
+
+@media (min-aspect-ratio: 17/20) {
+    .stage-portrait {
+        display: none;
+    }
+}
+
+.frame {
+    position: relative;
+}
+
+.cam {
+    position: absolute;
+    inset: 0;
+    transform-origin: 0 0;
+    will-change: transform;
+}
+
+.scene {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+/* palette */
+.f-ink { fill: var(--ink); }
+.f-teal { fill: var(--teal); }
+.f-amber { fill: var(--amber); }
+.f-cream { fill: var(--cream); }
+.f-brick { fill: var(--brick); }
+.f-black { fill: var(--black); }
+
+.s-rule { stroke: var(--ink); stroke-opacity: 0.3; stroke-width: 1.2; }
+.s-ink-line { stroke: var(--ink); stroke-opacity: 0.75; stroke-width: 2; }
+.s-brick-ring { fill: none; stroke: var(--brick); stroke-width: 2.5; }
+.s-rain { stroke: var(--cream); stroke-opacity: 0.55; stroke-width: 1.6; }
+.s-frame { stroke: var(--black); stroke-opacity: 0.15; stroke-width: 2; }
+.s-cream-thick { stroke: var(--cream); stroke-width: 7; }
+
+.cable {
+    fill: none;
+    stroke: var(--black);
+    stroke-width: 7;
+    stroke-linecap: round;
+    opacity: 0.85;
+}
+
+/* laptop screen */
+.screen-text {
+    font: 8px var(--font-mono), monospace;
+    fill: var(--cream);
+}
+
+.screen-text.dim {
+    opacity: 0.6;
+}
+
+.wave-line {
+    fill: none;
+    stroke: var(--amber);
+    stroke-width: 1.4;
+}
+
+.wave-bus {
+    fill: none;
+    stroke: var(--cream);
+    stroke-opacity: 0.75;
+    stroke-width: 1;
+}
+
+.wave-text {
+    font: 6.5px var(--font-mono), monospace;
+    fill: var(--cream);
+}
+
+.wave-scroll {
+    animation: wave-scroll 16s linear infinite;
+}
+
+@keyframes wave-scroll {
+    to { transform: translateX(-300px); }
+}
+
+.cursor-blink {
+    animation: blink 1.1s steps(1) infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* handwriting placeholders: [[REPLACE WITH HANDWRITING PHOTO]] */
+.hand {
+    font: italic 500 17px var(--font-serif), Georgia, serif;
+    fill: var(--ink);
+}
+
+.hand-small {
+    font: italic 500 10.5px var(--font-serif), Georgia, serif;
+    fill: var(--black);
+}
+
+.spine-label {
+    font-family: var(--font-serif), Georgia, serif;
+    font-style: italic;
+    fill: var(--cream);
+}
+
+.spine rect.f-amber ~ text,
+.spine rect.f-cream ~ text {
+    fill: var(--black);
+}
+
+.cal-head {
+    font: 500 20px var(--font-serif), Georgia, serif;
+    fill: var(--cream);
+}
+
+.cal-small {
+    font: 8px var(--font-mono), monospace;
+    fill: var(--black);
+}
+
+.card-title {
+    font: 600 9px var(--font-mono), monospace;
+    fill: var(--black);
+}
+
+.card-sub {
+    font: 6.5px var(--font-mono), monospace;
+    fill: var(--black);
+}
+
+/* steam */
+.steam path {
+    fill: none;
+    stroke: var(--cream);
+    stroke-opacity: 0.45;
+    stroke-width: 3;
+    stroke-linecap: round;
+    animation: steam 3.4s ease-in-out infinite;
+}
+
+.steam path:nth-child(2) {
+    animation-delay: 1.2s;
+}
+
+@keyframes steam {
+    0% { opacity: 0; transform: translateY(8px); }
+    40% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-10px); }
+}
+
+/* rain, only when the window is switched on */
+.rain {
+    display: none;
+}
+
+.raining .rain {
+    display: inline;
+    animation: rain 0.6s linear infinite;
+}
+
+@keyframes rain {
+    to { transform: translate(-6px, 46px); }
+}
+
+/* lamp light re-lights the room at night */
+.lamp-light {
+    mix-blend-mode: screen;
+    opacity: 0;
+    transition: opacity 0.5s;
+    pointer-events: none;
+}
+
+:root[data-theme="night"] .lamp-light {
+    opacity: 0.4;
+}
+
+:root[data-theme="day"] .lamp-bulb {
+    fill: var(--cream);
+}
+
+/* hotspots */
+.hot-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.hot {
+    position: absolute;
+    pointer-events: auto;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    border-radius: 6px;
+    color: inherit;
+}
+
+.hot:hover,
+.hot:focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: 4px;
+}
+
+.hot[aria-disabled="true"] {
+    cursor: default;
+}
+
+.spine-hot {
+    border-radius: 1px;
+}
+
+.spine-hot:hover,
+.spine-hot:focus-visible {
+    outline-offset: 1px;
+}
+
+.hot .tag {
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    transform: translate(-50%, -10px);
+    white-space: nowrap;
+    font: 12px var(--font-mono), monospace;
+    background: var(--cream);
+    color: var(--black);
+    padding: 2px 7px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s;
+    z-index: 3;
+}
+
+.hot:hover .tag,
+.hot:focus-visible .tag {
+    opacity: 1;
+}
+
+/* chrome */
+.room-list-link {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 5;
+    font: 13px var(--font-mono), monospace;
+    background: var(--cream);
+    color: var(--black);
+    padding: 6px 10px;
+    text-decoration: none;
+}
+
+.room-list-link:hover {
+    color: var(--brick);
+}
+
+.room-hint {
+    position: fixed;
+    bottom: 10px;
+    left: 12px;
+    right: 12px;
+    margin: 0;
+    z-index: 4;
+    color: var(--cream);
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.grain {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.09;
+    mix-blend-mode: multiply;
+    z-index: 2;
+}
+
+:root[data-theme="night"] .grain {
+    mix-blend-mode: overlay;
+    opacity: 0.12;
+}
+
+.room-fade {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10;
+}

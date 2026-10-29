@@ -18,6 +18,14 @@ http.createServer((req, res) => {
     let file = path.join(ROOT, url.slice(BASE.length));
     if (!file.startsWith(ROOT)) return res.writeHead(403).end();
     if (fs.existsSync(file) && fs.statSync(file).isDirectory()) file = path.join(file, "index.html");
+    // Windows builds nest RSC segment files (__next.a/b/__PAGE__.txt); Linux builds and
+    // browsers use dot-joined names (__next.a.b.__PAGE__.txt). Map one to the other.
+    const seg = /^__next.(.+).txt$/.exec(path.basename(file));
+    if (!fs.existsSync(file) && seg) {
+        const parts = seg[1].split(".");
+        const nested = path.join(path.dirname(file), "__next." + parts[0], ...parts.slice(1)) + ".txt";
+        if (fs.existsSync(nested)) file = nested;
+    }
     if (!fs.existsSync(file)) {
         res.writeHead(404, { "Content-Type": TYPES[".html"] });
         fs.createReadStream(path.join(ROOT, "404.html")).pipe(res);
