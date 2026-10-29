@@ -1,0 +1,25 @@
+---
+title: AES-128 Encryption Core
+group: rtl
+order: 1
+stack: [SystemVerilog, Vivado, FPGA]
+repo: https://github.com/HiteshPranav267/aes128-fpga-core
+scope: Encryption only, no decryption. Iterative, FSM-driven datapath. Verified in behavioral simulation against one FIPS-197 test vector; synthesized out-of-context for a Xilinx Artix-7. Never run on a board.
+metrics:
+  - value: bit-exact
+    label: output against the official FIPS-197 test vector
+    source: main.md:167
+  - value: 1.068 → 3.704 ns
+    label: worst negative slack at 100 MHz, after fanout replication of the FSM register
+    source: main.md:168-170
+sources: [main.md:163-170]
+images: []
+---
+
+[[HITESH WRITES THIS]]
+
+## Facts
+
+- Designed and verified a synthesizable AES-128 encryption core (iterative, FSM-driven datapath) in SystemVerilog, targeting hardware/RTL interview prep for networking-hardware control-path design.
+- Verified bit-exact output in behavioral simulation against the official FIPS-197 test vector.
+- Synthesized out-of-context for a Xilinx Artix-7, analyzing LUT/register utilization and closing static timing at 100MHz — root-caused a routing-delay bottleneck from a high-fanout FSM register and applied a fanout-replication fix, improving worst negative slack from 1.068ns to 3.704ns.

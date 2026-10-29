@@ -1,0 +1,22 @@
+---
+title: Single-Cycle RISC-V (RV32I) Processor — R-type Instructions
+group: rtl
+order: 2
+stack: [SystemVerilog, Vivado, RV32I]
+repo: https://github.com/HiteshPranav267/riscv-single-cycle-rv32i
+scope: Single-cycle datapath, R-type instructions only — no immediates, loads, stores, branches or jumps, no pipelining. Verified in Vivado behavioral simulation with a backdoor-preloaded testbench.
+metrics:
+  - value: 10 / 10
+    label: destination registers matched expected values (PASS=10, FAIL=0)
+    source: main.md:159-161
+sources: [main.md:151-161]
+images: []
+---
+
+[[HITESH WRITES THIS]]
+
+## Facts
+
+- Implemented a single-cycle RV32I datapath (PC, instruction memory, register file, ALU, control unit) in SystemVerilog, decoding all 10 R-type ops via real opcode/funct3/funct7 encoding — including disambiguating ADD/SUB and SRL/SRA, which share funct3 and differ only in funct7.
+- Designed a 10-operation ALU with correct signed vs. unsigned semantics (SLT vs. SLTU, SRA's sign-extension vs. SRL) and a register file with x0 hardwired to zero, combinational reads, and synchronous writes.
+- Verified in Vivado behavioral simulation via a backdoor-preloaded testbench (register values can't be loaded through this instruction subset alone): 10/10 destination registers matched expected values, PASS=10, FAIL=0.

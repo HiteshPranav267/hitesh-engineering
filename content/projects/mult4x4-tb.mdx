@@ -1,0 +1,22 @@
+---
+title: Layered SystemVerilog Testbench for a 4-bit Multiplier
+group: rtl
+order: 3
+stack: [SystemVerilog, Functional Coverage, Vivado]
+repo: https://github.com/HiteshPranav267/mult4x4_tb
+scope: Class-based SystemVerilog environment (no UVM) around a 4-bit × 4-bit combinational multiplier. Simulated in Vivado.
+metrics:
+  - value: 100%
+    label: functional coverage
+    source: main.md:179-180
+sources: [main.md:172-180]
+images: []
+---
+
+[[HITESH WRITES THIS]]
+
+## Facts
+
+- Built a reusable, layered verification environment (generator, driver, monitor, scoreboard) as independent SystemVerilog classes communicating via mailboxes, run concurrently via fork/join_none, around a 4-bit x 4-bit combinational multiplier DUT.
+- Combined dist-weighted constrained-random stimulus with directed corner-case tests to guarantee every functional-coverage cross-bin is hit regardless of random luck.
+- Self-checked against an independent reference model in the scoreboard; achieved 100% functional coverage.

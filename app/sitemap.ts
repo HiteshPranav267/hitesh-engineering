@@ -1,30 +1,12 @@
-import { MetadataRoute } from 'next'
+import type { MetadataRoute } from "next";
+import { getNotes, getProjects } from "@/lib/content";
+import { SITE_URL } from "@/lib/site";
 
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    // Use your real domain here once hosted
-    const baseUrl = 'https://hiteshpranav267.github.io/hitesh-engineering'
-
-    return [
-        {
-            url: baseUrl,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 1,
-        },
-        // Add other static routes here
-        {
-            url: `${baseUrl}/projects`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.9,
-        },
-        {
-            url: `${baseUrl}/notes`,
-            lastModified: new Date(),
-            changeFrequency: 'weekly',
-            priority: 0.8,
-        },
-    ]
+    const pages = ["", "projects/", "notes/", "experience/", "cv/", "about/", "contact/", "field-notes/", "room/", "desk/"];
+    const projects = getProjects().filter((p) => p.group !== "archive").map((p) => `projects/${p.slug}/`);
+    const notes = getNotes().map((s) => `notes/${s.slug}/`);
+    return [...pages, ...projects, ...notes].map((p) => ({ url: `${SITE_URL}/${p}` }));
 }

@@ -1,0 +1,21 @@
+---
+title: PESU Research Match
+group: ml
+order: 5
+stack: [Flask, PyTorch, Sentence-Transformers, Docker, Qwen LLM]
+repo: https://github.com/HiteshPranav267/pesu-research-match
+links:
+  - label: Hugging Face Space
+    url: https://huggingface.co/spaces/HiteshPranav/research-match
+scope: Hybrid semantic search. The local LLM writes match explanations; it does not read the retrieved profiles.
+metrics: []
+sources: [main.md:134-139, main.md:282]
+images: []
+---
+
+[[HITESH WRITES THIS]]
+
+## Facts
+
+- Built a hybrid semantic search engine combining dense vector retrieval (BGE-Large) and BM25 lexical search for faculty recommendation / matching.
+- Integrated a local LLM (Qwen2.5-0.5B) to generate personalized match explanations; deployed via Docker on Hugging Face Spaces.

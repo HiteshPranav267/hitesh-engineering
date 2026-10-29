@@ -1,0 +1,28 @@
+---
+title: Hardware Trojan Detection & ATPG Analysis
+group: rtl
+order: 4
+stack: [Python, Verilog, ATPG, SCOAP, DFT]
+repo: ""
+private_repo: true
+scope: Gate-level netlists of ISCAS benchmark circuits; combinational ATPG with Atalanta. Capstone project; the PyATPG code is in a private repository.
+metrics: []
+sources: [main.md:141-149, py-atpg-comb/README.md]
+images: []
+---
+
+[[HITESH WRITES THIS]]
+
+## Facts
+
+- Engineered a Python automation framework to parse gate-level Verilog netlists and programmatically insert Hardware Trojans / faults into ISCAS-85 benchmark circuits.
+- Generated fault lists and test vectors and ran Automatic Test Pattern Generation (ATPG) with Atalanta, measuring fault coverage to quantify how effectively generated tests detect defects.
+- Conducted structural graph and toggle-rate analysis using SCOAP testability metrics to compare clean vs. Trojan-inserted circuits and identify hard-to-detect cases.
+- Visualized suspicious gate-level activity to evaluate test-vector effectiveness.
+
+## From the PyATPG README
+
+- Reads ISCAS `.bench`, structural Verilog, or RTL that it synthesizes with Yosys first.
+- Profiles every gate with SCOAP testability, toggle rates and structure; a deterministic detector looks for the shapes Trojans are built from (rare trigger trees, logic-clocked registers, payloads spliced in front of outputs).
+- An LLM scores gates beyond a structural heuristic's top picks and fills part of the targeted fault list; ATALANTA generates targeted and non-targeted patterns, which are fault-simulated over the whole circuit.
+- Ships as a FastAPI backend and React frontend, plus a CLI.

@@ -1,0 +1,23 @@
+---
+title: Motorsport Telemetry & Sensor Fusion Dashboard
+group: ml
+order: 4
+stack: [Python, IMU, GPS, Sensor Fusion, Chart.js, Leaflet]
+repo: ""
+scope: Built in 18 hours at Ignition 1.0 (Team Vegavath PESU, sponsored by Ather Energy).
+metrics:
+  - value: 5th
+    label: overall at Ignition 1.0
+    source: main.md:132
+sources: [main.md:123-132]
+images: []
+---
+
+[[HITESH WRITES THIS]]
+
+## Facts
+
+- Built a real-time race-telemetry dashboard streaming live IMU acceleration (Ax, Ay, Az), GPS position, and a 720p MJPEG video feed from the vehicle.
+- Estimated vehicle speed by fusing noisy IMU and GPS measurements rather than relying on either sensor alone; inferred driving behaviour through acceleration-variance analysis.
+- Designed onboard measurement hardware light enough not to affect vehicle dynamics — second-lightest telemetry system at the event.
+- Placed 5th overall.

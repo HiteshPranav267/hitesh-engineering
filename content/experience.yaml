@@ -1,0 +1,60 @@
+# Experience timeline. `calendar` controls how the wall calendar marks it:
+# circle = ringed month, mark = coloured band. `lanyard: true` puts an ID card on the hook.
+# Bullet text is copied from main.md.
+
+entries:
+  - id: samsung
+    role: Hardware Student Trainee
+    org: Samsung Semiconductor India Research
+    place: Bengaluru
+    start: 2027-01
+    end: 2027-06
+    calendar: circle
+    lanyard: false
+    source: brief §1 (stated by Hitesh 2026-10-29; not yet in main.md)
+    points: []
+
+  - id: c-isfcr
+    role: Research Intern
+    org: C-ISFCR, PES University
+    place: Bengaluru
+    start: 2025-06
+    end: 2025-08
+    calendar: mark
+    lanyard: true
+    source: main.md:53-62
+    points:
+      - Developed an ML-based Intrusion Detection System for automotive CAN bus networks in Python (built and run on Linux — Ubuntu and Kali).
+      - Built a real-time Python firewall for CAN traffic filtering and anomaly detection.
+      - Trained and evaluated ensemble ML models with scikit-learn; analyzed misclassifications to identify and address root causes of false detections.
+      - Built a Tkinter test harness for CAN message injection, traffic monitoring, and analytics; used it to exercise the system against simulated attack traffic and validate detection behaviour.
+      - Collaborated with researchers to validate system performance across multiple attack scenarios and presented findings to the supervising team.
+
+  - id: joel
+    role: Student Head (previously Teaching Assistant, Core Member)
+    org: Joy of Engineering Lab (JoEL), PES University
+    place: Bengaluru
+    start: 2024-10
+    end: present
+    calendar: mark
+    lanyard: true
+    source: main.md:69-81
+    points:
+      - Mentor 6+ student teams on IoT and embedded-systems projects, translating open-ended problems into structured, scoped plans.
+      - Lead technical/backend planning and logistics for HackeZee 2025 and Roadshow 2026, coordinating volunteers, mentors, vendors, and technical teams across multiple sub-teams under deadlines.
+      - Designed, built, and maintain the official JoEL website (Next.js, TypeScript, Tailwind CSS) with an interactive inventory management system for equipment tracking and availability monitoring.
+      - Ran cross-browser / responsive testing and fixed reported issues from student and faculty users.
+      - Collaborate with faculty and student organizations to execute technical initiatives.
+
+  - id: clinic
+    role: Digital Marketing & Web Designer (Freelance)
+    org: Shree Sports and Ortho Clinic
+    place: ""
+    start: null
+    end: present
+    calendar: none
+    lanyard: false
+    source: main.md:64-67
+    points:
+      - Designed, built, and maintain the clinic's official website.
+      - Run digital marketing for the clinic (content, online presence).

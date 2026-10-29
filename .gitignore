@@ -24,3 +24,10 @@ public/notes-dev/
 npm-debug.log*
 .vercel
 coverage/
+
+# copied from node_modules at build time
+public/vendor/
+
+# notes build venv
+scripts/notes/.venv/
+__pycache__/

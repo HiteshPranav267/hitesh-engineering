@@ -1,0 +1,52 @@
+# Facts only. Every value carries the main.md line it comes from (private/main.md).
+# Prose fields are left as [[HITESH WRITES THIS]].
+
+name: Duggireddy Hitesh Pranav Reddy          # main.md:15
+short_name: Hitesh Pranav Reddy
+email: hiteshpranavreddy.d@gmail.com          # main.md:17
+links:
+  github: https://github.com/HiteshPranav267                              # main.md:20
+  linkedin: https://www.linkedin.com/in/hitesh-pranav-reddy-379371264/    # main.md:19
+  website: https://hiteshpranav267.github.io/hitesh-engineering/          # main.md:21
+
+# One factual line, no slogan. Source: brief §1 (stated by Hitesh, 2026-10-29).
+status: Final-year B.Tech ECE at PES University, moving fully into RTL design and verification, with an interest in ML applied to the hardware flow.
+
+intro: "[[HITESH WRITES THIS]]"
+about: "[[HITESH WRITES THIS]]"
+
+education:
+  - school: PES University, Bengaluru
+    degree: B.Tech, Electronics and Communication Engineering
+    period: Sept 2023 – July 2027
+    detail: CGPA 8.37 / 10 (as of 6th semester)
+    source: main.md:27-28
+  - school: Sri Chaitanya College of Education, Bengaluru
+    degree: High School
+    period: 2011 – 2023
+    detail: Class XII 91.4% · Class X 83.2%
+    source: main.md:30-31
+
+# Hardware-relevant subjects from the full curriculum list. "Probability & Random
+# Processes" is left out until its transcript title is confirmed (main.md § Caveats).
+coursework:
+  source: main.md:41-47
+  items:
+    - Computer-Aided Digital Design (digital logic, HDL, VHDL, Verilog, SystemVerilog, FPGA)
+    - VLSI
+    - Analog Circuit Design (incl. MOSFETs)
+    - Computer Organization & Design and High-Performance Computing (RISC-V processors, GPUs)
+    - Architectures for Hardware Acceleration (elective)
+    - Signals & Systems and Digital Signal Processing
+    - Digital Communication
+    - Machine Learning · Artificial Neural Networks · Deep Learning (electives)
+
+achievements:
+  - text: "5th overall and 2nd-lightest vehicle, Ignition 1.0 — 18-hour telemetry hackathon (Team Vegavath PESU, sponsored by Ather Energy)"
+    source: main.md:263-264
+  - text: "Technical lead for HackeZee 2025 and Roadshow 2026 (PES University engineering events)"
+    source: main.md:265
+
+certifications:
+  - text: "Python for Beginners: Learn Python Programming (Python 3) — Udemy, Jason Cannon, Apr 2024"
+    source: main.md:271-272

@@ -1,0 +1,22 @@
+---
+title: "End-to-End Autonomous Driving: Architecture Ablation Study"
+group: ml
+order: 1
+stack: [Python, PyTorch, scikit-learn, CNN, GRU, CARLA]
+repo: https://github.com/HiteshPranav267/carla-deep-driving
+scope: Simulation only (CARLA); three architectures trained on identical data and settings.
+metrics:
+  - value: 0.0171
+    label: validation MSE for the CNN baseline, vs 0.0269 (CNN-GRU) and 0.0311 (GRU-only)
+    source: main.md:96-97
+sources: [main.md:88-99]
+images: []
+---
+
+[[HITESH WRITES THIS]]
+
+## Facts
+
+- Designed a controlled ablation study in the CARLA simulator to isolate the contribution of spatial vs. temporal architectures in predicting throttle, steer, and brake from camera input, holding data and training constant.
+- Implemented and trained three models, each as a 3-estimator bagged ensemble: ResNet18 single-frame CNN baseline (11.2M params), ResNet18 + 2-layer GRU on 5-frame sequences (13.5M params), GRU-only with no CNN backbone (77.5M params).
+- Found the CNN baseline achieved the lowest validation error (MSE 0.0171, Steer MAE 0.0097) vs. CNN-GRU (MSE 0.0269) and GRU-only (MSE 0.0311) — spatial convolutional features mattered more than temporal sequence modelling for this task.

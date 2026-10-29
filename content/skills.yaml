@@ -1,0 +1,20 @@
+# From main.md § Skills (lines 238-255). Rendered as plain comma lists — no bars, no pills.
+# Left out on purpose: SQL and Microsoft Excel (main.md § Caveats: only claim if defensible),
+# SystemC, Arduino, Raspberry Pi, "Hybrid Retrieval / RAG" (brief §2).
+
+groups:
+  - name: Digital design & verification
+    source: main.md:249-251
+    items: [RTL design, functional verification, constrained random stimulus, functional coverage, ATPG, DFT, FSM design, timing analysis, logic synthesis, UART/serial communication, schematic & layout, CMOS devices]
+  - name: Languages
+    source: main.md:238-239
+    items: [Verilog, SystemVerilog, Assembly (RISC-V), C, C++, Python, MATLAB]
+  - name: Tools
+    source: main.md:254-255
+    items: [Xilinx Vivado, Cadence Virtuoso, Atalanta, Git & GitHub, Linux, Jupyter, Docker]
+  - name: ML & signal processing
+    source: main.md:240-246
+    items: [PyTorch, scikit-learn, NumPy, SciPy, pandas, CNNs, GRUs, ensemble learning, ablation studies, FFT/DFT, FIR/IIR filtering, sensor fusion]
+  - name: Web
+    source: main.md:239,247-248
+    items: [TypeScript, JavaScript, React, Next.js, Tailwind CSS]
