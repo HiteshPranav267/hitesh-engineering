@@ -1,0 +1,637 @@
+# Everything juniors can use, shown on /library/ and opened from the tablet on the room's shelf.
+# link: notes/... = hosted here; https://... = elsewhere; null = listed only (published textbooks).
+# by: Hitesh = his own; Others = someone else's or unconfirmed.
+items:
+  - title: C Notes
+    subject: C
+    year: 1
+    department: CSE
+    kind: Web page
+    by: Hitesh
+    link: https://hitesh-notes.notion.site/c-notes
+  - title: Chemistry — handwritten notes
+    subject: Chemistry
+    year: 1
+    department: S&H
+    kind: Handwritten notes
+    by: Hitesh
+    link: notes/chemistry/
+  - title: chem lab
+    subject: Chemistry
+    year: 1
+    department: S&H
+    kind: Lab
+    by: Others
+    link: notes/chem/chem_lab.pdf
+  - title: chem practise notes
+    subject: Chemistry
+    year: 1
+    department: S&H
+    kind: Typed notes
+    by: Others
+    link: notes/chem/chem_practise_notes.pdf
+  - title: Consitution QA
+    subject: Constitution
+    year: 1
+    department: S&H
+    kind: Question bank
+    by: Others
+    link: notes/constitution/AllConstitutionQA.pdf
+  - title: QB Mahatma Gandhi
+    subject: Constitution
+    year: 1
+    department: S&H
+    kind: Question bank
+    by: Others
+    link: notes/constitution/AllMahatmaGandhiQA.pdf
+  - title: QB Swami Vivekananda
+    subject: Constitution
+    year: 1
+    department: S&H
+    kind: Question bank
+    by: Others
+    link: notes/constitution/AllSwamiVivekanandaQA.pdf
+  - title: Electrical — handwritten notes
+    subject: Electrical
+    year: 1
+    department: ECE
+    kind: Handwritten notes
+    by: Hitesh
+    link: notes/electrical/
+  - title: EPD — handwritten notes
+    subject: EPD
+    year: 1
+    department: ECE
+    kind: Handwritten notes
+    by: Hitesh
+    link: notes/epd/
+  - title: EVS
+    subject: EVS
+    year: 1
+    department: S&H
+    kind: Typed notes
+    by: Others
+    link: notes/evs/evs.pdf
+  - title: PYQs
+    subject: General
+    year: 1
+    department: S&H
+    kind: Drive folder
+    by: Others
+    link: https://drive.google.com/drive/folders/11U56PJ-VZ_5zaJ1fVrV6h3kzN4rnNX7E
+  - title: Mathematics 1 — handwritten notes
+    subject: Mathematics 1
+    year: 1
+    department: S&H
+    kind: Handwritten notes
+    by: Hitesh
+    link: notes/mathematics-1/
+  - title: M1 Self-Learning
+    subject: Mathematics 1
+    year: 1
+    department: S&H
+    kind: Typed notes
+    by: Others
+    link: notes/m2/m1_self_learning.pdf
+  - title: M1 Special Functions Proofs
+    subject: Mathematics 1
+    year: 1
+    department: S&H
+    kind: Typed notes
+    by: Others
+    link: notes/m1/m1_special_fns_proofs.pdf
+  - title: M2 Important Formulas
+    subject: Mathematics 2
+    year: 1
+    department: S&H
+    kind: Typed notes
+    by: Others
+    link: notes/m2/m2_imp_formulas.pdf
+  - title: Mathematics 2 Entire subject notes
+    subject: Mathematics 2
+    year: 1
+    department: S&H
+    kind: Web page
+    by: Hitesh
+    link: https://hitesh-notes.notion.site/Math-sem-2-b501fe44d9044c848cca2af3d73571f0
+  - title: Mechanical — handwritten notes
+    subject: Mechanical
+    year: 1
+    department: S&H
+    kind: Handwritten notes
+    by: Hitesh
+    link: notes/mechanical/
+  - title: Mechanics Statics Course Information
+    subject: Mechanics - Statics
+    year: 1
+    department: S&H
+    kind: Course info
+    by: Others
+    link: notes/mechanics/course_info.pdf
+  - title: Mechanics - Statics — handwritten notes
+    subject: Mechanics - Statics
+    year: 1
+    department: S&H
+    kind: Handwritten notes
+    by: Hitesh
+    link: notes/mechanics-statics/
+  - title: Mechanics Statics Textbook
+    subject: Mechanics - Statics
+    year: 1
+    department: S&H
+    kind: Textbook
+    by: Others
+    link: null
+    note: Published textbook — not hosted here
+  - title: C++ Notes (Made for fun, not curriculum)
+    subject: Other
+    year: 1
+    department: Other
+    kind: Web page
+    by: Hitesh
+    link: https://hitesh-notes.notion.site/cpp
+  - title: Physics — handwritten notes
+    subject: Physics
+    year: 1
+    department: S&H
+    kind: Handwritten notes
+    by: Hitesh
+    link: notes/physics/
+  - title: Faisal Sir Slides
+    subject: Physics
+    year: 1
+    department: S&H
+    kind: Slides
+    by: Others
+    link: notes/physics/Faisal_Sir_Slides.pdf
+  - title: PESU Notes
+    subject: Physics
+    year: 1
+    department: S&H
+    kind: Typed notes
+    by: Others
+    link: notes/physics/Phy_PESU_Notes.pdf
+  - title: Python — handwritten notes
+    subject: Python
+    year: 1
+    department: CSE
+    kind: Handwritten notes
+    by: Hitesh
+    link: notes/python/
+  - title: ACD — handwritten notes
+    subject: ACD
+    year: 2
+    department: ECE
+    kind: Handwritten notes
+    by: Hitesh
+    link: notes/acd/
+  - title: CADD — handwritten notes
+    subject: CADD
+    year: 2
+    department: ECE
+    kind: Handwritten notes
+    by: Hitesh
+    link: notes/cadd/
+  - title: CADD Textbook
+    subject: CADD
+    year: 2
+    department: ECE
+    kind: Textbook
+    by: Others
+    link: null
+    note: Published textbook — not hosted here
+  - title: CS — handwritten notes
+    subject: CS
+    year: 2
+    department: ECE
+    kind: Handwritten notes
+    by: Hitesh
+    link: notes/cs/
+  - title: Aayan Sem 4 Resources CSE
+    subject: CSE
+    year: 2
+    department: CSE
+    kind: Drive folder
+    by: Others
+    link: https://drive.google.com/drive/folders/1paTX0pz8F2wYJwWLPOwaYRGIj1fuhLuL?usp=drive_link
+  - title: Aayan Sem 5 Resources CSE
+    subject: CSE
+    year: 2
+    department: CSE
+    kind: Drive folder
+    by: Others
+    link: https://drive.google.com/drive/folders/19MyRmohEJNcp71G-YBnbgMJiK0Qbhqhl?usp=drive_link
+  - title: Aayan Sem 6 Resources CSE
+    subject: CSE
+    year: 2
+    department: CSE
+    kind: Drive folder
+    by: Others
+    link: https://drive.google.com/drive/folders/1cD8ZFFKPrujctt8fGV93PaB68HX-3RLJ?usp=drive_link
+  - title: Anga Sem 3 Notes
+    subject: CSE
+    year: 2
+    department: CSE
+    kind: Drive folder
+    by: Others
+    link: https://drive.anga.codes/collection?id=PjLWuUIpND6RDbR
+  - title: Anga Sem 4 Notes
+    subject: CSE
+    year: 2
+    department: CSE
+    kind: Drive folder
+    by: Others
+    link: https://drive.anga.codes/collection?id=4HDmSZ1bkQWwfFz
+  - title: Siri's Study Stash Sem 3
+    subject: CSE
+    year: 2
+    department: CSE
+    kind: Web page
+    by: Others
+    link: https://siri123blog.wordpress.com/2024/11/24/semester-3/
+  - title: Siri's Study Stash Sem 4
+    subject: CSE
+    year: 2
+    department: CSE
+    kind: Web page
+    by: Others
+    link: https://siri123blog.wordpress.com/2025/05/07/semester-4/
+  - title: DSP Lab MATLAB & Code Composer Codes
+    subject: DSP
+    year: 2
+    department: ECE
+    kind: Code
+    by: Hitesh
+    link: https://github.com/HiteshPranav267/digital-signal-processing-ue23ec23ec241b
+  - title: DSP — handwritten notes
+    subject: DSP
+    year: 2
+    department: ECE
+    kind: Handwritten notes
+    by: Hitesh
+    link: notes/dsp/
+  - title: DVLSI — handwritten notes
+    subject: DVLSI
+    year: 2
+    department: ECE
+    kind: Handwritten notes
+    by: Hitesh
+    link: notes/dvlsi/
+  - title: Divya's notes site
+    subject: ECE
+    year: 2
+    department: ECE
+    kind: Web page
+    by: Others
+    link: https://nandan-n.github.io/Div-notes-site/
+  - title: EMFT — handwritten notes
+    subject: EMFT
+    year: 2
+    department: ECE
+    kind: Handwritten notes
+    by: Hitesh
+    link: notes/emft/
+  - title: LA MATLAB Programs
+    subject: LA
+    year: 2
+    department: ECE
+    kind: Code
+    by: Others
+    link: notes/la/la_matlab_programs.pdf
+  - title: LA — handwritten notes
+    subject: LA
+    year: 2
+    department: ECE
+    kind: Handwritten notes
+    by: Hitesh
+    link: notes/la/
+  - title: LA MATLAB Slides
+    subject: LA
+    year: 2
+    department: ECE
+    kind: Slides
+    by: Others
+    link: notes/la/la_matlab_slides.pdf
+  - title: LA Vibha Notes
+    subject: LA
+    year: 2
+    department: ECE
+    kind: Typed notes
+    by: Others
+    link: notes/la/la_vibha.pdf
+  - title: MEE — handwritten notes
+    subject: MEE
+    year: 2
+    department: ECE
+    kind: Handwritten notes
+    by: Hitesh
+    link: notes/mee/
+  - title: NAS — handwritten notes
+    subject: NAS
+    year: 2
+    department: ECE
+    kind: Handwritten notes
+    by: Hitesh
+    link: notes/nas/
+  - title: NAS Notes U4
+    subject: NAS
+    year: 2
+    department: ECE
+    kind: Typed notes
+    by: Others
+    link: notes/nas/nas_u4.pdf
+  - title: S&S — handwritten notes
+    subject: S&S
+    year: 2
+    department: ECE
+    kind: Handwritten notes
+    by: Hitesh
+    link: notes/s-and-s/
+  - title: SNS Notes U2 , U3 and U4
+    subject: S&S
+    year: 2
+    department: ECE
+    kind: Typed notes
+    by: Others
+    link: notes/sns/sns_u2_u3_u4.pdf
+  - title: AHA — handwritten notes
+    subject: AHA
+    year: 3
+    department: ECE
+    kind: Handwritten notes
+    by: Hitesh
+    link: notes/aha/
+  - title: AHA U3 MCQs
+    subject: AHA
+    year: 3
+    department: ECE
+    kind: Question bank
+    by: Others
+    link: notes/aha/u3_mcqs.pdf
+  - title: AHA U3 Question Bank (Word)
+    subject: AHA
+    year: 3
+    department: ECE
+    kind: Question bank
+    by: Others
+    link: notes/aha/aha_u3_qb.docx
+  - title: AHA U4 MCQs
+    subject: AHA
+    year: 3
+    department: ECE
+    kind: Question bank
+    by: Others
+    link: notes/aha/u4_mcqs.pdf
+  - title: AHA U3 Notes
+    subject: AHA
+    year: 3
+    department: ECE
+    kind: Typed notes
+    by: Others
+    link: notes/aha/aha_u3_notes.html
+  - title: AHA U4 Notes
+    subject: AHA
+    year: 3
+    department: ECE
+    kind: Typed notes
+    by: Others
+    link: notes/aha/aha_u4/U4/pokemon_notes.html
+  - title: NOC Exam Notes
+    subject: AHA
+    year: 3
+    department: ECE
+    kind: Typed notes
+    by: Others
+    link: notes/aha/NOC_Exam_Notes.pdf
+  - title: CCN — handwritten notes
+    subject: CCN
+    year: 3
+    department: ECE
+    kind: Handwritten notes
+    by: Hitesh
+    link: notes/ccn/
+  - title: CCN Interactive Practice Problems
+    subject: CCN
+    year: 3
+    department: ECE
+    kind: Practice sheet
+    by: Hitesh
+    link: https://docs.google.com/spreadsheets/d/1RtgOnQ59LrxhLY0xLFFq9tPBEf58jNgwGSVDOzcRGvg/edit?usp=sharing
+  - title: CCN Notes U1
+    subject: CCN
+    year: 3
+    department: ECE
+    kind: Typed notes
+    by: Hitesh
+    link: notes/ccn/ccn_u1.pdf
+  - title: CCN Notes U2
+    subject: CCN
+    year: 3
+    department: ECE
+    kind: Typed notes
+    by: Hitesh
+    link: notes/ccn/ccn_u2.pdf
+  - title: CCN Notes U4
+    subject: CCN
+    year: 3
+    department: ECE
+    kind: Typed notes
+    by: Hitesh
+    link: notes/ccn/ccn_u4.pdf
+  - title: COD Lab Codes
+    subject: COD
+    year: 3
+    department: ECE
+    kind: Code
+    by: Hitesh
+    link: https://github.com/HiteshPranav267/computer-organisation-and-design-UE23EC352A
+  - title: "COD Mallikyesh Resources "
+    subject: COD
+    year: 3
+    department: ECE
+    kind: Code
+    by: Others
+    link: https://github.com/Mallikyesh/RISCV
+  - title: COD — handwritten notes
+    subject: COD
+    year: 3
+    department: ECE
+    kind: Handwritten notes
+    by: Hitesh
+    link: notes/cod/
+  - title: COD U1 and U2 Question Bank
+    subject: COD
+    year: 3
+    department: ECE
+    kind: Question bank
+    by: Hitesh
+    link: notes/cod/cod_u1_u2_question_bank.pdf
+  - title: COD U3 and U4 Question Bank
+    subject: COD
+    year: 3
+    department: ECE
+    kind: Question bank
+    by: Hitesh
+    link: notes/cod/cod_u3_u4_question_bank.pdf
+  - title: Anga Sem 5 Notes
+    subject: CSE
+    year: 3
+    department: CSE
+    kind: Drive folder
+    by: Others
+    link: https://drive.anga.codes/collection?id=UP3dwiNBROnrnHu
+  - title: Siri's Study Stash Sem 5
+    subject: CSE
+    year: 3
+    department: CSE
+    kind: Web page
+    by: Others
+    link: https://siri123blog.wordpress.com/2025/12/09/semester-5/
+  - title: Siri's Study Stash Sem 6
+    subject: CSE
+    year: 3
+    department: CSE
+    kind: Web page
+    by: Others
+    link: https://siri123blog.wordpress.com/2026/01/07/semester-6/
+  - title: DC — handwritten notes
+    subject: DC
+    year: 3
+    department: ECE
+    kind: Handwritten notes
+    by: Hitesh
+    link: notes/dc/
+  - title: DL U3 Question Bank
+    subject: DL
+    year: 3
+    department: ECE
+    kind: Question bank
+    by: Others
+    link: notes/dl/dl_u3_qb.pdf
+  - title: DL U4 Question Bank
+    subject: DL
+    year: 3
+    department: ECE
+    kind: Question bank
+    by: Others
+    link: notes/dl/dl_u4_qb.pdf
+  - title: DL U3 Slides
+    subject: DL
+    year: 3
+    department: ECE
+    kind: Slides
+    by: Others
+    link: notes/dl/dl_u3_slides.pdf
+  - title: DL U4 Slides
+    subject: DL
+    year: 3
+    department: ECE
+    kind: Slides
+    by: Others
+    link: notes/dl/dl_u4_slides.pdf
+  - title: HPC — handwritten notes
+    subject: HPC
+    year: 3
+    department: ECE
+    kind: Handwritten notes
+    by: Hitesh
+    link: notes/hpc/
+  - title: HPC U1 and U2 Notes
+    subject: HPC
+    year: 3
+    department: ECE
+    kind: Typed notes
+    by: Others
+    link: notes/hpc/hpc_u1_u2.pdf
+  - title: HPC U1 Notes (Dakshin)
+    subject: HPC
+    year: 3
+    department: ECE
+    kind: Typed notes
+    by: Others
+    link: notes/hpc/hpc_u1_dakshin.pdf
+  - title: MLA Lab Codes
+    subject: MLA
+    year: 3
+    department: ECE
+    kind: Code
+    by: Hitesh
+    link: https://github.com/HiteshPranav267/machine-learning-lab-ue23ec352b
+  - title: MLA U1 U2 Numericals
+    subject: MLA
+    year: 3
+    department: ECE
+    kind: Numericals
+    by: Others
+    link: notes/mla/mla_u1_u2_num.pdf
+  - title: MLA U3 & U4 Numericals
+    subject: MLA
+    year: 3
+    department: ECE
+    kind: Numericals
+    by: Others
+    link: notes/mla/mla_u3_u4_num.pdf
+  - title: MLA Unit 1 Textbook
+    subject: MLA
+    year: 3
+    department: ECE
+    kind: Textbook
+    by: Others
+    link: null
+    note: Published textbook — not hosted here
+  - title: ML U3
+    subject: MLA
+    year: 3
+    department: ECE
+    kind: Typed notes
+    by: Others
+    link: notes/mla/ML U3.pdf
+  - title: ML U4
+    subject: MLA
+    year: 3
+    department: ECE
+    kind: Typed notes
+    by: Others
+    link: notes/mla/ML U4.pdf
+  - title: MLA U1 Notes
+    subject: MLA
+    year: 3
+    department: ECE
+    kind: Typed notes
+    by: Hitesh
+    link: notes/mla/mla_u1_notes.html
+  - title: MLA U2 Notes
+    subject: MLA
+    year: 3
+    department: ECE
+    kind: Typed notes
+    by: Hitesh
+    link: notes/mla/mla_u2_notes.html
+  - title: MLA U3 Notes
+    subject: MLA
+    year: 3
+    department: ECE
+    kind: Typed notes
+    by: Hitesh
+    link: notes/mla/mla_u3_notes.html
+  - title: MLA U4 Notes
+    subject: MLA
+    year: 3
+    department: ECE
+    kind: Typed notes
+    by: Hitesh
+    link: notes/mla/mla_u4_notes.html
+  - title: Sem 6 PYQs
+    subject: Others
+    year: 3
+    department: ECE
+    kind: Drive folder
+    by: Others
+    link: https://drive.google.com/drive/folders/1nyBngkybKoQE2aTZb_sW3XSe8_X43L56?usp=sharing
+  - title: TLWA — handwritten notes
+    subject: TLWA
+    year: 3
+    department: ECE
+    kind: Handwritten notes
+    by: Hitesh
+    link: notes/tlwa/

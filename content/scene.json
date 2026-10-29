@@ -83,6 +83,27 @@
             }
         },
         {
+            "id": "tablet",
+            "label": "Tablet — library of everything",
+            "kind": "link",
+            "target": "/library/",
+            "layer": 1,
+            "box": [
+                110,
+                105
+            ],
+            "landscape": {
+                "x": 412,
+                "y": 223,
+                "s": 0.9
+            },
+            "portrait": {
+                "x": 286,
+                "y": 209,
+                "s": 0.82
+            }
+        },
+        {
             "id": "stickies",
             "label": "Sticky notes — about",
             "kind": "link",

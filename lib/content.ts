@@ -89,6 +89,18 @@ export interface NoteSubject {
     desk: string;
 }
 
+export interface LibraryItem {
+    title: string;
+    subject: string;
+    year: number;
+    department: string;
+    kind: string;
+    by: "Hitesh" | "Others";
+    link: string | null;
+    note?: string;
+}
+
+export const getLibrary = () => readYaml<{ items: LibraryItem[] }>("library.yaml").items;
 export const getProfile = () => readYaml<Profile>("profile.yaml");
 export const getExperience = () => readYaml<{ entries: ExperienceEntry[] }>("experience.yaml").entries;
 export const getSkills = () => readYaml<{ groups: SkillGroup[] }>("skills.yaml").groups;

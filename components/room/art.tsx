@@ -206,6 +206,26 @@ export function Plane() {
     );
 }
 
+export function Tablet() {
+    return (
+        <g>
+            <rect x="10" y="100" width="92" height="5" className="f-black" opacity="0.3" />
+            <g transform="rotate(-7 57 104)">
+                <rect x="18" y="2" width="78" height="102" rx="7" className="f-black" />
+                <rect x="23" y="8" width="68" height="88" rx="2" className="f-cream" />
+                <rect x="23" y="8" width="68" height="12" className="f-amber" />
+                {[28, 38, 48, 58, 68, 78, 88].map((y, i) => (
+                    <g key={y}>
+                        <rect x="28" y={y - 1} width="5" height="5" className={["f-teal", "f-brick", "f-ink"][i % 3]} />
+                        <rect x="37" y={y} width={i % 2 ? 36 : 46} height="3" className="f-ink" opacity="0.45" />
+                    </g>
+                ))}
+                <circle cx="57" cy="100" r="1.6" className="f-cream" opacity="0.5" />
+            </g>
+        </g>
+    );
+}
+
 /* ---------------- wall items ---------------- */
 
 const MONTH_INITIALS = "JFMAMJJASOND".split("");

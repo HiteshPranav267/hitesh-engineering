@@ -8,7 +8,7 @@ import { setTheme, useTheme } from "@/components/ThemeToggle";
 import { safeStorage, setStorage, useBrowserValue } from "@/lib/browser";
 import type { ExperienceEntry } from "@/lib/content";
 import { asset } from "@/lib/site";
-import { Calendar, FieldNotes, Lamp, Lanyards, Laptop, Mug, Phone, Plane, Plant, Shelf, Speaker, Stickies, Tray, Window, type SpineGeom, type Waveform } from "./art";
+import { Calendar, FieldNotes, Lamp, Lanyards, Laptop, Mug, Phone, Plane, Plant, Shelf, Speaker, Stickies, Tablet, Tray, Window, type SpineGeom, type Waveform } from "./art";
 import "./room.css";
 
 type Comp = "landscape" | "portrait";
@@ -230,6 +230,8 @@ export default function Room({ scene, spines, wave, entries, now, stickies, card
                 return <Shelf spines={spines} />;
             case "plane":
                 return <Plane />;
+            case "tablet":
+                return <Tablet />;
             case "stickies":
                 return <Stickies lines={stickies} />;
             case "calendar":

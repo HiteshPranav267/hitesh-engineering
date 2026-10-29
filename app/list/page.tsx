@@ -48,7 +48,7 @@ export default function Home() {
                     ))}
                 </ul>
                 <p className="meta" style={{ marginTop: "0.8rem" }}>
-                    <Link href="/experience/">Full timeline</Link> · <Link href="/cv/">CV</Link> · <Link href="/notes/">Handwritten notes</Link>
+                    <Link href="/experience/">Full timeline</Link> · <Link href="/cv/">CV</Link> · <Link href="/notes/">Handwritten notes</Link> · <Link href="/library/">Library</Link>
                 </p>
             </section>
         </main>

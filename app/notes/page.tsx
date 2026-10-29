@@ -18,7 +18,7 @@ export default function NotesPage() {
             <BackToRoom />
             <h1>Handwritten notes</h1>
             <p className="meta" style={{ marginTop: "0.6rem" }}>
-                {subjects.length} subjects · {total} pages · <Link href="/desk/">All subjects on one desk</Link> · <Link href="/field-notes/">RTL Field Notes</Link>
+                {subjects.length} subjects · {total} pages · <Link href="/desk/">All subjects on one desk</Link> · <Link href="/library/">Library: slides, question banks, PYQs and more</Link> · <Link href="/field-notes/">RTL Field Notes</Link>
             </p>
             <p className="meta">
                 <span className="dept dept-SH" />
