@@ -81,7 +81,7 @@
 
 /* laptop screen */
 .screen-text {
-    font: 8px var(--font-mono), monospace;
+    font: 8px var(--font-hand), sans-serif;
     fill: var(--cream);
 }
 
@@ -103,7 +103,7 @@
 }
 
 .wave-text {
-    font: 6.5px var(--font-mono), monospace;
+    font: 6.5px var(--font-hand), sans-serif;
     fill: var(--cream);
 }
 
@@ -125,18 +125,18 @@
 
 /* handwriting placeholders: [[REPLACE WITH HANDWRITING PHOTO]] */
 .hand {
-    font: italic 500 17px var(--font-serif), Georgia, serif;
+    font: 500 18px var(--font-hand), sans-serif;
     fill: var(--ink);
 }
 
 .hand-small {
-    font: italic 500 10.5px var(--font-serif), Georgia, serif;
+    font: 500 9.2px var(--font-hand), sans-serif;
     fill: var(--black);
 }
 
 .spine-label {
-    font-family: var(--font-serif), Georgia, serif;
-    font-style: italic;
+    font-family: var(--font-hand), sans-serif;
+    font-weight: 600;
     fill: var(--cream);
 }
 
@@ -146,22 +146,22 @@
 }
 
 .cal-head {
-    font: 500 20px var(--font-serif), Georgia, serif;
+    font: 500 20px var(--font-hand), sans-serif;
     fill: var(--cream);
 }
 
 .cal-small {
-    font: 8px var(--font-mono), monospace;
+    font: 8px var(--font-hand), sans-serif;
     fill: var(--black);
 }
 
 .card-title {
-    font: 600 9px var(--font-mono), monospace;
+    font: 600 9px var(--font-hand), sans-serif;
     fill: var(--black);
 }
 
 .card-sub {
-    font: 6.5px var(--font-mono), monospace;
+    font: 6.5px var(--font-hand), sans-serif;
     fill: var(--black);
 }
 
@@ -259,7 +259,7 @@
     bottom: 100%;
     transform: translate(-50%, -10px);
     white-space: nowrap;
-    font: 12px var(--font-mono), monospace;
+    font: 12px var(--font-hand), sans-serif;
     background: var(--cream);
     color: var(--black);
     padding: 2px 7px;
@@ -275,13 +275,12 @@
 }
 
 /* chrome */
-/* Room chrome uses a system monospace face so first paint never waits on a web font. */
 .room-list-link {
     position: fixed;
     top: 12px;
     left: 12px;
     z-index: 5;
-    font: 13px ui-monospace, "Cascadia Mono", Consolas, monospace;
+    font: 13px var(--font-hand), sans-serif;
     background: var(--cream);
     color: var(--black);
     padding: 6px 10px;
@@ -293,7 +292,7 @@
 }
 
 .room-hint {
-    font: 12px ui-monospace, "Cascadia Mono", Consolas, monospace;
+    font: 12px var(--font-hand), sans-serif;
     position: fixed;
     bottom: 10px;
     left: 12px;

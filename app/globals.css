@@ -1,5 +1,11 @@
 /* One palette, two themes. The room SVG reads the same variables, so the lamp
    switch re-lights the scene and the list view together. */
+:root {
+    --font-serif: var(--font-hand);
+    --font-sans: var(--font-hand);
+    --font-mono: var(--font-hand);
+}
+
 :root,
 :root[data-theme="day"] {
     --ink: #4f6283;
@@ -49,7 +55,7 @@ body {
     margin: 0;
     background: var(--bg);
     color: var(--fg);
-    font-family: var(--font-sans), system-ui, sans-serif;
+    font-family: var(--font-sans), sans-serif;
     font-size: 1.0625rem;
     line-height: 1.6;
     text-rendering: optimizeLegibility;
@@ -74,7 +80,7 @@ a:hover {
 h1,
 h2,
 h3 {
-    font-family: var(--font-serif), Georgia, serif;
+    font-family: var(--font-serif), sans-serif;
     font-weight: 500;
     line-height: 1.15;
     letter-spacing: -0.01em;
@@ -107,12 +113,12 @@ li + li {
 }
 
 code {
-    font-family: var(--font-mono), ui-monospace, monospace;
+    font-family: var(--font-mono), sans-serif;
     font-size: 0.9em;
 }
 
 .meta {
-    font-family: var(--font-mono), ui-monospace, monospace;
+    font-family: var(--font-mono), sans-serif;
     font-size: 0.78rem;
     letter-spacing: 0.02em;
     color: var(--muted);
@@ -157,7 +163,7 @@ main.page {
 }
 
 .site-name {
-    font-family: var(--font-serif), Georgia, serif;
+    font-family: var(--font-serif), sans-serif;
     font-size: 1.15rem;
     text-decoration: none;
 }
@@ -227,7 +233,7 @@ main.page {
 
 .section > h2 {
     font-size: 1rem;
-    font-family: var(--font-mono), ui-monospace, monospace;
+    font-family: var(--font-mono), sans-serif;
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.08em;
@@ -258,7 +264,7 @@ main.page {
 }
 
 .entry-title {
-    font-family: var(--font-serif), Georgia, serif;
+    font-family: var(--font-serif), sans-serif;
     font-size: 1.25rem;
     line-height: 1.25;
 }
@@ -277,7 +283,7 @@ main.page {
 }
 
 .scope b {
-    font-family: var(--font-mono), ui-monospace, monospace;
+    font-family: var(--font-mono), sans-serif;
     font-weight: 400;
     font-size: 0.78rem;
     color: var(--muted);
@@ -303,7 +309,7 @@ main.page {
 }
 
 .placeholder {
-    font-family: var(--font-mono), ui-monospace, monospace;
+    font-family: var(--font-mono), sans-serif;
     font-size: 0.85rem;
     color: var(--accent);
     border-left: 2px solid var(--accent);
@@ -364,7 +370,7 @@ dl.facts {
 }
 
 dl.facts dt {
-    font-family: var(--font-mono), ui-monospace, monospace;
+    font-family: var(--font-mono), sans-serif;
     font-size: 0.78rem;
     color: var(--muted);
     padding-top: 0.2rem;
@@ -402,7 +408,7 @@ dl.facts dd {
 }
 
 .shelf-year h2 {
-    font-family: var(--font-mono), ui-monospace, monospace;
+    font-family: var(--font-mono), sans-serif;
     font-size: 0.8rem;
     font-weight: 400;
     color: var(--muted);
@@ -727,22 +733,25 @@ dl.facts dd {
 }
 
 .library-subject {
-    margin-top: 1.1rem;
+    margin-top: 1.6rem;
 }
 
 .library-subject h3 {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent);
 }
 
 .library-rows {
     list-style: none;
-    padding: 0;
-    margin: 0.35rem 0 0;
-    border-top: 1px solid var(--rule);
+    padding: 0 0 0 1rem;
+    margin: 0.4rem 0 0 0.35rem;
+    border-left: 3px solid var(--rule);
 }
 
 .library-rows li {
     margin: 0;
+    font-size: 0.98rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;

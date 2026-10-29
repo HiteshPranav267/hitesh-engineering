@@ -1,14 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Mono, Newsreader, Public_Sans } from "next/font/google";
+import { Shantell_Sans } from "next/font/google";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { getProfile } from "@/lib/content";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
-const serif = Newsreader({ subsets: ["latin"], variable: "--font-serif", display: "swap", weight: ["400", "500"] });
-const sans = Public_Sans({ subsets: ["latin"], variable: "--font-sans", display: "swap", weight: ["400", "600"] });
-const mono = IBM_Plex_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap", weight: ["400"] });
+// One lo-fi, hand-drawn family for the whole site (headings, body, labels, the room).
+const hand = Shantell_Sans({ subsets: ["latin"], variable: "--font-hand", display: "swap" });
 
 const profile = getProfile();
 
@@ -34,7 +33,7 @@ const themeScript = `try{var t=localStorage.getItem("theme");if(t!=="day"&&t!=="
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en" className={`${serif.variable} ${sans.variable} ${mono.variable}`} suppressHydrationWarning>
+        <html lang="en" className={hand.variable} suppressHydrationWarning>
             <head>
                 <script dangerouslySetInnerHTML={{ __html: themeScript }} />
             </head>
