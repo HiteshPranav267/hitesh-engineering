@@ -374,7 +374,7 @@ export default function Room({ scene, spines, wave, entries, now, stickies, card
             </svg>
             <div ref={fade} className="room-fade" />
             {scene.music.src && <audio ref={audio} src={asset(scene.music.src)} loop preload="none" />}
-            <p className="room-hint meta">Click an object, or Tab through them. The lamp switches light and dark.</p>
+            <p className="room-hint">Click an object, or Tab through them. The lamp switches light and dark.</p>
         </div>
     );
 }

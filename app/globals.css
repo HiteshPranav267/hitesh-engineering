@@ -401,7 +401,7 @@ dl.facts dd {
     margin-top: 2.5rem;
 }
 
-.shelf-year h3 {
+.shelf-year h2 {
     font-family: var(--font-mono), ui-monospace, monospace;
     font-size: 0.8rem;
     font-weight: 400;

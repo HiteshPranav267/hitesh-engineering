@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   trailingSlash: true,
+  // Inline CSS into each page: removes the render-blocking stylesheet round trips.
+  experimental: {
+    inlineCss: true,
+  },
 };
 
 export default nextConfig;

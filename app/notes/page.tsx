@@ -29,7 +29,7 @@ export default function NotesPage() {
             <NotesSearch />
             {years.map((y) => (
                 <section key={y} className="shelf-year" aria-labelledby={`y${y}`}>
-                    <h3 id={`y${y}`}>{YEARS[y]}</h3>
+                    <h2 id={`y${y}`}>{YEARS[y]}</h2>
                     <ul className="subject-list">
                         {subjects
                             .filter((s) => s.year === y)

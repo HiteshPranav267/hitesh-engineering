@@ -275,12 +275,13 @@
 }
 
 /* chrome */
+/* Room chrome uses a system monospace face so first paint never waits on a web font. */
 .room-list-link {
     position: fixed;
     top: 12px;
     left: 12px;
     z-index: 5;
-    font: 13px var(--font-mono), monospace;
+    font: 13px ui-monospace, "Cascadia Mono", Consolas, monospace;
     background: var(--cream);
     color: var(--black);
     padding: 6px 10px;
@@ -292,6 +293,7 @@
 }
 
 .room-hint {
+    font: 12px ui-monospace, "Cascadia Mono", Consolas, monospace;
     position: fixed;
     bottom: 10px;
     left: 12px;

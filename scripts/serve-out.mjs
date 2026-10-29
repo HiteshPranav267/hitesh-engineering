@@ -3,6 +3,7 @@
 import fs from "node:fs";
 import http from "node:http";
 import path from "node:path";
+import zlib from "node:zlib";
 
 const BASE = "/hitesh-engineering";
 const ROOT = path.resolve("out");
@@ -39,6 +40,12 @@ http.createServer((req, res) => {
         const end = range[2] ? Number(range[2]) : size - 1;
         res.writeHead(206, { "Content-Type": type, "Content-Range": `bytes ${start}-${end}/${size}`, "Accept-Ranges": "bytes", "Content-Length": end - start + 1 });
         fs.createReadStream(file, { start, end }).pipe(res);
+        return;
+    }
+    // gzip text like GitHub Pages does, so local Lighthouse numbers are comparable.
+    if (/text|javascript|json|xml|svg/.test(type) && /gzip/.test(req.headers["accept-encoding"] || "")) {
+        res.writeHead(200, { "Content-Type": type, "Content-Encoding": "gzip", Vary: "Accept-Encoding" });
+        fs.createReadStream(file).pipe(zlib.createGzip()).pipe(res);
         return;
     }
     res.writeHead(200, { "Content-Type": type, "Content-Length": size, "Accept-Ranges": "bytes" });
