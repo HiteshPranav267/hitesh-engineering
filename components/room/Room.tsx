@@ -259,7 +259,7 @@ export default function Room({ scene, spines, wave, entries, now, stickies, card
 
     return (
         <div ref={root} className={`room${rain ? " raining" : ""}`}>
-            <Link className="room-list-link" href="/">
+            <Link className="room-list-link" href="/list/">
                 View as list
             </Link>
             {COMPS.map((comp) => {

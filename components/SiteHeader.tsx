@@ -11,21 +11,21 @@ const NAV = [
     { href: "/cv/", label: "CV" },
     { href: "/about/", label: "About" },
     { href: "/contact/", label: "Contact" },
-    { href: "/room/", label: "Room" },
+    { href: "/", label: "Room" },
 ];
 
 export default function SiteHeader({ name }: { name: string }) {
     const path = usePathname() || "/";
-    if (path.startsWith("/room")) return null;
+    if (path === "/" || path.startsWith("/room")) return null;
     return (
         <header className="site-header">
             <div className="inner">
-                <Link href="/" className="site-name">
+                <Link href="/list/" className="site-name">
                     {name}
                 </Link>
                 <nav className="site-nav" aria-label="Main">
                     {NAV.map((n) => (
-                        <Link key={n.href} href={n.href} aria-current={path.startsWith(n.href.slice(0, -1)) ? "page" : undefined}>
+                        <Link key={n.href} href={n.href} aria-current={n.href !== "/" && path.startsWith(n.href.slice(0, -1)) ? "page" : undefined}>
                             {n.label}
                         </Link>
                     ))}

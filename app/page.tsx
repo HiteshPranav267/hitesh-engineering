@@ -5,7 +5,7 @@ import { getExperience, getNotes } from "@/lib/content";
 import scene from "@/content/scene.json";
 import wave from "@/content/room/waveform.json";
 
-export const metadata: Metadata = { title: "Room" };
+export const metadata: Metadata = { title: { absolute: "Hitesh Pranav Reddy" } };
 
 export default function RoomPage() {
     const entries = getExperience();

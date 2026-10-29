@@ -5,7 +5,7 @@ import type { Profile } from "@/lib/content";
 
 export default function SiteFooter({ profile }: { profile: Profile }) {
     const path = usePathname() || "/";
-    if (path.startsWith("/room")) return null;
+    if (path === "/" || path.startsWith("/room")) return null;
     return (
         <footer className="site-footer">
             <div className="inner meta">

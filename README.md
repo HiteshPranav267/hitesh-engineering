@@ -1,6 +1,6 @@
 # hitesh-engineering
 
-Source for https://hiteshpranav267.github.io/hitesh-engineering/ — Hitesh Pranav Reddy's site: RTL design and verification projects, a CV, and handwritten ECE notes. A plain list view is the site; `/room/` is an illustrated study room on top of it, where each object opens a page.
+Source for https://hiteshpranav267.github.io/hitesh-engineering/ — Hitesh Pranav Reddy's site: RTL design and verification projects, a CV, and handwritten ECE notes. The home page is an illustrated study room where each object opens a page; `/list/` is the same site as a plain list.
 
 ## Run it
 
@@ -23,7 +23,7 @@ The site deploys to GitHub Pages from `main` via `.github/workflows/deploy.yml`.
 | `content/scene.json` | Room objects: label, target page, parallax layer, landscape and portrait placement, Tab order |
 | `content/room/` | The real RISC-V VCD behind the laptop screen, and the JSON drawn from it |
 | `components/room/` | Room art (flat SVG) and behaviour (GSAP camera, parallax, hotspots) |
-| `app/` | Routes: `/`, `/projects`, `/notes`, `/desk`, `/experience`, `/cv`, `/about`, `/contact`, `/field-notes`, `/room` |
+| `app/` | Routes: `/` (room), `/list`, `/projects`, `/notes`, `/desk`, `/experience`, `/cv`, `/about`, `/contact`, `/field-notes` |
 | `private/` | Gitignored: `main.md`, note PDF sources, assets, the render cache, TODO-CONFIRM |
 
 ## Notes pipeline

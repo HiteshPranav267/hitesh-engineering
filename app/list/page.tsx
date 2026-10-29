@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Placeholder } from "@/components/Mdx";
 import ProjectEntry from "@/components/ProjectEntry";
 import { formatRange, getExperience, getProfile, projectsByGroup } from "@/lib/content";
 
@@ -12,9 +11,8 @@ export default function Home() {
         <main id="main" className="page">
             <h1>{profile.short_name}</h1>
             <p className="lede">{profile.status}</p>
-            <Placeholder />
-            <Link className="room-link meta" href="/room/">
-                Enter the room →
+            <Link className="room-link meta" href="/">
+                Back to the room →
             </Link>
 
             <section className="section" aria-labelledby="h-rtl">
