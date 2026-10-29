@@ -22,7 +22,7 @@ interface Placement {
 export interface SceneObject {
     id: string;
     label: string;
-    kind: "link" | "theme" | "rain" | "music" | "egg" | "none";
+    kind: "link" | "external" | "theme" | "rain" | "music" | "egg" | "none";
     target: string | null;
     layer: number;
     box: [number, number];
@@ -207,6 +207,8 @@ export default function Room({ scene, spines, wave, entries, now, stickies, card
 
     const activate = (o: SceneObject) => {
         if (o.kind === "link" && o.target) go(o.id, o.target);
+        // Opened straight from the click so pop-up blockers allow the new tab.
+        else if (o.kind === "external" && o.target) window.open(o.target, "_blank", "noopener,noreferrer");
         else if (o.kind === "theme") setTheme(theme === "night" ? "day" : "night");
         else if (o.kind === "rain") setRain((r) => !r);
         else if (o.kind === "music") toggleMusic();
@@ -217,6 +219,7 @@ export default function Room({ scene, spines, wave, entries, now, stickies, card
         if (o.kind === "theme") return `${o.label} (lamp ${theme === "night" ? "on" : "off"})`;
         if (o.kind === "rain") return `${o.label} (${rain ? "on" : "off"})`;
         if (o.kind === "music") return scene.music.src ? `${o.label} (${music ? "playing" : "off"})` : `${o.label} (no track yet)`;
+        if (o.kind === "external") return `${o.label} (opens in a new tab)`;
         return o.label;
     };
 

@@ -252,9 +252,9 @@
         },
         {
             "id": "speaker",
-            "label": "Speaker — music",
-            "kind": "music",
-            "target": null,
+            "label": "Speaker — my Spotify",
+            "kind": "external",
+            "target": "https://open.spotify.com/user/4o9jdjb3wp45uuy50q55z5mch",
             "layer": 3,
             "box": [
                 90,
