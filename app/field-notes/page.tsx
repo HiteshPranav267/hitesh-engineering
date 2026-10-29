@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import BackToRoom from "@/components/BackToRoom";
-import { Placeholder } from "@/components/Mdx";
 import { projectsByGroup } from "@/lib/content";
 
 export const metadata: Metadata = { title: "RTL Field Notes" };
@@ -17,7 +16,6 @@ export default function FieldNotesPage() {
         <main id="main" className="page">
             <BackToRoom />
             <h1>RTL Field Notes</h1>
-            <Placeholder />
             <section className="section" aria-labelledby="h-docs">
                 <h2 id="h-docs">Design write-ups in the project repositories</h2>
                 <ul className="entries compact">

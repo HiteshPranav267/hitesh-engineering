@@ -15,8 +15,6 @@ export interface Profile {
     email: string;
     links: { github: string; linkedin: string; website: string };
     status: string;
-    intro: string;
-    about: string;
     education: { school: string; degree: string; period: string; detail: string; source: string }[];
     coursework: { source: string; items: string[] };
     achievements: { text: string; source: string }[];

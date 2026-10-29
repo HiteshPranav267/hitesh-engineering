@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import BackToRoom from "@/components/BackToRoom";
-import { Placeholder } from "@/components/Mdx";
 import { formatRange, getExperience, getProfile } from "@/lib/content";
 
 export const metadata: Metadata = { title: "About" };
@@ -12,7 +11,6 @@ export default function AboutPage() {
         <main id="main" className="page">
             <BackToRoom />
             <h1>About</h1>
-            <Placeholder />
             <section className="section" aria-labelledby="h-facts">
                 <h2 id="h-facts">Facts</h2>
                 <dl className="facts">

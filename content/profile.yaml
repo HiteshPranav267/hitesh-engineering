@@ -1,5 +1,5 @@
 # Facts only. Every value carries the main.md line it comes from (private/main.md).
-# Prose fields are left as [[HITESH WRITES THIS]].
+# Only facts here; prose for About and project pages goes in their own files.
 
 name: Duggireddy Hitesh Pranav Reddy          # main.md:15
 short_name: Hitesh Pranav Reddy
@@ -12,8 +12,6 @@ links:
 # One factual line, no slogan. Source: brief §1 (stated by Hitesh, 2026-10-29).
 status: Final-year B.Tech ECE at PES University, moving fully into RTL design and verification, with an interest in ML applied to the hardware flow.
 
-intro: "[[HITESH WRITES THIS]]"
-about: "[[HITESH WRITES THIS]]"
 
 education:
   - school: PES University, Bengaluru
