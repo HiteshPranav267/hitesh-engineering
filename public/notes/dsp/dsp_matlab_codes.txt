@@ -1,0 +1,589 @@
+%verification of sampling theorem
+clc;
+close all;
+t = 0:0.001:0.2;
+f1 = input('Enter input frequency = ');
+f2 = input('Enter input frequency = ');
+xa = cos(2*pi*f1*t) + cos(2*pi*f2*t);
+fm = max(f1,f2);
+fs = 2*fm;
+ts = 1/fs;
+n=0:1:(0.2*fs);
+xd = cos(2*pi*f1*(n*ts)) + cos(2*pi*fs*(n*ts));
+figure;
+subplot(3,1,1);
+plot(t,xa);
+xlabel('t in s');
+ylabel('amp');
+title('Analog signal and Discrete signal');
+hold on;
+stem(n*ts,xd);
+hold off;
+legend('continuous xa(t)','xd(n)');
+subplot(3,1,2);
+stem(n,xd,'r');
+xlabel('n samples');
+ylabel('xd[n]');
+title('Discrete Signal');
+xr = xd*sinc((t-(n'*ts))/ts);
+subplot(3,1,3);
+plot(t,xr);
+xlabel('t in s');
+ylabel('xr(t)');
+title('Right sampling');
+
+------------------------------------------------------------------------------------------------------------------------------------------
+%solving difference equation
+clc;
+close all;
+
+b=input('Enter the coefficients of x:'); %[1 0.5]
+a=input('Enter the coefficients of y:'); %[1 -0.25 -0.125]
+
+M=length(b)-1;
+N=length(a)-1;
+IC=input('Enter the initial conditions for y: '); %[2 1]
+n=-N:20;
+x=(n>=0)-(n>=2);
+subplot(211);
+stem(n,x);
+title('input sequence x[n]');
+xlabel('n');
+ylabel('x[n]');
+y=[IC zeros(1,length(n)-N)];
+for n = N+1:20
+    sumx=0; sumy=0;
+    for k = 0:M
+        sumx = sumx+(b(k+1)*x(n-k));
+    end
+    for k = 1:N
+        sumy = sumy+(a(k+1)*y(n-k));
+    end
+    y(n)=sumx - sumy;
+end
+n = -N:20;
+subplot(212);
+stem(n,y);
+title('output sequence y[n]');
+xlabel('n');
+ylabel('y[n]');
+disp('y[n]=');
+disp(y)
+------------------------------------------------------------------------------------------------------------------------------------------
+%computation of n-point dft
+clc;
+close all;
+xn = input('enter the input sequence: ');
+N = input('Enter the number of points: ');
+Xk = calcdft(xn,N);
+disp('DFT  X(K)= ');
+disp(Xk);
+magXk = abs(Xk);
+phaseXk = angle(Xk);
+k = 0:N-1;
+subplot(2,1,1);
+stem(k,magXk);
+title('Magnitude plot of DFT Sequence');
+xlabel('Frequency');
+ylabel('Magnitude');
+subplot(2,1,2);
+stem(k,phaseXk);
+title('phase of DFT Sequence');
+xlabel('Frequency');
+ylabel('Phase');
+function [Xk]=calcdft(xn,N)
+    L = length(xn);
+if(N<L)
+    error('N must be >= L');
+end
+x1 = [xn zeros(1,N-L)];
+for k = 0:1:N-1
+for n = 0:1:N-1
+    p = exp(-1i*2*pi*n*k/N);
+    T(k+1,n+1)=p;
+end
+end
+disp('Transformation Matrix for DFT');
+disp(T);
+Xk=T*x1.';
+end
+------------------------------------------------------------------------------------------------------------------------------------------
+%computation of n-point idft
+clc;
+close all;
+Xk = input('enter the input sequence: ');
+xn = calcidft(Xk);
+N = length(xn);
+disp('x(n) = ');
+disp(xn);
+n = 0:N-1;
+stem(n,xn);
+title('IDFT Sequence');
+xlabel('time');
+ylabel('Amplitude');
+function[xn]=calcidft(Xk)
+N = length(Xk);
+for k = 0:1:N-1;
+    for n = 0:1:N-1;
+        p = exp(i*2*pi*n*k/N);
+        IT(k+1,n+1)=p;
+    end
+end
+disp('Transformation Matrix for IDFT');
+disp(IT);
+xn = (IT*(Xk.'))./N;
+end
+
+------------------------------------------------------------------------------------------------------------------------------------------
+%linear convolution
+clc;
+close all;
+x=input('Enter the 1st sequence: ');
+nx = input('Enter the time inder sequence: ');
+h= input ('Enter the 2nd sequence: ');
+nh = input ('Enter the time index sequence:');
+[y, ny] = findconv(x, nx, h, nh) ;
+figure;
+subplot (3, 1, 1);
+stem(nx , x);
+xlabel ('Time');
+ylabel ('Amplitude');
+title ('1st sequence');
+subplot (3,1, 2); 
+stem (nh, h);
+xlabel('Time');
+ylabel('Amplitude');
+title('2nd sequence');
+subplot (3,1,3); 
+stem(ny, y); 
+xlabel('Time'); 
+ylabel('Amplitude');
+title('Linear convolution');
+disp(y);
+disp(ny);
+function [y, ny] = findconv (x, nx, h, nh)
+nybegin = nx(1) + nh(1);
+nyend = nx(length(nx)) + nh(length(nh));
+ny = nybegin : nyend ;
+y = calcconv(x, h);
+end
+function [y] = calcconv(x, h)
+l1 = length(x);
+l2 = length(h);
+N = l1 + l2 - 1 ;
+for n= 1:1:N
+    y(n) = 0 ;
+    for k = 1:1:l1
+        if (n - k + 1 >= 1 & n -k+ 1 <= l2)
+            y(n) = y(n) + x(k)*h(n-k + 1);
+        end 
+    end 
+end 
+end
+------------------------------------------------------------------------------------------------------------------------------------------
+%circular convolution
+clc;
+clear all;
+close all;
+x=input('enter 1st sequence');
+h=input('enter 2nd sequence');
+N=input('enter N');
+l1=length(x);
+l2=length(h);
+x=[x zeros(1,(N-l1))];
+h=[h zeros(1,(N-l2))];
+for n=1:1:N;
+    y(n)=0;
+    for k=1:1:N;
+        y(n)=y(n)+x(k)*h(mod((n-k),N)+1);
+    end
+end
+disp('the circular convolution of 2 given sequences');
+n=0:N-1;
+figure;
+subplot(3,1,1);
+stem(n,x);
+xlabel('time');
+ylabel('amplitude');
+title('1st sequence');
+subplot(3,1,2);
+stem(n,h);
+xlabel('time');
+ylabel('amplitude');
+title('2nd sequence');
+subplot(3,1,3);
+stem(n,y);
+xlabel('time');
+ylabel('amplitude');
+title('circular convolution');
+disp(y);
+disp(n);
+------------------------------------------------------------------------------------------------------------------------------------------
+%linear convolution using dft & idft
+clear all;
+clc;
+x = input('Enter the 1st sequence: ');
+h = input('Enter the 2nd sequence: ');
+N = length(x) + length(h) -1;
+X = fft(x,N);
+H = fft(h,N);
+Y = X.*H;
+y = ifft(Y);
+figure;
+subplot(3,1,1);
+stem(0:length(x)-1,x);
+xlabel('Time');
+ylabel('Amplitude');
+title('1st sequence');
+subplot(3,1,2);
+stem(0:length(h)-1,h);
+xlabel('Time');
+ylabel('Amplitude');
+title('2nd sequence');
+subplot(3,1,3);
+stem(0:N-1,real(y));
+xlabel('Time');
+ylabel('Amplitude');
+title('Linear Convolution');
+disp('Linear Convolution');
+disp(real(y));
+
+------------------------------------------------------------------------------------------------------------------------------------------
+%circular convolution using dft & idft
+clear all;
+clc;
+x = input('Enter the 1st sequence: ');
+h = input('Enter the 2nd sequence: ');
+N = max(length(x),length(h));
+X = fft(x,N);
+H = fft(h,N);
+Y = X.*H;
+y = ifft(Y,N);
+figure;
+subplot(3,1,1);
+stem(0:length(x)-1,x);
+xlabel('Time');
+ylabel('Amplitude');
+title('1st sequence');
+subplot(3,1,2);
+stem(0:length(h)-1,h);
+xlabel('Time');
+ylabel('Amplitude');
+title('2nd sequence');
+subplot(3,1,3);
+stem(0:N-1,real(y));
+xlabel('Time');
+ylabel('Amplitude');
+title('Circular Convolution');
+disp('Circular Convolution');
+disp(real(y));
+
+------------------------------------------------------------------------------------------------------------------------------------------
+%autocorrelation
+clear all;
+clc;
+x = input('Enter the sequence: ');
+nx = input('Enter the index for sequnece: ');
+[rxx,nrxx]=findconv(x,nx,flip(x),-flip(nx));
+%using inbuilt function
+%[rxx,nrxx]= xcorr(x);
+E=sum(x.^2);
+disp('Energy');
+disp(E);
+disp(rxx);
+disp(nrxx);
+if(rxx(ceil(length(rxx)/2))==max(rxx))
+    disp('Rxx(0) is the max value; proved');
+else
+    disp('Rxx(0) is the max value; not proved');
+end
+if (rxx(ceil(length(rxx)/2))==E)
+    disp('Rxx(0) gives energy; proved');
+else
+    disp('Rxx(0) gives energy; not proved');
+end
+if (rxx==flip(rxx))
+    disp('symmetric property satisfied');
+else
+    disp('symmetric property not satisfied');
+end
+subplot(2,1,1);
+stem(nx,x);
+xlabel('n');
+ylabel('x[n]');
+subplot(2,1,2);
+stem(nrxx,rxx);
+xlabel('l');
+ylabel('r[l]');
+title('auto correlation');
+
+function [y,ny] = findconv(x,nx,h,nh)
+nyb = nx(1)+nh(1);
+nye = nx(length(nx))+nh(length(nh));
+ny = nyb:nye;
+y=conv(x,h);
+end
+    
+%[1 1 1 1 1 1 1 1 1 1]
+%[1:10]
+------------------------------------------------------------------------------------------------------------------------------------------
+%cross-correlation
+clc;
+close all;
+x = input('Enter the 1st sequence: ');
+nx = input('Enter the index for sequnece: ');
+y = input('Enter the 2nd sequence: ');
+ny = input('Enter the index for sequnece: ');
+[rxy,nrxy]=findconv(x,nx,flip(y),-flip(ny));
+[ryx,nryx]=findconv(y,ny,flip(x),-flip(nx));
+disp('rxy = ');
+figure;
+subplot(3,1,1);
+disp(rxy);
+disp(nrxy);
+disp('ryx = ');
+disp(ryx);
+disp(nryx);
+
+if (rxy == flip(ryx))
+    disp('Rxy(lag) = Ryx(-lag) satisfied');
+else
+    disp('Rxy(lag) = Ryx(-lag) not satisfied');
+end
+stem(nx,x);
+xlabel('n');
+ylabel('x[n]');
+subplot(3,1,2);
+stem(ny,y);
+xlabel('n');
+ylabel('y[n]');
+
+subplot(3,1,3);
+stem(ny,y);
+disp(y);
+disp(ny);
+xlabel('Time');
+ylabel('Amplitude');
+title('cross correlation');
+
+function [y,ny] = findconv(x,nx,h,nh)
+nyb = nx(1)+nh(1);
+nye = nx(length(nx))+nh(length(nh));
+ny = nyb:nye;
+y=conv(x,h);
+end
+
+%[2 1 0 0]
+%[0 1 2 3]
+%[1 0 0 3]
+%[0 1 2 3]
+------------------------------------------------------------------------------------------------------------------------------------------
+%butterworth filter
+clc;
+close all;
+ap = -3;
+as = -40;
+fp = 1000;
+fs = 2000;
+op = 2*pi*fp;
+os = 2*pi*fs;
+A = log10((10^(-ap/10)-1)/(10^(-as/10)-1));
+B = 2*log10(op/os);
+N = A/B;
+N = ceil(N);
+disp('Order of filter N = ');disp(N);
+oc = os/((10^(-as/10-1)^(1/(2*N))));
+disp('Cutoff freq, oc = ');
+disp(oc);
+[b,a] = butter(N,oc,'s');
+fr  = 0:100:4000;
+wr = 2*pi*fr;
+[H,w] = freqs(b,a,wr);
+f = w/(2*pi);
+H_mag = 20*log10(abs(H));
+figure;
+plot(f,H_mag);
+grid on;
+xlabel('Frequency in Hz');
+ylabel('Magnitude in dB');
+title('Magnitude response');
+Transferfunc = tf(b,a);
+disp(Transferfunc);
+------------------------------------------------------------------------------------------------------------------------------------------
+%Chebyshev filter
+clc;
+close all;
+ap = -3;
+as = -40;
+fp = 1000;
+fs = 2000;
+op = 2*pi*fp;
+os = 2*pi*fs;
+omegar = os/op;
+epsilon = sqrt(10^(-ap/10)-1);
+A = sqrt(10^(-as/10));
+g = sqrt((A^2-1)/epsilon^2);
+N = log10(g+sqrt(g^2-1))/log10(omegar+sqrt(omegar^2-1));
+N = ceil(N);
+disp('order of filter ');
+disp(N);
+[b,a] = cheby1(N,-ap,op,'s');
+fr = 0:100:4000;
+wr = 2*pi*fr;
+[H,w] = freqs(b,a,wr);
+f  = w/(2*pi);
+H_mag = 20*log10(abs(H));
+figure;
+plot(f,H_mag);
+grid on;
+xlabel('frequency in Hz');
+ylabel('magnitude in dB');
+title('magnitude response');
+Transferfunc = tf(b,a);
+disp(Transferfunc);
+------------------------------------------------------------------------------------------------------------------------------------------
+%IIR using butterworth
+clc;
+close all;
+
+rp = input('Enter the passband ripple (in dB): '); %3.01
+rs = input('Enter the stopband ripple (in dB): '); %15
+fs = input('Enter the sampling frequency (in Hz): '); %2000
+fp = input('Enter the passband frequency (in Hz): '); %500
+fst = input('Enter the stopband frequency (in Hz): '); %750
+
+fn = fs / 2; 
+fpn = fp / fn;
+fstn = fst / fn; 
+
+[N, wc] = buttord(fpn, fstn, rp, rs); 
+[b, a] = butter(N, wc); 
+disp(N);
+disp(wc);
+
+[H, f] = freqz(b, a, 256, fs); 
+Transferfunc = tf(b, a, (1/fs));
+H_mag = 20 * log10(abs(H)); 
+figure;
+plot(f, H_mag);
+grid on;
+xlabel('Frequency in Hz');
+ylabel('Magnitude in dB');
+title('Magnitude Response');
+
+------------------------------------------------------------------------------------------------------------------------------------------
+%IIR using Chebyshev
+clc;
+close all;
+
+rp = input('Enter passband ripple: '); %3
+rs = input('Enter stopband ripple: '); %20
+fs = input('Enter sampling frequency: '); %8000
+fp = input('Enter passband frequency: '); %1200
+fst = input('Enter stopband frequency: '); %1800
+
+fn = fs / 2;
+fpn = fp / fn;
+fstn = fst / fn;
+
+[N, wc] = cheb1ord(fpn, fstn, rp, rs); 
+[b, a] = cheby1(N, rp, wc); 
+
+[H, f] = freqz(b, a, 256, fs); 
+Transferfunc = tf(b, a, (1/fs)); 
+H_mag = 20 * log10(abs(H)); 
+
+figure;
+plot(f, H_mag);
+grid on;
+xlabel('Frequency in Hz');
+ylabel('Magnitude in dB');
+title('Magnitude Response');
+
+------------------------------------------------------------------------------------------------------------------------------------------
+%FIR using hamming window method
+clear all;
+clc;
+
+fs = 8000;
+fp = 1500;
+fst = 2000;
+wp = (2 * pi * fp) / fs;
+ws = (2 * pi * fst) / fs;
+twn = (ws - wp) / pi;
+wc = wp + twn * pi / 2;
+N = ceil(8 / twn);
+if (mod(N, 2) == 0)
+    N = N + 1;
+end
+alpha = (N - 1) / 2;
+er = 0.001;
+for n = 0:1:N-1
+    hd(:,n + 1) = (sin(wc * (n - alpha + er)))./(pi*(n - alpha + er));
+end
+disp(hd);
+figure;
+whm = hamming(N);
+disp('Hamming window coefficients:');
+disp(whm);
+stem(whm);
+title('Hamming Window');
+hn = hd.*whm;
+[H, f] = freqz(hn, 1, 1000, fs);
+H_mag = 20 * log10(abs(H));
+figure;
+plot(f, H_mag);
+xlabel('Normalized Frequency');
+ylabel('Magnitude');
+disp('FIR filter coefficients hn:');
+disp(hn);
+
+------------------------------------------------------------------------------------------------------------------------------------------
+%FIR using frequency sampling method
+clear all;
+clc;
+
+wc = pi / 2;
+M = 17;
+w = 0:(pi/256):pi;
+Hd_w = ([w <= pi/2]).* exp(-1i*w*(M-1)/2);
+figure;
+subplot(3,1,1);
+plot(w, abs(Hd_w));
+title('Magnitude response of desired filter');
+xlabel('w');
+ylabel('|Hd(w)|');
+kc = floor(wc *(M/(2*pi)));
+k = 0:(M-1)/2;
+Hk = ([k <= kc]).*exp(-1i*(2*pi*k/M)* ((M-1)/2));
+subplot(3,1,2);
+stem(k, abs(Hk));
+title('Sampled magnitude response Hd_w');
+xlabel('k');
+ylabel('|H(k)|');
+
+for n = 0:(M-1)
+    sumHk = 0;
+    for k = 1:(M-1)/2
+        sumHk = sumHk + real(Hk(k+1)*exp(1i*2*pi*k*n/M));
+    end
+    hn(n+1) = (1/M)*(Hk(1)+2*sumHk);
+end
+
+n = 0:(M-1);
+subplot(3,1,3);
+stem(n, hn);
+title('Impulse response h(n) of filter');
+xlabel('n');
+ylabel('h(n)');
+
+[H, f] = freqz(hn, 1, 1000);
+H_mag = 20 * log10(abs(H));
+
+figure;
+plot(f, H_mag);
+xlabel('Normalized Frequency');
+ylabel('Magnitude');
+
+disp('FIR filter coefficients hn:');
+disp(hn);

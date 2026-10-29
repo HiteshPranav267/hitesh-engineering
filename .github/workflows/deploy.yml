@@ -26,15 +26,12 @@ jobs:
         with:
           node-version: "20"
           cache: "npm"
-          cache-dependency-path: hitesh-engineering/package-lock.json
 
       - name: Install dependencies
         run: npm ci
-        working-directory: hitesh-engineering
 
       - name: Build Next.js static site
         run: npm run build
-        working-directory: hitesh-engineering
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -42,7 +39,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: hitesh-engineering/out
+          path: out
 
   deploy:
     environment:
