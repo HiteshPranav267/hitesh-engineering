@@ -23,7 +23,7 @@ The site deploys to GitHub Pages from `main` via `.github/workflows/deploy.yml`.
 | `content/scene.json` | Room objects: label, target page, parallax layer, landscape and portrait placement, Tab order |
 | `content/room/` | The real RISC-V VCD behind the laptop screen, and the JSON drawn from it |
 | `components/room/` | Room art (flat SVG) and behaviour (GSAP camera, parallax, hotspots) |
-| `app/` | Routes: `/` (room), `/list`, `/projects`, `/notes`, `/desk`, `/experience`, `/cv`, `/about`, `/contact`, `/field-notes` |
+| `app/` | Routes: `/` (room), `/list`, `/projects`, `/notes`, `/experience`, `/cv`, `/contact`, `/rtl-design-docs` |
 | `private/` | Gitignored: `main.md`, note PDF sources, assets, the render cache, TODO-CONFIRM |
 
 ## Notes pipeline
@@ -35,7 +35,7 @@ scripts/notes/.venv/Scripts/python scripts/notes/build.py        # all subjects
 scripts/notes/.venv/Scripts/python scripts/notes/build.py --only dsp
 ```
 
-It reads `private/notes/**/*.pdf` with `private/notes/_seed.yaml`, and writes `content/notes.yaml`, `public/notes-covers/`, and per-page thumbnails plus deep-zoom desk tiles in the gitignored `public/notes-dev/`. `scripts/notes/upload.sh` copies PDFs and tiles to Cloudflare R2; it only runs when called. After upload, set `NEXT_PUBLIC_NOTES_PDF_BASE` and `NEXT_PUBLIC_NOTES_ASSETS_BASE` for the Pages build.
+It reads `private/notes/**/*.pdf` with `private/notes/_seed.yaml`, and writes `content/notes.yaml` and `public/notes-covers/`. `scripts/notes/upload.sh` copies the PDFs to Cloudflare R2; it only runs when called. After upload, set `NEXT_PUBLIC_NOTES_PDF_BASE` for the Pages build.
 
 ## Checks
 

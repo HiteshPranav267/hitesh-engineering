@@ -486,84 +486,54 @@ dl.facts dd {
 .reader {
     display: grid;
     gap: 1rem;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
 }
 
 @media (min-width: 60rem) {
-    .reader {
-        grid-template-columns: 9rem 1fr 14rem;
+    .reader.with-topics {
+        grid-template-columns: 1fr 14rem;
         align-items: start;
     }
 }
 
-.reader-strip {
-    display: flex;
-    gap: 0.5rem;
-    overflow-x: auto;
-    padding-bottom: 0.5rem;
-}
-
-@media (min-width: 60rem) {
-    .reader-strip {
-        flex-direction: column;
-        overflow-x: visible;
-        overflow-y: auto;
-        max-height: 80vh;
-        position: sticky;
-        top: 1rem;
-    }
-}
-
-.reader-strip button {
-    flex: 0 0 auto;
-    padding: 0;
-    border: 1px solid var(--rule);
-    background: #fff;
-    cursor: pointer;
+.pdf-viewer {
     position: relative;
-}
-
-.reader-strip button[aria-current="true"] {
-    outline: 2px solid var(--accent);
-}
-
-.reader-strip canvas {
-    display: block;
-    width: 7rem;
-    height: auto;
-}
-
-@media (min-width: 60rem) {
-    .reader-strip canvas {
-        width: 100%;
-    }
-}
-
-.reader-strip span {
-    position: absolute;
-    right: 2px;
-    bottom: 2px;
-    font: 0.65rem var(--font-mono), monospace;
-    background: var(--bg);
-    color: var(--fg);
-    padding: 0 3px;
-}
-
-.reader-page {
-    background: #fff;
+    height: 82vh;
+    min-height: 24rem;
+    overflow: auto;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: safe center;
+    gap: 12px;
+    background: color-mix(in srgb, var(--fg) 14%, var(--bg));
     border: 1px solid var(--rule);
-    min-height: 12rem;
+    overscroll-behavior: contain;
 }
 
-.reader-page canvas {
+.pdf-page {
+    flex: 0 0 auto;
+    background: #fff;
+    box-shadow: 0 1px 4px rgb(0 0 0 / 0.25);
+}
+
+.pdf-page canvas {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
 }
 
-.reader.inverted .reader-page canvas,
-.reader.inverted .reader-strip canvas {
+.pdf-viewer.inverted .pdf-page {
+    background: #000;
+}
+
+.pdf-viewer.inverted canvas {
     filter: invert(1) hue-rotate(180deg);
+}
+
+.pdf-error {
+    margin: auto;
+    color: var(--fg);
 }
 
 .reader-tools {
@@ -574,7 +544,8 @@ dl.facts dd {
     font-size: 0.92rem;
 }
 
-.reader-tools select {
+.reader-tools select,
+.reader-tools input {
     font: inherit;
     background: var(--bg);
     color: var(--fg);
@@ -582,23 +553,27 @@ dl.facts dd {
     padding: 0.25rem;
 }
 
+.reader-tools input {
+    width: 3.6em;
+}
+
+.reader-zoom {
+    display: inline-flex;
+    gap: 0.4rem;
+    align-items: center;
+}
+
 .topic-index ol {
     padding-left: 1.2rem;
 }
 
-/* desk */
-
-.desk {
-    margin-top: 1rem;
-    height: 75vh;
-    min-height: 26rem;
-    background: #c9bfae;
-    border: 1px solid var(--rule);
-    position: relative;
-}
-
-.desk-note {
-    margin-top: 1rem;
+@media (min-width: 60rem) {
+    .topic-index {
+        position: sticky;
+        top: 1rem;
+        max-height: 82vh;
+        overflow-y: auto;
+    }
 }
 
 /* ---------- CV ---------- */
@@ -623,13 +598,19 @@ dl.facts dd {
     font-size: 0.96rem;
 }
 
+.cv .cv-note {
+    margin: 0.15rem 0 0;
+    font-size: 0.94rem;
+}
+
 @page {
     size: A4;
     margin: 12mm 14mm 12mm;
 }
 
 @media print {
-    :root {
+    :root,
+    :root[data-theme] {
         --bg: #fff;
         --fg: #000;
         --muted: #444;
@@ -656,6 +637,12 @@ dl.facts dd {
 
     .cv {
         max-width: none;
+        font-family: var(--font-cm), "CMU Serif", "Latin Modern Roman", serif;
+    }
+
+    /* every label, heading and list in the CV prints in Computer Modern */
+    .cv * {
+        font-family: inherit !important;
     }
 
     .cv h1 {
@@ -678,6 +665,7 @@ dl.facts dd {
 
     .cv .section > h2 {
         font-size: 8.5pt;
+        letter-spacing: 0.04em;
         padding-bottom: 2pt;
     }
 
@@ -689,8 +677,14 @@ dl.facts dd {
         font-size: 10.5pt;
     }
 
-    .cv ul {
+    .cv ul,
+    .cv .cv-note,
+    .cv dl.facts dd {
         font-size: 8.7pt;
+    }
+
+    .cv dl.facts dt {
+        font-size: 8pt;
     }
 
     a {

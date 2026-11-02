@@ -34,7 +34,7 @@ export default async function SubjectPage({ params }: { params: Promise<{ subjec
                     {s.subject}
                 </h1>
                 <p className="meta">
-                    {s.pages} handwritten pages · last revised {revised} · <Link href={`/desk/${s.slug}/`}>Spread on the desk</Link>
+                    {s.pages} handwritten pages · last revised {revised}
                 </p>
                 <div className="sr-only">
                     {s.files.map((f) => (

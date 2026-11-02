@@ -4,7 +4,7 @@
  * coordinates matching its scene.json `box`; the Room component places it.
  *
  * Text that should eventually be Hitesh's handwriting (sticky notes, notebook spines,
- * the field-notes title) uses the .hand placeholder font and carries
+ * the RTL notebook title) uses the .hand placeholder font and carries
  * data-replace="[[REPLACE WITH HANDWRITING PHOTO]]".
  */
 
@@ -114,7 +114,7 @@ export function FieldNotes() {
                 <line key={i} x1="18" y1={58 + i * 12} x2="138" y2={52 + i * 12 + 2} className="s-rule" />
             ))}
             <text x="22" y="44" className="hand" data-replace={REPLACE} transform="rotate(-4 22 44)">
-                RTL Field Notes
+                RTL Design Docs
             </text>
             {/* a small FSM sketch on the right page */}
             <g className="s-ink-line" fill="none">

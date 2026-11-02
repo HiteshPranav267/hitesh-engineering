@@ -17,7 +17,7 @@ export default function ExperiencePage() {
                             <span className="meta">{formatRange(e)}</span>
                         </div>
                         <p className="meta" style={{ margin: "0.2rem 0 0" }}>
-                            {e.org}
+                            {e.linkedin ? <a href={e.linkedin}>{e.org}</a> : e.org}
                             {e.place ? `, ${e.place}` : ""}
                         </p>
                         {e.points.length > 0 && (

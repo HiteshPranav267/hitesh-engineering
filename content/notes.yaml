@@ -65,7 +65,6 @@ subjects:
     topics: []
   pages: 174
   cover: notes-covers/chemistry.jpg
-  desk: desk/chemistry.dzi
 - slug: mathematics-1
   subject: Mathematics 1
   year: 1
@@ -116,7 +115,6 @@ subjects:
     topics: []
   pages: 272
   cover: notes-covers/mathematics-1.jpg
-  desk: desk/mathematics-1.dzi
 - slug: mechanical
   subject: Mechanical
   year: 1
@@ -161,7 +159,6 @@ subjects:
     topics: []
   pages: 84
   cover: notes-covers/mechanical.jpg
-  desk: desk/mechanical.dzi
 - slug: mechanics-statics
   subject: Mechanics - Statics
   year: 1
@@ -176,7 +173,6 @@ subjects:
     topics: []
   pages: 14
   cover: notes-covers/mechanics-statics.jpg
-  desk: desk/mechanics-statics.dzi
 - slug: physics
   subject: Physics
   year: 1
@@ -197,7 +193,6 @@ subjects:
     topics: []
   pages: 68
   cover: notes-covers/physics.jpg
-  desk: desk/physics.dzi
 - slug: epd
   subject: EPD
   year: 1
@@ -224,7 +219,6 @@ subjects:
     topics: []
   pages: 70
   cover: notes-covers/epd.jpg
-  desk: desk/epd.dzi
 - slug: electrical
   subject: Electrical
   year: 1
@@ -263,7 +257,6 @@ subjects:
     topics: []
   pages: 100
   cover: notes-covers/electrical.jpg
-  desk: desk/electrical.dzi
 - slug: python
   subject: Python
   year: 1
@@ -302,7 +295,6 @@ subjects:
     topics: []
   pages: 59
   cover: notes-covers/python.jpg
-  desk: desk/python.dzi
 - slug: acd
   subject: ACD
   year: 2
@@ -329,7 +321,6 @@ subjects:
     topics: []
   pages: 75
   cover: notes-covers/acd.jpg
-  desk: desk/acd.dzi
 - slug: cadd
   subject: CADD
   year: 2
@@ -344,7 +335,6 @@ subjects:
     topics: []
   pages: 65
   cover: notes-covers/cadd.jpg
-  desk: desk/cadd.dzi
 - slug: cs
   subject: CS
   year: 2
@@ -359,7 +349,6 @@ subjects:
     topics: []
   pages: 178
   cover: notes-covers/cs.jpg
-  desk: desk/cs.dzi
 - slug: dsp
   subject: DSP
   year: 2
@@ -392,7 +381,6 @@ subjects:
     topics: []
   pages: 136
   cover: notes-covers/dsp.jpg
-  desk: desk/dsp.dzi
 - slug: dvlsi
   subject: DVLSI
   year: 2
@@ -413,7 +401,6 @@ subjects:
     topics: []
   pages: 77
   cover: notes-covers/dvlsi.jpg
-  desk: desk/dvlsi.dzi
 - slug: emft
   subject: EMFT
   year: 2
@@ -440,7 +427,6 @@ subjects:
     topics: []
   pages: 68
   cover: notes-covers/emft.jpg
-  desk: desk/emft.dzi
 - slug: la
   subject: LA
   year: 2
@@ -467,7 +453,6 @@ subjects:
     topics: []
   pages: 24
   cover: notes-covers/la.jpg
-  desk: desk/la.dzi
 - slug: mee
   subject: MEE
   year: 2
@@ -494,7 +479,6 @@ subjects:
     topics: []
   pages: 64
   cover: notes-covers/mee.jpg
-  desk: desk/mee.dzi
 - slug: nas
   subject: NAS
   year: 2
@@ -515,7 +499,6 @@ subjects:
     topics: []
   pages: 80
   cover: notes-covers/nas.jpg
-  desk: desk/nas.dzi
 - slug: s-and-s
   subject: S&S
   year: 2
@@ -530,7 +513,6 @@ subjects:
     topics: []
   pages: 46
   cover: notes-covers/s-and-s.jpg
-  desk: desk/s-and-s.dzi
 - slug: aha
   subject: AHA
   year: 3
@@ -545,7 +527,6 @@ subjects:
     topics: []
   pages: 25
   cover: notes-covers/aha.jpg
-  desk: desk/aha.dzi
 - slug: ccn
   subject: CCN
   year: 3
@@ -560,7 +541,6 @@ subjects:
     topics: []
   pages: 28
   cover: notes-covers/ccn.jpg
-  desk: desk/ccn.dzi
 - slug: cod
   subject: COD
   year: 3
@@ -587,7 +567,6 @@ subjects:
     topics: []
   pages: 78
   cover: notes-covers/cod.jpg
-  desk: desk/cod.dzi
 - slug: dc
   subject: DC
   year: 3
@@ -614,7 +593,6 @@ subjects:
     topics: []
   pages: 92
   cover: notes-covers/dc.jpg
-  desk: desk/dc.dzi
 - slug: hpc
   subject: HPC
   year: 3
@@ -629,7 +607,6 @@ subjects:
     topics: []
   pages: 64
   cover: notes-covers/hpc.jpg
-  desk: desk/hpc.dzi
 - slug: tlwa
   subject: TLWA
   year: 3
@@ -668,4 +645,3 @@ subjects:
     topics: []
   pages: 85
   cover: notes-covers/tlwa.jpg
-  desk: desk/tlwa.dzi

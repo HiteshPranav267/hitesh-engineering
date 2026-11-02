@@ -355,9 +355,9 @@ export default function Room({ scene, spines, wave, entries, now, stickies, card
                                                         className="hot spine-hot"
                                                         data-hot={`spine:${s.slug}`}
                                                         data-layer={shelf.layer}
-                                                        aria-label={`${s.subject} notebook, ${s.pages} pages — open on the desk`}
+                                                        aria-label={`${s.subject} notebook, ${s.pages} pages — open the notes`}
                                                         style={{ left: pct(p.x + s.x * p.s, W), top: pct(p.y + s.y * p.s, H), width: pct(s.w * p.s, W), height: pct(s.h * p.s, H) }}
-                                                        onClick={() => go(`spine:${s.slug}`, `/desk/${s.slug}/`)}
+                                                        onClick={() => go(`spine:${s.slug}`, `/notes/${s.slug}/`)}
                                                     >
                                                         <span className="tag">{s.subject}</span>
                                                     </button>

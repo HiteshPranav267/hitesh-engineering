@@ -1,10 +1,21 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import BackToRoom from "@/components/BackToRoom";
 import PrintButton from "@/components/PrintButton";
 import { formatRange, getExperience, getProfile, getProjects, getSkills } from "@/lib/content";
 import { asset } from "@/lib/site";
 
 export const metadata: Metadata = { title: "CV" };
+
+// Computer Modern (CMU Serif, OFL) for the printed CV only; the screen keeps the site font.
+const cm = localFont({
+    src: [
+        { path: "./fonts/cmu-serif-regular.woff2", weight: "400", style: "normal" },
+        { path: "./fonts/cmu-serif-bold.woff2", weight: "700", style: "normal" },
+    ],
+    variable: "--font-cm",
+    display: "block",
+});
 
 // Fact bullets only: the "## Facts" list of each project file.
 function facts(body: string): string[] {
@@ -24,7 +35,7 @@ export default function CvPage() {
     const other = projects.filter((x) => x.group === "ml");
     return (
         <main id="main" className="page">
-            <div className="cv">
+            <div className={`cv ${cm.variable}`}>
                 <BackToRoom />
                 <p className="meta no-print">
                     <a href={asset("Resume_Duggireddy_Hitesh_Pranav_Reddy.pdf")}>Download PDF</a> · <PrintButton />
@@ -51,7 +62,7 @@ export default function CvPage() {
                             </li>
                         ))}
                     </ul>
-                    <p style={{ margin: "0.5rem 0 0", fontSize: "0.94rem" }}>
+                    <p className="cv-note" style={{ marginTop: "0.5rem" }}>
                         <span className="meta">Relevant coursework </span>
                         {p.coursework.items.join("; ")}
                     </p>
@@ -64,7 +75,7 @@ export default function CvPage() {
                             <li key={e.id}>
                                 <div className="entry-head">
                                     <span className="entry-title">
-                                        {e.role} — {e.org}
+                                        {e.role} — {e.linkedin ? <a href={e.linkedin}>{e.org}</a> : e.org}
                                     </span>
                                     <span className="meta">{formatRange(e)}</span>
                                 </div>
@@ -108,7 +119,7 @@ export default function CvPage() {
                                     <span className="entry-title">{x.title}</span>
                                     <span className="meta">{x.stack.slice(0, 4).join(" · ")}</span>
                                 </div>
-                                <p style={{ margin: "0.15rem 0 0", fontSize: "0.94rem" }}>{facts(x.body)[0]}</p>
+                                <p className="cv-note">{facts(x.body)[0]}</p>
                             </li>
                         ))}
                     </ul>

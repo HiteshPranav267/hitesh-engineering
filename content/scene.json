@@ -42,9 +42,9 @@
         },
         {
             "id": "fieldnotes",
-            "label": "RTL Field Notes",
+            "label": "RTL Design Documentation",
             "kind": "link",
-            "target": "/field-notes/",
+            "target": "/rtl-design-docs/",
             "layer": 3,
             "box": [
                 300,
@@ -105,9 +105,9 @@
         },
         {
             "id": "stickies",
-            "label": "Sticky notes — about",
+            "label": "Sticky notes — CV",
             "kind": "link",
-            "target": "/about/",
+            "target": "/cv/",
             "layer": 0,
             "box": [
                 240,
@@ -149,7 +149,7 @@
             "id": "lanyards",
             "label": "ID cards — roles",
             "kind": "link",
-            "target": "/about/#roles",
+            "target": "/experience/",
             "layer": 0,
             "box": [
                 150,

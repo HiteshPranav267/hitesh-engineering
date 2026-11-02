@@ -25,6 +25,7 @@ export interface ExperienceEntry {
     id: string;
     role: string;
     org: string;
+    linkedin?: string;
     place: string;
     start: string | null;
     end: string | null;
@@ -86,7 +87,6 @@ export interface NoteSubject {
     files: NoteFile[];
     pages: number;
     cover: string;
-    desk: string;
 }
 
 export interface LibraryItem {
