@@ -539,7 +539,7 @@ dl.facts dd {
 .reader-tools {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem 1rem;
+    gap: 0.5rem 0.6rem;
     align-items: center;
     font-size: 0.92rem;
 }
@@ -559,8 +559,56 @@ dl.facts dd {
 
 .reader-zoom {
     display: inline-flex;
-    gap: 0.4rem;
+    gap: 0.25rem;
     align-items: center;
+}
+
+/* Solid buttons for the viewer toolbar: Claude orange with black text by day, a deeper orange with white text at night. */
+.tool-button {
+    --btn-bg: #d97757;
+    --btn-bg-hover: #c96442;
+    --btn-fg: #000;
+    font: inherit;
+    font-size: 0.9rem;
+    line-height: 1.2;
+    display: inline-block;
+    padding: 0.3rem 0.6rem;
+    border: 0;
+    border-radius: 6px;
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+:root[data-theme="night"] .tool-button {
+    --btn-bg: #b5532f;
+    --btn-bg-hover: #9e4526;
+    --btn-fg: #fff;
+}
+
+.tool-button:hover {
+    background: var(--btn-bg-hover);
+    color: var(--btn-fg);
+}
+
+.tool-button:focus-visible {
+    outline: 2px solid var(--fg);
+    outline-offset: 2px;
+}
+
+.tool-button:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.tool-button[aria-pressed="true"] {
+    box-shadow: inset 0 0 0 2px var(--btn-fg);
+}
+
+.reader-zoom .tool-button {
+    min-width: 2rem;
+    text-align: center;
 }
 
 .topic-index ol {

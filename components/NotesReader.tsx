@@ -219,23 +219,23 @@ export default function NotesReader({ files }: { files: NoteFile[] }) {
                     of {total} · revised {file.revised}
                 </span>
                 <span className="reader-zoom">
-                    <button type="button" className="text-button" onClick={() => zoomStep(-1)} disabled={zoom <= ZOOMS[0]} aria-label="Zoom out">
+                    <button type="button" className="tool-button" onClick={() => zoomStep(-1)} disabled={zoom <= ZOOMS[0]} aria-label="Zoom out">
                         −
                     </button>
-                    <button type="button" className="text-button" onClick={() => setZoomKeep(1)} title="Fit to width">
+                    <button type="button" className="tool-button" onClick={() => setZoomKeep(1)} title="Fit to width">
                         {Math.round(zoom * 100)}%
                     </button>
-                    <button type="button" className="text-button" onClick={() => zoomStep(1)} disabled={zoom >= ZOOMS.at(-1)!} aria-label="Zoom in">
+                    <button type="button" className="tool-button" onClick={() => zoomStep(1)} disabled={zoom >= ZOOMS.at(-1)!} aria-label="Zoom in">
                         +
                     </button>
                 </span>
-                <button type="button" className="text-button" onClick={toggleInvert} aria-pressed={inverted}>
+                <button type="button" className="tool-button" onClick={toggleInvert} aria-pressed={inverted}>
                     Night pages: {inverted ? "on" : "off"}
                 </button>
-                <a className="text-button" href={url} download>
+                <a className="tool-button" href={url} download>
                     Download
                 </a>
-                <a className="text-button" href={url} target="_blank" rel="noopener">
+                <a className="tool-button" href={url} target="_blank" rel="noopener">
                     Open in new tab
                 </a>
             </div>
