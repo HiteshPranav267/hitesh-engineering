@@ -19,7 +19,7 @@ export interface Waveform {
     signals: { name: string; width: number; changes: [number, string][] }[];
 }
 
-function Trace({ sig, end, w, y, h }: { sig: Waveform["signals"][number]; end: number; w: number; y: number; h: number }) {
+export function Trace({ sig, end, w, y, h }: { sig: Waveform["signals"][number]; end: number; w: number; y: number; h: number }) {
     const xs = (t: number) => (t / end) * w;
     if (sig.width === 1) {
         let d = "";
@@ -59,11 +59,11 @@ export function Laptop({ wave, uid }: { wave: Waveform; uid: string }) {
         <g>
             {/* screen lid */}
             <rect x="38" y="0" width="344" height="246" rx="10" className="f-black" />
-            <rect x="52" y="14" width="316" height="212" rx="3" className="f-ink" />
+            <rect id={`laptop-screen-${uid}`} x="52" y="14" width="316" height="212" rx="3" className="f-ink" />
             <clipPath id={`screen-clip-${uid}`}>
                 <rect x="52" y="14" width="316" height="212" rx="3" />
             </clipPath>
-            <g clipPath={`url(#screen-clip-${uid})`}>
+            <g clipPath={`url(#screen-clip-${uid})`} className="laptop-screen-art">
                 <rect x="52" y="14" width="316" height="20" className="f-black" opacity="0.35" />
                 <text x="60" y="28" className="screen-text">
                     tb_riscv_top · riscv.vcd
@@ -192,9 +192,9 @@ export function Shelf({ spines }: { spines: SpineGeom[] }) {
     );
 }
 
-export function Plane() {
+export function Plane({ id = "plane-body" }: { id?: string }) {
     return (
-        <g id="plane-body">
+        <g id={id}>
             <polygon points="10,26 96,20 114,24 96,30 10,30" className="f-cream" />
             <polygon points="44,24 70,2 80,2 64,26" className="f-brick" />
             <polygon points="48,28 74,46 84,46 66,28" className="f-brick" opacity="0.8" />
@@ -475,7 +475,8 @@ export function Speaker() {
     );
 }
 
-export function Mug() {
+export function Mug({ filter = false }: { filter?: boolean }) {
+    if (filter) return <FilterCoffee />;
     return (
         <g>
             <g className="steam">
@@ -487,6 +488,29 @@ export function Mug() {
             <rect x="8" y="58" width="54" height="12" className="f-brick" />
             <rect x="8" y="30" width="54" height="8" className="f-black" opacity="0.25" />
             <rect x="44" y="30" width="18" height="66" className="f-black" opacity="0.12" />
+        </g>
+    );
+}
+
+/** Weekend: a steel tumbler in its davara, South Indian filter coffee. */
+function FilterCoffee() {
+    return (
+        <g>
+            <g className="steam">
+                <path d="M32 18 q-8 -12 0 -24 q8 -12 0 -24" />
+                <path d="M46 16 q-8 -12 0 -24 q8 -12 0 -24" />
+            </g>
+            {/* davara: the wide bowl */}
+            <path d="M0 74 H80 L72 96 H8 Z" className="f-cream" />
+            <path d="M0 74 H80 L78 80 H2 Z" className="f-black" opacity="0.18" />
+            <path d="M52 74 H80 L72 96 H52 Z" className="f-black" opacity="0.12" />
+            {/* tumbler */}
+            <path d="M20 30 H60 L56 78 H24 Z" className="f-cream" />
+            <rect x="18" y="26" width="44" height="7" rx="2" className="f-cream" />
+            <path d="M20 30 H60 L59.6 36 H20.4 Z" className="f-black" opacity="0.15" />
+            <path d="M44 30 H60 L56 78 H44 Z" className="f-black" opacity="0.14" />
+            <rect x="27" y="40" width="3" height="32" className="f-cream" opacity="0.9" />
+            <ellipse cx="40" cy="28" rx="19" ry="3" className="f-amber" opacity="0.85" />
         </g>
     );
 }
@@ -505,6 +529,97 @@ export function Plant() {
             <rect x="16" y="90" width="98" height="14" className="f-brick" />
             <rect x="16" y="104" width="98" height="6" className="f-black" opacity="0.2" />
             <polygon points="76,110 98,110 92,190 76,190" className="f-black" opacity="0.12" />
+        </g>
+    );
+}
+
+/* ---------------- easter-egg desk items ---------------- */
+
+/** Little digital desk clock, real IST. */
+export function Clock({ hhmm, sub }: { hhmm: string; sub: string }) {
+    return (
+        <g>
+            <rect x="8" y="92" width="128" height="8" rx="3" className="f-black" opacity="0.3" />
+            <rect x="34" y="2" width="22" height="8" rx="2" className="f-black" />
+            <rect x="62" y="4" width="14" height="6" rx="2" className="f-brick" />
+            <rect x="0" y="8" width="140" height="86" rx="14" className="f-black" />
+            <rect x="0" y="8" width="140" height="10" rx="5" className="f-cream" opacity="0.08" />
+            <rect x="11" y="20" width="118" height="58" rx="5" className="f-ink" />
+            <text x="70" y="56" textAnchor="middle" className="clock-digits">
+                {hhmm}
+            </text>
+            <text x="70" y="71" textAnchor="middle" className="clock-sub">
+                {sub}
+            </text>
+            <rect x="16" y="94" width="14" height="5" className="f-black" />
+            <rect x="110" y="94" width="14" height="5" className="f-black" />
+        </g>
+    );
+}
+
+/** 1–4 AM: an emergency coffee appears. */
+export function NightCoffee() {
+    return (
+        <g>
+            <g className="steam">
+                <path d="M24 10 q-7 -10 0 -20 q7 -10 0 -20" />
+                <path d="M36 8 q-7 -10 0 -20 q7 -10 0 -20" />
+            </g>
+            <ellipse cx="30" cy="80" rx="26" ry="5" className="f-black" opacity="0.3" />
+            <path d="M8 20 H52 L46 80 H14 Z" className="f-cream" />
+            <rect x="5" y="14" width="50" height="9" rx="3" className="f-black" />
+            <path d="M11 40 H49 L47 60 H13 Z" className="f-brick" />
+            <text x="30" y="54" textAnchor="middle" className="cup-text">
+                3AM
+            </text>
+            <path d="M38 20 H52 L46 80 H36 Z" className="f-black" opacity="0.12" />
+        </g>
+    );
+}
+
+/** Saturday and Sunday only. */
+export function WeekendNote() {
+    return (
+        <g>
+            <polygon points="10,14 128,6 132,82 4,88" className="f-black" opacity="0.2" />
+            <polygon points="6,8 124,0 128,76 0,82" className="f-teal" />
+            <polygon points="6,8 124,0 125,12 7,20" className="f-black" opacity="0.08" />
+            <text x="16" y="40" className="hand-note" transform="rotate(-4 16 40)">
+                weekend mode
+            </text>
+            <text x="18" y="62" className="hand-note small" transform="rotate(-4 18 62)">
+                no ISAs. no labs :)
+            </text>
+        </g>
+    );
+}
+
+/** A folded note. It says not to. */
+export function DontOpen() {
+    return (
+        <g>
+            <polygon points="6,12 112,4 116,66 4,72" className="f-black" opacity="0.22" />
+            <polygon points="2,8 108,0 112,62 0,68" className="f-cream" />
+            <polygon points="2,8 108,0 56,36" className="f-black" opacity="0.08" />
+            <path d="M2 8 L56 36 L108 0" fill="none" className="s-rule" />
+            <text x="16" y="56" className="hand-note warn" transform="rotate(-3 16 56)">
+                do not open
+            </text>
+            <rect x="46" y="-4" width="22" height="10" className="f-amber" opacity="0.75" transform="rotate(8 57 1)" />
+        </g>
+    );
+}
+
+export function Pokeball() {
+    return (
+        <g>
+            <ellipse cx="22" cy="43" rx="17" ry="3" className="f-black" opacity="0.3" />
+            <circle cx="22" cy="22" r="20" className="f-cream" />
+            <path d="M2 22 a20 20 0 0 1 40 0 Z" className="f-brick" />
+            <rect x="2" y="20" width="40" height="4" className="f-black" />
+            <circle cx="22" cy="22" r="7" className="f-black" />
+            <circle cx="22" cy="22" r="4" className="f-cream" />
+            <path d="M10 12 a14 14 0 0 1 8 -6" fill="none" stroke="var(--cream)" strokeOpacity="0.5" strokeWidth="2.5" strokeLinecap="round" />
         </g>
     );
 }

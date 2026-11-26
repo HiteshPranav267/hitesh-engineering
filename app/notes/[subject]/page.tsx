@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import BackLink from "@/components/BackLink";
 import NotesReader from "@/components/NotesReader";
+import StudyTimer from "@/components/eggs/StudyTimer";
 import { getNotes } from "@/lib/content";
 
 export const dynamicParams = false;
@@ -25,6 +26,7 @@ export default async function SubjectPage({ params }: { params: Promise<{ subjec
     return (
         <main id="main" className="page">
             <BackLink parent={{ href: "/notes/", label: "notes" }} />
+            <StudyTimer />
             <div data-pagefind-body>
                 <p className="meta">
                     <Link href="/notes/">Notes</Link> · Year {s.year}

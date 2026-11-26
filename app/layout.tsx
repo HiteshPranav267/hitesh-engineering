@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Shantell_Sans } from "next/font/google";
 import NavTrail from "@/components/NavTrail";
+import SiteEggs from "@/components/eggs/SiteEggs";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
-import { getProfile } from "@/lib/content";
+import { getProfile, getProjects } from "@/lib/content";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -11,6 +12,9 @@ import "./globals.css";
 const hand = Shantell_Sans({ subsets: ["latin"], variable: "--font-hand", display: "swap" });
 
 const profile = getProfile();
+const shellProjects = getProjects()
+    .filter((p) => p.group !== "archive")
+    .map(({ slug, title, group }) => ({ slug, title, group }));
 
 export const metadata: Metadata = {
     metadataBase: new URL(SITE_URL + "/"),
@@ -46,6 +50,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 {children}
                 <SiteFooter profile={profile} />
                 <NavTrail />
+                <SiteEggs projects={shellProjects} />
             </body>
         </html>
     );

@@ -1,5 +1,7 @@
 # hitesh-engineering
 
+<!-- Reading the raw README? Nice. There's a page that isn't linked anywhere on the site: /hitesh-engineering/found-it/ -->
+
 Source for https://hiteshpranav267.github.io/hitesh-engineering/ — Hitesh Pranav Reddy's site: RTL design and verification projects, a CV, and handwritten ECE notes. The home page is an illustrated study room where each object opens a page; `/list/` is the same site as a plain list.
 
 ## Run it

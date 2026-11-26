@@ -3,12 +3,18 @@
 import gsap from "gsap";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
 import { setTheme, useTheme } from "@/components/ThemeToggle";
-import { safeStorage, setStorage, useBrowserValue } from "@/lib/browser";
+import { safeStorage, setStorage } from "@/lib/browser";
 import type { ExperienceEntry } from "@/lib/content";
+import { findEgg } from "@/lib/eggs";
+import { useIst } from "@/lib/ist";
 import { asset } from "@/lib/site";
-import { Calendar, FieldNotes, Lamp, Lanyards, Laptop, Mug, Phone, Plane, Plant, Shelf, Speaker, Stickies, Tablet, Tray, Window, type SpineGeom, type Waveform } from "./art";
+import { Calendar, Clock, DontOpen, FieldNotes, Lamp, Lanyards, Laptop, Mug, NightCoffee, Phone, Plane, Plant, Pokeball, Shelf, Speaker, Stickies, Tablet, Tray, WeekendNote, Window, type SpineGeom, type Waveform } from "./art";
+import LaptopOS, { type OsProject, type ScreenRect } from "./LaptopOS";
+import { Burnout, DarkRoom, Screensaver, type Rect } from "./Overlays";
+import { rollPokemon, spriteUrl } from "./pokemon";
+import { Tosser, type Body, type Bounds } from "./toss";
 import "./room.css";
 
 type Comp = "landscape" | "portrait";
@@ -22,12 +28,13 @@ interface Placement {
 export interface SceneObject {
     id: string;
     label: string;
-    kind: "link" | "external" | "theme" | "rain" | "music" | "egg" | "none";
+    kind: "link" | "laptop" | "external" | "prank" | "theme" | "rain" | "music" | "egg" | "pokeball" | "toy" | "none";
     target: string | null;
     layer: number;
     box: [number, number];
     landscape: Placement;
     portrait: Placement;
+    when?: "late" | "weekend";
 }
 
 export interface Scene {
@@ -46,16 +53,16 @@ interface Props {
     now: string;
     stickies: string[][];
     cards: { title: string; sub: string; cls: string }[];
+    projects: OsProject[];
 }
 
 const DEPTH = [4, 7, 10, 14, 22]; // max parallax travel in px per layer
 const COMPS: Comp[] = ["landscape", "portrait"];
-
-function skyFor(hour: number): "day" | "sunset" | "night" {
-    if (hour >= 7 && hour < 17) return "day";
-    if ((hour >= 17 && hour < 19) || hour === 6) return "sunset";
-    return "night";
-}
+const SCREEN = [52, 14, 316, 212]; // the laptop's screen inside its art box (see Laptop in art.tsx)
+// Desk things that can be picked up and thrown, and everything that wobbles when the phone shakes.
+const THROW = new Set(["fieldnotes", "clock", "dontopen", "weekend", "coffee", "tray", "phone", "speaker", "mug", "plant"]);
+const WOBBLE = [...THROW, "laptop", "lamp"];
+const IDLE_MS = 60_000;
 
 /** Run once room.css has applied (on client navigation the stylesheet can land after mount). */
 function whenStyled(el: HTMLElement | null, cb: () => void) {
@@ -85,16 +92,30 @@ function boxFor(scene: Scene, spines: SpineGeom[], comp: Comp, id: string): [num
     return [p.x, p.y, o.box[0] * p.s, o.box[1] * p.s];
 }
 
-export default function Room({ scene, spines, wave, entries, now, stickies, cards }: Props) {
+export default function Room({ scene, spines, wave, entries, now, stickies, cards, projects }: Props) {
     const router = useRouter();
     const theme = useTheme();
-    const sky = useBrowserValue(["focus", "visibilitychange"], () => skyFor(new Date().getHours()), "night");
+    const ist = useIst();
+    const sky = ist ? (ist.dark ? "night" : "day") : "night"; // 6 AM–6 PM IST is daylight
     const [rain, setRain] = useState(false);
     const [music, setMusic] = useState(false);
     const root = useRef<HTMLDivElement>(null);
     const fade = useRef<HTMLDivElement>(null);
     const audio = useRef<HTMLAudioElement>(null);
     const busy = useRef(false);
+    const [os, setOs] = useState<ScreenRect | null>(null);
+    const osOn = useRef(false); // true from the moment the laptop starts opening
+    const [burn, setBurn] = useState(false);
+    const lampTimes = useRef<number[]>([]);
+    const [lampRect, setLampRect] = useState<Rect | null>(null);
+    const [saver, setSaver] = useState(false);
+    const lastActive = useRef(0);
+    const [poke, setPoke] = useState<{ id: number; name: string; shiny: boolean; comp: Comp } | null>(null);
+    const tosser = useRef<Tosser | null>(null);
+    const drag = useRef<{ id: string; comp: Comp; sx: number; sy: number; ox: number; oy: number; lx: number; ly: number; lt: number; vx: number; vy: number; on: boolean; el: HTMLElement; pid: number; pm: [number, number]; flips: number[] } | null>(null);
+    const suppress = useRef<{ id: string; until: number } | null>(null);
+
+    const shown = (o: SceneObject) => !o.when || (o.when === "late" && !!ist?.late) || (o.when === "weekend" && !!ist?.weekend);
 
     const visibleComp = (): Comp => {
         const el = root.current?.querySelector<HTMLElement>(".stage-portrait");
@@ -119,6 +140,7 @@ export default function Room({ scene, spines, wave, entries, now, stickies, card
         if (reduceMotion()) return;
         const proxy = { x: 0, y: 0 };
         const apply = () => {
+            if (osOn.current) return; // the desktop sits on a fixed rect; keep the scene still under it
             COMPS.forEach((comp) => {
                 const stage = root.current?.querySelector<HTMLElement>(`.stage-${comp}`);
                 if (!stage || getComputedStyle(stage).display === "none") return;
@@ -184,6 +206,277 @@ export default function Room({ scene, spines, wave, entries, now, stickies, card
         tl.to(fade.current, { opacity: 1, duration: 0.25 }, "-=0.25");
     };
 
+    /** Camera transform that fills the viewport with the laptop's screen. */
+    const screenTransform = (comp: Comp) => {
+        const frame = camOf(comp).parentElement!;
+        const fw = frame.clientWidth;
+        const fh = frame.clientHeight;
+        const [W, H] = scene.viewBox[comp];
+        const l = scene.objects.find((o) => o.id === "laptop")![comp];
+        const [bx, by, bw, bh] = [l.x + SCREEN[0] * l.s, l.y + SCREEN[1] * l.s, SCREEN[2] * l.s, SCREEN[3] * l.s];
+        const k = Math.min((innerWidth * 0.94) / ((bw / W) * fw), (innerHeight * 0.84) / ((bh / H) * fh));
+        return { x: fw / 2 - ((bx + bw / 2) / W) * fw * k, y: fh / 2 - ((by + bh / 2) / H) * fh * k, scale: k };
+    };
+
+    const measureScreen = (comp: Comp): ScreenRect | null => {
+        const r = root.current?.querySelector(`#laptop-screen-${comp}`)?.getBoundingClientRect();
+        return r ? { left: r.left, top: r.top, width: r.width, height: r.height } : null;
+    };
+
+    const openLaptop = () => {
+        if (busy.current || osOn.current) return;
+        osOn.current = true;
+        const comp = visibleComp();
+        const cam = camOf(comp);
+        const show = () => setOs(measureScreen(comp));
+        if (reduceMotion()) {
+            gsap.set(cam, { ...screenTransform(comp), transformOrigin: "0 0" });
+            show();
+            return;
+        }
+        busy.current = true;
+        gsap.to(cam, {
+            ...screenTransform(comp),
+            transformOrigin: "0 0",
+            duration: 0.9,
+            ease: "power2.inOut",
+            onComplete: () => {
+                busy.current = false;
+                show();
+            },
+        });
+    };
+
+    const closeLaptop = () => {
+        setOs(null);
+        osOn.current = false;
+        const comp = visibleComp();
+        const cam = camOf(comp);
+        const refocus = () => root.current?.querySelector<HTMLElement>(`.stage-${comp} [data-hot="laptop"]`)?.focus({ preventScroll: true });
+        if (reduceMotion()) {
+            gsap.set(cam, { x: 0, y: 0, scale: 1 });
+            requestAnimationFrame(refocus);
+        } else gsap.to(cam, { x: 0, y: 0, scale: 1, duration: 0.8, ease: "power2.inOut", onComplete: refocus });
+    };
+
+    /** Leave from the desktop to a page; coming back pulls out from the laptop. */
+    const leaveLaptop = (target: string) => {
+        setStorage("session", "room-from", "laptop");
+        if (reduceMotion()) router.push(target);
+        else gsap.to(fade.current, { opacity: 1, duration: 0.3, onComplete: () => router.push(target) });
+    };
+
+    // Keep the desktop glued to the screen when the window changes size.
+    const laptopOpen = os !== null;
+    useEffect(() => {
+        if (!laptopOpen) return;
+        const onResize = () => {
+            const comp = visibleComp();
+            COMPS.forEach((c) => gsap.set(camOf(c), { x: 0, y: 0, scale: 1 }));
+            gsap.set(camOf(comp), { ...screenTransform(comp), transformOrigin: "0 0" });
+            setOs(measureScreen(comp));
+        };
+        window.addEventListener("resize", onResize);
+        return () => window.removeEventListener("resize", onResize);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [laptopOpen]);
+
+    /* ---------- throwing things ---------- */
+
+    const tossBounds = (key: string): Bounds | null => {
+        const [comp, id] = key.split(":") as [Comp, string];
+        const o = scene.objects.find((x) => x.id === id);
+        if (!o) return null;
+        const p = o[comp];
+        const [W, H] = scene.viewBox[comp];
+        return { minX: -p.x, maxX: W - p.x - o.box[0] * p.s, minY: -p.y, maxY: H - p.y - o.box[1] * p.s };
+    };
+
+    const tossRender = (key: string, b: Body) => {
+        const [comp, id] = key.split(":") as [Comp, string];
+        const o = scene.objects.find((x) => x.id === id);
+        const stage = root.current?.querySelector<HTMLElement>(`.stage-${comp}`);
+        if (!o || !stage) return;
+        const p = o[comp];
+        stage.querySelector(`[data-toss="${id}"]`)?.setAttribute("transform", `translate(${b.x / p.s} ${b.y / p.s}) rotate(${b.r} ${o.box[0] / 2} ${o.box[1] / 2})`);
+        const btn = stage.querySelector<HTMLElement>(`[data-hot="${id}"]`);
+        if (btn) {
+            const px = stage.querySelector<HTMLElement>(".frame")!.clientWidth / scene.viewBox[comp][0];
+            btn.style.translate = `${b.x * px}px ${b.y * px}px`;
+            btn.style.rotate = `${b.r}deg`;
+        }
+    };
+
+    useEffect(() => {
+        const t = new Tosser(tossBounds, tossRender);
+        tosser.current = t;
+        let lastShake = 0;
+        // Shake the phone: drag it back and forth fast and everything else on the desk wobbles.
+        const shakeCheck = (d: NonNullable<typeof drag.current>, mx: number, my: number, now: number) => {
+            if (Math.hypot(mx, my) < 3) return;
+            if (mx * d.pm[0] + my * d.pm[1] < 0) d.flips = [...d.flips.filter((f) => now - f < 800), now]; // direction reversed
+            d.pm = [mx, my];
+            if (d.flips.length >= 4 && now - lastShake > 1000) {
+                lastShake = now;
+                d.flips = [];
+                t.wobble(WOBBLE.filter((id) => id !== "phone").map((id) => `${d.comp}:${id}`));
+                findEgg("shake");
+            }
+        };
+        const move = (e: PointerEvent) => {
+            const d = drag.current;
+            if (!d || e.pointerId !== d.pid) return;
+            const dx = e.clientX - d.sx;
+            const dy = e.clientY - d.sy;
+            const key = `${d.comp}:${d.id}`;
+            if (!d.on) {
+                if (Math.hypot(dx, dy) < 7) return;
+                d.on = true;
+                t.grab(key);
+                d.el.classList.add("held");
+                try {
+                    d.el.setPointerCapture(d.pid);
+                } catch {}
+            }
+            const frame = camOf(d.comp).parentElement!;
+            const unit = scene.viewBox[d.comp][0] / frame.clientWidth;
+            const now = performance.now();
+            const dt = Math.max(1, now - d.lt);
+            if (d.id === "phone") shakeCheck(d, e.clientX - d.lx, e.clientY - d.ly, now);
+            d.vx = d.vx * 0.5 + ((e.clientX - d.lx) / dt) * 1000 * unit * 0.5;
+            d.vy = d.vy * 0.5 + ((e.clientY - d.ly) / dt) * 1000 * unit * 0.5;
+            d.lx = e.clientX;
+            d.ly = e.clientY;
+            d.lt = now;
+            t.drag(key, d.ox + dx * unit, d.oy + dy * unit, d.vx);
+        };
+        const up = (e: PointerEvent) => {
+            const d = drag.current;
+            if (!d || e.pointerId !== d.pid) return;
+            drag.current = null;
+            if (!d.on) return;
+            suppress.current = { id: d.id, until: performance.now() + 400 };
+            d.el.classList.remove("held");
+            const still = performance.now() - d.lt > 90; // let go after stopping: just drop it
+            const clamp = (v: number) => Math.max(-4200, Math.min(4200, v));
+            t.release(`${d.comp}:${d.id}`, still ? 0 : clamp(d.vx), still ? 0 : clamp(d.vy));
+            findEgg("throw");
+        };
+        window.addEventListener("pointermove", move);
+        window.addEventListener("pointerup", up);
+        window.addEventListener("pointercancel", up);
+        return () => {
+            window.removeEventListener("pointermove", move);
+            window.removeEventListener("pointerup", up);
+            window.removeEventListener("pointercancel", up);
+            t.destroy();
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const onHotDown = (e: ReactPointerEvent<HTMLButtonElement>, o: SceneObject) => {
+        if (!THROW.has(o.id) || osOn.current || e.button !== 0) return;
+        const comp = visibleComp();
+        const b = tosser.current?.body(`${comp}:${o.id}`);
+        if (!b) return;
+        drag.current = { id: o.id, comp, sx: e.clientX, sy: e.clientY, ox: b.x, oy: b.y, lx: e.clientX, ly: e.clientY, lt: performance.now(), vx: 0, vy: 0, on: false, el: e.currentTarget, pid: e.pointerId, pm: [0, 0], flips: [] };
+    };
+
+    /* ---------- screensaver after a minute of nothing ---------- */
+    useEffect(() => {
+        if (reduceMotion()) return;
+        lastActive.current = Date.now();
+        const bump = () => (lastActive.current = Date.now());
+        const events = ["pointermove", "pointerdown", "keydown", "wheel", "touchstart", "scroll"];
+        events.forEach((e) => window.addEventListener(e, bump, { passive: true }));
+        const id = setInterval(() => {
+            if (document.visibilityState !== "visible" || osOn.current || drag.current || root.current?.querySelector(".burnout, .mini-shell")) {
+                lastActive.current = Date.now();
+                return;
+            }
+            if (Date.now() - lastActive.current > IDLE_MS) setSaver(true);
+        }, 1000);
+        return () => {
+            clearInterval(id);
+            events.forEach((e) => window.removeEventListener(e, bump));
+        };
+    }, []);
+
+    useEffect(() => {
+        if (saver) findEgg("saver");
+    }, [saver]);
+
+    const wake = useCallback(() => {
+        lastActive.current = Date.now();
+        setSaver(false);
+    }, []);
+
+    /* ---------- lamp: ten quick clicks burn it out ---------- */
+    const toggleLamp = () => {
+        const now = Date.now();
+        lampTimes.current = [...lampTimes.current.filter((t) => now - t < 5000), now];
+        if (lampTimes.current.length >= 10) {
+            lampTimes.current = [];
+            setBurn(true);
+            findEgg("burnout");
+            return;
+        }
+        setTheme(theme === "night" ? "day" : "night");
+    };
+    const endBurn = useCallback(() => setBurn(false), []);
+    // Read live by the burnout overlay so "Go to sleep." stays on the laptop as the room moves.
+    const burnScreen = useCallback(() => measureScreen(visibleComp()), []);
+
+    /* ---------- night outside, lamp off: dim the room and point at the lamp ---------- */
+    const darkRoom = !!ist?.dark && theme === "day" && !burn && !os;
+    useEffect(() => {
+        if (!darkRoom) return;
+        const measure = () => {
+            const r = root.current?.querySelector(`.stage-${visibleComp()} [data-hot="lamp"]`)?.getBoundingClientRect();
+            setLampRect(r ? { left: r.left, top: r.top, width: r.width, height: r.height } : null);
+        };
+        const raf = requestAnimationFrame(() => whenStyled(root.current, measure));
+        window.addEventListener("resize", measure);
+        return () => {
+            cancelAnimationFrame(raf);
+            window.removeEventListener("resize", measure);
+        };
+         
+    }, [darkRoom]);
+
+    /* ---------- late night and weekends ---------- */
+    useEffect(() => {
+        if (ist?.late) findEgg("late");
+        if (ist?.weekend) findEgg("weekend");
+    }, [ist?.late, ist?.weekend]);
+
+    /* ---------- the Poké Ball ---------- */
+    const openPokeball = () => {
+        const comp = visibleComp();
+        setPoke(null);
+        tosser.current?.wobble([`${comp}:pokeball`]);
+        setTimeout(() => {
+            const p = rollPokemon();
+            setPoke({ ...p, comp });
+            findEgg("pokemon");
+            if (p.shiny) findEgg("shiny");
+        }, reduceMotion() ? 0 : 650);
+    };
+
+    useEffect(() => {
+        if (!poke) return;
+        const t = setTimeout(() => setPoke(null), 8000);
+        const away = (e: PointerEvent) => {
+            const el = e.target as HTMLElement;
+            if (!el.closest(".poke-card, .hot-pokeball")) setPoke(null);
+        };
+        window.addEventListener("pointerdown", away);
+        return () => {
+            clearTimeout(t);
+            window.removeEventListener("pointerdown", away);
+        };
+    }, [poke]);
+
     const flyPlane = () => {
         if (reduceMotion()) return;
         const comp = visibleComp();
@@ -206,10 +499,20 @@ export default function Room({ scene, spines, wave, entries, now, stickies, card
     };
 
     const activate = (o: SceneObject) => {
+        if (suppress.current?.id === o.id && performance.now() < suppress.current.until) {
+            suppress.current = null; // that was a throw, not a click
+            return;
+        }
         if (o.kind === "link" && o.target) go(o.id, o.target);
+        else if (o.kind === "laptop") openLaptop();
         // Opened straight from the click so pop-up blockers allow the new tab.
         else if (o.kind === "external" && o.target) window.open(o.target, "_blank", "noopener,noreferrer");
-        else if (o.kind === "theme") setTheme(theme === "night" ? "day" : "night");
+        else if (o.kind === "prank" && o.target) {
+            findEgg("dont-open");
+            window.location.href = o.target;
+        } else if (o.kind === "theme") toggleLamp();
+        else if (o.kind === "pokeball") openPokeball();
+        else if (o.kind === "toy") tosser.current?.hop(`${visibleComp()}:${o.id}`);
         else if (o.kind === "rain") setRain((r) => !r);
         else if (o.kind === "music") toggleMusic();
         else if (o.kind === "egg") flyPlane();
@@ -220,6 +523,8 @@ export default function Room({ scene, spines, wave, entries, now, stickies, card
         if (o.kind === "rain") return `${o.label} (${rain ? "on" : "off"})`;
         if (o.kind === "music") return scene.music.src ? `${o.label} (${music ? "playing" : "off"})` : `${o.label} (no track yet)`;
         if (o.kind === "external") return `${o.label} (opens in a new tab)`;
+        if (o.id === "clock") return `${o.label}: ${ist?.hhmm ?? "--:--"} IST`;
+        if (o.id === "mug" && ist?.weekend) return "Filter coffee (it's the weekend)";
         return o.label;
     };
 
@@ -252,7 +557,17 @@ export default function Room({ scene, spines, wave, entries, now, stickies, card
             case "speaker":
                 return <Speaker />;
             case "mug":
-                return <Mug />;
+                return <Mug filter={!!ist?.weekend} />;
+            case "clock":
+                return <Clock hhmm={ist?.hhmm ?? "--:--"} sub={ist?.late ? "awake yet?" : `${(ist?.weekday ?? "").toLowerCase()} · IST`} />;
+            case "coffee":
+                return <NightCoffee />;
+            case "weekend":
+                return <WeekendNote />;
+            case "dontopen":
+                return <DontOpen />;
+            case "pokeball":
+                return <Pokeball />;
             case "plant":
                 return <Plant />;
             default:
@@ -263,7 +578,7 @@ export default function Room({ scene, spines, wave, entries, now, stickies, card
     const place = (p: Placement) => `translate(${p.x} ${p.y}) scale(${p.s})`;
 
     return (
-        <div ref={root} className={`room${rain ? " raining" : ""}`}>
+        <div ref={root} className={`room${rain ? " raining" : ""}${os ? " os-open" : ""}`}>
             <Link className="room-list-link" href="/list/">
                 View as list
             </Link>
@@ -274,7 +589,7 @@ export default function Room({ scene, spines, wave, entries, now, stickies, card
                 const shelf = scene.objects.find((o) => o.id === "shelf")!;
                 const pct = (v: number, of: number) => `${(v / of) * 100}%`;
                 return (
-                    <div key={comp} className={`stage stage-${comp}`}>
+                    <div key={comp} className={`stage stage-${comp}`} inert={laptopOpen}>
                         <div className="frame" style={{ aspectRatio: `${W} / ${H}` }}>
                             <div className="cam">
                                 <svg className="scene" viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
@@ -300,10 +615,10 @@ export default function Room({ scene, spines, wave, entries, now, stickies, card
                                                 </>
                                             )}
                                             {scene.objects
-                                                .filter((o) => o.layer === layer)
+                                                .filter((o) => o.layer === layer && shown(o))
                                                 .map((o) => (
                                                     <g key={o.id} id={`${o.id}-${comp}`} transform={place(o[comp])}>
-                                                        {art(o, comp)}
+                                                        <g data-toss={o.id}>{art(o, comp)}</g>
                                                     </g>
                                                 ))}
                                             {layer === 3 && (
@@ -325,7 +640,7 @@ export default function Room({ scene, spines, wave, entries, now, stickies, card
                                 {/* One container in scene.json order, so Tab follows the room, not the layers. */}
                                 <div className="hot-layer">
                                     {scene.objects
-                                        .filter((o) => o.kind !== "none")
+                                        .filter((o) => o.kind !== "none" && shown(o))
                                         .map((o) => {
                                             const p = o[comp];
                                             const pressed = o.kind === "theme" ? theme === "night" : o.kind === "rain" ? rain : o.kind === "music" ? music : undefined;
@@ -333,7 +648,7 @@ export default function Room({ scene, spines, wave, entries, now, stickies, card
                                                 <button
                                                     key={o.id}
                                                     type="button"
-                                                    className={`hot hot-${o.id}`}
+                                                    className={`hot hot-${o.id}${THROW.has(o.id) ? " throwable" : ""}`}
                                                     data-hot={o.id}
                                                     data-layer={o.layer}
                                                     aria-label={labelFor(o)}
@@ -341,6 +656,7 @@ export default function Room({ scene, spines, wave, entries, now, stickies, card
                                                     aria-disabled={o.kind === "music" && !scene.music.src ? true : undefined}
                                                     style={{ left: pct(p.x, W), top: pct(p.y, H), width: pct(o.box[0] * p.s, W), height: pct(o.box[1] * p.s, H) }}
                                                     onClick={() => activate(o)}
+                                                    onPointerDown={(e) => onHotDown(e, o)}
                                                 >
                                                     <span className="tag">{labelFor(o)}</span>
                                                 </button>
@@ -364,6 +680,32 @@ export default function Room({ scene, spines, wave, entries, now, stickies, card
                                                 )),
                                             ];
                                         })}
+                                    {poke &&
+                                        poke.comp === comp &&
+                                        (() => {
+                                            const o = scene.objects.find((x) => x.id === "pokeball")!;
+                                            const p = o[comp];
+                                            return (
+                                                <div className={`poke-card${poke.shiny ? " shiny" : ""}`} role="status" style={{ left: pct(p.x + (o.box[0] * p.s) / 2, W), top: pct(p.y, H) }}>
+                                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                    <img src={spriteUrl(poke.id, poke.shiny)} alt="" width={96} height={96} onError={(e) => (e.currentTarget.style.display = "none")} />
+                                                    <p>
+                                                        {poke.shiny ? (
+                                                            <>
+                                                                ✨ A <strong>shiny {poke.name}</strong>!<br />
+                                                                <span className="poke-small">1 in 100. Screenshot it.</span>
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                A wild <strong>{poke.name}</strong> appeared!
+                                                                <br />
+                                                                <span className="poke-small">#{String(poke.id).padStart(3, "0")}</span>
+                                                            </>
+                                                        )}
+                                                    </p>
+                                                </div>
+                                            );
+                                        })()}
                                 </div>
                             </div>
                         </div>
@@ -379,7 +721,11 @@ export default function Room({ scene, spines, wave, entries, now, stickies, card
             </svg>
             <div ref={fade} className="room-fade" />
             {scene.music.src && <audio ref={audio} src={asset(scene.music.src)} loop preload="none" />}
-            <p className="room-hint">Click an object, or Tab through them. The lamp switches light and dark.</p>
+            {os && <LaptopOS rect={os} projects={projects} wave={wave} onOpen={leaveLaptop} onClose={closeLaptop} />}
+            {darkRoom && <DarkRoom lamp={lampRect} />}
+            {burn && <Burnout screen={burnScreen} onDone={endBurn} />}
+            {saver && !os && !burn && <Screensaver onWake={wake} />}
+            <p className="room-hint">{os ? "Esc or ⏻ closes the laptop. Alt+1/2/3 switches workspaces." : "Click an object, or Tab through them. The lamp switches light and dark."}</p>
         </div>
     );
 }

@@ -1,0 +1,82 @@
+/* The pretend shell (laptop terminal and the backtick mini shell). */
+
+.sh {
+    overflow-y: auto;
+    padding: 6px 8px;
+    cursor: text;
+    color: var(--cream);
+    scrollbar-width: thin;
+    scrollbar-color: var(--ink) transparent;
+    overflow-wrap: anywhere;
+}
+
+.sh-dim { opacity: 0.6; }
+.sh-key { color: var(--amber); }
+.sh-dir { color: var(--amber); }
+.sh-user { color: var(--teal); filter: brightness(1.3); }
+.sh-err { color: var(--brick); filter: brightness(1.5); }
+.sh-ok { color: var(--teal); filter: brightness(1.5); }
+
+.sh-prompt {
+    white-space: nowrap;
+}
+
+.sh-line {
+    display: flex;
+    gap: 6px;
+}
+
+.sh-input {
+    flex: 1;
+    min-width: 0;
+    font: inherit;
+    color: var(--cream);
+    background: none;
+    border: 0;
+    padding: 0;
+    caret-color: var(--amber);
+}
+
+.sh-input:focus,
+.sh-input:focus-visible {
+    outline: none;
+}
+
+.sh-fetch {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin: 4px 0 6px;
+}
+
+.sh-chip {
+    width: 76px;
+    flex: none;
+    margin-top: 6px;
+}
+
+.sh-swatches {
+    display: flex;
+    margin-top: 5px;
+}
+
+.sh-swatches span {
+    width: 16px;
+    height: 10px;
+}
+
+.sh-ls {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 16px;
+}
+
+.sh-help > div {
+    display: flex;
+    gap: 10px;
+}
+
+.sh-help .sh-key {
+    min-width: 150px;
+    flex: none;
+}

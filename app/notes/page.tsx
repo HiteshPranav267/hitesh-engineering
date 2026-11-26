@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import BackLink from "@/components/BackLink";
 import NotesSearch from "@/components/NotesSearch";
+import StudyTimer from "@/components/eggs/StudyTimer";
 import { getNotes } from "@/lib/content";
 import { asset } from "@/lib/site";
 
@@ -27,6 +28,7 @@ export default function NotesPage() {
                 CSE
             </p>
             <NotesSearch />
+            <StudyTimer />
             {years.map((y) => (
                 <section key={y} className="shelf-year" aria-labelledby={`y${y}`}>
                     <h2 id={`y${y}`}>{YEARS[y]}</h2>
