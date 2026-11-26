@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Shantell_Sans } from "next/font/google";
+import NavTrail from "@/components/NavTrail";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { getProfile } from "@/lib/content";
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <SiteHeader name={profile.short_name} />
                 {children}
                 <SiteFooter profile={profile} />
+                <NavTrail />
             </body>
         </html>
     );

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import BackToRoom from "@/components/BackToRoom";
+import BackLink from "@/components/BackLink";
 import Mdx from "@/components/Mdx";
 import { getProjects } from "@/lib/content";
 import { asset } from "@/lib/site";
@@ -25,7 +25,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     if (!p) notFound();
     return (
         <main id="main" className="page">
-            <BackToRoom />
+            <BackLink parent={{ href: "/projects/", label: "projects" }} />
             <p className="meta">{p.group === "rtl" ? "RTL design & verification" : "ML & signals"}{p.period ? ` · ${p.period}` : ""}</p>
             <h1 style={{ marginTop: "0.4rem" }}>{p.title}</h1>
             <dl className="facts">

@@ -25,7 +25,7 @@ export interface ExperienceEntry {
     id: string;
     role: string;
     org: string;
-    linkedin?: string;
+    link?: string;
     place: string;
     start: string | null;
     end: string | null;

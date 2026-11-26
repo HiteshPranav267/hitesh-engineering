@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import BackToRoom from "@/components/BackToRoom";
+import BackLink from "@/components/BackLink";
 import NotesSearch from "@/components/NotesSearch";
 import { getNotes } from "@/lib/content";
 import { asset } from "@/lib/site";
@@ -15,7 +15,7 @@ export default function NotesPage() {
     const total = subjects.reduce((n, s) => n + s.pages, 0);
     return (
         <main id="main" className="page">
-            <BackToRoom />
+            <BackLink />
             <h1>Handwritten notes</h1>
             <p className="meta" style={{ marginTop: "0.6rem" }}>
                 {subjects.length} subjects · {total} pages · <Link href="/library/">Library: slides, question banks, PYQs and more</Link>

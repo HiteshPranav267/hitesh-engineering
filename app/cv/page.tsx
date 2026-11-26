@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import BackToRoom from "@/components/BackToRoom";
+import BackLink from "@/components/BackLink";
 import PrintButton from "@/components/PrintButton";
 import { formatRange, getExperience, getProfile, getProjects, getSkills } from "@/lib/content";
 import { asset } from "@/lib/site";
@@ -36,7 +36,7 @@ export default function CvPage() {
     return (
         <main id="main" className="page">
             <div className={`cv ${cm.variable}`}>
-                <BackToRoom />
+                <BackLink />
                 <p className="meta no-print">
                     <a href={asset("Resume_Duggireddy_Hitesh_Pranav_Reddy.pdf")}>Download PDF</a> · <PrintButton />
                 </p>
@@ -75,7 +75,7 @@ export default function CvPage() {
                             <li key={e.id}>
                                 <div className="entry-head">
                                     <span className="entry-title">
-                                        {e.role} — {e.linkedin ? <a href={e.linkedin}>{e.org}</a> : e.org}
+                                        {e.role} — {e.link ? <a href={e.link}>{e.org}</a> : e.org}
                                     </span>
                                     <span className="meta">{formatRange(e)}</span>
                                 </div>

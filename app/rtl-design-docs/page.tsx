@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import BackToRoom from "@/components/BackToRoom";
+import BackLink from "@/components/BackLink";
 import { projectsByGroup } from "@/lib/content";
 
 export const metadata: Metadata = { title: "RTL Design Documentation" };
@@ -14,7 +14,7 @@ export default function RtlDesignDocsPage() {
     const withDocs = projectsByGroup("rtl").filter((p) => p.repo);
     return (
         <main id="main" className="page">
-            <BackToRoom />
+            <BackLink />
             <h1>RTL Design Documentation</h1>
             <section className="section" aria-labelledby="h-docs">
                 <h2 id="h-docs">Design write-ups in the project repositories</h2>

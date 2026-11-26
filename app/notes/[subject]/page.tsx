@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import BackToRoom from "@/components/BackToRoom";
+import BackLink from "@/components/BackLink";
 import NotesReader from "@/components/NotesReader";
 import { getNotes } from "@/lib/content";
 
@@ -24,7 +24,7 @@ export default async function SubjectPage({ params }: { params: Promise<{ subjec
     const revised = s.files.map((f) => f.revised).sort().at(-1);
     return (
         <main id="main" className="page">
-            <BackToRoom />
+            <BackLink parent={{ href: "/notes/", label: "notes" }} />
             <div data-pagefind-body>
                 <p className="meta">
                     <Link href="/notes/">Notes</Link> · Year {s.year}

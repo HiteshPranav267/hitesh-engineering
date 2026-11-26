@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import BackToRoom from "@/components/BackToRoom";
+import BackLink from "@/components/BackLink";
 import { getProfile } from "@/lib/content";
 
 export const metadata: Metadata = { title: "Contact" };
@@ -8,7 +8,7 @@ export default function ContactPage() {
     const p = getProfile();
     return (
         <main id="main" className="page">
-            <BackToRoom />
+            <BackLink />
             <h1>Contact</h1>
             <dl className="facts" style={{ marginTop: "2rem" }}>
                 <dt>Email</dt>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import BackToRoom from "@/components/BackToRoom";
+import BackLink from "@/components/BackLink";
 import { formatRange, getExperience } from "@/lib/content";
 
 export const metadata: Metadata = { title: "Experience" };
@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "Experience" };
 export default function ExperiencePage() {
     return (
         <main id="main" className="page">
-            <BackToRoom />
+            <BackLink />
             <h1>Experience</h1>
             <ul className="entries" style={{ marginTop: "2rem" }}>
                 {getExperience().map((e) => (
@@ -17,7 +17,7 @@ export default function ExperiencePage() {
                             <span className="meta">{formatRange(e)}</span>
                         </div>
                         <p className="meta" style={{ margin: "0.2rem 0 0" }}>
-                            {e.linkedin ? <a href={e.linkedin}>{e.org}</a> : e.org}
+                            {e.link ? <a href={e.link}>{e.org}</a> : e.org}
                             {e.place ? `, ${e.place}` : ""}
                         </p>
                         {e.points.length > 0 && (

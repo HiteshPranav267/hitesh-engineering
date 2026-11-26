@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import BackToRoom from "@/components/BackToRoom";
+import BackLink from "@/components/BackLink";
 import ProjectEntry, { ArchiveLine } from "@/components/ProjectEntry";
 import { projectsByGroup } from "@/lib/content";
 
@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Projects" };
 export default function ProjectsPage() {
     return (
         <main id="main" className="page">
-            <BackToRoom />
+            <BackLink />
             <h1>Projects</h1>
             <section className="section" aria-labelledby="h-rtl">
                 <h2 id="h-rtl">RTL design &amp; verification</h2>
