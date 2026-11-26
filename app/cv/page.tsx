@@ -43,7 +43,7 @@ export default function CvPage() {
                 <h1>{p.name}</h1>
                 <p className="meta" style={{ marginTop: "0.4rem" }}>
                     <a href={`mailto:${p.email}`}>{p.email}</a> · <a href={p.links.github}>github.com/HiteshPranav267</a> ·{" "}
-                    <a href={p.links.linkedin}>linkedin.com/in/hitesh-pranav-reddy-379371264</a> ·{" "}
+                    <a href={p.links.linkedin}>linkedin.com/in/hitesh-pranav-reddy</a> ·{" "}
                     <a href={p.links.website}>hiteshpranav267.github.io/hitesh-engineering</a>
                 </p>
 
